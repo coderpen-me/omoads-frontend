@@ -1,169 +1,158 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
+<html lang="en">
+<head>
+  
+  <title>OMO Ads - Next Level Outdoor Advertisement</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
- -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-    <!-- <link rel="stylesheet" type="text/css" href="md.css"> -->
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-  </head>
-
-  <body>
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <h1 class="text-center">OMO Ads</h1>
-    <div class="row">
-      
-      <div class="col-sm-6">
-        <article class="markdown-body">
-          <h3>The new way to advertise your products and services</h3>
-          <p>Some of the many advantages of OMOADS</p>
-          <ul>
-            <li>Faster process for <em>advertiser</em> as well as <em>site owner</em></li>
-            <li>Reasonable transparent rates for the <em>advertiser</em></li>
-            <li>Greater market reach</li>
-            <li>Increased sales</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="map-div col-sm-6">
-        <div id="map"></div>
-      </div>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage">OMO ADS</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a href="#about">About</a></li> -->
+        <li><a href="#services">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
   </div>
-    <script>
-      var map;
-      var locations = [ {lat: 28.674377, lng: 77.455472},
-                    {lat: 28.665651, lng: 77.480390},
-                    {lat: 28.682963, lng: 77.507798},
-                    {lat: 28.682144, lng: 77.507538}
-                  ];
+</nav>
 
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: locations[0],
-          zoom: 12
-        });
-
-        var markerGroup = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            map: map,
-            icon: "resources/images/marker.png"
-          });
-        });
-
-        // var marker = new google.maps.Marker({
-        //   position: locations[0],
-        //   map: map,                     // required
-        //   //label: "Big Poster"
-        //   });
-
-        var markerCluster = new MarkerClusterer(map, markerGroup,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-        
-
-        google.maps.event.addListener(markerGroup[0], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
-        google.maps.event.addListener(markerGroup[1], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
-        google.maps.event.addListener(markerGroup[2], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
-        google.maps.event.addListener(markerGroup[3], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
-      }
-    </script>
-
-    <!-- Modal starts its magic -->
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h3 class="text-center modal-title" id="myModalLabel">More Details about the OMO site</h3>
-          </div>
-          <div class="modal-body">
-            
+<div class="jumbotron text-center">
+  <h1>OMO ADS</h1> 
+  <p>Taking outdoor advertising to the next level</p> 
+  <p>Check out the <a href="inventory/inventory.html">omoads site</a> for your ad</p>
+</div>
 
 
-
-          <!-- the content -->
-
-          <img class="img img-responsive" src="resources/images/banner1.jpg" />
-          <table>
-            <tbody>
-              <tr>
-                <td class="key">Panel Id:</td>
-                  <td class="value">1304</td>
-              </tr>
-              <tr class="even">
-                <td class="key">Price:</td>
-                  <td class="value">INR 17500</td>
-              </tr>
-              <tr>
-                <td class="key">Location:</td>
-                <td class="value">Kavi Nagar</td>
-              </tr>
-              <tr class="even">
-                <td class="key">Lat/Long:</td>
-                <td class="value">28.674377 / 77.455472 </td>
-              </tr>
-              <tr>
-                <td class="key">Dimensions:</td>
-                <td class="value">10'6" x 22'9"</td>
-              </tr>
-              <tr class="even">
-                <td class="key">Restrictions:</td>
-                <td class="value">55 - Other,<br> 24 - Beverages - Liquors and Cordials</td>
-              </tr>
-            </tbody>
-          </table>
-
-
-
-
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Book Now</button>
-          </div>
-        </div>
-      </div>
+<!-- Container (About Section) 
+<div id="about" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>About Company Page</h2><br>
+      <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <br><button class="btn btn-default btn-lg">Get in Touch</button>
     </div>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzoYSoBoClc5AXB5peOD3X8k-OdMXky3E&callback=initMap"
-    async defer></script>
- 
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-signal logo"></span>
+    </div>
   </div>
-  </body>
+</div>
+
+<div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+    </div>
+    <div class="col-sm-8">
+      <h2>Our Values</h2><br>
+      <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+      <p><strong>VISION:</strong> Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </div>
+</div>
+-->
+<!-- Container (Services Section) -->
+<div id="services" class="container-fluid text-center">
+  <h2>The Process</h2>
+  <h4>Simplistic Design</h4>
+  <br>
+  <div class="row slideanim">
+    <div class="col-sm-3">
+      <span class="glyphicon glyphicon-bookmark logo-small"></span>
+      <h4>Book</h4>
+      <p>Choose and then book the site perfect for your ad.</p>
+    </div>
+    <div class="col-sm-3">
+      <span class="glyphicon glyphicon-leaf logo-small"></span>
+      <h4>Design</h4>
+      <p>Get taylor made designs for your ads to increase your revenue!</p>
+    </div>
+    <div class="col-sm-3">
+      <span class="glyphicon glyphicon-credit-card logo-small"></span>
+      <h4>Pay</h4>
+      <p>Hassle-free payment using the secure digital payment gateway.</p>
+    </div>
+    <div class="col-sm-3">
+      <span class="glyphicon glyphicon-star logo-small"></span>
+      <h4>Enjoy</h4>
+      <p>Your ad installed at the perfect omoads site location. Job Done.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+  <h2 class="text-center">CONTACT</h2>
+      <p class="text-center">Have something to say?<br> We'd love to hear you out.</p>
+      <p class="text-center"><span class="glyphicon glyphicon-map-marker"></span> Ghaziabad, Uttar Pradesh</p>
+      <p class="text-center"><span class="glyphicon glyphicon-phone"></span> (+91) 96430 88798</p>
+      <p class="text-center"><span class="glyphicon glyphicon-envelope"></span> teamomoads@gmail.com</p>
+    
+</div>
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>© 2017  <a href="http://www.omoads.com" title="Visit OMOADS">OMOADS</a></p>
+</footer>
+
+<script>
+  $(document).ready(function(){
+    // Add smooth scrolling to all links in navbar + footer link
+    $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+     
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    });
+    
+    // Slide in elements on scroll
+    $(window).scroll(function() {
+      $(".slideanim").each(function(){
+        var pos = $(this).offset().top;
+
+        var winTop = $(window).scrollTop();
+          if (pos < winTop + 600) {
+            $(this).addClass("slide");
+          }         
+      });
+    });
+  });
+</script>
+
+</body>
 </html>
-

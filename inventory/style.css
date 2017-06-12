@@ -1,0 +1,34 @@
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 100%;
+  background-color: grey;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.key {
+  color: #222221;
+  font-family: "Univers LT W01 65 Bold", "Helvetica", "Arial", sans-serif;
+  font-size: 1.25em;
+  font-weight: bold;
+  vertical-align: text-top;
+  white-space: nowrap;
+}
+
+.value {
+  color: black;
+  font-family: "Univers LT W01 55 Roman", "Helvetica", "Arial", sans-serif;
+  font-size: 1em;
+  padding: 4px 15px;
+}
+
+.map-div {
+  height: 350px;
+  width: 100%;
+}
