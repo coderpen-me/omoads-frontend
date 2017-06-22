@@ -43,11 +43,29 @@
   </div>
     <script>
       var map;
-      var locations = [ {lat: 28.674377, lng: 77.455472},
-                    {lat: 28.665651, lng: 77.480390},
-                    {lat: 28.682963, lng: 77.507798},
-                    {lat: 28.682144, lng: 77.507538}
-                  ];
+      var locations =[ {lat: 28.6781724, lng: 77.4797189},
+                          {lat: 28.6768652, lng: 77.4728990},
+                          {lat: 28.6763763, lng: 77.4701303},
+                          {lat: 28.6751197, lng: 77.4616995},
+                          {lat: 28.6738951, lng: 77.4538242},
+                          {lat: 28.6733842, lng: 77.4505217},
+                          {lat: 28.6732274, lng: 77.4494545},
+                          {lat: 28.6729273, lng: 77.4475448},
+                          {lat: 28.6724676, lng: 77.4446125},
+                          {lat: 28.6723802, lng: 77.4440012},
+                          {lat: 28.6721128, lng: 77.4427765},
+                          {lat: 28.6720302, lng: 77.4416493},
+                          {lat: 28.6712003, lng: 77.4364093},
+                          {lat: 28.670961, lng: 77.435440},
+                          {lat: 28.670700, lng: 77.433446},
+                          {lat: 28.6695753, lng: 77.4265709},
+                          {lat: 28.6696836, lng: 77.4265555},
+                          {lat: 28.675449, lng: 77.442604},
+                          {lat: 28.6740381, lng: 77.4429414},
+                          {lat: 28.6737754, lng: 77.4429827},
+                          {lat: 28.6732445, lng: 77.4430802}
+                          ];
+
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -74,30 +92,14 @@
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         
 
-        google.maps.event.addListener(markerGroup[0], 'click', function() {
+        for (var i = 0; i < locations.length; i++) {
+          google.maps.event.addListener(markerGroup[i], 'click', function() {
             // infowindow.setContent(this.content);
             // infowindow.open(map, this);
             // console.log("hey popups!");
             $('#myModal').modal('show');
           });
-        google.maps.event.addListener(markerGroup[1], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
-        google.maps.event.addListener(markerGroup[2], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
-        google.maps.event.addListener(markerGroup[3], 'click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-            $('#myModal').modal('show');
-          });
+        }
       }
     </script>
 
