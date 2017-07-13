@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+	<title>Contact us</title>
+</head>
+<body>
+	<h1>Contact us</h1>
+	<form action="." method="GET">
+	{% csrf_token %}
+	{{ form.errors }}
+	{{ form.non_field_errors }}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<p><input type="submit" value="Submit"></p>
+	</form>
+	<h3>All:</h3>
+	<p>
+		{{all}}
+	</p>
+
+	<h3>Result:</h3>>
+	<p>
+		{{result}}
+	</p>
+
+</body>
+</html>
