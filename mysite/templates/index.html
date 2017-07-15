@@ -227,7 +227,7 @@
           <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
       </div>
       <div class="col-sm-2 filter">
-      <form action="." method="GET">
+      <form id="filterForm" action="." method="GET">
       {% csrf_token %}
           <div class="sort">
            <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
@@ -237,54 +237,48 @@
               <h5>DIMENSIONS</h5>
             </div>
             <div class="check">
+              {% for dimensions_of_banner in form.dimensions_banner %}
               <div class="checkbox">
-                  <label><input name="dimensions_banner" value="0" type="checkbox">50' x 10'</label>
+                  <label>
+                    {{  dimensions_of_banner }}
+                  </label>
               </div>
-              <div class="checkbox">
-                  <label><input name="dimensions_banner" value="1" type="checkbox">40' x 10'</label>
-              </div>
-              <div class="checkbox">
-                  <label><input name="dimensions_banner" value="2" type="checkbox">30' x 10'</label>
-              </div>
-              <div class="checkbox">
-                  <label><input name="dimensions_banner" value="3" type="checkbox">20' x 10'</label>
-              </div>
+              {% endfor %}
             </div>
             </div>
 
             <div class="card">
-            <div class="filter-header">
-              <h5>TYPE</h5>
-            </div>
-            <div class="check">
-              <div class="checkbox">
-                  <label><input name="type_banner" value="gantry" type="checkbox">Gantry</label>
+              <div class="filter-header">
+                <h5>TYPE</h5>
               </div>
-              <div class="checkbox">
-                  <label><input name="type_banner" value="unipole" type="checkbox">Uni-Pole</label>
+              <div class="check">
+                {% for type_of_banners in  form.type_banner %}
+                <div class="checkbox">
+                  <label>
+                    {{ type_of_banners }}
+                  </label>
+                </div>
+                {% endfor %}
               </div>
-            </div>
             </div>
 
             <div class="card">
-            <div class="filter-header">
-              <h5>LIGHTED</h5>
-            </div>
-            <div class="check">
-              <div class="checkbox">
-                  <label><input name="lighted_banner" value="f" type="checkbox">Front-Lit</label>
+              <div class="filter-header">
+                <h5>LIGHTED</h5>
               </div>
-              <div class="checkbox">
-                  <label><input name="lighted_banner" value="b" type="checkbox">Back-Lit</label>
-              </div>
-              <div class="checkbox">
-                  <label><input name="lighted_banner" value="n" type="checkbox">Non-Lit</label>
+              <div class="check">
+                {% for lights_of_banners in  form.lighted_banner %}
+                <div class="checkbox">
+                  <label>
+                    {{ lights_of_banners }}
+                  </label>
+                </div>
+                {% endfor %}
               </div>
             </div>
-            </div>
-            <dir>
+            <div>
               <input type="submit" value="Submit">
-            </dir>
+            </div>
         </form>
       </div>
     </div>
@@ -379,8 +373,8 @@
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: locations[0].lat, lng: locations[0].lng},
-          zoom: 13
+          center: {lat: 28.683349, lng: 77.428079 },
+          zoom: 12
         });
 
         var markerGroup = locations.map(function(location, i) {

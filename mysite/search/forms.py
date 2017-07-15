@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ModelForm
+from models import Owner
 
 TOPIC_CHOICES = (
 	('general', 'General enquiry'),
@@ -30,9 +32,21 @@ DIMENSION_CHOICES = (
 # 	sender = forms.EmailField(required=False)
 
 
-class ContactForm(forms.Form):
-	type_banner = forms.MultipleChoiceField(choices=TYPE_CHOICES, required=False, widget=forms.CheckboxSelectMultiple)
-	lighted_banner = forms.MultipleChoiceField(choices=LIGHTED_CHOICES, required=False, widget=forms.CheckboxSelectMultiple)
-	max_cost_banner = forms.CharField( required=False )
-	min_cost_banner = forms.CharField( required=False )
-	dimensions_banner = forms.MultipleChoiceField(choices=DIMENSION_CHOICES, required=False, widget=forms.CheckboxSelectMultiple)
+class filterForm(forms.Form):
+	type_banner = forms.MultipleChoiceField(choices=TYPE_CHOICES, required=False, widget=forms.CheckboxSelectMultiple(attrs={'onchange': '$("#filterForm").submit();'}))
+	lighted_banner = forms.MultipleChoiceField(choices=LIGHTED_CHOICES, required=False, widget=forms.CheckboxSelectMultiple(attrs={'onchange': '$("#filterForm").submit();'}))
+	max_cost_banner = forms.CharField( required=False, widget=forms.Select(attrs={'onchange': '$("#filterForm").submit();'}) )
+	min_cost_banner = forms.CharField( required=False, widget=forms.Select(attrs={'onchange': '$("#filterForm").submit();'}) )
+	dimensions_banner = forms.MultipleChoiceField(choices=DIMENSION_CHOICES, required=False, widget=forms.CheckboxSelectMultiple(attrs={'onchange': '$("#filterForm").submit();'}))
+
+class signupForm(ModelForm):
+	class Meta:
+		model = Owner
+		fields = ["company_name", "contact_number" , "email" , "password"]
+
+
+	# company_name = forms.CharField( max_cost_banner = 100 )
+	# contact_number = forms.CharField( max_cost_banner = 10 )
+	# email = forms.EmailField( unique=True )
+	# company_password = 
+	# company_confirm_password = 
