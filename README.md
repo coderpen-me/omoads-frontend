@@ -13,7 +13,7 @@ virtualenv omoenv
 
 * Activate the created virtual environment
 ```bash
-source omoenv/bin//activate
+source omoenv/bin/activate
 ```
 
 * Clone the repo under the folder omoProject
