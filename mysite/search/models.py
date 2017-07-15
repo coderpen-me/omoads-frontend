@@ -60,4 +60,4 @@ class Banner(models.Model):
 	banner_longitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 
 	def __str__(self):
-		return '%s %s %s %s' % (self.banner_region, self.banner_lighted, self.banner_dimensions, self.banner_cost)
+		return '%s %s %s %s %s' % (self.banner_type, self.banner_region, self.banner_lighted,  self.banner_cost, self.banner_dimensions)

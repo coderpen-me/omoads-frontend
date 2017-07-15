@@ -7,22 +7,43 @@
 	<h1>Contact us</h1>
 	<form action="." method="GET">
 	{% csrf_token %}
-	{{ form.errors }}
-	{{ form.non_field_errors }}
 		<table>
-			{{ form.as_table }}
+			<!-- {{ form.as_table }} -->
+			<div class="card">
+				<div class="filter-header">
+					<h5>TYPE</h5>
+				</div>
+				<div class="check">
+					<div class="checkbox">
+						<label><input name="type_banner" value="gantry" type="checkbox">Gantry</label>
+					</div>
+					<div class="checkbox">
+						<label><input name="type_banner" value="unipole" type="checkbox">Uni-Pole</label>
+					</div>
+				</div>
+			</div>
+
 		</table>
 		<p><input type="submit" value="Submit"></p>
 	</form>
 	<h3>All:</h3>
-	<p>
-		{{all}}
-	</p>
+		
+		{% for one in all  %}
+			<p>
+				{{one}}
+			</p>
+		{% endfor %}
 
-	<h3>Result:</h3>>
-	<p>
-		{{result}}
-	</p>
+	<h3>Result:</h3>
+	
+		
+		{% for one in result  %}
+			<p>
+				{{one	}}
+			</p>
+		{% endfor %}
+
+	
 
 </body>
 </html>
