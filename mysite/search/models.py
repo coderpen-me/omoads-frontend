@@ -1,6 +1,11 @@
+
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.utils.translation import gettext as _
 
 # Create your models here.
@@ -63,9 +68,17 @@ class Banner(models.Model):
 	def __str__(self):
 		return '%s %s %s %s %s' % (self.banner_type, self.banner_region, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
 
-class Owner(models.Model):
-	company_name = models.CharField( max_length = 100 )
-	contact_number = models.CharField( max_length = 10 )
-	email = models.EmailField( unique=True )
-	password = models.CharField( _('password'), max_length=128)
-	
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    email_confirmed = models.BooleanField(default=False)
+
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()

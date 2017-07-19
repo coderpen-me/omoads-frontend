@@ -1,6 +1,9 @@
 from django import forms
 from django.forms import ModelForm
-from models import Owner
+# from models import Owner
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from captcha.fields import CaptchaField
 
 TOPIC_CHOICES = (
 	('general', 'General enquiry'),
@@ -39,14 +42,11 @@ class filterForm(forms.Form):
 	min_cost_banner = forms.CharField( required=False, widget=forms.Select(attrs={'onchange': '$("#filterForm").submit();'}) )
 	dimensions_banner = forms.MultipleChoiceField(choices=DIMENSION_CHOICES, required=False, widget=forms.CheckboxSelectMultiple(attrs={'onchange': '$("#filterForm").submit();'}))
 
-class signupForm(ModelForm):
-	class Meta:
-		model = Owner
-		fields = ["company_name", "contact_number" , "email" , "password"]
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
+    captcha = CaptchaField()
 
-
-	# company_name = forms.CharField( max_cost_banner = 100 )
-	# contact_number = forms.CharField( max_cost_banner = 10 )
-	# email = forms.EmailField( unique=True )
-	# company_password = 
-	# company_confirm_password = 
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2', 'phone',)
