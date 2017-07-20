@@ -1,0 +1,20 @@
+ Make the models
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Put Ankit's code in templates
+ add its view function 
+ add view fun in urls.py
+
+ modify Ankit's code to show owner interface details from DB

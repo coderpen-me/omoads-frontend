@@ -10,6 +10,11 @@ from django.utils.translation import gettext as _
 
 # Create your models here.
 
+STATUS_CHOICES = (
+	('available', 'Available'),
+	('booked', 'Booked'),
+)
+
 
 TYPE_CHOICES = (
 	('gantry', 'Gantry'),
@@ -56,14 +61,18 @@ class Book(models.Model):
 
 class Banner(models.Model):
 	banner_id = models.CharField( max_length = 200, unique=True )
-	owner_id = models.CharField( max_length = 200 ) 
-	banner_region = models.CharField( max_length = 200 )
+	owner_id = models.ForeignKey( Agency, on_delete=models.CASCADE ) 
+	banner_facing = models.CharField( max_length = 200 )
 	banner_type = models.CharField( max_length=100, choices = TYPE_CHOICES, default= 'gantry')
 	banner_lighted = models.CharField( max_length=100, choices = LIGHTED_CHOICES, default= 'n' )
 	banner_dimensions = models.CharField( max_length=100, choices = DIMENSION_CHOICES, default= '0')
 	banner_cost = models.DecimalField( max_digits = 12, decimal_places = 3 )
 	banner_lattitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_longitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
+	banner_landmark = models.CharField( max_length = 200 )
+	banner_status = models.CharField( max_length=100, choices = STATUS_CHOICES, default= 'available')
+	banner_image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100)
+
 
 	def __str__(self):
 		return '%s %s %s %s %s' % (self.banner_type, self.banner_region, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
@@ -82,3 +91,20 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+class Agency(models.Model):
+	agency_id = models.CharField(max_length=20, primary_key=True)
+	agency_name = models.CharField(max_length=30)
+	state = models.CharField(max_length=50)
+	city = models.CharField(max_length=50)    
+
+
+class Customer(models.Model):
+	customer_name = models.CharField(max_length=50)
+	customer_id = models.CharField(max_length=20, primary_key=True)
+	customer_email = models.EmailField(max_length=50)
+	customer_password = models.CharField(max_length=50)
+	customer_contact = models.CharField(max_length=50)
+
+
