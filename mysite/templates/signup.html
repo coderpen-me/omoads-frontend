@@ -1,21 +1,65 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/css/signup.css">
+</head>
+<body>
+<div class="container-fluid abc">
+	<div class="col-sm-4"></div>
+	<div class="signup-box col-sm-4" >
+	<div class="header">
+	<h2 class="">Welcome to <span style="color: #ff6c00;">OmoAds</span></h2>
+	</div>
+		<form class="frm" method="POST" action=".">
+			{% csrf_token %}
+   		    {% for field in form %}
+			<!-- <div class="form-group">
+				<input type="text" class="form-control" id="name" placeholder="Company Name" >
+			</div>
+			< <div class="form-group">
+				<input type="text" class="form-control" id="phone" placeholder="Contact">
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" id="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="pwd" placeholder="Enter Password">
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="pwd" placeholder="Confirm Password">
+			</div>  -->
 
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-  </form>
-{% endblock %}
+
+			<div class="form-group">
+			{{ field }}
+			</div>
+
+			
+			{% if field.help_text %}
+		          <small style="color: grey">{{ field.help_text }}</small>
+		        {% endif %}
+		        {% for error in field.errors %}
+		          <p style="color: red">{{ error }}</p>
+		        {% endfor %}
+			
+
+			{% endfor %}
+			<div class="checkbox">
+				<label><input type="checkbox"> Remember me</label>
+			</div>
+			<div class="row">
+				<button type="submit" class="btn btnRegister" style="border-radius: 4px;">Register</button>
+				<button type="submit" class="btn btnLogin" style="border-radius: 4px;">Login</button>
+			</div>
+		</form>
+
+	</div>
+</div>
+</body>
+</html>
