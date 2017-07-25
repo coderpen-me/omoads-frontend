@@ -13,6 +13,7 @@ from models import Book, Banner
 from forms import filterForm, SignUpForm
 from mysite.search.tokens import account_activation_token
 
+
 def search(request):
 	query = request.GET.get('q', '')
 	if query:
@@ -28,7 +29,6 @@ def search(request):
 		"results": results,
 		"query": query,
 	})
-
 
 def index(request):
 	form = filterForm(request.GET)
@@ -94,8 +94,8 @@ def index(request):
 
 @login_required
 def home(request):
+    print(request.username, "the user is logged in")
     return render(request, 'home.html')
-
 
 def signup(request):
     if request.method == 'POST':
@@ -121,10 +121,8 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-
 def account_activation_sent(request):
     return render(request, 'account_activation_sent.html')
-
 
 def activate(request, uidb64, token):
     try:
@@ -142,5 +140,6 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'account_activation_invalid.html')
 
-
-# qwerty1234
+@login_required
+def owner_interface(request):
+    print(request.user)

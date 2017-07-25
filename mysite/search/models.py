@@ -64,7 +64,7 @@ class Agency(models.Model):
 	agency_id = models.CharField(max_length=20, primary_key=True)
 	agency_name = models.CharField(max_length=30)
 	agency_state = models.CharField(max_length=50)
-	agency_city = models.CharField(max_length=50)    	
+	agency_city = models.CharField(max_length=50)
 
 	def __str__(self):
 		return '%s %s %s %s' % (self.agency_id, self.agency_name, self.agency_state, self.agency_city)	
@@ -89,14 +89,15 @@ class Banner(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    email_confirmed = models.BooleanField(default=False)
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	bio = models.TextField(max_length=500, blank=True)
+	location = models.CharField(max_length=30, blank=True)
+	birth_date = models.DateField(null=True, blank=True)
+	email_confirmed = models.BooleanField(default=False)
 
-    def __str__(self):
-		return '%s %s %s %s %s' % (self.user, self.bio, self.location, self.birth_date, self,email_confirmed)
+	def __str__(self):
+		return '%s %s %s %s %s' % (self.user, self.bio, self.location, self.birth_date, self.email_confirmed)
+
 
 class Customer(models.Model):
 	customer_id = models.CharField(max_length=20, primary_key=True)
@@ -125,6 +126,7 @@ class Order_Info(models.Model):
 	banner_id = models.ForeignKey(Banner, on_delete=models.CASCADE, default='0')
 	start_date = models.DateField(default = date.today)
 	end_date = models.DateField(default = date.today)
+
 	def __str__(self):
 		return '%s %s' % (self.order_id, self.banner_id)
 
@@ -136,14 +138,10 @@ class Cart(models.Model):
 	#end_date = models.DateField()
 
 
-
-
-
-
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
+	if created:
+		Profile.objects.create(user=instance)
+	instance.profile.save()
 
 
