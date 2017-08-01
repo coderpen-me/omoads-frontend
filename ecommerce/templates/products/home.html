@@ -1,0 +1,533 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OmoAds</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+  <style type="text/css">
+    html,body{
+      height: 100%;
+      margin: 0px;
+      overflow-y: ;
+    }
+    .navbar{
+      background-color: #1c1c1c;
+    }
+    .navigationBar{
+      margin: 0px;
+      border-radius: 0px;
+      border-width: 0px;
+      height: ;
+      }
+    li.active {
+      background-color: #5a5a5a;
+    }
+    .box{
+      padding: 0px;
+      height: 100%;
+    }
+
+    .nav .active{
+      background-color: #ff6c00;
+    }
+    #pac-input{
+      width: 100%;
+      flex: 0 1 35px;
+      padding-left: 10px;
+    }
+    section {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    height: 100%;
+    }
+    header {
+    flex: 0 1 auto;
+    }
+    .cont{
+      flex: 1 1 auto;
+      overflow: auto;
+      height: 100%;
+    }
+    .footer{
+      flex: 0 1 25px;
+      background-color: #000;
+    }
+    .secondBox{
+      display: flex;
+      flex-flow: column;
+      align-items: stretch;
+      height: 100%;
+      padding: 0px;
+    }
+    .filter{
+      max-height: 100%;
+      height: 100%;
+      background-color: #1c1c1c;
+      padding: 0px;
+    }
+    .list-group-item{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    }
+    .filter-header{
+      background-color: #373737;
+      padding: 10px;
+      padding-left: 10px;
+      border-radius: 3px 3px 0px 0px;
+    }
+    h5{
+      margin: 0px;
+      color: #fff;
+    }
+    .check{
+      padding-left: 20px;
+    }
+    .card{
+      background-color: #f3f3f3;
+      padding-bottom: 2px;
+      margin-bottom: 4px;
+      margin-top: 4px;
+      margin-left: 4px;
+      margin-right: 4px;
+      border-radius: 5px 5px 4px 4px;
+      }
+    .sort{
+      margin-top: 0px;
+      background-color: #ff6c00;
+      color: #fff;
+      height: 33px;
+      margin-left: 3px;
+      margin-right: 3px;
+      border-radius: 3px;
+    }
+    .key{
+      padding: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<section>
+<header>
+    <nav class="navbar navbar-inverse navigationBar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"
+               src="{% static 'resources/images/re-logo.png' %}"></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Directions</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #090909; padding: 30px;">
+          <button type="button" class="close" data-dismiss="modal" style="color: #fff;">&times;</button>
+          <h3 class="modal-title" style="color: #fff;">LOGIN TO <span style="color: #ff6c00; font-weight: 500;">OMOADS</span></h3>
+        </div>
+        <div class="modal-body" style="background-color: #f7f7f7; padding-bottom: 0%;">
+          <form>
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="email" class="form-control" id="email" >
+            </div>
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password" class="form-control" id="pwd" >
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox"> Remember me</label>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success" style="border-radius: 4px; ">Login</button>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#registerModal" style="border-radius: 4px;">Sign Up</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!--Register Modal -->
+  <div class="modal fade" id="registerModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #090909; padding: 30px;">
+          <button type="button" class="close" data-dismiss="modal" style="color: #fff;">&times;</button>
+          <h3 class="modal-title" style="color: #fff;">REGISTER TO <span style="color: #ff6c00; font-weight: 500;">OMOADS</span></h3>
+        </div>
+        <div class="modal-body" style="background-color: #f7f7f7; padding-bottom: 0%;">
+          <form action="." method="GET">
+          {% csrf_token %}
+            <div class="form-group">
+              <label for="name">Company Name:</label>
+              <input type="text" class="form-control" id="name" >
+            </div>
+            <div class="form-group">
+              <label for="pwd">Contact:</label>
+              <input type="text" class="form-control" id="phone" >
+            </div>
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="email" class="form-control" id="email" >
+            </div>
+            <div class="form-group">
+              <label for="pwd">Enter Password:</label>
+              <input type="password" class="form-control" id="pwd" >
+            </div>
+            <div class="form-group">
+              <label for="pwd">Confirm Password:</label>
+              <input type="password" class="form-control" id="pwd" >
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox"> Remember me</label>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success" style="border-radius: 4px;">Sign Up</button>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#loginModal" style="border-radius: 4px;">Login</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+<div class="cont">
+    <div class="container-fluid box">
+      <div class="secondBox col-sm-10" >
+          <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+          <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
+      </div>
+      <div class="col-sm-2 filter">
+      <form id="filterForm" action="." method="GET">
+      {% csrf_token %}
+          <div class="sort">
+           <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
+           </div>
+           <div class="card">
+            <div class="filter-header">
+              <h5>DIMENSIONS</h5>
+            </div>
+            <div class="check">
+              {% for dimensions_of_banner in form.dimensions_banner %}
+              <div class="checkbox">
+                  <label>
+                    {{  dimensions_of_banner }}
+                  </label>
+              </div>
+              {% endfor %}
+            </div>
+            </div>
+
+            <div class="card">
+              <div class="filter-header">
+                <h5>TYPE</h5>
+              </div>
+              <div class="check">
+                {% for type_of_banners in  form.type_banner %}
+                <div class="checkbox">
+                  <label>
+                    {{ type_of_banners }}
+                  </label>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="filter-header">
+                <h5>LIGHTED</h5>
+              </div>
+              <div class="check">
+                {% for lights_of_banners in  form.lighted_banner %}
+                <div class="checkbox">
+                  <label>
+                    {{ lights_of_banners }}
+                  </label>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div>
+              <input type="submit" value="Submit">
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+<div class="footer"></div>
+</section>
+
+<script>
+      var map;
+      /* var locations =[ {lat: 28.6781518, lng: 77.4796894},
+        {lat: 28.6769073, lng: 77.4728407},
+        {lat: 28.6763699, lng: 77.4701333},
+        {lat: 28.6750844, lng: 77.4616545},
+        {lat: 28.6739048, lng: 77.4537548},
+        {lat: 28.6734001, lng: 77.4504691},
+        {lat: 28.6732442, lng: 77.4493948},
+        {lat: 28.6729218, lng: 77.4474875},
+        {lat: 28.6724855, lng: 77.4446118},
+        {lat: 28.6723961, lng: 77.4439885},
+        {lat: 28.6721728, lng: 77.4427322},
+        {lat: 28.6720037, lng: 77.4416342},
+        {lat: 28.6711971, lng: 77.4363777},
+        {lat: 28.6709432, lng: 77.4354001},
+        {lat: 28.6707214, lng: 77.4334270},
+        {lat: 28.6695674, lng: 77.4265163},
+        {lat: 28.6696689, lng: 77.4265052},
+        {lat: 28.6733651, lng: 77.4430692},
+        {lat: 28.6737519, lng: 77.4429944},
+        {lat: 28.6740493, lng: 77.4429626},
+        {lat: 28.6754751, lng: 77.4425713},
+        {lat: 28.6676614, lng: 77.4290214},
+        {lat: 28.6675485, lng: 77.4273665},
+        {lat: 28.669957, lng: 77.431754},
+        {lat: 28.668975, lng: 77.432054},
+        {lat: 28.66819, lng: 77.432332},
+        {lat: 28.666023, lng: 77.433521},
+        {lat: 28.665319, lng: 77.433852},
+        {lat: 28.664172, lng: 77.434386},
+        {lat: 28.663109, lng: 77.434857},
+        {lat: 28.662789, lng: 77.435217},
+        {lat: 28.661489, lng: 77.435542},
+        {lat: 28.659875, lng: 77.435756},
+        {lat: 28.657659, lng: 77.434879},
+        {lat: 28.6650903, lng: 77.455809},
+        {lat: 28.6625591, lng: 77.4621732},
+        {lat: 28.6624664, lng: 77.4621041},
+        {lat: 28.662228, lng: 77.462863},
+        {lat: 28.660013, lng: 77.465962},
+        {lat: 28.6589961, lng: 77.4672889},
+        {lat: 28.658889, lng: 77.4671946},
+        {lat: 28.647186, lng: 77.44578},
+        {lat: 28.647782, lng: 77.444806},
+        {lat: 28.647887, lng: 77.444905},
+        {lat: 28.649038, lng: 77.443181},
+        {lat: 28.651482, lng: 77.43973},
+        {lat: 28.653684, lng: 77.436644},
+        {lat: 28.654753, lng: 77.435084},
+        {lat: 28.655983, lng: 77.433325},
+        {lat: 28.6568593, lng: 77.4321415},
+        {lat: 28.6577404, lng: 77.430892},
+        {lat: 28.6597278, lng: 77.4280974},
+        {lat: 28.6706658, lng: 77.4149831},
+        {lat: 28.6727632, lng: 77.4069683},
+        {lat: 28.67312, lng: 77.4062585},
+        {lat: 28.676807, lng: 77.3918759},
+        {lat: 28.6784319, lng: 77.3865805},
+        {lat: 28.6779715, lng: 77.3884973},
+        {lat: 28.67755, lng: 77.3899839},
+        {lat: 28.6743781, lng: 77.401846},
+        {lat: 28.6738745, lng: 77.4037004},
+        {lat: 28.67284, lng: 77.4074226},
+        {lat: 28.672345, lng: 77.409681},
+        {lat: 28.6721493, lng: 77.410478},
+        {lat: 28.6718569, lng: 77.4114681},
+        {lat: 28.675918, lng: 77.418503},
+        {lat: 28.6770641, lng: 77.420316},
+        {lat: 28.678621, lng: 77.422418},
+        {lat: 28.6797252, lng: 77.4239189},
+        {lat: 28.6808859, lng: 77.4252781},
+        {lat: 28.683349, lng: 77.428079}
+        ];
+      */
+        var locations = [];
+        {% for location in locations %}
+        locations.push({
+          lat: {{ location.lat }},
+          lng: {{ location.lng }}
+        });
+        {% endfor %}
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 28.683349, lng: 77.428079 },
+          zoom: 12
+        });
+        var markerGroup = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            map: map,
+            title: "OMOADS Site",
+            icon: "{% static 'resources/images/marker3.png' %}"
+          });
+        });
+        // var marker = new google.maps.Marker({
+        //   position: locations[0],
+        //   map: map,                     // required
+        //   //label: "Big Poster"
+        //   });
+        //var markerCluster = new MarkerClusterer(map, markerGroup,
+          //  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+        for (var i = 0; i < locations.length; i++) {
+          google.maps.event.addListener(markerGroup[i], 'click', function() {
+            // infowindow.setContent(this.content);
+            // infowindow.open(map, this);
+            // console.log("hey popups!");
+            $('#myModal').modal('show');
+          });
+        }
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+          if (places.length == 0) {
+            return;
+          }
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+            }
+</script>
+  <!-- Banner model -->
+  <!-- Modal starts its magic -->
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h3 class="text-center modal-title" id="myModalLabel">More Details about the OMO site</h3>
+        </div>
+        <div class="modal-body">
+
+
+
+
+        <!-- the content -->
+
+        <img class="img img-responsive" src="{% static 'resources/images/banner3.jpg' %} " />
+        <table>
+          <tbody>
+            <tr>
+              <td class="key">Panel Id:</td>
+                <td class="value">1304</td>
+            </tr>
+            <tr class="even">
+              <td class="key">Price:</td>
+                <td class="value">INR 17500</td>
+            </tr>
+            <tr>
+              <td class="key">Location:</td>
+              <td class="value">Kavi Nagar</td>
+            </tr>
+            <tr class="even">
+              <td class="key">Lat/Long:</td>
+              <td class="value">28.674377 / 77.455472 </td>
+            </tr>
+            <tr>
+              <td class="key">Dimensions:</td>
+              <td class="value">10'6" x 22'9"</td>
+            </tr>
+            <tr class="even">
+              <td class="key">Restrictions:</td>
+              <td class="value">55 - Other,<br> 24 - Beverages - Liquors and Cordials</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3>All:</h3>
+
+    {% for one in all  %}
+      <p>
+        {{one}}
+      </p>
+    {% endfor %}
+
+  <h3>Result:</h3>
+
+
+    {% for one in result  %}
+      <p>
+        {{one }}
+      </p>
+    {% endfor %}
+
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzoYSoBoClc5AXB5peOD3X8k-OdMXky3E&libraries=places&callback=initMap"
+async defer></script>
+
+</body>
+</html>

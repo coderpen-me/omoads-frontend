@@ -1,4 +1,7 @@
-Django==1.11
-django-filter==1.0.2
-django-widget-tweaks==1.4.1
-django-simple-captcha
+Django==1.7.1
+Pillow==2.5.0
+certifi==14.05.14
+django-localflavor==1.0
+pytz==2014.4
+requests==2.4.0
+stripe==1.19.0
