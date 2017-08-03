@@ -24,8 +24,8 @@ class UserAddressForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-	username = forms.CharField()
-	password = forms.CharField(widget=forms.PasswordInput())
+	username = forms.CharField( widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...'}) )
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'}))
 
 	def clean_username(self):
 		username = self.cleaned_data.get("username")
@@ -51,11 +51,11 @@ class LoginForm(forms.Form):
 
 
 class RegistrationForm(forms.ModelForm):
-	email = forms.EmailField(label='Your Email')
+	email = forms.EmailField(label='Your Email', widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...'}))
 	password1 = forms.CharField(label='Password', \
-					widget=forms.PasswordInput())
+					widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'}))
 	password2 = forms.CharField(label='Password Confirmation', \
-					widget=forms.PasswordInput())
+					widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm password'}))
 
 	class Meta:
 		model = User

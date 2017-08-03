@@ -33,7 +33,7 @@ def login_view(request):
 		"form": form,
 		"submit_btn": btn,
 	}
-	return render(request, "form.html", context)
+	return render(request, "login.html", context)
 
 
 def registration_view(request):
@@ -54,7 +54,7 @@ def registration_view(request):
 		 "form": form,
 		 "submit_btn": btn,
 	}
-	return render(request, "form.html", context)
+	return render(request, "signup.html", context)
 
 
 SHA1_RE = re.compile('^[a-f0-9]{40}$')
@@ -111,7 +111,7 @@ def add_user_address(request):
 	
 	submit_btn = "Save Address"
 	form_title = "Add New Address"
-	return render(request, "form.html", 
+	return render(request, "signup.html",
 		{"form": form,
 		"submit_btn": submit_btn,
 		"form_title": form_title,
