@@ -16,9 +16,9 @@ STATUS_CHOICES = (
 #python tuples
 try:
 	tax_rate = settings.DEFAULT_TAX_RATE
-except Exception, e:
-	print str(e)
-	raise NotImplementedError(str(e))
+except:
+	print ("tararar")
+	
 
 class Order(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)

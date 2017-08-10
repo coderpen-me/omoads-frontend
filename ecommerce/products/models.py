@@ -150,17 +150,15 @@ def product_defaults(sender, instance, created, *args, **kwargs):
 post_save.connect(product_defaults, sender=Product)
 
 class Agency(models.Model):
-	agency_id = models.CharField(max_length=20, primary_key=True)
 	agency_name = models.CharField(max_length=30)
 	agency_state = models.CharField(max_length=50)
 	agency_city = models.CharField(max_length=50)
 
 	def __str__(self):
-		return '%s %s %s %s' % (self.agency_id, self.agency_name, self.agency_state, self.agency_city)
+		return '%s %s %s %s' % (self.id, self.agency_name, self.agency_state, self.agency_city)
 
 
 class Banner(models.Model):
-	banner_id = models.CharField( max_length = 200, unique=True )
 	agency_id = models.ForeignKey(Agency, on_delete=models.CASCADE)
 	banner_facing = models.CharField( max_length = 200,default= '0')
 	banner_type = models.CharField( max_length=100, choices = TYPE_CHOICES, default= 'gantry')
@@ -175,5 +173,5 @@ class Banner(models.Model):
 
 
 	def __str__(self):
-		return '%s %s %s %s %s' % (self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
+		return '%s %s %s %s %s %s' % (self.id, self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
 

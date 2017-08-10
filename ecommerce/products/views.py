@@ -1,6 +1,10 @@
 from django.shortcuts import render, Http404
-from django.db.models import Q
 
+from django.shortcuts import render, HttpResponse, Http404
+from django.http import HttpResponseBadRequest
+
+from django.db.models import Q
+import json
 # Create your views here.
 
 from marketing.forms import EmailForm
@@ -8,6 +12,8 @@ from marketing.models import MarketingMessage, Slider
 
 from .forms import filterForm
 from .models import Product, ProductImage, Banner
+
+
 
 def search(request):
 	try:
@@ -85,7 +91,7 @@ def home(request):
 
 		locations = []
 		for result in results:
-			locations.append({"lng": result.banner_longitude, "lat": result.banner_lattitude})
+			locations.append({"lng": result.banner_longitude, "lat": result.banner_lattitude, "id":result.id})
 		# print( str( locations ) )
 
 	context = {
@@ -99,6 +105,17 @@ def home(request):
 
 	return render(request, template, context)
 
+def ham_honge_kamiyab(request):
+	if request.is_ajax():
+		
+
+		b = Banner.objects.get(pk=int(request.POST['id_point']))
+		data = {"id" : str(b.id), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(b.banner_dimensions)}
+		json_data = json.dumps(data)
+
+		return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
 
 def all(request):
 	products = Product.objects.all()

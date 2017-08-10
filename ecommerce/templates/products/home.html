@@ -359,11 +359,16 @@
         ];
       */
         var locations = [];
+		var locID = [];
+		//the above var location is javascript var and the below one comes from djago code.bad names. confusing. gotta change
         {% for location in locations %}
         locations.push({
           lat: {{ location.lat }},
-          lng: {{ location.lng }}
+          lng: {{ location.lng }},
+		  //id: {{ location.id }}
         });
+		locID.push({{ location.id }});
+		
         {% endfor %}
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -376,6 +381,7 @@
             map: map,
             title: "OMOADS Site",
             icon: "{% static 'resources/images/marker3.png' %}"
+			
           });
         });
         // var marker = new google.maps.Marker({
@@ -386,10 +392,38 @@
         //var markerCluster = new MarkerClusterer(map, markerGroup,
           //  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         for (var i = 0; i < locations.length; i++) {
-          google.maps.event.addListener(markerGroup[i], 'click', function() {
+			markerGroup[i].id_try = locID[i];
+			markerGroup[i].addListener('click', function() {
             // infowindow.setContent(this.content);
             // infowindow.open(map, this);
             // console.log("hey popups!");
+			console.log(this.id_try);
+			$.ajax({
+				  type: "POST",
+				  url: "{% url 'ham_honge_kamiyab' %}",
+				  data: {
+					"csrfmiddlewaretoken": "{{ csrf_token }}",
+					"id_point":String(this.id_try)
+					
+				  },
+				  success: function(data){
+				  //set values according to id here
+				  
+				  //#################################################################################################################
+				  //heere chaasifhsklgsalgjsalgjaslkgjsalkg
+				  
+				  $('#panelID').text(data["id"])
+				  $('#price').text(data["cost"])
+				  $('#MapLoc').text(data["lat"] + " / " + data["long"])
+				  $('#Dimensions').text(data["dim"])
+				  },
+				  error: function(){
+					alert("Error! Something wrong. Please try again later")
+				  },
+				});
+
+			
+			
             $('#myModal').modal('show');
           });
         }
@@ -468,27 +502,27 @@
           <tbody>
             <tr>
               <td class="key">Panel Id:</td>
-                <td class="value">1304</td>
+                <td class="value" id = "panelID">1304</td>
             </tr>
             <tr class="even">
               <td class="key">Price:</td>
-                <td class="value">INR 17500</td>
+                <td class="value" id = "price">INR 17500</td>
             </tr>
             <tr>
               <td class="key">Location:</td>
-              <td class="value">Kavi Nagar</td>
+              <td class="value" id = "Location">Kavi Nagar</td>
             </tr>
             <tr class="even">
               <td class="key">Lat/Long:</td>
-              <td class="value">28.674377 / 77.455472 </td>
+              <td class="value" id = "MapLoc">28.674377 / 77.455472 </td>
             </tr>
             <tr>
               <td class="key">Dimensions:</td>
-              <td class="value">10'6" x 22'9"</td>
+              <td class="value" id = "Dimensions">10'6" x 22'9"</td>
             </tr>
             <tr class="even">
               <td class="key">Restrictions:</td>
-              <td class="value">55 - Other,<br> 24 - Beverages - Liquors and Cordials</td>
+              <td class="value" id = "Restrictions">55 - Other,<br> 24 - Beverages - Liquors and Cordials</td>
             </tr>
           </tbody>
         </table>
