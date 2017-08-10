@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 # Create your models here.
+from django.contrib.auth.models import User
 
 
 STATUS_CHOICES = (
@@ -163,7 +164,7 @@ class Banner(models.Model):
 	banner_facing = models.CharField( max_length = 200,default= '0')
 	banner_type = models.CharField( max_length=100, choices = TYPE_CHOICES, default= 'gantry')
 	banner_lighted = models.CharField( max_length=100, choices = LIGHTED_CHOICES, default= 'n' )
-	banner_dimensions = models.CharField( max_length=100, choices = DIMENSION_CHOICES, default= '0')
+	banner_dimensions = models.CharField( max_length=100, choices = DIMENSION_CHOICES, default= '50x10')
 	banner_cost = models.DecimalField( max_digits = 12, decimal_places = 3 )
 	banner_lattitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_longitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
@@ -175,3 +176,9 @@ class Banner(models.Model):
 	def __str__(self):
 		return '%s %s %s %s %s %s' % (self.id, self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
 
+
+class Owners(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	owned = models.IntegerField()
+	def __str__(self):
+		return '%s %s' % (self.id, self.user.id)

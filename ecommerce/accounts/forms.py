@@ -1,11 +1,6 @@
 from django import forms
 
-from django.contrib.auth import get_user_model
-
-
-
-User = get_user_model()
-
+from django.contrib.auth.models import User
 from .models import UserAddress
 
 
@@ -51,6 +46,7 @@ class LoginForm(forms.Form):
 
 
 class RegistrationForm(forms.ModelForm):
+	username = forms.CharField(label="Username", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...'}))
 	email = forms.EmailField(label='Your Email', widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...'}))
 	password1 = forms.CharField(label='Password', \
 					widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password'}))
@@ -59,7 +55,7 @@ class RegistrationForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields = ['username', 'email']
+		fields = ['username', 'email', 'password']
 
 	def clean_password2(self):
 		password1 = self.cleaned_data.get('password1')

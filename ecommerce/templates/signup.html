@@ -15,28 +15,26 @@
         <div class="header">
             <h2 class="">Welcome to <span style="color: #ff6c00;">OmoAds</span></h2>
         </div>
-        <form class="frm" method="POST" action=".">
+        <form class="frm" method="POST">
             {% csrf_token %}
+                        <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control" id="phone" placeholder="Contact">-->
+            <!--</div>-->
             <div class="form-group">
                 {{ form.username }}
             </div>
-            <!--<div class="form-group">-->
-                <!--<input type="text" class="form-control" id="phone" placeholder="Contact">-->
-            <!--</div>-->
+
             <div class="form-group">
                 {{ form.email }}
             </div>
             <div class="form-group">
                 {{ form.password1 }}
             </div>
-            <div class="form-group">
-                {{ form.password2 }}
-            </div>
             <div class="checkbox">
                 <label><input type="checkbox"> Remember me</label>
             </div>
             <div class="row">
-                <input type='submit' value='{% if submit_btn %}{{ submit_btn }}{% else %}Submit{% endif %}' class='btn btn-default' />
+                <input type='submit' value='submit' class='btn btn-default' />
                 <button type="submit" class="btn btnLogin" style="border-radius: 4px;">Login</button>
             </div>
         </form>

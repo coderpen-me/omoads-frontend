@@ -1,4 +1,6 @@
-from django.shortcuts import render, Http404
+from django.shortcuts import render, Http404, HttpResponseRedirect
+
+from django.views import generic
 
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
@@ -10,8 +12,13 @@ import json
 from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
-from .forms import filterForm
-from .models import Product, ProductImage, Banner
+from .forms import *
+from .models import Product, ProductImage, Banner, Owners
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+
+
 
 
 
@@ -110,6 +117,7 @@ def ham_honge_kamiyab(request):
 		
 
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
+
 		data = {"id" : str(b.id), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(b.banner_dimensions)}
 		json_data = json.dumps(data)
 
@@ -134,3 +142,97 @@ def single(request, slug):
 		return render(request, template, context)
 	except:
 		raise Http404
+
+
+
+
+class Signup(generic.edit.FormView):
+	form_class  = UserForm
+	template_name = 'signup.html'
+	def get(self, request, *args, **kwargs):
+		try:
+			form = self.form_class
+			if((request.session['inSession'] is False) or (request.session['inSession'] is None)):
+				return render(request, self.template_name, {'form':form})
+			#elif((request.session['adminSession'] is True)):
+			#	return HttpResponseRedirect(reverse('portal:adminPage'))
+			#else:
+			#	return HttpResponseRedirect(reverse('portal:index'))
+		except KeyError:
+			return render(request, self.template_name, {'form': form})
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pass
+		else:
+			#messages.error(request,"Enter Correct Values In All The Fields")
+			print("invalid")
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+		new_user = form.save(commit=False)
+		try:
+			quer = User.objects.get(email=new_user.email)
+		except User.DoesNotExist:
+			try:
+				quer=User.objects.get(username=new_user.username)
+			except User.DoesNotExist:
+				new_user.save()
+				return HttpResponseRedirect("/")
+			else:
+				#messages.error(request, "The username or email already exists.")
+				print("invalid username already")
+				return HttpResponseRedirect(reverse('auth_register'))
+		else:
+			#messages.error(request, "The username or email already exists.")
+			print("invalid email already")
+			return HttpResponseRedirect(reverse('auth_register'))
+
+
+class SignupOwner(generic.edit.FormView):
+	form_class  = UserForm
+	template_name = 'signup.html'
+	def get(self, request, *args, **kwargs):
+		try:
+			form = self.form_class
+			if((request.session['inSession'] is False) or (request.session['inSession'] is None)):
+				return render(request, self.template_name, {'form':form})
+			#elif((request.session['adminSession'] is True)):
+			#	return HttpResponseRedirect(reverse('portal:adminPage'))
+			#else:
+			#	return HttpResponseRedirect(reverse('portal:index'))
+		except KeyError:
+			return render(request, self.template_name, {'form': form})
+
+	def post(self, request, *args, **kwargs):
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pass
+		else:
+			#messages.error(request,"Enter Correct Values In All The Fields")
+			print("invalid")
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+		new_user = form.save(commit=False)
+		try:
+			quer = User.objects.get(email=new_user.email)
+		except User.DoesNotExist:
+			try:
+				quer=User.objects.get(username=new_user.username)
+			except User.DoesNotExist:
+				new_user.save()
+				print("bawal")
+				owner = Owners(user = new_user, owned = 5)
+				owner.save()
+				return HttpResponseRedirect("/")
+			else:
+				#messages.error(request, "The username or email already exists.")
+				print("invalid username already")
+				return HttpResponseRedirect(reverse('auth_register_owner'))
+		else:
+			#messages.error(request, "The username or email already exists.")
+			print("invalid email already")
+			return HttpResponseRedirect(reverse('auth_register_owner'))
+
+
+
+
+

@@ -2,6 +2,9 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+
+from products import views
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -23,10 +26,15 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     #(?P<all_items>.*)
     #(?P<id>\d+)
+    
+
+    url(r'^register/$', views.Signup.as_view(), name='auth_register'),
+    url(r'^registerowner/$', views.SignupOwner.as_view(), name='auth_register_owner'),
+
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/logout/$', 'accounts.views.logout_view', name='auth_logout'),
     url(r'^accounts/login/$', 'accounts.views.login_view', name='auth_login'),
-    url(r'^accounts/register/$', 'accounts.views.registration_view', name='auth_register'),
+    
     url(r'^accounts/address/add/$', 'accounts.views.add_user_address', name='add_user_address'),
     url(r'^accounts/activate/(?P<activation_key>\w+)/$', 'accounts.views.activation_view', name='activation_view'),
 ) 
