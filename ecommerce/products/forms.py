@@ -2,8 +2,8 @@ from django import forms
 from django.forms import ModelForm
 # from models import Owner
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
-User = get_user_model()
+from django.contrib.auth.models import User
+from .models import Agency
 # from captcha.fields import CaptchaField
 
 TOPIC_CHOICES = (
@@ -48,8 +48,16 @@ class UserForm(forms.ModelForm):#user form pre build class
 		model = User
 		fields = ['username', 'email', 'password1']
 
+class AgencyForm(forms.ModelForm):
+	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'name'}))
+	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'email'}))
+	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'pwd'}),min_length=6)
+	class Meta:
+		model = Agency
+		fields = ['agency_name', 'agency_state', 'agency_city']
+
 
 
 class LoginForm(forms.Form):
-	username = forms.CharField(max_length=30)
-	password = forms.CharField(widget=forms.PasswordInput)
+	username = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'email'}))
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'pwd'}))

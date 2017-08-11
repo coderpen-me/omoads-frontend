@@ -151,6 +151,7 @@ def product_defaults(sender, instance, created, *args, **kwargs):
 post_save.connect(product_defaults, sender=Product)
 
 class Agency(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	agency_name = models.CharField(max_length=30)
 	agency_state = models.CharField(max_length=50)
 	agency_city = models.CharField(max_length=50)
@@ -176,9 +177,3 @@ class Banner(models.Model):
 	def __str__(self):
 		return '%s %s %s %s %s %s' % (self.id, self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
 
-
-class Owners(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	owned = models.IntegerField()
-	def __str__(self):
-		return '%s %s' % (self.id, self.user.id)

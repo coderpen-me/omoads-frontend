@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'products.views.home', name='home'),
+    url(r'^$', views.Home.as_view(), name='home'),
     url(r'^s/$', 'products.views.search', name='search'),
     url(r'^products/$', 'products.views.all', name='products'),
     url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),
@@ -29,11 +29,13 @@ urlpatterns = patterns('',
     
 
     url(r'^register/$', views.Signup.as_view(), name='auth_register'),
+    url(r'^register/$', 'products.views.signup', name='auth_register2'),
     url(r'^registerowner/$', views.SignupOwner.as_view(), name='auth_register_owner'),
+    url(r'^logout/$', 'products.views.logoutUser', name='auth_logout'),
+    url(r'^login/$', views.LoginUsers.as_view(), name='auth_login'),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/logout/$', 'accounts.views.logout_view', name='auth_logout'),
-    url(r'^accounts/login/$', 'accounts.views.login_view', name='auth_login'),
+    
     
     url(r'^accounts/address/add/$', 'accounts.views.add_user_address', name='add_user_address'),
     url(r'^accounts/activate/(?P<activation_key>\w+)/$', 'accounts.views.activation_view', name='activation_view'),

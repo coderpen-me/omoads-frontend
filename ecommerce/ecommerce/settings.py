@@ -72,6 +72,7 @@ MIDDLEWARE_CLASSES = (
     'marketing.middleware.DisplayMarketing',
     #
 )
+#AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 ROOT_URLCONF = 'ecommerce.urls'
 

@@ -13,7 +13,7 @@ from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
 from .forms import *
-from .models import Product, ProductImage, Banner, Owners
+from .models import Product, ProductImage, Banner, Agency
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -37,80 +37,127 @@ def search(request):
 		context = {}
 	return render(request, template, context)
 
+class Home(generic.TemplateView):
+	login_form_class = LoginForm
+	signup_form_class = UserForm
+	def get(self, request, *args, **kwargs):
+		sliders = Slider.objects.all_featured()
+		products = Product.objects.all()
+		template = 'products/home.html'	
+		login_form = self.login_form_class
+		signup_form = self.signup_form_class
+		form = filterForm(request.GET)
 
-def home(request):
-	sliders = Slider.objects.all_featured()
-	products = Product.objects.all()
-	template = 'products/home.html'	
+		print(form.is_valid())
+		if form.is_valid():
+			type_banner_input_list = [str(x) for x in form.cleaned_data['type_banner']]
+			lighted_banner_input_list = [str(x) for x in form.cleaned_data['lighted_banner']]
+			dimensions_banner_input_list = [str(x) for x in form.cleaned_data['dimensions_banner']]
+			if form.cleaned_data['min_cost_banner']:
+				min_cost_banner = [float(form.cleaned_data['min_cost_banner'])]
+			else:
+				min_cost_banner = []
+			if form.cleaned_data['max_cost_banner']:
+				max_cost_banner = [float(form.cleaned_data['max_cost_banner'])]
+			else:
+				max_cost_banner = []
 
-	form = filterForm(request.GET)
+			# print(str(lighted_banner_input_list) + str(dimensions_banner_input_list) + str(type_banner_input_list))
 
-	print(form.is_valid())
-	if form.is_valid():
-		type_banner_input_list = [str(x) for x in form.cleaned_data['type_banner']]
-		lighted_banner_input_list = [str(x) for x in form.cleaned_data['lighted_banner']]
-		dimensions_banner_input_list = [str(x) for x in form.cleaned_data['dimensions_banner']]
-		if form.cleaned_data['min_cost_banner']:
-			min_cost_banner = [float(form.cleaned_data['min_cost_banner'])]
-		else:
-			min_cost_banner = []
-		if form.cleaned_data['max_cost_banner']:
-			max_cost_banner = [float(form.cleaned_data['max_cost_banner'])]
-		else:
-			max_cost_banner = []
+			# To create the if - else filter logic using 3 separate Q()
+			# qset ANDing for different criteria
+			# qset Oring for options within same criteria
+			qset_type = Q()
+			qset_light = Q()
+			qset_dimensions = Q()
+			qset_all = Q()
+			qset_min_cost = Q()
+			qset_max_cost = Q()
 
-		# print(str(lighted_banner_input_list) + str(dimensions_banner_input_list) + str(type_banner_input_list))
+			# print(form.type_banner)
 
-		# To create the if - else filter logic using 3 separate Q()
-		# qset ANDing for different criteria
-		# qset Oring for options within same criteria
-		qset_type = Q()
-		qset_light = Q()
-		qset_dimensions = Q()
-		qset_all = Q()
-		qset_min_cost = Q()
-		qset_max_cost = Q()
+			if type_banner_input_list:
+				for type_banner_input in type_banner_input_list:
+					qset_type = qset_type | Q(banner_type__icontains=type_banner_input)
 
-		# print(form.type_banner)
+			if lighted_banner_input_list:
+				for lighted_banner_input in lighted_banner_input_list:
+					qset_light = qset_light | Q(banner_lighted__icontains=lighted_banner_input)
 
-		if type_banner_input_list:
-			for type_banner_input in type_banner_input_list:
-				qset_type = qset_type | Q(banner_type__icontains=type_banner_input)
+			if min_cost_banner:
+				qset_min_cost = Q(banner_cost__gte=min_cost_banner[0])
 
-		if lighted_banner_input_list:
-			for lighted_banner_input in lighted_banner_input_list:
-				qset_light = qset_light | Q(banner_lighted__icontains=lighted_banner_input)
+			if max_cost_banner:
+				qset_max_cost = Q(banner_cost__lte=max_cost_banner[0])
 
-		if min_cost_banner:
-			qset_min_cost = Q(banner_cost__gte=min_cost_banner[0])
+			if dimensions_banner_input_list:
+				for dimensions_banner_input in dimensions_banner_input_list:
+					qset_dimensions = qset_dimensions | Q(banner_dimensions__icontains=dimensions_banner_input)
 
-		if max_cost_banner:
-			qset_max_cost = Q(banner_cost__lte=max_cost_banner[0])
+			qset_all = qset_dimensions & qset_light & qset_type & qset_max_cost & qset_min_cost
 
-		if dimensions_banner_input_list:
-			for dimensions_banner_input in dimensions_banner_input_list:
-				qset_dimensions = qset_dimensions | Q(banner_dimensions__icontains=dimensions_banner_input)
+			results = Banner.objects.filter(qset_all)
+			all_banner = Banner.objects.all()
 
-		qset_all = qset_dimensions & qset_light & qset_type & qset_max_cost & qset_min_cost
+			locations = []
+			for result in results:
+				locations.append({"lng": result.banner_longitude, "lat": result.banner_lattitude, "id":result.id})
+			# print( str( locations ) )
 
-		results = Banner.objects.filter(qset_all)
-		all_banner = Banner.objects.all()
 
-		locations = []
-		for result in results:
-			locations.append({"lng": result.banner_longitude, "lat": result.banner_lattitude, "id":result.id})
-		# print( str( locations ) )
 
-	context = {
-		"products": products,
-		"sliders": sliders,
-		'form': form,
-		'result': results,
-		'all': all_banner,
-		'locations': locations
-	}
 
-	return render(request, template, context)
+		username = ""
+		userType = ""
+		if request.user.is_authenticated():
+			username = request.user.username
+			try:
+				Agency.objects.get(user = request.user)
+				userType = "Agency"
+			except Agency.DoesNotExist:
+				userType = "Buyer"
+		context = {
+			"products": products,
+			"sliders": sliders,
+			'form': form,
+			'result': results,
+			'all': all_banner,
+			'locations': locations,
+			'login_form':login_form,
+			'signup_form':signup_form,
+			'loginStatus':request.user.is_authenticated(),
+			'username':username,
+			'userType':userType
+		}
+
+		return render(request, template, context)
+
+	def post(self, request, *args, **kwargs):
+		try:
+			username = request.POST['username']
+			password = request.POST['password']
+			print(username + " " + password)
+			user = authenticate(username = username, password = password)
+			if user is not None:
+				try:
+					a = Agency.objects.get(user = user)
+					login(request, user)
+					request.session['isAgency'] = True
+					request.session['AgencyId'] = a.id
+					print("logged in as an agency")
+
+				except Agency.DoesNotExist:
+					login(request, user)
+					request.session['isAgency'] = False
+					print("logged in as a user")
+				return HttpResponseRedirect("/")
+			else:
+				print("galat daala")
+				return HttpResponseRedirect(reverse('auth_login'))
+		except Exception as e:
+			print(e)
+			return HttpResponseRedirect(reverse('auth_login'))
+
 
 def ham_honge_kamiyab(request):
 	if request.is_ajax():
@@ -152,12 +199,14 @@ class Signup(generic.edit.FormView):
 	def get(self, request, *args, **kwargs):
 		try:
 			form = self.form_class
-			if((request.session['inSession'] is False) or (request.session['inSession'] is None)):
+			if not request.user.is_authenticated():
 				return render(request, self.template_name, {'form':form})
 			#elif((request.session['adminSession'] is True)):
 			#	return HttpResponseRedirect(reverse('portal:adminPage'))
 			#else:
 			#	return HttpResponseRedirect(reverse('portal:index'))
+			else:
+				return HttpResponseRedirect("/")
 		except KeyError:
 			return render(request, self.template_name, {'form': form})
 
@@ -170,6 +219,8 @@ class Signup(generic.edit.FormView):
 			print("invalid")
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		new_user = form.save(commit=False)
+		password = request.POST['password1']
+		new_user.set_password(password)
 		try:
 			quer = User.objects.get(email=new_user.email)
 		except User.DoesNotExist:
@@ -188,23 +239,55 @@ class Signup(generic.edit.FormView):
 			return HttpResponseRedirect(reverse('auth_register'))
 
 
+
+def signup(request):
+	form = UserForm.form_class(request.POST)
+	if form.is_valid():
+		pass
+	else:
+		#messages.error(request,"Enter Correct Values In All The Fields")
+		print("invalid pagalpanti")
+		return HttpResponseRedirect("/")
+	new_user = form.save(commit=False)
+	password = request.POST['password1']
+	new_user.set_password(password)
+	try:
+		quer = User.objects.get(email=new_user.email)
+	except User.DoesNotExist:
+		try:
+			quer=User.objects.get(username=new_user.username)
+		except User.DoesNotExist:
+			new_user.save()
+			return HttpResponseRedirect("/")
+		else:
+			#messages.error(request, "The username or email already exists.")
+			print("invalid username already")
+			return HttpResponseRedirect(reverse('auth_register'))
+	else:
+		#messages.error(request, "The username or email already exists.")
+		print("invalid email already")
+		return HttpResponseRedirect(reverse('auth_register'))
+
+
 class SignupOwner(generic.edit.FormView):
-	form_class  = UserForm
-	template_name = 'signup.html'
+	form_user  = UserForm
+	form_agency = AgencyForm
+	template_name = 'signupAgency.html'
 	def get(self, request, *args, **kwargs):
 		try:
-			form = self.form_class
-			if((request.session['inSession'] is False) or (request.session['inSession'] is None)):
-				return render(request, self.template_name, {'form':form})
-			#elif((request.session['adminSession'] is True)):
-			#	return HttpResponseRedirect(reverse('portal:adminPage'))
-			#else:
-			#	return HttpResponseRedirect(reverse('portal:index'))
+			formUser = self.form_user
+			formAgency = self.form_agency
+			if not request.user.is_authenticated():
+				return render(request, self.template_name, {'form':formUser, 'agency':formAgency})
+			else:
+				return HttpResponseRedirect("/")
+
 		except KeyError:
-			return render(request, self.template_name, {'form': form})
+			return render(request, self.template_name, {'form':formUser, 'agency':formAgency})
 
 	def post(self, request, *args, **kwargs):
-		form = self.form_class(request.POST)
+		form = self.form_user(request.POST)
+		agency = self.form_agency(request.POST)
 		if form.is_valid():
 			pass
 		else:
@@ -212,6 +295,9 @@ class SignupOwner(generic.edit.FormView):
 			print("invalid")
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		new_user = form.save(commit=False)
+		password = request.POST['password1']
+		new_user.set_password(password)
+		new_agency = agency.save(commit = False)
 		try:
 			quer = User.objects.get(email=new_user.email)
 		except User.DoesNotExist:
@@ -220,8 +306,8 @@ class SignupOwner(generic.edit.FormView):
 			except User.DoesNotExist:
 				new_user.save()
 				print("bawal")
-				owner = Owners(user = new_user, owned = 5)
-				owner.save()
+				new_agency.user = new_user
+				new_agency.save()
 				return HttpResponseRedirect("/")
 			else:
 				#messages.error(request, "The username or email already exists.")
@@ -231,6 +317,60 @@ class SignupOwner(generic.edit.FormView):
 			#messages.error(request, "The username or email already exists.")
 			print("invalid email already")
 			return HttpResponseRedirect(reverse('auth_register_owner'))
+
+
+
+
+
+class LoginUsers(generic.edit.FormView):
+	form_class = LoginForm
+	template_name = 'userlogin.html'
+	def get(self, request, *args, **kwargs):
+		try:
+			form = self.form_class
+			if not request.user.is_authenticated():
+				print("chalega")
+				return render(request, self.template_name, {'form':form})
+			else:
+				return HttpResponseRedirect("/")
+			
+		except KeyError:
+			return render(request, self.template_name, {'form': form})
+
+	def post(self, request, *args, **kwargs):
+		try:
+			username = request.POST['username']
+			password = request.POST['password']
+			print(username + " " + password)
+			user = authenticate(username = username, password = password)
+			if user is not None:
+				try:
+					a = Agency.objects.get(user = user)
+					login(request, user)
+					request.session['isAgency'] = True
+					request.session['AgencyId'] = a.id
+					print("logged in as an agency")
+
+				except Agency.DoesNotExist:
+					login(request, user)
+					request.session['isAgency'] = False
+					print("logged in as a user")
+				return HttpResponseRedirect("/")
+			else:
+				print("galat daala")
+				return HttpResponseRedirect(reverse('auth_login'))
+		except Exception as e:
+			print(e)
+			return HttpResponseRedirect(reverse('auth_login'))
+
+
+def logoutUser(request):
+	request.session['isAgency'] = None
+	request.session['AgencyId'] = None
+	logout(request)
+	print("successfully logged out")
+	return HttpResponseRedirect("/")
+
 
 
 

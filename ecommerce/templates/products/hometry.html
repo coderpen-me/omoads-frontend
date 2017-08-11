@@ -122,15 +122,24 @@
                src="{% static 'resources/images/re-logo.png' %}"></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-        {% if not loginStatus %}
           <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% endif %}
-        {% if loginStatus %}
-          <li><a href="#">{{username}}</a></li>
-          <li><a href="#">{{userType}}</a></li>
-          <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
-        {% endif %}
+          <script type="text/javascript">
+              $(document).ready(function(){
+                $("#marketing-message-btn").click(function(){
+                  $.ajax({
+                    type: "GET",
+                    url: "{% url 'ham_honge_kamiyab' %}",
+                    data: {
+                    "csrfmiddlewaretoken": "{{ csrf_token }}",
+                    "id_point":String(this.id_try)
+          
+                    }
+                  });
+                });
+              });
+
+          </script>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="active"><a href="#">Home</a></li>
@@ -153,15 +162,14 @@
           <h3 class="modal-title" style="color: #fff;">LOGIN TO <span style="color: #ff6c00; font-weight: 500;">OMOADS</span></h3>
         </div>
         <div class="modal-body" style="background-color: #f7f7f7; padding-bottom: 0%;">
-          <form method = "POST">
-          {% csrf_token %}
+          <form method="POST">
             <div class="form-group">
               <label for="username">Username:</label>
-              {{ login_form.username }}
+                {{ form.username }}
             </div>
             <div class="form-group">
               <label for="pwd">Password:</label>
-              {{ login_form.password }}
+                {{ form.password }}
             </div>
             <div class="checkbox">
               <label><input type="checkbox"> Remember me</label>
@@ -189,28 +197,34 @@
           <h3 class="modal-title" style="color: #fff;">REGISTER TO <span style="color: #ff6c00; font-weight: 500;">OMOADS</span></h3>
         </div>
         <div class="modal-body" style="background-color: #f7f7f7; padding-bottom: 0%;">
-          <form action = "{% url 'auth_register2' %}" method = "post">
+          <form action="." method="GET">
           {% csrf_token %}
             <div class="form-group">
-              <label for="name">Username:</label>
-              {{signup_form.username}}
-              
+              <label for="name">Company Name:</label>
+              <input type="text" class="form-control" id="name" >
+            </div>
+            <div class="form-group">
+              <label for="pwd">Contact:</label>
+              <input type="text" class="form-control" id="phone" >
             </div>
             <div class="form-group">
               <label for="email">Email address:</label>
-              {{signup_form.email}}
-              
+              <input type="email" class="form-control" id="email" >
             </div>
             <div class="form-group">
               <label for="pwd">Enter Password:</label>
-              {{signup_form.password1}}
-              
+              <input type="password" class="form-control" id="pwd" >
+            </div>
+            <div class="form-group">
+              <label for="pwd">Confirm Password:</label>
+              <input type="password" class="form-control" id="pwd" >
             </div>
             <div class="checkbox">
               <label><input type="checkbox"> Remember me</label>
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-success" style="border-radius: 4px;">Sign Up</button>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#loginModal" style="border-radius: 4px;">Login</button>
             </div>
           </form>
         </div>
