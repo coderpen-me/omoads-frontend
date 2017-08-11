@@ -13,14 +13,10 @@ from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
 from .forms import *
-from .models import Product, ProductImage, Banner, Agency
+from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-
-
-
-
 
 def search(request):
 	try:
@@ -165,7 +161,7 @@ def ham_honge_kamiyab(request):
 
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
 
-		data = {"id" : str(b.id), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(b.banner_dimensions)}
+		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
 		json_data = json.dumps(data)
 
 		return HttpResponse(json_data, content_type='application/json')
@@ -189,9 +185,6 @@ def single(request, slug):
 		return render(request, template, context)
 	except:
 		raise Http404
-
-
-
 
 class Signup(generic.edit.FormView):
 	form_class  = UserForm
@@ -319,9 +312,6 @@ class SignupOwner(generic.edit.FormView):
 			return HttpResponseRedirect(reverse('auth_register_owner'))
 
 
-
-
-
 class LoginUsers(generic.edit.FormView):
 	form_class = LoginForm
 	template_name = 'userlogin.html'
@@ -370,9 +360,4 @@ def logoutUser(request):
 	logout(request)
 	print("successfully logged out")
 	return HttpResponseRedirect("/")
-
-
-
-
-
 

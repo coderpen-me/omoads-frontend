@@ -165,7 +165,7 @@ class Banner(models.Model):
 	banner_facing = models.CharField( max_length = 200,default= '0')
 	banner_type = models.CharField( max_length=100, choices = TYPE_CHOICES, default= 'gantry')
 	banner_lighted = models.CharField( max_length=100, choices = LIGHTED_CHOICES, default= 'n' )
-	banner_dimensions = models.CharField( max_length=100, choices = DIMENSION_CHOICES, default= '50x10')
+	banner_dimensions = models.CharField( max_length=100, choices = DIMENSION_CHOICES, default= '0')
 	banner_cost = models.DecimalField( max_digits = 12, decimal_places = 3 )
 	banner_lattitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_longitude = models.DecimalField( max_digits = 12, decimal_places = 9 )

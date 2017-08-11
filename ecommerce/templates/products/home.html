@@ -417,7 +417,8 @@
 				  $('#panelID').text(data["id"])
 				  $('#price').text(data["cost"])
 				  $('#MapLoc').text(data["lat"] + " / " + data["long"])
-				  $('#Dimensions').text(data["dim"])
+				  $('#dimensions').text(data["dim"])
+          $('#landmark').text(data["landmark"])
 				  },
 				  error: function(){
 					alert("Error! Something wrong. Please try again later")
@@ -508,23 +509,23 @@
             </tr>
             <tr class="even">
               <td class="key">Price:</td>
-                <td class="value" id = "price">INR 17500</td>
+                <td class="value" id = "price">loading...</td>
             </tr>
             <tr>
-              <td class="key">Location:</td>
-              <td class="value" id = "Location">Kavi Nagar</td>
+              <td class="key">Landmark:</td>
+              <td class="value" id = "landmark">loading...</td>
             </tr>
             <tr class="even">
               <td class="key">Lat/Long:</td>
-              <td class="value" id = "MapLoc">28.674377 / 77.455472 </td>
+              <td class="value" id = "MapLoc">loading...</td>
             </tr>
             <tr>
               <td class="key">Dimensions:</td>
-              <td class="value" id = "Dimensions">10'6" x 22'9"</td>
+              <td class="value" id = "dimensions">loading...</td>
             </tr>
             <tr class="even">
               <td class="key">Restrictions:</td>
-              <td class="value" id = "Restrictions">55 - Other,<br> 24 - Beverages - Liquors and Cordials</td>
+              <td class="value" id = "Restrictions">loading...</td>
             </tr>
           </tbody>
         </table>
