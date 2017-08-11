@@ -49,9 +49,9 @@ class UserForm(forms.ModelForm):#user form pre build class
 		fields = ['username', 'email', 'password1']
 
 class AgencyForm(forms.ModelForm):
-	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'name'}))
-	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'email'}))
-	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'pwd'}),min_length=6)
+	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_name...', 'id': 'name'}))
+	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_state...', 'id': 'email'}))
+	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_city...', 'id': 'pwd'}),min_length=6)
 	class Meta:
 		model = Agency
 		fields = ['agency_name', 'agency_state', 'agency_city']
