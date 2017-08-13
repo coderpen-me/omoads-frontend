@@ -1,0 +1,319 @@
+{% extends 'base1.html' %}
+
+
+{% block head_title %}
+Change Prices || 
+{% endblock %}
+
+{% block specific_cdns %}
+<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+{% endblock %}
+
+
+{% block main_area %}
+	<div class="col-sm-9 main-area">
+		<div class="top-filters">
+			<h3 class="filter-heading">Filters :</h3>
+      <div class="row">
+  			<div class="dropdown col-sm-4">
+  				<button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
+  					<span class="caret"></span></button>
+  					<ul class="dropdown-menu">
+  						<form class="zone-form">
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Hapur Road</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> RDC</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> G.T. Road</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Ambedkar Road</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Navyug Market</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Diamond Flyover</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Meerut Road</label>
+  							</div>
+  						</form>
+  					</ul>
+  			</div>
+
+        <div class="col-sm-8 select-all-button">
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeAllPrice">Change Price of All</button>
+        </div>
+      </div>
+		</div>
+
+    <!--Individual Price Change Modal-->
+
+    <div id="changeIndividualPrice" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Change Price</h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="daterange">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="newPrice" placeholder="New Price">
+              </div>
+            </form>
+            <script type="text/javascript">
+              $(function() {
+                $('input[name="daterange"]').daterangepicker();
+              });
+            </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#confirmation">Change Price</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--All Price Change Modal-->
+
+    <div id="changeAllPrice" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Change Price</h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="daterange">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="newPrice" placeholder="New Price">
+              </div>
+            </form>
+            <script type="text/javascript">
+              $(function() {
+                $('input[name="daterange"]').daterangepicker();
+              });
+            </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#confirmation">Change Price</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Confirmation Modal-->
+
+    <div id="confirmation" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <p>Confirm change in price?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+		<div class="pole-templates">
+             <div class="display-card">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                </div>
+                <div class="col-sm-9 pole-description">
+                  <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
+                  <div class="card-content">
+                    <p class="cont">Facing: IMS</p>
+                    <p class="cont">Pole ID: 0001-A</p>
+                    <p class="cont">Type: Gantry</p>
+                  </div>
+                  <p class="pole-price">&#8377 1,40,000
+                  <span>
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice" style="margin-left: 5px;">Change Price</button>  
+                  </span></p>
+                </div>
+                </div>
+                <div class="price-container-table">
+                  <table class="table table-striped price-table">
+                    <thead>
+                      <tr class="text-center">
+                        <th>1 Jan-15 Jan</th>
+                        <th>15 Jan-31 Jan</th>
+                        <th>1 Feb-15 Feb</th>
+                        <th>15 Feb-28 Feb</th>
+                        <th>1 Mar-15 Mar</th>
+                        <th>15 Mar-31 Mar</th>
+                        <th>1 Apr-15 Apr</th>
+                        <th>15 Apr-31 Apr</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="text-center">
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+             </div>
+
+             <div class="display-card">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                </div>
+                <div class="col-sm-9 pole-description">
+                  <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
+                  <div class="card-content">
+                    <p class="cont">Facing: IMS</p>
+                    <p class="cont">Pole ID: 0001-A</p>
+                    <p class="cont">Type: Gantry</p>
+                  </div>
+                  <p class="pole-price">&#8377 1,40,000<span><button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice">Change Price</button></span></p>
+                </div>
+                </div>
+                <div class="price-container-table">
+                  <table class="table table-striped price-table">
+                    <thead>
+                      <tr class="text-center">
+                        <th>1 Jan-15 Jan</th>
+                        <th>15 Jan-31 Jan</th>
+                        <th>1 Feb-15 Feb</th>
+                        <th>15 Feb-28 Feb</th>
+                        <th>1 Mar-15 Mar</th>
+                        <th>15 Mar-31 Mar</th>
+                        <th>1 Apr-15 Apr</th>
+                        <th>15 Apr-31 Apr</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="text-center">
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+             </div>
+
+             <div class="display-card">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                </div>
+                <div class="col-sm-9 pole-description">
+                  <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
+                  <div class="card-content">
+                    <p class="cont">Facing: IMS</p>
+                    <p class="cont">Pole ID: 0001-A</p>
+                    <p class="cont">Type: Gantry</p>
+                  </div>
+                  <p class="pole-price">&#8377 1,40,000<span><button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice">Change Price</button></span></p>
+                </div>
+                </div>
+                <div class="price-container-table">
+                  <table class="table table-striped price-table">
+                    <thead>
+                      <tr class="text-center">
+                        <th>1 Jan-15 Jan</th>
+                        <th>15 Jan-31 Jan</th>
+                        <th>1 Feb-15 Feb</th>
+                        <th>15 Feb-28 Feb</th>
+                        <th>1 Mar-15 Mar</th>
+                        <th>15 Mar-31 Mar</th>
+                        <th>1 Apr-15 Apr</th>
+                        <th>15 Apr-31 Apr</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="text-center">
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                        <td>&#8377 1,20,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+             </div>
+
+              
+    </div>
+
+
+				
+	</div>
+
+<script type="text/javascript">
+  $('#check-all').click(function() {
+    if ($('input[name=vehicle]:checked').length > 0) {
+
+      $('input[name=vehicle]').prop('checked', false  );
+      console.log("working checked true")
+  }
+  else{
+    $('input[name=vehicle]').prop('checked', true);
+      console.log("working checked false")
+    // document.getElementsByClassName("display-checkbox").style.backgroundColor = '#fff';
+  }
+}); 
+</script>
+
+{% endblock %}

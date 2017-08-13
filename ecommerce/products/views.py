@@ -353,6 +353,21 @@ class LoginUsers(generic.edit.FormView):
 			print(e)
 			return HttpResponseRedirect(reverse('auth_login'))
 
+def	adminInterface1(request):
+	return render(request, 'adminIndex.html', {})
+
+def	adminInterface2(request):
+	return render(request, 'book-hoarding.html', {})
+
+def	adminInterface3(request):
+	return render(request, 'cancel-booking.html', {})
+
+def	adminInterface4(request):
+	return render(request, 'change-price.html', {})
+
+def	adminInterface5(request):
+	return render(request, 'status.html', {})
+
 
 def logoutUser(request):
 	request.session['isAgency'] = None
