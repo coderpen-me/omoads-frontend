@@ -6,14 +6,14 @@ from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 
 from django.db.models import Q
-import json
+import json, time
 # Create your views here.
 
 from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
 from .forms import *
-from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES
+from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -141,12 +141,13 @@ class Home(generic.TemplateView):
 					request.session['isAgency'] = True
 					request.session['AgencyId'] = a.id
 					print("logged in as an agency")
+					return HttpResponseRedirect(reverse('owner_interface'))
 
 				except Agency.DoesNotExist:
 					login(request, user)
 					request.session['isAgency'] = False
 					print("logged in as a user")
-				return HttpResponseRedirect("/")
+					return HttpResponseRedirect("/")
 			else:
 				print("galat daala")
 				return HttpResponseRedirect(reverse('auth_login'))
@@ -340,12 +341,14 @@ class LoginUsers(generic.edit.FormView):
 					request.session['isAgency'] = True
 					request.session['AgencyId'] = a.id
 					print("logged in as an agency")
+					return HttpResponseRedirect(reverse('owner_interface'))
 
 				except Agency.DoesNotExist:
 					login(request, user)
 					request.session['isAgency'] = False
 					print("logged in as a user")
-				return HttpResponseRedirect("/")
+					return HttpResponseRedirect("/")
+				
 			else:
 				print("galat daala")
 				return HttpResponseRedirect(reverse('auth_login'))
@@ -376,3 +379,151 @@ def logoutUser(request):
 	print("successfully logged out")
 	return HttpResponseRedirect("/")
 
+
+class OwnerInterfaceHome(generic.TemplateView):
+	template_name = "adminIndex.html"
+	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+
+				username = request.user.username
+				a = Agency.objects.get(user = request.user)
+				userType = "Agency"
+				context = {
+					'loginStatus':True,
+					'username':username,
+					'userType':userType,
+					'details': Banner.objects.filter(agency=a)
+				}
+
+				return render(request, self.template_name, context)
+			else:
+				context = {}
+				print("u r not an agency")
+				#To-Do: Generate a msg
+				return HttpResponseRedirect("/")
+		else:
+			print("u need to login")
+			#To-Do: Generate a msg
+			return HttpResponseRedirect(reverse('auth_login'))
+
+class CancelBooking(generic.TemplateView):
+	template_name = "cancel-booking.html"
+	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+
+				username = request.user.username
+				a = Agency.objects.get(user = request.user)
+				userType = "Agency"
+				details = []
+				for banner in Banner.objects.filter(agency=a, banner_bookingStatus = True):
+					bd = banner.bookingdetails_set.get(active = True)
+					details.append({'banner':banner, 'bookingDate':bd.bookingDate, 'startDate':bd.startDate,
+								 'endDate':bd.endDate, 'bdID':bd.id})
+
+				context = {
+					'loginStatus':True,
+					'username':username,
+					'userType':userType,
+					'details':details	
+				}
+
+				return render(request, self.template_name, context)
+			else:
+				context = {}
+				print("u r not an agency")
+				return HttpResponseRedirect("/")
+				#To-Do: Generate a msg
+		else:
+			print("u need to login")
+			#To-Do: Generate a msg
+			return HttpResponseRedirect(reverse('auth_login'))
+
+
+
+class StatusBoards(generic.TemplateView):
+	template_name = "owner-interface/status.html"
+	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+
+				username = request.user.username
+				userType = "Agency"
+				context = {
+					'loginStatus':True,
+					'username':username,
+					'userType':userType
+				}
+
+				return render(request, self.template_name, context)
+			else:
+				context = {}
+				print("u r not an agency")
+				return HttpResponseRedirect("/")
+				#To-Do: Generate a msg
+		else:
+			print("u need to login")
+			#To-Do: Generate a msg
+			return HttpResponseRedirect(reverse('auth_login'))
+
+
+
+
+
+class BookHoardings(generic.TemplateView):
+	template_name = "book-hoarding.html"
+	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+
+				username = request.user.username
+				a = Agency.objects.get(user = request.user)
+				userType = "Agency"
+				context = {
+					'loginStatus':True,
+					'username':username,
+					'userType':userType,
+					'details': Banner.objects.filter(agency=a, banner_bookingStatus = False)
+				}
+
+				return render(request, self.template_name, context)
+			else:
+				context = {}
+				print("u r not an agency")
+				#To-Do: Generate a msg
+				return HttpResponseRedirect("/")
+		else:
+			print("u need to login")
+			#To-Do: Generate a msg
+			return HttpResponseRedirect(reverse('auth_login'))
+
+
+def bookBoards(request):
+	for boardID in request.POST.getlist('boards'):
+		print(boardID)
+		banner = Banner.objects.get(pk = boardID)
+		bd = banner.bookingdetails_set.create(bookingDate = time.strftime("%Y-%m-%d"),
+									startDate = request.POST['dateStart'], endDate = request.POST['dateEnd'],
+									numberDays = request.POST['days'], active = True)
+		bd.save()
+		banner.banner_bookingStatus = True
+		banner.save()
+
+	return HttpResponseRedirect(reverse('owner_interface'))
+
+
+def cancelBoard(request):
+	if request.is_ajax():
+		banner = Banner.objects.get(pk = request.POST['boardID'])
+		banner.banner_bookingStatus = False
+		banner.save()
+		bd = BookingDetails.objects.get(pk = request.POST['bdID'])
+		bd.active = False
+		bd.save()
+		data = {"success":True}
+		json_data = json.dumps(data)
+
+		return HttpResponse(json_data, content_type='application/json')
+	else:
+		Http404

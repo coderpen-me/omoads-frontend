@@ -61,217 +61,173 @@ Book Hoarding ||
             </div>
           </form>
           <script type="text/javascript">
-            $(function() {
-              $('input[name="daterange"]').daterangepicker();
-            });
-          </script>
+
+              var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterange"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateForm').val(start.format('YYYY-MM-DD'));
+                    $('#endDateForm').val(end.format('YYYY-MM-DD'));
+                    $('#daysForm').val(diff);
+                    console.log(diff)
+                    $('#bookHoarding').attr("disabled", false)
+                  });
+
+              });
+
+              </script>
         </div>
       </div>
     </div>
 
     <div class="col-sm-5 book-btn">
-      <button type="button" class="btn btn-primary pull-right" id="bookHoarding" data-toggle="modal" data-target="#bookingDetails"><span class="glyphicon glyphicon-shopping-cart"></span> Book   <span class="badge" id="badge-count">0</span></button>
+        <button type="button" class="btn btn-primary pull-right" id="bookHoarding" disabled = "true" data-toggle="modal" data-target="#bookingDetails"><span class="glyphicon glyphicon-shopping-cart"></span> Book   <span class="badge" id="badge-count">0</span></button>
+          
+        </div>
 
+      </div>
     </div>
 
-  </div>
-  </div>
+      
+    <div id="bookingDetails" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
-
-  <div id="bookingDetails" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title">Booking Details</h2>
-        </div>
-        <div class="modal-body">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Location</th>
-                <th>Pole ID</th>
-                <th>Facing</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Hapur Road, Near Hapur Chungi</td>
-                <td>002-A</td>
-                <td>IMS</td>
-              </tr>
-              <tr>
-                <td>Hapur Road, Near Hapur Chungi</td>
-                <td>002-A</td>
-                <td>IMS</td>
-              </tr>
-              <tr>
-                <td>Hapur Road, Near Hapur Chungi</td>
-                <td>002-A</td>
-                <td>IMS</td>
-              </tr>
-              <tr>
-                <td>Hapur Road, Near Hapur Chungi</td>
-                <td>002-A</td>
-                <td>IMS</td>
-              </tr>
-              <tr>
-                <td>Hapur Road, Near Hapur Chungi</td>
-                <td>002-A</td>
-                <td>IMS</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-shopping-cart"></span> Book</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-
-  <div class="pole-templates">
-    <form id="abc">
-      <div class="checkbox">
-        <label class="display-checkbox" style="padding-left: 0px; width: 100%;"><input type="checkbox" name="vehicle">
-         <div class="display-card">
-          <div class="row">
-            <div class="col-sm-3 pole-image">
-              <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-            </div>
-            <div class="col-sm-9 pole-description">
-              <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-              <div class="card-content">
-                <p class="cont">Facing: IMS</p>
-                <p class="cont">Pole ID: 0001-A</p>
-                <p class="cont">Type: Gantry</p>
-              </div>
-              <p class="pole-price">&#8377 1,40,000</p>
-            </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Booking Details</h2>
           </div>
-        </div> 
-      </label>
+          <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Pole ID</th>
+                  <th>Facing</th>
+                </tr>
+              </thead>
+              <tbody id = "cartBody">
+                
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id = "submitBoards"><span class="glyphicon glyphicon-shopping-cart"></span> Book</button>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <div class="checkbox">
-      <label class="display-checkbox" style="padding-left: 0px; width: 100%;"><input type="checkbox" name="vehicle">
-       <div class="display-card">
-        <div class="row">
-          <div class="col-sm-3 pole-image">
-            <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-          </div>
-          <div class="col-sm-9 pole-description">
-            <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-            <div class="card-content">
-              <p class="cont">Facing: IMS</p>
-              <p class="cont">Pole ID: 0001-A</p>
-              <p class="cont">Type: Gantry</p>
-            </div>
-            <p class="pole-price">&#8377 1,40,000</p>
-          </div>
-        </div>
-      </div> 
-    </label>
-  </div>
-
-  <div class="checkbox">
-    <label class="display-checkbox" style="padding-left: 0px; width: 100%;"><input type="checkbox" name="vehicle">
-     <div class="display-card">
-      <div class="row">
-        <div class="col-sm-3 pole-image">
-          <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-        </div>
-        <div class="col-sm-9 pole-description">
-          <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-          <div class="card-content">
-            <p class="cont">Facing: IMS</p>
-            <p class="cont">Pole ID: 0001-A</p>
-            <p class="cont">Type: Gantry</p>
-          </div>
-          <p class="pole-price">&#8377 1,40,000</p>
-        </div>
-      </div>
-    </div> 
-  </label>
-  </div>
-
-  <div class="checkbox">
-    <label class="display-checkbox" style="padding-left: 0px; width: 100%;"><input type="checkbox" name="vehicle">
-     <div class="display-card">
-      <div class="row">
-        <div class="col-sm-3 pole-image">
-          <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-        </div>
-        <div class="col-sm-9 pole-description">
-          <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-          <div class="card-content">
-            <p class="cont">Facing: IMS</p>
-            <p class="cont">Pole ID: 0001-A</p>
-            <p class="cont">Type: Gantry</p>
-          </div>
-          <p class="pole-price">&#8377 1,40,000</p>
-        </div>
-      </div>
-    </div> 
-  </label>
-  </div>
-
-  <div class="checkbox">
-    <label class="display-checkbox" style="padding-left: 0px; width: 100%;"><input type="checkbox" name="vehicle">
-     <div class="display-card">
-      <div class="row">
-        <div class="col-sm-3 pole-image">
-          <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-        </div>
-        <div class="col-sm-9 pole-description">
-          <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-          <div class="card-content">
-            <p class="cont">Facing: IMS</p>
-            <p class="cont">Pole ID: 0001-A</p>
-            <p class="cont">Type: Gantry</p>
-          </div>
-          <p class="pole-price">&#8377 1,40,000</p>
-        </div>
-      </div>
-    </div> 
-  </label>
-  </div>
-
-  <div class="checkbox">
-    <label class="display-checkbox" style="padding-left: 0px; width: 100%;"><input type="checkbox" name="vehicle">
-     <div class="display-card">
-      <div class="row">
-        <div class="col-sm-3 pole-image">
-          <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }} class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-        </div>
-        <div class="col-sm-9 pole-description">
-          <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-          <div class="card-content">
-            <p class="cont">Facing: IMS</p>
-            <p class="cont">Pole ID: 0001-A</p>
-            <p class="cont">Type: Gantry</p>
-          </div>
-          <p class="pole-price">&#8377 1,40,000</p>
-        </div>
-      </div>
-    </div> 
-  </label>
-  </div>
-  </form>
-  </div>
 
 
+    <div class="pole-templates">
+      <form id="bookBoards" method = "POST" action = "{% url 'owner_interface_book_board' %}">
+      {% csrf_token %}
+      {% for item in details %}
+        <div class="checkbox">
+          <label class="display-checkbox" style="padding-left: 0px; width: 100%;">
+          <input type="checkbox" name="boards" value = "{{item.id}}" id = "{{item.id}}">
 
+             <div class="display-card">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                </div>
+                <div class="col-sm-9 pole-description">
+                  <p class="card-heading cont">{{item.banner_landmark}}</p>
+                  <div class="card-content">
+                    <p class="cont">Facing: {{item.banner_facing}}</p>
+                    <p class="cont">Pole ID: {{item.id}}</p>
+                    <p class="cont">Type: {{item.banner_type}}</p>
+                  </div>
+                  <p class="pole-price">&#8377 {{item.banner_cost}}</p>
+                </div>
+                </div>
+            </div> 
+          </label>
+        </div>
+
+          <script>
+
+              var item = document.getElementById("{{item.id}}")
+              console.log("{{item.banner_facing}}");
+              item.face = "{{item.banner_facing}}"
+              item.landmark = "{{item.banner_landmark}}"  
+          </script>
+
+        {% endfor %}
+        <input type = "hidden" name = "dateStart" value = "" id = "startDateForm">
+        <input type = "hidden" name = "dateEnd" value = "" id = "endDateForm">
+        <input type = "hidden" name = "days" value = "" id = "daysForm">
+
+
+      </form>
+    </div>
+
+
+        
   </div>
-  <script type="text/javascript">
-    $('input[name=vehicle]').click(function(){
-      document.getElementById("badge-count").innerHTML=$('input[name=vehicle]:checked').length;
-    });
-  </script>
+</div>
+<script type="text/javascript">
+  
+  $('#submitBoards').click(function(){
+      $('#bookBoards').submit()
+  })
+
+
+  $('input[name=boards]').click(function(){
+  document.getElementById("badge-count").innerHTML=$('input[name=boards]:checked').length;
+
+  var checkedBoards = []
+  
+
+  if(this.checked == true)
+  {
+      checkedBoards.push(this.id)
+      var tr = document.createElement("tr");
+
+      var tdLandmark = document.createElement("td");
+      var tdId = document.createElement("td");
+      var tdFace = document.createElement("td");
+      var textNodeId = document.createTextNode(this.id);
+      var textNodeFace = document.createTextNode(this.face);
+      var textNodeLandmark = document.createTextNode(this.landmark);
+
+      tdLandmark.appendChild(textNodeLandmark);
+      tdId.appendChild(textNodeId);
+      tdFace.appendChild(textNodeFace);
+
+      tr.appendChild(tdLandmark);
+      tr.appendChild(tdId);
+      tr.appendChild(tdFace);
+
+      tr.id = "tr" + this.id
+
+      document.getElementById("cartBody").appendChild(tr);
+      console.log("haaas")
+  }
+  else
+  {
+    console.log("naaa")
+      checkedBoards.splice(checkedBoards.indexOf(this.id),1)
+      document.getElementById("cartBody").removeChild(document.getElementById("tr" + this.id));
+  }
+  console.log(checkedBoards)
+
+});
+</script>
 
 {% endblock %}

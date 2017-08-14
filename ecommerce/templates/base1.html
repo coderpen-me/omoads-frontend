@@ -143,6 +143,33 @@
    .cont{
    	margin-bottom: 3px;
    }
+
+
+      #bookBoards input[type=checkbox]{
+        display: none;
+      }
+      #bookBoards input[type=checkbox]:checked + .display-card{
+        background-color: #4CAF50;
+      }
+      #bookBoards input[type=checkbox] + .display-card{
+        background-color: #b0b0b0;
+      }
+      .date-container{
+        background-color: ;
+        padding: 0px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+      }
+      #bookHoarding{
+        margin-top: 6px;
+        margin-bottom: 6px;
+        padding-right: 30px;
+        padding-left: 30px;
+      }
+      .book-btn{
+        padding-right: 0px;
+      }
+
  </style>
 
 </head>
@@ -158,8 +185,15 @@
           <li><a href="#">About Us</a></li>
           <li><a href="#">Directions</a></li>
           <li><a href="#">Help</a></li>
+          {% if not loginStatus %}
           <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
+        {% if loginStatus %}
+          <li><a href="#">{{username}}</a></li>
+          <li><a href="#">{{userType}}</a></li>
+          <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
+        {% endif %}
         </ul>
       </div>
     </nav>
@@ -168,11 +202,11 @@
 	<div class="col-sm-3 side-bar">
 		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
 		<div class="list-group">
-            <a href="#" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
+             <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
             <a href="change-price.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
-            <a href="book-hoarding.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
-            <a href="status.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>
-            <a href="cancel-booking.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>
+            <a href="{% url 'owner_interface_book' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
+            <a href="{% url 'owner_interface_status' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>  
+            <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>
          </div>
 	</div>
 

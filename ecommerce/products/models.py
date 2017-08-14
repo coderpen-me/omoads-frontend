@@ -161,7 +161,7 @@ class Agency(models.Model):
 
 
 class Banner(models.Model):
-	agency_id = models.ForeignKey(Agency, on_delete=models.CASCADE)
+	agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
 	banner_facing = models.CharField( max_length = 200,default= '0')
 	banner_type = models.CharField( max_length=100, choices = TYPE_CHOICES, default= 'gantry')
 	banner_lighted = models.CharField( max_length=100, choices = LIGHTED_CHOICES, default= 'n' )
@@ -172,8 +172,22 @@ class Banner(models.Model):
 	banner_landmark = models.CharField( max_length = 200 )
 	banner_status = models.CharField( max_length=100, choices = STATUS_CHOICES, default= 'available')
 	banner_image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,default='omoads/Image/banner1.jpg')
+	banner_bookingStatus = models.BooleanField(default= False)
 
 
 	def __str__(self):
 		return '%s %s %s %s %s %s' % (self.id, self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
 
+
+class BookingDetails(models.Model):
+	banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+	bookingDate = models.DateField()
+	startDate = models.DateField()
+	endDate = models.DateField()
+	numberDays = models.IntegerField()
+	active = models.BooleanField(default = False)
+	def changeBannerBookingStatus(self):
+		self.banner.banner_bookingStatus = True
+		self.banner.save()
+	def __str__(self):
+		return '%s %s' % (self.banner.id, self.bookingDate)

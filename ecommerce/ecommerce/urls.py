@@ -41,6 +41,16 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'products.views.logoutUser', name='auth_logout'),
     url(r'^login/$', views.LoginUsers.as_view(), name='auth_login'),
 
+
+
+    url(r'^owner/home/$', views.OwnerInterfaceHome.as_view(), name='owner_interface'),
+    url(r'^owner/book/$', views.BookHoardings.as_view(), name='owner_interface_book'),
+    url(r'^owner/cancel/$', views.CancelBooking.as_view(), name='owner_interface_cancel'),
+    url(r'^owner/status/$', views.StatusBoards.as_view(), name='owner_interface_status'),
+
+    url(r'^owner/book/confirm$', 'products.views.bookBoards', name='owner_interface_book_board'),
+    url(r'^owner/book/cancel$', 'products.views.cancelBoard', name='owner_interface_cancel_board'),
+
     url(r'^admin/', include(admin.site.urls)),
     
     

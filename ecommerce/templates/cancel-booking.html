@@ -1,9 +1,7 @@
 {% extends 'base1.html' %}
 
 
-{% block head_title %}
-Cancel Booking || 
-{% endblock %}
+
 
 
 {% block main_area %}
@@ -41,7 +39,7 @@ Cancel Booking ||
 			</div>
 		</div>
 
-		<div class="booking-history">
+	   <div class="booking-history">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -55,72 +53,50 @@ Cancel Booking ||
           </tr>
         </thead>
         <tbody>
-          <tr>
-          <td style="padding-top: 15px; padding-bottom: 15px;">Hapur Road, Near Hapur Chungi</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">IMS</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">001-A</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">27/07/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">15/08/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">30/08/2017</td>
-          <td style="padding-top: 10px; padding-bottom: 5px;"><button type="button" class="btn btn-danger" style="margin: ;">Cancel</button></td>
+          {% for item in details %}
+          <tr id = "{{item.bdID}}">
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_landmark}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_facing}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.id}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.bookingDate}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.startDate}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.endDate}}</td>
+          <td style="padding-top: 10px; padding-bottom: 5px;">
+          <button type="button" class="btn btn-danger" id = "{{item.banner.id}}" style="margin: ;">Cancel</button></td>
           </tr>
+          <script type="text/javascript">
 
-          <tr>
-          <td style="padding-top: 15px; padding-bottom: 15px;">Hapur Road, Near Hapur Chungi</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">IMS</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">001-A</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">27/07/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">15/08/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">30/08/2017</td>
-          <td style="padding-top: 10px; padding-bottom: 5px;"><button type="button" class="btn btn-danger" style="margin: ;">Cancel</button></td>
-          </tr>
+            var item = document.getElementById("{{item.banner.id}}")
+            item.bdID = "{{item.bdID}}"
+            console.log(item.bdID)
+           item.onclick = function(){
+              $.ajax({
+                  type: "POST",
+                  url: "{% url 'owner_interface_cancel_board' %}",
+                  data: {
+                  "csrfmiddlewaretoken": "{{ csrf_token }}",
+                  "boardID":this.id,
+                  "bdID":this.bdID
+                  },
+                  success: function(data){
+                    var tr = document.getElementById("{{item.bdID}}")
+                    tr.parentNode.removeChild(tr)
 
-          <tr>
-          <td style="padding-top: 15px; padding-bottom: 15px;">Hapur Road, Near Hapur Chungi</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">IMS</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">001-A</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">27/07/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">15/08/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">30/08/2017</td>
-          <td style="padding-top: 10px; padding-bottom: 5px;"><button type="button" class="btn btn-danger" style="margin: ;">Cancel</button></td>
-          </tr>
+                  },
+                  error: function(){
+                  alert("Error! Something wrong. Please try again later")
+                  },
+              });
+            }
+          </script>
+        {% endfor %}
 
-          <tr>
-          <td style="padding-top: 15px; padding-bottom: 15px;">Hapur Road, Near Hapur Chungi</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">IMS</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">001-A</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">27/07/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">15/08/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">30/08/2017</td>
-          <td style="padding-top: 10px; padding-bottom: 5px;"><button type="button" class="btn btn-danger" style="margin: ;">Cancel</button></td>
-          </tr>
-
-          <tr>
-          <td style="padding-top: 15px; padding-bottom: 15px;">Hapur Road, Near Hapur Chungi</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">IMS</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">001-A</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">27/07/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">15/08/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">30/08/2017</td>
-          <td style="padding-top: 10px; padding-bottom: 5px;"><button type="button" class="btn btn-danger" style="margin: ;">Cancel</button></td>
-          </tr>
-
-          <tr>
-          <td style="padding-top: 15px; padding-bottom: 15px;">Hapur Road, Near Hapur Chungi</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">IMS</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">001-A</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">27/07/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">15/08/2017</td>
-          <td style="padding-top: 15px; padding-bottom: 15px;">30/08/2017</td>
-          <td style="padding-top: 10px; padding-bottom: 5px;"><button type="button" class="btn btn-danger" style="margin: ;">Cancel</button></td>
-          </tr>
-
+          
         </tbody>
       </table>
     </div>
 
 
 
-				
-	</div>
+</div>
 {% endblock %}

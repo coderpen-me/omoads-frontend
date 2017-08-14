@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+     
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+<style type="text/css">
+  html,body{
+    height: 100%;
+    margin: 0px;
+    overflow-y: ;
+  }
+  .navbar{
+    background-color: #1c1c1c;
+  }
+  .navigationBar{
+    margin: 0px;
+    border-radius: 0px;
+    border-width: 0px;
+    
+    }
+    .container-fluid{
+    	padding-left: 0px;
+    	height: calc(100% - 50px); 
+    }
+   .side-bar{
+   	background-color: #1c1c1c;
+   	height: 100%;
+   	padding-top: 15px;
+   	padding-left: 0px;
+   	padding-right: 0px;
+   }
+   .list-group-item{
+   	background-color: #1c1c1c;
+   	color: #b0b0b0;
+   	padding-top: 15px;
+   	padding-bottom: 15px;
+   	border-width: 0px;
+   	font-size: 14px;
+   	padding-left: 30px;
+   }
+   .glyphicon{
+   	padding-right: 5px;
+   }
+   .list-group-item:hover {
+    background-color: #000;
+    color: #fff;
+   }
+   .side-active{
+   	background-color: #000;
+   	color: #fff;
+   }
+   .main-area{
+   	padding-top: 5px;
+   	padding-bottom: 5px;
+   	height: 100%;
+   	overflow: auto;
+   }
+   .display-card{
+   	background-color: #b0b0b0;
+   	padding-top: 10px;
+   	padding-bottom: 10px;
+   	padding-left: 10px;
+   	margin-top: 5px;
+   	margin-bottom: 5px;
+   	border-radius: 5px;
+   }
+   .key{
+   	padding: 2px;
+   	font-weight: bold;
+   	padding-right: 10px;
+   }
+   .value{
+   	padding: 2px;
+   	padding-left: 10px;
+   	padding-right: 10px;
+   }
+   .top-filters{
+   	border-bottom: 1px solid #000;
+   	padding-top: 5px;
+   	padding-bottom: 5px;
+   	margin-bottom: 10px;
+   }
+   .zone-filter{
+   	padding-left: 50px;
+   	padding-right: 50px;
+   	background-color: #ff6c00;
+   	color: #fff;
+   	margin-top: 5px;
+   	margin-bottom: 5px;
+   }
+   .zone-filter:hover{
+   	background-color: #ff6c00;
+   	color: #fff;
+   	border-width: ;
+   }
+   .zone-filter:active{
+   	background-color: #ff6c00;
+   	color: #fff;
+   	border-width: ;
+   }
+   .zone-form{
+   	padding-left: 10px;
+   }
+   .filter-heading{
+   	margin-top: 0px;
+   	margin-bottom: 5px;
+   }
+   .select-all-button{
+    padding-left: 0px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding-right: 0px;
+   }
+   .row{
+   	margin: 0px;
+   }
+   .filter-row{
+    padding-bottom: 0px;
+   }
+   .pole-image{
+   	padding: 0px;
+   	padding-left: 15px;
+   }
+   .pole-description{
+   	padding: 0px;
+   }
+   .card-heading{
+   	font-size: 20px;
+   	font-weight: bold;
+   }
+   .card-content{
+   	font-size: 13px;
+   	padding-top: 10px;
+   }
+   .pole-price{
+   	font-size: 25px;
+   	color: #fff;
+   	padding-top: 10px;
+   	margin-bottom: 0px;
+   }
+   .cont{
+   	margin-bottom: 3px;
+   }
+   .dropdown{
+    padding: 0px;
+   }
+   #bookBoards input[type=checkbox]{
+    display: none;
+  }
+  #bookBoards input[type=checkbox]:checked + .display-card{
+    background-color: #4CAF50;
+  }
+  #bookBoards input[type=checkbox] + .display-card{
+    background-color: #b0b0b0;
+  }
+  .date-container{
+    background-color: ;
+    padding: 0px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  #bookHoarding{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+  .book-btn{
+    padding-right: 0px;
+  }
+ </style>
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse navigationBar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="padding: 15Px; padding-left: 45px;">O M O A D S</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Directions</a></li>
+          <li><a href="#">Help</a></li>
+          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+<div class="container-fluid">
+	<div class="col-sm-3 side-bar">
+		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
+		<div class="list-group">
+            <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
+            <a href="change-price.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
+            <a href="#" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>	
+            <a href="status.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>
+            <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>
+         </div>
+	</div>
+
+	<div class="col-sm-9 main-area">
+		<div class="top-filters">
+			<h3 class="filter-heading">Filters :</h3>
+      <div class="row filter-row">
+  			<div class="dropdown col-sm-3">
+  				<button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
+  					<span class="caret"></span></button>
+  					<ul class="dropdown-menu">
+  						<form class="zone-form">
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Hapur Road</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> RDC</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> G.T. Road</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Ambedkar Road</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Navyug Market</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Diamond Flyover</label>
+  							</div>
+  							<div class="checkbox">
+  								<label><input type="checkbox"> Meerut Road</label>
+  							</div>
+  						</form>
+  					</ul>
+  			</div>
+
+        <div class="col-sm-4 date-container">
+          <div class="row">
+            <div class="col-sm-12" style="padding-right: 0px;">
+              <form>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="daterange">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+              </form>
+              <script type="text/javascript">
+
+              var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterange"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateForm').val(start.format('YYYY-MM-DD'));
+                    $('#endDateForm').val(end.format('YYYY-MM-DD'));
+                    $('#daysForm').val(diff);
+                    console.log(diff)
+                    $('#bookHoarding').attr("disabled", false)
+                  });
+
+              });
+
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 book-btn">
+        <button type="button" class="btn btn-primary pull-right" id="bookHoarding" disabled = "true" data-toggle="modal" data-target="#bookingDetails"><span class="glyphicon glyphicon-shopping-cart"></span> Book   <span class="badge" id="badge-count">0</span></button>
+          
+        </div>
+
+      </div>
+		</div>
+
+		  
+    <div id="bookingDetails" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Booking Details</h2>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Pole ID</th>
+                  <th>Facing</th>
+                </tr>
+              </thead>
+              <tbody id = "cartBody">
+                
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id = "submitBoards"><span class="glyphicon glyphicon-shopping-cart"></span> Book</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="pole-templates">
+      <form id="bookBoards" method = "POST" action = "{% url 'owner_interface_book_board' %}">
+      {% csrf_token %}
+      {% for item in details %}
+        <div class="checkbox">
+          <label class="display-checkbox" style="padding-left: 0px; width: 100%;">
+          <input type="checkbox" name="boards" value = "{{item.id}}" id = "{{item.id}}">
+
+             <div class="display-card">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                </div>
+                <div class="col-sm-9 pole-description">
+                  <p class="card-heading cont">{{item.banner_landmark}}</p>
+                  <div class="card-content">
+                    <p class="cont">Facing: {{item.banner_facing}}</p>
+                    <p class="cont">Pole ID: {{item.id}}</p>
+                    <p class="cont">Type: {{item.banner_type}}</p>
+                  </div>
+                  <p class="pole-price">&#8377 {{item.banner_cost}}</p>
+                </div>
+                </div>
+            </div> 
+          </label>
+        </div>
+
+          <script>
+
+              var item = document.getElementById("{{item.id}}")
+              console.log("{{item.banner_facing}}");
+              item.face = "{{item.banner_facing}}"
+              item.landmark = "{{item.banner_landmark}}"  
+          </script>
+
+        {% endfor %}
+        <input type = "hidden" name = "dateStart" value = "" id = "startDateForm">
+        <input type = "hidden" name = "dateEnd" value = "" id = "endDateForm">
+        <input type = "hidden" name = "days" value = "" id = "daysForm">
+
+
+      </form>
+    </div>
+
+
+				
+	</div>
+</div>
+<script type="text/javascript">
+  
+  $('#submitBoards').click(function(){
+      $('#bookBoards').submit()
+  })
+
+
+  $('input[name=boards]').click(function(){
+  document.getElementById("badge-count").innerHTML=$('input[name=boards]:checked').length;
+
+  var checkedBoards = []
+  
+
+  if(this.checked == true)
+  {
+      checkedBoards.push(this.id)
+      var tr = document.createElement("tr");
+
+      var tdLandmark = document.createElement("td");
+      var tdId = document.createElement("td");
+      var tdFace = document.createElement("td");
+      var textNodeId = document.createTextNode(this.id);
+      var textNodeFace = document.createTextNode(this.face);
+      var textNodeLandmark = document.createTextNode(this.landmark);
+
+      tdLandmark.appendChild(textNodeLandmark);
+      tdId.appendChild(textNodeId);
+      tdFace.appendChild(textNodeFace);
+
+      tr.appendChild(tdLandmark);
+      tr.appendChild(tdId);
+      tr.appendChild(tdFace);
+
+      tr.id = "tr" + this.id
+
+      document.getElementById("cartBody").appendChild(tr);
+      console.log("haaas")
+  }
+  else
+  {
+    console.log("naaa")
+      checkedBoards.splice(checkedBoards.indexOf(this.id),1)
+      document.getElementById("cartBody").removeChild(document.getElementById("tr" + this.id));
+  }
+  console.log(checkedBoards)
+
+});
+</script>
+
+</body>
+</html>

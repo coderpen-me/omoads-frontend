@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+  html,body{
+    height: 100%;
+    margin: 0px;
+    overflow-y: ;
+  }
+  .navbar{
+    background-color: #1c1c1c;
+  }
+  .navigationBar{
+    margin: 0px;
+    border-radius: 0px;
+    border-width: 0px;
+    
+    }
+    .container-fluid{
+    	padding-left: 0px;
+    	height: calc(100% - 50px); 
+    }
+   .side-bar{
+   	background-color: #1c1c1c;
+   	height: 100%;
+   	padding-top: 15px;
+   	padding-left: 0px;
+   	padding-right: 0px;
+   }
+   .list-group-item{
+   	background-color: #1c1c1c;
+   	color: #b0b0b0;
+   	padding-top: 15px;
+   	padding-bottom: 15px;
+   	border-width: 0px;
+   	font-size: 14px;
+   	padding-left: 30px;
+   }
+   .glyphicon{
+   	padding-right: 5px;
+   }
+   .list-group-item:hover {
+    background-color: #000;
+    color: #fff;
+   }
+   .side-active{
+   	background-color: #000;
+   	color: #fff;
+   }
+   .main-area{
+   	padding-top: 5px;
+   	padding-bottom: 5px;
+   	height: 100%;
+   	overflow: auto;
+   }
+   .display-card{
+   	background-color: #b0b0b0;
+   	padding-top: 10px;
+   	padding-bottom: 10px;
+   	padding-left: 10px;
+   	margin-top: 7px;
+   	margin-bottom: 7px;
+   	border-radius: 5px;
+   }
+   .key{
+   	padding: 2px;
+   	font-weight: bold;
+   	padding-right: 10px;
+   }
+   .value{
+   	padding: 2px;
+   	padding-left: 10px;
+   	padding-right: 10px;
+   }
+   .top-filters{
+   	border-bottom: 1px solid #000;
+   	padding-top: 5px;
+   	padding-bottom: 5px;
+   	margin-bottom: 10px;
+   }
+   .zone-filter{
+   	padding-left: 50px;
+   	padding-right: 50px;
+   	background-color: #ff6c00;
+   	color: #fff;
+   	margin-top: 5px;
+   	margin-bottom: 5px;
+   }
+   .zone-filter:hover{
+   	background-color: #ff6c00;
+   	color: #fff;
+   	border-width: ;
+   }
+   .zone-filter:active{
+   	background-color: #ff6c00;
+   	color: #fff;
+   	border-width: ;
+   }
+   .zone-form{
+   	padding-left: 10px;
+   }
+   .filter-heading{
+   	margin-top: 0px;
+   	margin-bottom: 5px;
+   }
+   .row{
+   	margin: 0px;
+   }
+   .pole-image{
+   	padding: 0px;
+   	padding-left: 15px;
+   }
+   .pole-description{
+   	padding: 0px;
+   }
+   .card-heading{
+   	font-size: 20px;
+   	font-weight: bold;
+   }
+   .card-content{
+   	font-size: 13px;
+   	padding-top: 10px;
+   }
+   .pole-price{
+   	font-size: 25px;
+   	color: #ff6c00;
+   	padding-top: 10px;
+   	margin-bottom: 0px;
+   }
+   .cont{
+   	margin-bottom: 3px;
+   }
+ </style>
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse navigationBar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="padding: 15Px; padding-left: 45px;">O M O A D S</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Directions</a></li>
+          <li><a href="#">Help</a></li>
+          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+<div class="container-fluid">
+	<div class="col-sm-3 side-bar">
+		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
+		<div class="list-group">
+            <a href="index.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
+            <a href="change-price.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
+            <a href="book-hoarding.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>	
+            <a href="#" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>
+            <a href="cancel-booking.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a> 
+         </div>
+	</div>
+
+	<div class="col-sm-9 main-area">
+		<div class="top-filters">
+			<h3 class="filter-heading">Filters :</h3>
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<form class="zone-form">
+							<div class="checkbox">
+								<label><input type="checkbox"> Hapur Road</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox"> RDC</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox"> G.T. Road</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox"> Ambedkar Road</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox"> Navyug Market</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox"> Diamond Flyover</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox"> Meerut Road</label>
+							</div>
+						</form>
+					</ul>
+			</div>
+		</div>
+
+    <div class="status-container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 30%;">Hoarding</th>
+            <th class="text-center">Jan</th>
+            <th class="text-center">Feb</th>
+            <th class="text-center">Mar</th>
+            <th class="text-center">Apr</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:50%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:25%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;1 March, 2017 - 31 March, 2017"> 
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:37.25%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:25%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:37.75%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:15%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:35%">               
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:15%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">        
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:15%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom: 20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:50%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:50%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:25%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;1 March, 2017 - 31 March, 2017"> 
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:37.25%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:25%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:37.75%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:15%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:35%">               
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:15%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">        
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:15%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom: 20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:50%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:50%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:25%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;1 March, 2017 - 31 March, 2017"> 
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:37.25%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:25%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:37.75%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom:20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:15%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:35%">               
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:15%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">        
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:15%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Hapur Road, Near Hapur Chungi</td>
+            <td colspan="4" style="padding: 0px; padding-top: 20px; padding-bottom: 20px;">
+              <div class="progress" style="margin: 0px;">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:50%" data-toggle="tooltip" title="Price: &#8377 1,40,000 &#10;14  Feb, 2017 - 15 March, 2017">
+                </div>
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:25%">               
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          
+        </tbody>
+      </table>
+      
+    </div>
+    		
+
+
+	</div>
+</div>
+</body>
+</html>
