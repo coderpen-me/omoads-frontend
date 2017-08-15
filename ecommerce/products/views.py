@@ -12,8 +12,11 @@ import json, time
 from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
+
 from .forms import *
 from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod
+
+
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -162,8 +165,7 @@ def onclickMapPoints(request):
 		
 
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
-
-		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
+		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "url": str(b.banner_image), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
 		json_data = json.dumps(data)
 
 		return HttpResponse(json_data, content_type='application/json')
@@ -444,7 +446,7 @@ class CancelBooking(generic.TemplateView):
 
 
 class StatusBoards(generic.TemplateView):
-	template_name = "owner-interface/status.html"
+	template_name = "status.html"
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
 			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
@@ -480,7 +482,7 @@ class PriceBoards(generic.TemplateView):
 				details = []
 				for banner in Banner.objects.filter(agency=a):
 
-					details.append({'banner':banner, 'price_set':banner.priceperiod_set.all().order_by('-id')[:8][::-1]})
+					details.append({'banner':banner, 'price_set':banner.priceperiod_set.all().order_by('-startDate')[:4][::-1]})
 
 
 				userType = "Agency"
@@ -571,8 +573,11 @@ def addIndiPrice(request):
 	endDateParsed = datetime.datetime.strptime(request.POST['dateEnd'], "%Y-%m-%d").date()
 
 	price_set = banner.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
-	book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, endDate__lte = endDateParsed)
-	if len(book_set) == 0:
+
+	book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, startDate__lte = endDateParsed, active = True)
+	book_set_2 = banner.bookingdetails_set.filter(endDate__gte = startDateParsed, endDate__lte = endDateParsed, active = True)
+	book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
+	if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
 		for price in price_set:
 			if (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
 				price.endDate = (startDateParsed - datetime.timedelta(days=1))
