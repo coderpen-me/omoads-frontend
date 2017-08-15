@@ -203,7 +203,7 @@
 		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
 		<div class="list-group">
              <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
-            <a href="change-price.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
+            <a href="{% url 'owner_interface_price' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
             <a href="{% url 'owner_interface_book' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
             <a href="{% url 'owner_interface_status' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>  
             <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>

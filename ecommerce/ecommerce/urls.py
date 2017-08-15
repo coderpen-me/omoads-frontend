@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^ajax/dismiss_marketing_message/$', 'marketing.views.dismiss_marketing_message', name='dismiss_marketing_message'),
     url(r'^ajax/email_signup/$', 'marketing.views.email_signup', name='ajax_email_signup'),
     url(r'^ajax/add_user_address/$', 'accounts.views.add_user_address', name='ajax_add_user_address'),
-    url(r'^ajax/ham_honge_kamiyab/$', 'products.views.ham_honge_kamiyab', name='ham_honge_kamiyab'),
+    url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
 
     # url(r'^blog/', include('blog.urls')),
     #(?P<all_items>.*)
@@ -47,9 +47,11 @@ urlpatterns = patterns('',
     url(r'^owner/book/$', views.BookHoardings.as_view(), name='owner_interface_book'),
     url(r'^owner/cancel/$', views.CancelBooking.as_view(), name='owner_interface_cancel'),
     url(r'^owner/status/$', views.StatusBoards.as_view(), name='owner_interface_status'),
+    url(r'^owner/price/$', views.PriceBoards.as_view(), name='owner_interface_price'),
 
     url(r'^owner/book/confirm$', 'products.views.bookBoards', name='owner_interface_book_board'),
-    url(r'^owner/book/cancel$', 'products.views.cancelBoard', name='owner_interface_cancel_board'),
+    url(r'^owner/cancel/cancel$', 'products.views.cancelBoard', name='owner_interface_cancel_board'),
+    url(r'^owner/price/add$', 'products.views.addIndiPrice', name='owner_interface_add_new_price_indi'),
 
     url(r'^admin/', include(admin.site.urls)),
     
