@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,164 +14,9 @@
 
     {% block specific_css %}
     {% endblock %}
+    
+    <link rel="stylesheet" href="{% static 'css/baseOwnerInterface.css' %}">
 
-<style type="text/css">
-  html,body{
-    height: 100%;
-    margin: 0px;
-    overflow-y: ;
-  }
-  .navbar{
-    background-color: #1c1c1c;
-  }
-  .navigationBar{
-    margin: 0px;
-    border-radius: 0px;
-    border-width: 0px;
-
-    }
-    .container-fluid{
-    	padding-left: 0px;
-    	height: calc(100% - 50px);
-    }
-   .side-bar{
-   	background-color: #1c1c1c;
-   	height: 100%;
-   	padding-top: 15px;
-   	padding-left: 0px;
-   	padding-right: 0px;
-   }
-   .list-group-item{
-   	background-color: #1c1c1c;
-   	color: #b0b0b0;
-   	padding-top: 15px;
-   	padding-bottom: 15px;
-   	border-width: 0px;
-   	font-size: 14px;
-   	padding-left: 30px;
-   }
-   .glyphicon{
-   	padding-right: 5px;
-   }
-   .list-group-item:hover {
-    background-color: #000;
-    color: #fff;
-   }
-   .side-active{
-   	background-color: #000;
-   	color: #fff;
-   }
-   .main-area{
-   	padding-top: 5px;
-   	padding-bottom: 5px;
-   	height: 100%;
-   	overflow: auto;
-   }
-   .display-card{
-   	background-color: #b0b0b0;
-   	padding-top: 10px;
-   	padding-bottom: 10px;
-   	padding-left: 10px;
-   	margin-top: 7px;
-   	margin-bottom: 7px;
-   	border-radius: 5px;
-   }
-   .key{
-   	padding: 2px;
-   	font-weight: bold;
-   	padding-right: 10px;
-   }
-   .value{
-   	padding: 2px;
-   	padding-left: 10px;
-   	padding-right: 10px;
-   }
-   .top-filters{
-   	border-bottom: 1px solid #000;
-   	padding-top: 5px;
-   	padding-bottom: 5px;
-   	margin-bottom: 10px;
-   }
-   .zone-filter{
-   	padding-left: 50px;
-   	padding-right: 50px;
-   	background-color: #ff6c00;
-   	color: #fff;
-   	margin-top: 5px;
-   	margin-bottom: 5px;
-   }
-   .zone-filter:hover{
-   	background-color: #ff6c00;
-   	color: #fff;
-   	border-width: ;
-   }
-   .zone-filter:active{
-   	background-color: #ff6c00;
-   	color: #fff;
-   	border-width: ;
-   }
-   .zone-form{
-   	padding-left: 10px;
-   }
-   .filter-heading{
-   	margin-top: 0px;
-   	margin-bottom: 5px;
-   }
-   .row{
-   	margin: 0px;
-   }
-   .pole-image{
-   	padding: 0px;
-   	padding-left: 15px;
-   }
-   .pole-description{
-   	padding: 0px;
-   }
-   .card-heading{
-   	font-size: 20 px;
-   	font-weight: bold;
-   }
-   .card-content{
-   	font-size: 13px;
-   	padding-top: 10px;
-   }
-   .pole-price{
-   	font-size: 25px;
-   	color: #ff6c00;
-   	padding-top: 10px;
-   	margin-bottom: 0px;
-   }
-   .cont{
-   	margin-bottom: 3px;
-   }
-
-
-      #bookBoards input[type=checkbox]{
-        display: none;
-      }
-      #bookBoards input[type=checkbox]:checked + .display-card{
-        background-color: #4CAF50;
-      }
-      #bookBoards input[type=checkbox] + .display-card{
-        background-color: #b0b0b0;
-      }
-      .date-container{
-        background-color: ;
-        padding: 0px;
-        margin-top: 6px;
-        margin-bottom: 6px;
-      }
-      #bookHoarding{
-        margin-top: 6px;
-        margin-bottom: 6px;
-        padding-right: 30px;
-        padding-left: 30px;
-      }
-      .book-btn{
-        padding-right: 0px;
-      }
-
- </style>
 
 </head>
 <body>
@@ -203,7 +49,7 @@
 		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
 		<div class="list-group">
              <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
-            <a href="change-price.html" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
+            <a href="#" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
             <a href="{% url 'owner_interface_book' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
             <a href="{% url 'owner_interface_status' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>  
             <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>

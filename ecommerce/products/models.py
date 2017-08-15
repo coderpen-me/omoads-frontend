@@ -162,7 +162,7 @@ class Agency(models.Model):
 
 class Banner(models.Model):
 	agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
-	banner_facing = models.CharField( max_length = 200,default= '0')
+	banner_facing = models.CharField( max_length = 200,default= 'Facing IMS')
 	banner_type = models.CharField( max_length=100, choices = TYPE_CHOICES, default= 'gantry')
 	banner_lighted = models.CharField( max_length=100, choices = LIGHTED_CHOICES, default= 'n' )
 	banner_dimensions = models.CharField( max_length=100, choices = DIMENSION_CHOICES, default= '0')
@@ -173,6 +173,7 @@ class Banner(models.Model):
 	banner_status = models.CharField( max_length=100, choices = STATUS_CHOICES, default= 'available')
 	banner_image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,default='omoads/Image/banner1.jpg')
 	banner_bookingStatus = models.BooleanField(default= False)
+	# banner_zone = models.CharField( max_length=100, default= 'RDC')
 
 
 	def __str__(self):

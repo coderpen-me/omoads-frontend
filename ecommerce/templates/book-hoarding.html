@@ -144,7 +144,7 @@ Book Hoarding ||
              <div class="display-card">
                 <div class="row">
                   <div class="col-sm-3 pole-image">
-                <img src="banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                <img src="{{ MEDIA_URL }}{{ item.banner_image }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
                 </div>
                 <div class="col-sm-9 pole-description">
                   <p class="card-heading cont">{{item.banner_landmark}}</p>
@@ -184,19 +184,19 @@ Book Hoarding ||
 <script type="text/javascript">
   
   $('#submitBoards').click(function(){
-      $('#bookBoards').submit()
-  })
+      $('#bookBoards').submit();
+  });
 
 
   $('input[name=boards]').click(function(){
   document.getElementById("badge-count").innerHTML=$('input[name=boards]:checked').length;
 
-  var checkedBoards = []
+  var checkedBoards = [];
   
 
   if(this.checked == true)
   {
-      checkedBoards.push(this.id)
+      checkedBoards.push(this.id);
       var tr = document.createElement("tr");
 
       var tdLandmark = document.createElement("td");
@@ -214,18 +214,18 @@ Book Hoarding ||
       tr.appendChild(tdId);
       tr.appendChild(tdFace);
 
-      tr.id = "tr" + this.id
+      tr.id = "tr" + this.id;
 
       document.getElementById("cartBody").appendChild(tr);
-      console.log("haaas")
+      console.log("haaas");
   }
   else
   {
-    console.log("naaa")
-      checkedBoards.splice(checkedBoards.indexOf(this.id),1)
+    console.log("naaa");
+      checkedBoards.splice(checkedBoards.indexOf(this.id),1);
       document.getElementById("cartBody").removeChild(document.getElementById("tr" + this.id));
   }
-  console.log(checkedBoards)
+  console.log(checkedBoards);
 
 });
 </script>

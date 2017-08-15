@@ -3,13 +3,13 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from products import views
+from products import views as productsViews
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', views.Home.as_view(), name='home'),
+    url(r'^$', productsViews.Home.as_view(), name='home'),
     url(r'^s/$', 'products.views.search', name='search'),
 
     url(r'^adminInterface1/$', 'products.views.adminInterface1', name='adminInterface1'),
@@ -35,18 +35,18 @@ urlpatterns = patterns('',
     #(?P<id>\d+)
     
 
-    url(r'^register/$', views.Signup.as_view(), name='auth_register'),
+    url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),
     url(r'^register/$', 'products.views.signup', name='auth_register2'),
-    url(r'^registerowner/$', views.SignupOwner.as_view(), name='auth_register_owner'),
+    url(r'^registerowner/$', productsViews.SignupOwner.as_view(), name='auth_register_owner'),
     url(r'^logout/$', 'products.views.logoutUser', name='auth_logout'),
-    url(r'^login/$', views.LoginUsers.as_view(), name='auth_login'),
+    url(r'^login/$', productsViews.LoginUsers.as_view(), name='auth_login'),
 
 
 
-    url(r'^owner/home/$', views.OwnerInterfaceHome.as_view(), name='owner_interface'),
-    url(r'^owner/book/$', views.BookHoardings.as_view(), name='owner_interface_book'),
-    url(r'^owner/cancel/$', views.CancelBooking.as_view(), name='owner_interface_cancel'),
-    url(r'^owner/status/$', views.StatusBoards.as_view(), name='owner_interface_status'),
+    url(r'^owner/home/$', productsViews.OwnerInterfaceHome.as_view(), name='owner_interface'),
+    url(r'^owner/book/$', productsViews.BookHoardings.as_view(), name='owner_interface_book'),
+    url(r'^owner/cancel/$', productsViews.CancelBooking.as_view(), name='owner_interface_cancel'),
+    url(r'^owner/status/$', productsViews.StatusBoards.as_view(), name='owner_interface_status'),
 
     url(r'^owner/book/confirm$', 'products.views.bookBoards', name='owner_interface_book_board'),
     url(r'^owner/book/cancel$', 'products.views.cancelBoard', name='owner_interface_cancel_board'),

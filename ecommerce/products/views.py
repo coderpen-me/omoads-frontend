@@ -12,7 +12,7 @@ import json, time
 from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
-from .forms import *
+from .forms import LoginForm, UserForm, AgencyForm, filterForm
 from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
@@ -161,8 +161,8 @@ def ham_honge_kamiyab(request):
 		
 
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
-
-		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
+		print str(b.banner_image)
+		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "url": str(b.banner_image), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
 		json_data = json.dumps(data)
 
 		return HttpResponse(json_data, content_type='application/json')
@@ -443,7 +443,7 @@ class CancelBooking(generic.TemplateView):
 
 
 class StatusBoards(generic.TemplateView):
-	template_name = "owner-interface/status.html"
+	template_name = "status.html"
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
 			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
