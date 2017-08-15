@@ -579,15 +579,22 @@ def addIndiPrice(request):
 	book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
 	if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
 		for price in price_set:
-			if (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
+			if (price.startDate < startDateParsed) and (price.endDate > endDateParsed):
+				delta = price.endDate-endDateParsed
+				newPrice1 = banner.priceperiod_set.create(startDate = endDateParsed + datetime.timedelta(days=1), endDate = price.endDate, numberDays = delta.days + 1, price = price.price)
+				newPrice1.save()
+				price.endDate = (startDateParsed - datetime.timedelta(days=1))
+				price.save()
+			elif (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
 				price.endDate = (startDateParsed - datetime.timedelta(days=1))
 				print(startDateParsed)
 				price.save()
-			if (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
+			elif (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
 				price.startDate = (endDateParsed + datetime.timedelta(days=1))
 				price.save()
-			if (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
+			elif (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
 				price.delete()
+			
 
 		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
 		newPrice.save()
