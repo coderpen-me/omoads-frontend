@@ -306,7 +306,7 @@
 			console.log(this.id_try);
 			$.ajax({
 				  type: "POST",
-				  url: "{% url 'ham_honge_kamiyab' %}",
+				  url: "{% url 'onclickMapPoints' %}",
 				  data: {
 					"csrfmiddlewaretoken": "{{ csrf_token }}",
 					"id_point":String(this.id_try)

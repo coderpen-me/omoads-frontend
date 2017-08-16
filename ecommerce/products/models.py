@@ -192,3 +192,10 @@ class BookingDetails(models.Model):
 		self.banner.save()
 	def __str__(self):
 		return '%s %s' % (self.banner.id, self.bookingDate)
+
+class PricePeriod(models.Model):
+	banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+	startDate = models.DateField()
+	endDate = models.DateField()
+	numberDays = models.IntegerField()
+	price = models.FloatField()

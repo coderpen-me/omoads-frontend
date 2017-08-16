@@ -12,11 +12,15 @@ import json, time
 from marketing.forms import EmailForm
 from marketing.models import MarketingMessage, Slider
 
-from .forms import LoginForm, UserForm, AgencyForm, filterForm
-from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails
+
+from .forms import *
+from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod
+
+
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+import datetime
 
 def search(request):
 	try:
@@ -156,12 +160,11 @@ class Home(generic.TemplateView):
 			return HttpResponseRedirect(reverse('auth_login'))
 
 
-def ham_honge_kamiyab(request):
+def onclickMapPoints(request):
 	if request.is_ajax():
 		
 
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
-		print str(b.banner_image)
 		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "url": str(b.banner_image), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
 		json_data = json.dumps(data)
 
@@ -467,6 +470,39 @@ class StatusBoards(generic.TemplateView):
 			#To-Do: Generate a msg
 			return HttpResponseRedirect(reverse('auth_login'))
 
+class PriceBoards(generic.TemplateView):
+	template_name = "change-price.html"
+	def get(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+
+				username = request.user.username
+				a = Agency.objects.get(user = request.user)
+
+				details = []
+				for banner in Banner.objects.filter(agency=a):
+
+					details.append({'banner':banner, 'price_set':banner.priceperiod_set.all().order_by('-startDate')[:4][::-1]})
+
+
+				userType = "Agency"
+				context = {
+					'loginStatus':True,
+					'username':username,
+					'userType':userType,
+					'details':details
+				}
+
+				return render(request, self.template_name, context)
+			else:
+				context = {}
+				print("u r not an agency")
+				return HttpResponseRedirect("/")
+				#To-Do: Generate a msg
+		else:
+			print("u need to login")
+			#To-Do: Generate a msg
+			return HttpResponseRedirect(reverse('auth_login'))
 
 
 
@@ -527,3 +563,36 @@ def cancelBoard(request):
 		return HttpResponse(json_data, content_type='application/json')
 	else:
 		Http404
+
+
+
+
+def addIndiPrice(request):
+	banner = Banner.objects.get(pk = request.POST['boardID'])
+	startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
+	endDateParsed = datetime.datetime.strptime(request.POST['dateEnd'], "%Y-%m-%d").date()
+
+	price_set = banner.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
+
+	book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, startDate__lte = endDateParsed, active = True)
+	book_set_2 = banner.bookingdetails_set.filter(endDate__gte = startDateParsed, endDate__lte = endDateParsed, active = True)
+	book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
+	if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
+		for price in price_set:
+			if (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
+				price.endDate = (startDateParsed - datetime.timedelta(days=1))
+				print(startDateParsed)
+				price.save()
+			if (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
+				price.startDate = (endDateParsed + datetime.timedelta(days=1))
+				price.save()
+			if (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
+				price.delete()
+
+		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
+		newPrice.save()
+		banner.save()
+		return HttpResponseRedirect(reverse('owner_interface_price'))
+	else:
+		Http404
+	

@@ -69,21 +69,45 @@ Change Prices ||
             <h2 class="modal-title">Change Price</h2>
           </div>
           <div class="modal-body">
-            <form>
+            <form  id = "formIndi" method = post action = "{% url 'owner_interface_add_new_price_indi' %}">
+            {% csrf_token %}
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" name="daterange">
+                  <input type="text" class="form-control" name="daterangeIndi">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" id="newPrice" placeholder="New Price">
+                <input type="text" class="form-control" id="newPrice" placeholder="New Price" name = "price">
               </div>
+              <input type = "hidden" value="" id = "formIDIndi" name = "boardID">
+              <input type = "hidden" value="" id = "startDateFormIndi"  name = "dateStart">
+              <input type = "hidden" value="" id = "endDateFormIndi"  name = "dateEnd">
+              <input type = "hidden" value="" id = "daysFormIndi"  name = "days" >
             </form>
             <script type="text/javascript">
-              $(function() {
-                $('input[name="daterange"]').daterangepicker();
+               var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterangeIndi"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateFormIndi').val(start.format('YYYY-MM-DD'));
+                    $('#endDateFormIndi').val(end.format('YYYY-MM-DD'));
+                    $('#daysFormIndi').val(diff);
+                    console.log(diff)
+                  });
+
               });
             </script>
           </div>
@@ -107,10 +131,11 @@ Change Prices ||
             <h2 class="modal-title">Change Price</h2>
           </div>
           <div class="modal-body">
-            <form>
+            <form id = "formAll" method = post action = "#">
+            {% csrf_token %}
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" name="daterange">
+                  <input type="text" class="form-control" name="daterangeAll">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
               </div>
@@ -118,10 +143,34 @@ Change Prices ||
               <div class="form-group">
                 <input type="text" class="form-control" id="newPrice" placeholder="New Price">
               </div>
+              <input type = "hidden" value="" id = "formIDAll"  name = "boardID">
+              <input type = "hidden" value="" id = "startDateFormAll"  name = "dateStart" >
+              <input type = "hidden" value="" id = "endDateFormAll"  name = "dateEnd" >
+              <input type = "hidden" value="" id = "daysFormAll"  name = "days" >
+
             </form>
             <script type="text/javascript">
-              $(function() {
-                $('input[name="daterange"]').daterangepicker();
+              var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterangeAll"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateFormAll').val(start.format('YYYY-MM-DD'));
+                    $('#endDateFormAll').val(end.format('YYYY-MM-DD'));
+                    $('#daysFormAll').val(diff);
+                    console.log(diff)
+                  });
+
               });
             </script>
           </div>
@@ -145,32 +194,47 @@ Change Prices ||
             <p>Confirm change in price?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" id = "priceChangeSubmit">OK</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
         </div>
 
       </div>
     </div>
-
+<script type="text/javascript">
+  $('#priceChangeSubmit').click(function(){
+    $('#formIndi').submit()
+  })
+</script>
 
 
 		<div class="pole-templates">
+          {% for item in details %}
              <div class="display-card">
                 <div class="row">
                   <div class="col-sm-3 pole-image">
                 <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
                 </div>
                 <div class="col-sm-9 pole-description">
-                  <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
+                  <p class="card-heading cont">{{item.banner.banner_landmark}}</p>
                   <div class="card-content">
-                    <p class="cont">Facing: IMS</p>
-                    <p class="cont">Pole ID: 0001-A</p>
-                    <p class="cont">Type: Gantry</p>
+                    <p class="cont">{{item.banner.banner_facing}}</p>
+                    <p class="cont">{{item.banner.id}}</p>
+                    <p class="cont">{{item.banner.banner_type}}</p>
                   </div>
                   <p class="pole-price">&#8377 1,40,000
                   <span>
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice" style="margin-left: 5px;">Change Price</button>  
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice" id= "{{item.banner.id}}" style="margin-left: 5px; " >Change Price</button>  
+                   <script type="text/javascript">
+                     $(document).ready(function(){
+
+                        $('#{{item.banner.id}}').click(function(){
+                            $('#formIDIndi').val(this.id)
+                        })
+
+
+                     })
+                   </script>
                   </span></p>
                 </div>
                 </div>
@@ -178,142 +242,30 @@ Change Prices ||
                   <table class="table table-striped price-table">
                     <thead>
                       <tr class="text-center">
-                        <th>1 Jan-15 Jan</th>
-                        <th>15 Jan-31 Jan</th>
-                        <th>1 Feb-15 Feb</th>
-                        <th>15 Feb-28 Feb</th>
-                        <th>1 Mar-15 Mar</th>
-                        <th>15 Mar-31 Mar</th>
-                        <th>1 Apr-15 Apr</th>
-                        <th>15 Apr-31 Apr</th>
+                      {% for price in item.price_set %}
+                        <th class="text-center">{{price.startDate}} - {{price.endDate}}</th>
+                       {% endfor %}
+
                       </tr>
                     </thead>
                     <tbody>
                       <tr class="text-center">
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
+                      {% for price in item.price_set %}
+                        <td>&#8377 {{price.price}}</td>
+                       {% endfor %}
+                       
                       </tr>
                     </tbody>
                   </table>
                 </div>
              </div>
-
-             <div class="display-card">
-                <div class="row">
-                  <div class="col-sm-3 pole-image">
-                <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-                </div>
-                <div class="col-sm-9 pole-description">
-                  <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-                  <div class="card-content">
-                    <p class="cont">Facing: IMS</p>
-                    <p class="cont">Pole ID: 0001-A</p>
-                    <p class="cont">Type: Gantry</p>
-                  </div>
-                  <p class="pole-price">&#8377 1,40,000<span><button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice">Change Price</button></span></p>
-                </div>
-                </div>
-                <div class="price-container-table">
-                  <table class="table table-striped price-table">
-                    <thead>
-                      <tr class="text-center">
-                        <th>1 Jan-15 Jan</th>
-                        <th>15 Jan-31 Jan</th>
-                        <th>1 Feb-15 Feb</th>
-                        <th>15 Feb-28 Feb</th>
-                        <th>1 Mar-15 Mar</th>
-                        <th>15 Mar-31 Mar</th>
-                        <th>1 Apr-15 Apr</th>
-                        <th>15 Apr-31 Apr</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-center">
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-             </div>
-
-             <div class="display-card">
-                <div class="row">
-                  <div class="col-sm-3 pole-image">
-                <img src="{{ MEDIA_URL }}{{ 'products/images/banner3.jpg' }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
-                </div>
-                <div class="col-sm-9 pole-description">
-                  <p class="card-heading cont">Hapur Road, Near Hapur Chungi</p>
-                  <div class="card-content">
-                    <p class="cont">Facing: IMS</p>
-                    <p class="cont">Pole ID: 0001-A</p>
-                    <p class="cont">Type: Gantry</p>
-                  </div>
-                  <p class="pole-price">&#8377 1,40,000<span><button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice">Change Price</button></span></p>
-                </div>
-                </div>
-                <div class="price-container-table">
-                  <table class="table table-striped price-table">
-                    <thead>
-                      <tr class="text-center">
-                        <th>1 Jan-15 Jan</th>
-                        <th>15 Jan-31 Jan</th>
-                        <th>1 Feb-15 Feb</th>
-                        <th>15 Feb-28 Feb</th>
-                        <th>1 Mar-15 Mar</th>
-                        <th>15 Mar-31 Mar</th>
-                        <th>1 Apr-15 Apr</th>
-                        <th>15 Apr-31 Apr</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-center">
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                        <td>&#8377 1,20,000</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-             </div>
-
+            {% endfor %}
               
-    </div>
 
 
 				
 	</div>
 
-<script type="text/javascript">
-  $('#check-all').click(function() {
-    if ($('input[name=vehicle]:checked').length > 0) {
 
-      $('input[name=vehicle]').prop('checked', false  );
-      console.log("working checked true")
-  }
-  else{
-    $('input[name=vehicle]').prop('checked', true);
-      console.log("working checked false")
-    // document.getElementsByClassName("display-checkbox").style.backgroundColor = '#fff';
-  }
-}); 
-</script>
 
 {% endblock %}
