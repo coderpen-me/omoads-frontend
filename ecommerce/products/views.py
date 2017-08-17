@@ -594,7 +594,6 @@ def addIndiPrice(request):
 				price.save()
 			elif (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
 				price.delete()
-			
 
 		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
 		newPrice.save()
