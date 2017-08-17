@@ -188,7 +188,7 @@
 </div>
 <div class="footer"></div>
 </section>
-
+<script src = "{% static 'js/markerclusterer.js' %}"></script>
 <script>
       var map;
       /* var locations =[ {lat: 28.6781518, lng: 77.4796894},
@@ -277,117 +277,127 @@
 		
         {% endfor %}
       function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 28.683349, lng: 77.428079 },
-          zoom: 12
-        });
-        var markerGroup = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            map: map,
-            title: "OMOADS Site",
-            icon: "{% static 'resources/images/marker3.png' %}"
-			
-          });
-        });
-        // var marker = new google.maps.Marker({
-        //   position: locations[0],
-        //   map: map,                     // required
-        //   //label: "Big Poster"
-        //   });
-        //var markerCluster = new MarkerClusterer(map, markerGroup,
-          //  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-        for (var i = 0; i < locations.length; i++) {
-			markerGroup[i].id_try = locID[i];
-			markerGroup[i].addListener('click', function() {
-            // infowindow.setContent(this.content);
-            // infowindow.open(map, this);
-            // console.log("hey popups!");
-			console.log(this.id_try);
-			$.ajax({
-				  type: "POST",
-				  url: "{% url 'onclickMapPoints' %}",
-				  data: {
-					"csrfmiddlewaretoken": "{{ csrf_token }}",
-					"id_point":String(this.id_try)
-					
-				  },
-				  success: function(data){
-				  //set values according to id here
-				  
-				  //#################################################################################################################
-				  //heere chaasifhsklgsalgjsalgjaslkgjsalkg
-          				  
-				  $('#panelID').text(data["id"])
-          $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"])
-				  $('#price').text(data["cost"])
-				  $('#MapLoc').text(data["lat"] + " / " + data["long"])
-				  $('#dimensions').text(data["dim"])
-          $('#landmark').text(data["landmark"])
-				  },
-				  error: function(){
-					alert("Error! Something wrong. Please try again later")
-				  },
-				});
+              map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 28.683349, lng: 77.428079 },
+                zoom: 12
+              });
+              var markerGroup = locations.map(function(location, i) {
+                return new google.maps.Marker({
+                  position: location,
+                  map: map,
+                  title: "OMOADS Site",
+                  icon: "{% static 'resources/images/marker3.png' %}"
+      			
+                });
+              });
 
-			
-			
-            $('#myModal').modal('show');
-          });
+              // var marker = new google.maps.Marker({
+              //   position: locations[0],
+              //   map: map,                     // required
+              //   //label: "Big Poster"
+              //   });
+              //var markerCluster = new MarkerClusterer(map, markerGroup,
+                //  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+              for (var i = 0; i < locations.length; i++) {
+      			markerGroup[i].id_try = locID[i];
+            console.log(String(markerGroup[i].position))
+      			markerGroup[i].addListener('click', function() {
+                  // infowindow.setContent(this.content);
+                  // infowindow.open(map, this);
+                  // console.log("hey popups!");
+      			console.log(this.id_try);
+      			$.ajax({
+      				  type: "POST",
+      				  url: "{% url 'onclickMapPoints' %}",
+      				  data: {
+      					"csrfmiddlewaretoken": "{{ csrf_token }}",
+      					"id_point":String(this.id_try)
+      					
+      				  },
+      				  success: function(data){
+      				  //set values according to id here
+      				  
+      				  //#################################################################################################################
+      				  //heere chaasifhsklgsalgjsalgjaslkgjsalkg
+                				  
+      				  $('#panelID').text(data["id"])
+                $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"])
+      				  $('#price').text(data["cost"])
+      				  $('#MapLoc').text(data["lat"] + " / " + data["long"])
+      				  $('#dimensions').text(data["dim"])
+                $('#landmark').text(data["landmark"])
+      				  },
+      				  error: function(){
+      					alert("Error! Something wrong. Please try again later")
+      				  },
+      				});
+
+      			
+      			
+                  $('#myModal').modal('show');
+                });
+              }
+              var markerCluster = new MarkerClusterer(map, markerGroup,
+                {imagePath: "{% static 'js/m' %}"});
+              
+              // Create the search box and link it to the UI element.
+              var input = document.getElementById('pac-input');
+              var searchBox = new google.maps.places.SearchBox(input);
+              //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+              // Bias the SearchBox results towards current map's viewport.
+              map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+              });
+              var markers = [];
+              // Listen for the event fired when the user selects a prediction and retrieve
+              // more details for that place.
+              searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if (places.length == 0) {
+                  return;
+                }
+                // Clear out the old markers.
+                markers.forEach(function(marker) {
+                  marker.setMap(null);
+                });
+                markers = [];
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                  if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                  }
+                  var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                  };
+                  // Create a marker for each place.
+                  markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: icon,
+                    title: place.name,
+                    position: place.geometry.location
+                  }));
+                  if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                  } else {
+                    bounds.extend(place.geometry.location);
+                  }
+                });
+                map.fitBounds(bounds);
+              });
         }
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-          if (places.length == 0) {
-            return;
-          }
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });
-            }
+        
+
+            
 </script>
+
+
   <!-- Banner model -->
   <!-- Modal starts its magic -->
 

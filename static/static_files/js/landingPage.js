@@ -193,4 +193,10 @@ var map;
           });
           map.fitBounds(bounds);
         });
-            }
+		
+		var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'clusterImage/'});
+		
+        }
+		<script src="markerclusterer.js">
+		</script>
