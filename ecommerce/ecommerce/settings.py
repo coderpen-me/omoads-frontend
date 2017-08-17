@@ -140,3 +140,5 @@ TEMPLATE_DIRS = (
 # STRIPE_SECRET_KEY = "sk_test_tXCtSORPdz4nrozcoOsiCy2A"
 # STRIPE_PUBLISHABLE_KEY = "pk_test_giqz4Y9dhjdg6QtIUbuOBahj"
 #
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
