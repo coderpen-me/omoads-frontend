@@ -15,7 +15,7 @@
 						<form class="zone-form">
 							{% for zone in zones %}
            <div class="checkbox">
-            <label><input type="checkbox"> {{zone.zone_name}}</label>
+            <label><input name = "zoneList" type="checkbox" value = "{{zone.zone_name}}" onclick = "myFilter(this)">{{zone.zone_name}}</label>
           </div>
           {% endfor %}
 						</form>
@@ -38,7 +38,7 @@
         </thead>
         <tbody>
           {% for item in details %}
-          <tr id = "{{item.bdID}}">
+          <tr id = "{{item.bdID}}" class = "cardRowsJS">
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_landmark}}</td>
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_facing}}</td>
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.id}}</td>
@@ -73,6 +73,10 @@
               });
             }
           </script>
+          <script type="text/javascript">
+        var card = document.getElementById("{{item.bdID}}")
+        card.zone = "{{item.banner.zone}}"
+        </script>
         {% endfor %}
 
           
@@ -83,4 +87,36 @@
 
 
 </div>
+
+
+<script type="text/javascript">
+  function myFilter() {
+  // Declare variables 
+  var cards = document.getElementsByClassName("cardRowsJS")
+  var zones = document.getElementsByName("zoneList")
+for(var i =0; i<cards.length;i++)
+    console.log(cards[i].zone)
+  var checkedZones = []
+  for(var i = 0; i < zones.length; i++)
+    if(zones[i].checked)
+    {
+      checkedZones.push(zones[i].value)
+    }
+  console.log(checkedZones)
+  
+    for(var i = 0; i<cards.length; i++)
+  {
+    if(checkedZones.length != 0)
+    {
+      if(checkedZones.indexOf(cards[i].zone.toUpperCase()) > -1)
+        cards[i].style.display = "";
+      else
+        cards[i].style.display = "none";
+    }
+    else
+      cards[i].style.display = "";
+  }
+ 
+}
+</script>
 {% endblock %}

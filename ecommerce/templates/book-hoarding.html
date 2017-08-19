@@ -25,13 +25,14 @@ Book Hoarding ||
         <button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
          <span class="caret"></span></button>
          <ul class="dropdown-menu">
-          <form class="zone-form">
+
+
           {% for zone in zones %}
            <div class="checkbox">
-            <label><input type="checkbox"> {{zone.zone_name}}</label>
+            <label><input name = "zoneList" type="checkbox" onclick = "myFilter(this)" value = "{{zone.zone_name}}"> {{zone.zone_name}}</label>
           </div>
           {% endfor %}
-        </form>
+
       </ul>
     </div>
 
@@ -121,7 +122,7 @@ Book Hoarding ||
       <form id="bookBoards" method = "POST" action = "{% url 'owner_interface_book_board' %}">
       {% csrf_token %}
       {% for item in details %}
-        <div class="checkbox">
+        <div class="checkbox2" id = "card{{item.id}}">
           <label class="display-checkbox" style="padding-left: 0px; width: 100%;">
           <input type="checkbox" name="boards" value = "{{item.id}}" id = "{{item.id}}">
 
@@ -151,6 +152,10 @@ Book Hoarding ||
               item.face = "{{item.banner_facing}}"
               item.landmark = "{{item.banner_landmark}}"  
           </script>
+          <script type="text/javascript">
+        var card = document.getElementById("card{{item.id}}")
+        card.zone = "{{item.zone}}"
+    </script>
 
         {% endfor %}
         <input type = "hidden" name = "dateStart" value = "" id = "startDateForm">
@@ -212,6 +217,35 @@ Book Hoarding ||
   console.log(checkedBoards);
 
 });
+
+function myFilter() {
+  // Declare variables 
+  var cards = document.getElementsByClassName("checkbox2")
+  var zones = document.getElementsByName("zoneList")
+
+  console.log(zones)
+  var checkedZones = []
+  for(var i = 0; i < zones.length; i++)
+    if(zones[i].checked)
+    {
+      checkedZones.push(zones[i].value)
+    }
+  console.log(checkedZones)
+  
+    for(var i = 0; i<cards.length; i++)
+  {
+    if(checkedZones.length != 0)
+    {
+      if(checkedZones.indexOf(cards[i].zone.toUpperCase()) > -1)
+        cards[i].style.display = "";
+      else
+        cards[i].style.display = "none";
+    }
+    else
+      cards[i].style.display = "";
+  }
+}
+ 
 </script>
 
 {% endblock %}
