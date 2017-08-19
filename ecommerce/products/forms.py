@@ -3,7 +3,7 @@ from django.forms import ModelForm
 # from models import Owner
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Agency
+from .models import Agency, Zone
 # from captcha.fields import CaptchaField
 
 TOPIC_CHOICES = (
@@ -51,12 +51,13 @@ class UserForm(forms.ModelForm):#user form pre build class
 class AgencyForm(forms.ModelForm):
 
 	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_name...', 'id': 'name'}))
-	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_state...', 'id': 'email'}))
-	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_city...', 'id': 'pwd'}),min_length=6)
+	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_state...', 'id': 'state'}))
+	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_city...', 'id': 'city'}),min_length=6)
+	zone = forms.ModelMultipleChoiceField(queryset = Zone.objects.all())
 
 	class Meta:
 		model = Agency
-		fields = ['agency_name', 'agency_state', 'agency_city']
+		fields = ['agency_name', 'agency_state', 'agency_city', 'zone']
 
 
 
