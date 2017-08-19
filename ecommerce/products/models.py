@@ -161,7 +161,7 @@ class Agency(models.Model):
 	agency_name = models.CharField(max_length=30)
 	agency_state = models.CharField(max_length=50)
 	agency_city = models.CharField(max_length=50)
-	zones = models.ManyToManyField(Zone)
+	zones = models.ManyToManyField(Zone,blank=True, null=True)
 
 	def __str__(self):
 		return '%s %s %s %s' % (self.id, self.agency_name, self.agency_state, self.agency_city)
@@ -182,9 +182,11 @@ class Banner(models.Model):
 	banner_lattitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_longitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_landmark = models.CharField( max_length = 200 )
+	banner_face_side = models.CharField( max_length = 10, choices = (('Left', 'Left'), ('Right', 'Right')) )
 	banner_status = models.CharField( max_length=100, choices = STATUS_CHOICES, default= 'available')
 	banner_image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,default='omoads/Image/banner1.jpg')
 	banner_bookingStatus = models.BooleanField(default= False)
+
 
 	# banner_zone = models.CharField( max_length=100, default= 'RDC')
 	

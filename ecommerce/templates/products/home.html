@@ -12,7 +12,54 @@
   
   <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
 </head>
+<style type="text/css">
+  @keyframes fadeout {
+  0%{opacity:0;top:50%}
+    20%{opacity:1;}
+  80%{opacity:1;top:50%;}
+  100%{opacity:0;
+        top:-50%;
+    }
+
+}
+#message {
+    position: absolute;
+    z-index: 9999;
+    top: -50%;
+    left: 25%;
+    right: 25%;
+    background: #fde073;
+    text-align: center;
+  animation-name: fadeout;
+  animation-duration: 2s;
+    overflow: hidden;
+  opacity:0;
+  box-shadow: 0 0 5px black;
+
+}
+</style>
 <body>
+{% if messages %}
+    <div id="message">
+{% for message in messages %}
+   
+   <script type="text/javascript">
+      if("{{message.extra_tags}}" == "wrong_credentials"){
+        console.log("fuck")
+        $(window).ready(function(){
+          $('#loginModal').modal()
+        })
+        
+      }
+
+
+   </script>
+
+   <h3> {{ message }}</h3>
+{% endfor %}
+    </div>
+{% endif %}
+
 <section>
 <header>
     <nav class="navbar navbar-inverse navigationBar">
@@ -71,7 +118,7 @@
               <label><input type="checkbox"> Remember me</label>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success" style="border-radius: 4px; ">Login</button>
+              <button type="submit" class="btn btn-success" style="border-radius: 4px;">Login</button>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#registerModal" style="border-radius: 4px;">Sign Up</button>
             </div>
           </form>
