@@ -14,7 +14,7 @@ from marketing.models import MarketingMessage, Slider
 
 
 from .forms import *
-from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod
+from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod,Zone
 
 
 from django.contrib.auth import logout, login, authenticate
@@ -305,6 +305,17 @@ class SignupOwner(generic.edit.FormView):
 				print("bawal")
 				new_agency.user = new_user
 				new_agency.save()
+				for z in request.POST.getlist('zone'):
+					if z is not None and z is not "":
+						new_agency.zones.add(z)
+
+
+				for zone in request.POST.getlist('newZones'):
+					if zone is not None and zone is not "":
+						z = Zone(zone_name = zone)
+						z.save()
+						new_agency.zones.add(z)
+				new_agency.save()
 				return HttpResponseRedirect("/")
 			else:
 				#messages.error(request, "The username or email already exists.")
@@ -344,7 +355,7 @@ class LoginUsers(generic.edit.FormView):
 					request.session['isAgency'] = True
 					request.session['AgencyId'] = a.id
 					print("logged in as an agency")
-					return HttpResponseRedirect(reverse('owner_interface'))
+					
 
 				except Agency.DoesNotExist:
 					login(request, user)
@@ -359,20 +370,7 @@ class LoginUsers(generic.edit.FormView):
 			print(e)
 			return HttpResponseRedirect(reverse('auth_login'))
 
-def	adminInterface1(request):
-	return render(request, 'adminIndex.html', {})
 
-def	adminInterface2(request):
-	return render(request, 'book-hoarding.html', {})
-
-def	adminInterface3(request):
-	return render(request, 'cancel-booking.html', {})
-
-def	adminInterface4(request):
-	return render(request, 'change-price.html', {})
-
-def	adminInterface5(request):
-	return render(request, 'status.html', {})
 
 
 def logoutUser(request):
@@ -396,7 +394,8 @@ class OwnerInterfaceHome(generic.TemplateView):
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'details': Banner.objects.filter(agency=a)
+					'details': Banner.objects.filter(agency=a),
+					'zones':a.zones.all()
 				}
 
 				return render(request, self.template_name, context)
@@ -429,7 +428,8 @@ class CancelBooking(generic.TemplateView):
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'details':details	
+					'details':details,
+					'zones':a.zones.all()
 				}
 
 				return render(request, self.template_name, context)
@@ -456,7 +456,8 @@ class StatusBoards(generic.TemplateView):
 				context = {
 					'loginStatus':True,
 					'username':username,
-					'userType':userType
+					'userType':userType,
+					'zones':a.zones.all()
 				}
 
 				return render(request, self.template_name, context)
@@ -490,7 +491,8 @@ class PriceBoards(generic.TemplateView):
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'details':details
+					'details':details,
+					'zones':a.zones.all()
 				}
 
 				return render(request, self.template_name, context)
@@ -520,7 +522,8 @@ class BookHoardings(generic.TemplateView):
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'details': Banner.objects.filter(agency=a, banner_bookingStatus = False)
+					'details': Banner.objects.filter(agency=a, banner_bookingStatus = False),
+					'zones':a.zones.all()
 				}
 
 				return render(request, self.template_name, context)
