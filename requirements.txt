@@ -5,9 +5,11 @@ django-filter==1.0.2
 django-localflavor==1.0
 django-simple-captcha==0.5.5
 django-widget-tweaks==1.4.1
+gunicorn==19.7.1
 olefile==0.44
 Pillow==2.5.0
 pytz==2014.4
 requests==2.4.0
 six==1.10.0
 stripe==1.19.0
+whitenoise==3.3.0
