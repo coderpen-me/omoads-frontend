@@ -13,27 +13,11 @@
 					<span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<form class="zone-form">
-							<div class="checkbox">
-								<label><input type="checkbox"> Hapur Road</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox"> RDC</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox"> G.T. Road</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox"> Ambedkar Road</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox"> Navyug Market</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox"> Diamond Flyover</label>
-							</div>
-							<div class="checkbox">
-								<label><input type="checkbox"> Meerut Road</label>
-							</div>
+							{% for zone in zones %}
+           <div class="checkbox">
+            <label><input type="checkbox"> {{zone.zone_name}}</label>
+          </div>
+          {% endfor %}
 						</form>
 					</ul>
 			</div>

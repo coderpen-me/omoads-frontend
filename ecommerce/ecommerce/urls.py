@@ -12,11 +12,7 @@ urlpatterns = patterns('',
     url(r'^$', productsViews.Home.as_view(), name='home'),
     url(r'^s/$', 'products.views.search', name='search'),
 
-    url(r'^adminInterface1/$', 'products.views.adminInterface1', name='adminInterface1'),
-    url(r'^adminInterface2/$', 'products.views.adminInterface2', name='adminInterface2'),
-    url(r'^adminInterface3/$', 'products.views.adminInterface3', name='adminInterface3'),
-    url(r'^adminInterface4/$', 'products.views.adminInterface4', name='adminInterface4'),
-    url(r'^adminInterface5/$', 'products.views.adminInterface5', name='adminInterface5'),
+    
 
     url(r'^products/$', 'products.views.all', name='products'),
     url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),

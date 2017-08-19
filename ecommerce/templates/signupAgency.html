@@ -9,6 +9,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </head>
 <body>
 <div class="container-fluid abc">
@@ -16,7 +18,7 @@
         <div class="header">
             <h2 class="">Welcome to <span style="color: #ff6c00;">OmoAds</span></h2>
         </div>
-        <form class="frm" method="POST">
+        <form class="frm" method="POST" id = "signupOwner">
             {% csrf_token %}
                         <!--<div class="form-group">-->
                 <!--<input type="text" class="form-control" id="phone" placeholder="Contact">-->
@@ -41,7 +43,37 @@
             <div class="form-group">
                 {{ agency.agency_state }}
             </div>
+            <div class="form-group">
+                {{ agency.zone }}
+            </div>
 
+
+            <div id = "new">
+                
+            </div>
+            <button type = "button" id = "addZone" onclick="addNewZone()">add new zone</button>
+
+
+
+            <script type="text/javascript">
+            $(window).ready(function(){
+                $('#id_zone').select2();
+            })
+                function addNewZone(){
+                    var formDiv = document.createElement("div");
+                    formDiv.className = "form-group";
+
+                    var zoneInput = document.createElement("input");
+                    zoneInput.type = "text";
+                    zoneInput.name = "newZones";
+                    zoneInput.className = "form-control";
+                    zoneInput.placeholder = "enter new Zone";
+
+                    formDiv.appendChild(zoneInput);
+
+                    document.getElementById("new").appendChild(formDiv);
+                }
+            </script>
 
             <div class="checkbox">
                 <label><input type="checkbox"> Remember me</label>
