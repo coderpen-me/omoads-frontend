@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -88,7 +87,18 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'omodb',
+    #     'USER': 'omouser',
+    #     'PASSWORD': 'qwe123',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
 }
+
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
