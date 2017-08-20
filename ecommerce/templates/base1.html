@@ -12,10 +12,11 @@
     {% block specific_cdns %}
     {% endblock %}
 
+    <link rel="stylesheet" href="{% static 'css/baseOwnerInterface.css' %}">
+
     {% block specific_css %}
     {% endblock %}
     
-    <link rel="stylesheet" href="{% static 'css/baseOwnerInterface.css' %}">
 
 
 </head>
@@ -48,11 +49,11 @@
 	<div class="col-sm-3 side-bar">
 		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
 		<div class="list-group">
-             <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item side-active"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
-            <a href="{% url 'owner_interface_price' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
-            <a href="{% url 'owner_interface_book' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
-            <a href="{% url 'owner_interface_status' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>  
-            <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>
+             <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item overview"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
+            <a href="{% url 'owner_interface_price' %}" style="text-decoration: none;"><li class="list-group-item change-price"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
+            <a href="{% url 'owner_interface_book' %}" style="text-decoration: none;"><li class="list-group-item book-hoarding"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
+            <a href="{% url 'owner_interface_status' %}" style="text-decoration: none;"><li class="list-group-item status"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>  
+            <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item cancel-booking"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>
          </div>
 	</div>
 
