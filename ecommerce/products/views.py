@@ -1,5 +1,5 @@
 from django.shortcuts import render, Http404, HttpResponseRedirect
-
+from django.contrib import messages
 from django.views import generic
 
 from django.shortcuts import render, HttpResponse, Http404
@@ -154,10 +154,12 @@ class Home(generic.TemplateView):
 					return HttpResponseRedirect("/")
 			else:
 				print("galat daala")
-				return HttpResponseRedirect(reverse('auth_login'))
+				messages.error(request, "wrong username passowrd", extra_tags = 'wrong_credentials')
+				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		except Exception as e:
 			print(e)
-			return HttpResponseRedirect(reverse('auth_login'))
+			messages.error(request, e)
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def onclickMapPoints(request):
@@ -294,7 +296,7 @@ class SignupOwner(generic.edit.FormView):
 		new_user = form.save(commit=False)
 		password = request.POST['password1']
 		new_user.set_password(password)
-		new_agency = agency.save(commit = False)
+		new_agency = Agency(agency_name = request.POST['agency_name'],agency_state = request.POST['agency_state'],agency_city = request.POST['agency_city'])
 		try:
 			quer = User.objects.get(email=new_user.email)
 		except User.DoesNotExist:
@@ -450,9 +452,9 @@ class StatusBoards(generic.TemplateView):
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
 			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
-
 				username = request.user.username
 				userType = "Agency"
+				a = Agency.objects.get(user = request.user)
 				context = {
 					'loginStatus':True,
 					'username':username,
