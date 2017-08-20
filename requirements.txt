@@ -13,3 +13,5 @@ requests==2.4.0
 six==1.10.0
 stripe==1.19.0
 whitenoise==3.3.0
+psycopg2==2.6.1
+dj-database-url
