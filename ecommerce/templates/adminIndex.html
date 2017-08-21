@@ -59,6 +59,7 @@ Admin Interface ||
     <script type="text/javascript">
         var card = document.getElementById("card{{item.id}}")
         card.zone = "{{item.zone}}"
+        console.log(card.zone)
     </script>
     {% endfor %}
 
@@ -74,7 +75,7 @@ Admin Interface ||
   for(var i = 0; i < zones.length; i++)
     if(zones[i].checked)
     {
-      checkedZones.push(zones[i].value)
+      checkedZones.push(zones[i].value.toUpperCase())
     }
   console.log(checkedZones)
   
@@ -82,6 +83,7 @@ Admin Interface ||
   {
     if(checkedZones.length != 0)
     {
+      console.log(cards[i].zone.toUpperCase())
       if(checkedZones.indexOf(cards[i].zone.toUpperCase()) > -1)
         cards[i].style.display = "";
       else

@@ -381,7 +381,7 @@ class OwnerInterfaceHome(generic.TemplateView):
 					'username':username,
 					'userType':userType,
 					'details': Banner.objects.filter(agency=a),
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -415,7 +415,7 @@ class CancelBooking(generic.TemplateView):
 					'username':username,
 					'userType':userType,
 					'details':details,
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -443,7 +443,7 @@ class StatusBoards(generic.TemplateView):
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -478,7 +478,7 @@ class PriceBoards(generic.TemplateView):
 					'username':username,
 					'userType':userType,
 					'details':details,
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -509,7 +509,7 @@ class BookHoardings(generic.TemplateView):
 					'username':username,
 					'userType':userType,
 					'details': Banner.objects.filter(agency=a, banner_bookingStatus = False),
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)

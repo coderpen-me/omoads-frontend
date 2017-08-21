@@ -74,8 +74,6 @@ class Agency(models.Model):
 
 
 class Banner(models.Model):
-	def zoneList(agency):
-		return agency.zones.all()
 	agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
 	zone = models.ForeignKey(Zone)
 	banner_facing = models.CharField( max_length = 200,default= 'Facing IMS')
