@@ -53,11 +53,11 @@
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.startDate}}</td>
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.endDate}}</td>
           <td style="padding-top: 10px; padding-bottom: 5px;">
-          <button type="button" class="btn btn-danger" id = "button{{item.banner.id}}" style="margin: ;">Cancel</button></td>
+          <button type="button" class="btn btn-danger" id = "button{{item.bdID}}" style="margin: ;">Cancel</button></td>
           </tr>
           <script type="text/javascript">
 
-            var item = document.getElementById("button{{item.banner.id}}")
+            var item = document.getElementById("button{{item.bdID}}")
             item.bdID = "{{item.bdID}}"
             item.boardID = "{{item.banner.id}}"
             console.log("id:"+item.id)

@@ -104,9 +104,6 @@ class BookingDetails(models.Model):
 	endDate = models.DateField()
 	numberDays = models.IntegerField()
 	active = models.BooleanField(default = False)
-	def changeBannerBookingStatus(self):
-		self.banner.banner_bookingStatus = True
-		self.banner.save()
 	def __str__(self):
 		return '%s %s' % (self.banner.id, self.bookingDate)
 

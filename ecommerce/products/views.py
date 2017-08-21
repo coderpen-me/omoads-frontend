@@ -406,9 +406,10 @@ class CancelBooking(generic.TemplateView):
 				userType = "Agency"
 				details = []
 				for banner in Banner.objects.filter(agency=a, banner_bookingStatus = True):
-					bd = banner.bookingdetails_set.get(active = True)
-					details.append({'banner':banner, 'bookingDate':bd.bookingDate, 'startDate':bd.startDate,
-								 'endDate':bd.endDate, 'bdID':bd.id})
+					bannerDetails = banner.bookingdetails_set.filter(active = True)
+					for detail in bannerDetails:
+						details.append({'banner':banner, 'bookingDate':detail.bookingDate, 'startDate':detail.startDate,
+								 	'endDate':detail.endDate, 'bdID':detail.id})
 
 				context = {
 					'loginStatus':True,
@@ -503,12 +504,19 @@ class BookHoardings(generic.TemplateView):
 
 				username = request.user.username
 				a = Agency.objects.get(user = request.user)
+				details = []
+				for banner in Banner.objects.filter(agency=a):
+					bookDates = []
+					for detailset in banner.bookingdetails_set.filter(active = True):
+						bookDates.append({'startDate':detailset.startDate, 'endDate': detailset.endDate})
+					details.append({'banner':banner, 'dates':bookDates})
+					
 				userType = "Agency"
 				context = {
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'details': Banner.objects.filter(agency=a, banner_bookingStatus = False),
+					'details': details,
 					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
@@ -534,15 +542,16 @@ def bookBoards(request):
 		bd.save()
 		banner.banner_bookingStatus = True
 		banner.save()
-
+	messages.success(request, "board(s) booked", extra_tags = 'book_successful')
 	return HttpResponseRedirect(reverse('owner_interface'))
 
 
 def cancelBoard(request):
 	if request.is_ajax():
 		banner = Banner.objects.get(pk = request.POST['boardID'])
-		banner.banner_bookingStatus = False
-		banner.save()
+		if banner.bookingdetails_set.filter(active = True).count() is 0:
+			banner.banner_bookingStatus = False
+			banner.save()
 		bd = BookingDetails.objects.get(pk = request.POST['bdID'])
 		bd.active = False
 		bd.save()

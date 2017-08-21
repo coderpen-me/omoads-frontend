@@ -131,25 +131,25 @@ Book Hoarding ||
       <form id="bookBoards" method = "POST" action = "{% url 'owner_interface_book_board' %}">
       {% csrf_token %}
       {% for item in details %}
-        <div class="checkbox2" id = "card{{item.id}}">
+        <div class="checkbox2" id = "card{{item.banner.id}}">
           <label class="display-checkbox" style="padding-left: 0px; width: 100%;">
-          <input type="checkbox" disabled = "true" name="boards" value = "{{item.id}}" id = "{{item.id}}">
+          <input type="checkbox" disabled = "true" name="boards" value = "{{item.banner.id}}" id = "{{item.banner.id}}">
 
              <div class="display-card">
                 <div class="row">
                   <div class="col-sm-3 pole-image">
-                <img src="{{ MEDIA_URL }}{{ item.banner_image }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                <img src="{{ MEDIA_URL }}{{ item.banner.banner_image }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
                 </div>
                 <div class="col-sm-5 pole-description">
-                  <p class="card-heading cont">{{item.banner_landmark}}</p>
+                  <p class="card-heading cont">{{item.banner.banner_landmark}}</p>
                   <div class="card-content">
-                    <p class="cont">Facing: {{item.banner_facing}}</p>
-                    <p class="cont">Pole ID: {{item.id}}</p>
-                    <p class="cont">Type: {{item.banner_type}}</p>
-                    <p class = "cont">Zone: {{item.zone}}</p>
-                    <p class = "cont">Face:{{item.banner_face_side}}</p>
+                    <p class="cont">Facing: {{item.banner.banner_facing}}</p>
+                    <p class="cont">Pole ID: {{item.banner.id}}</p>
+                    <p class="cont">Type: {{item.banner.banner_type}}</p>
+                    <p class = "cont">Zone: {{item.banner.zone}}</p>
+                    <p class = "cont">Face:{{item.banner.banner_face_side}}</p>
                   </div>
-                  <p class="pole-price">&#8377 {{item.banner_cost}}</p>
+                  <p class="pole-price">&#8377 {{item.banner.banner_cost}}</p>
                 </div>
 
                 <div class="col-sm-4 date-container">
@@ -157,7 +157,7 @@ Book Hoarding ||
                     <div class="col-sm-12" style="padding-right: 0px;">
                       
                         <div class="input-group">
-                          <input type="text" class="form-control" name="daterange{{item.id}}">
+                          <input type="text" class="form-control" name="daterange{{item.banner.id}}">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                       
@@ -168,24 +168,42 @@ Book Hoarding ||
 
                               $(document).ready(function() {
 
-                                  $('input[name="daterange{{item.id}}"]').daterangepicker({
+                                  $('input[name="daterange{{item.banner.id}}"]').daterangepicker({
                                     minDate: moment(),
                                     format: 'DD/MM/YYYY',
                                     seperator: 'To',
                                     opens: "left",
+                                    isInvalidDate: function(date)
+                                    {
+                                      var x = 0
+                                      {% for d in item.dates %}
+                                        x=(x||((date.format('YYYY-MM-DD') >= "{{d.startDate|date:'Y-m-d'}}")&&(date.format('YYYY-MM-DD') <= "{{d.endDate|date:'Y-m-d'}}")))
+                                        console.log(x)
+                                      {% endfor %}
+                                      
 
+                                        if (x!=0)
+                                        {
+                                            return true; 
+                                        }
+                                        else
+                                        {
+                                            return false; 
+                                        }
+                                    }
+                                    
                                   },
                                   function(start, end){
                                     console.log("call back");
                                     startDateForm = start;
                                     endDateForm = end;
                                     var diff = end.diff(start, 'days')
-                                    $('#startDateForm{{item.id}}').val(start.format('YYYY-MM-DD'));
-                                    $('#endDateForm{{item.id}}').val(end.format('YYYY-MM-DD'));
-                                    $('#daysForm{{item.id}}').val(diff);
+                                    $('#startDateForm{{item.banner.id}}').val(start.format('YYYY-MM-DD'));
+                                    $('#endDateForm{{item.banner.id}}').val(end.format('YYYY-MM-DD'));
+                                    $('#daysForm{{item.banner.id}}').val(diff);
                                     console.log(diff)
                                     $('#bookHoarding').attr("disabled", false)
-                                    $('#{{item.id}}').attr("disabled", false)
+                                    $('#{{item.banner.id}}').attr("disabled", false)
                                   });
 
                               });
@@ -205,19 +223,19 @@ Book Hoarding ||
 
           <script>
 
-              var item = document.getElementById("{{item.id}}")
-              console.log("{{item.banner_facing}}");
-              item.face = "{{item.banner_facing}}"
-              item.landmark = "{{item.banner_landmark}}"  
+              var item = document.getElementById("{{item.banner.id}}")
+              console.log("{{item.banner.banner_facing}}");
+              item.face = "{{item.banner.banner_facing}}"
+              item.landmark = "{{item.banner.banner_landmark}}"  
           </script>
           <script type="text/javascript">
-        var card = document.getElementById("card{{item.id}}")
-        card.zone = "{{item.zone}}"
+        var card = document.getElementById("card{{item.banner.id}}")
+        card.zone = "{{item.banner.zone}}"
          </script>
         
-        <input type = "hidden" name = "dateStart{{item.id}}" value = "" id = "startDateForm{{item.id}}">
-        <input type = "hidden" name = "dateEnd{{item.id}}" value = "" id = "endDateForm{{item.id}}">
-        <input type = "hidden" name = "days{{item.id}}" value = "" id = "daysForm{{item.id}}">
+        <input type = "hidden" name = "dateStart{{item.banner.id}}" value = "" id = "startDateForm{{item.banner.id}}">
+        <input type = "hidden" name = "dateEnd{{item.banner.id}}" value = "" id = "endDateForm{{item.banner.id}}">
+        <input type = "hidden" name = "days{{item.banner.id}}" value = "" id = "daysForm{{item.banner.id}}">
         
         {% endfor %}
         
