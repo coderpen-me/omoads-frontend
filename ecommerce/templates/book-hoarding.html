@@ -155,40 +155,40 @@ Book Hoarding ||
                 <div class="col-sm-4 date-container">
                   <div class="row">
                     <div class="col-sm-12" style="padding-right: 0px;">
-                      <form>
+                      
                         <div class="input-group">
-                          <input type="text" class="form-control" name="daterange">
+                          <input type="text" class="form-control" name="daterange{{item.id}}">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
-                      </form>
+                      
                       <script type="text/javascript">
 
-                          var startDateForm;
-                          var endDateForm;
+                              var startDateForm;
+                              var endDateForm;
 
-                          $(document).ready(function() {
+                              $(document).ready(function() {
 
-                              $('input[name="daterange"]').daterangepicker({
-                                minDate: moment(),
-                                format: 'DD/MM/YYYY',
-                                seperator: 'To',
-                                "opens": "left",
+                                  $('input[name="daterange{{item.id}}"]').daterangepicker({
+                                    minDate: moment(),
+                                    format: 'DD/MM/YYYY',
+                                    seperator: 'To',
+                                    opens: "left",
 
-                              },
-                              function(start, end){
-                                console.log("call back");
-                                startDateForm = start;
-                                endDateForm = end;
-                                var diff = end.diff(start, 'days')
-                                $('#startDateForm').val(start.format('YYYY-MM-DD'));
-                                $('#endDateForm').val(end.format('YYYY-MM-DD'));
-                                $('#daysForm').val(diff);
-                                console.log(diff)
-                                $('#bookHoarding').attr("disabled", false)
-                                $('input[name="boards"]').attr("disabled", false)
+                                  },
+                                  function(start, end){
+                                    console.log("call back");
+                                    startDateForm = start;
+                                    endDateForm = end;
+                                    var diff = end.diff(start, 'days')
+                                    $('#startDateForm{{item.id}}').val(start.format('YYYY-MM-DD'));
+                                    $('#endDateForm{{item.id}}').val(end.format('YYYY-MM-DD'));
+                                    $('#daysForm{{item.id}}').val(diff);
+                                    console.log(diff)
+                                    $('#bookHoarding').attr("disabled", false)
+                                    $('#{{item.id}}').attr("disabled", false)
+                                  });
+
                               });
-
-                          });
 
                           </script>
                     </div>
@@ -213,12 +213,14 @@ Book Hoarding ||
           <script type="text/javascript">
         var card = document.getElementById("card{{item.id}}")
         card.zone = "{{item.zone}}"
-    </script>
-
+         </script>
+        
+        <input type = "hidden" name = "dateStart{{item.id}}" value = "" id = "startDateForm{{item.id}}">
+        <input type = "hidden" name = "dateEnd{{item.id}}" value = "" id = "endDateForm{{item.id}}">
+        <input type = "hidden" name = "days{{item.id}}" value = "" id = "daysForm{{item.id}}">
+        
         {% endfor %}
-        <input type = "hidden" name = "dateStart" value = "" id = "startDateForm">
-        <input type = "hidden" name = "dateEnd" value = "" id = "endDateForm">
-        <input type = "hidden" name = "days" value = "" id = "daysForm">
+        
 
 
       </form>

@@ -302,17 +302,6 @@ class SignupOwner(generic.edit.FormView):
 				print("bawal")
 				new_agency.user = new_user
 				new_agency.save()
-				for z in request.POST.getlist('zone'):
-					if z is not None and z is not "":
-						new_agency.zones.add(z)
-
-
-				for zone in request.POST.getlist('newZones'):
-					if zone is not None and zone is not "":
-						z = Zone(zone_name = zone)
-						z.save()
-						new_agency.zones.add(z)
-				new_agency.save()
 				return HttpResponseRedirect("/")
 			else:
 				#messages.error(request, "The username or email already exists.")
@@ -540,8 +529,8 @@ def bookBoards(request):
 		print(boardID)
 		banner = Banner.objects.get(pk = boardID)
 		bd = banner.bookingdetails_set.create(bookingDate = time.strftime("%Y-%m-%d"),
-									startDate = request.POST['dateStart'], endDate = request.POST['dateEnd'],
-									numberDays = request.POST['days'], active = True)
+									startDate = request.POST['dateStart'+ str(boardID)], endDate = request.POST['dateEnd'+ str(boardID)],
+									numberDays = request.POST['days'+ str(boardID)], active = True)
 		bd.save()
 		banner.banner_bookingStatus = True
 		banner.save()
