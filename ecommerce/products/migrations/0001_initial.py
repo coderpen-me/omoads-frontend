@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Agency',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('agency_name', models.CharField(max_length=30)),
                 ('agency_state', models.CharField(max_length=50)),
                 ('agency_city', models.CharField(max_length=50)),
@@ -25,18 +25,18 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Banner',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('banner_facing', models.CharField(default='Facing IMS', max_length=200)),
-                ('banner_type', models.CharField(default='gantry', choices=[('gantry', 'Gantry'), ('unipole', 'Unipole')], max_length=100)),
-                ('banner_lighted', models.CharField(default='n', choices=[('f', 'Front Lit'), ('b', 'Back Lit'), ('n', 'Not Lighted')], max_length=100)),
-                ('banner_dimensions', models.CharField(default='0', choices=[('0', '50x10'), ('1', '40x10'), ('2', '30x10'), ('3', '20x10')], max_length=100)),
-                ('banner_cost', models.DecimalField(decimal_places=3, max_digits=12)),
-                ('banner_lattitude', models.DecimalField(decimal_places=9, max_digits=12)),
-                ('banner_longitude', models.DecimalField(decimal_places=9, max_digits=12)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('banner_facing', models.CharField(default=b'Facing IMS', max_length=200)),
+                ('banner_type', models.CharField(default=b'gantry', max_length=100, choices=[(b'gantry', b'Gantry'), (b'unipole', b'Unipole')])),
+                ('banner_lighted', models.CharField(default=b'n', max_length=100, choices=[(b'f', b'Front Lit'), (b'b', b'Back Lit'), (b'n', b'Not Lighted')])),
+                ('banner_dimensions', models.CharField(default=b'0', max_length=100, choices=[(b'0', b'50x10'), (b'1', b'40x10'), (b'2', b'30x10'), (b'3', b'20x10')])),
+                ('banner_cost', models.DecimalField(max_digits=12, decimal_places=3)),
+                ('banner_lattitude', models.DecimalField(max_digits=12, decimal_places=9)),
+                ('banner_longitude', models.DecimalField(max_digits=12, decimal_places=9)),
                 ('banner_landmark', models.CharField(max_length=200)),
-                ('banner_face_side', models.CharField(choices=[('Left', 'Left'), ('Right', 'Right')], max_length=10)),
-                ('banner_status', models.CharField(default='available', choices=[('available', 'Available'), ('booked', 'Booked')], max_length=100)),
-                ('banner_image', models.ImageField(default='omoads/Image/banner1.jpg', upload_to=None)),
+                ('banner_face_side', models.CharField(max_length=10, choices=[(b'Left', b'Left'), (b'Right', b'Right')])),
+                ('banner_status', models.CharField(default=b'available', max_length=100, choices=[(b'available', b'Available'), (b'booked', b'Booked')])),
+                ('banner_image', models.ImageField(default=b'omoads/Image/banner1.jpg', upload_to=None)),
                 ('banner_bookingStatus', models.BooleanField(default=False)),
                 ('agency', models.ForeignKey(to='products.Agency')),
             ],
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='BookingDetails',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('bookingDate', models.DateField()),
                 ('startDate', models.DateField()),
                 ('endDate', models.DateField()),
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=120)),
                 ('description', models.TextField(null=True, blank=True)),
                 ('slug', models.SlugField(unique=True)),
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PricePeriod',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('startDate', models.DateField()),
                 ('endDate', models.DateField()),
                 ('numberDays', models.IntegerField()),
@@ -78,50 +78,9 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Product',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=120)),
-                ('description', models.TextField(null=True, blank=True)),
-                ('price', models.DecimalField(decimal_places=2, default=29.99, max_digits=100)),
-                ('sale_price', models.DecimalField(max_digits=100, decimal_places=2, null=True, blank=True)),
-                ('slug', models.SlugField(unique=True)),
-                ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('active', models.BooleanField(default=True)),
-                ('update_defaults', models.BooleanField(default=False)),
-                ('category', models.ManyToManyField(to='products.Category', null=True, blank=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='ProductImage',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('image', models.ImageField(upload_to='products/images/')),
-                ('featured', models.BooleanField(default=False)),
-                ('thumbnail', models.BooleanField(default=False)),
-                ('active', models.BooleanField(default=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('product', models.ForeignKey(to='products.Product')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Variation',
-            fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
-                ('category', models.CharField(default='size', choices=[('size', 'size'), ('color', 'color'), ('package', 'package')], max_length=120)),
-                ('title', models.CharField(max_length=120)),
-                ('price', models.DecimalField(max_digits=100, decimal_places=2, null=True, blank=True)),
-                ('updated', models.DateTimeField(auto_now=True)),
-                ('active', models.BooleanField(default=True)),
-                ('image', models.ForeignKey(to='products.ProductImage', blank=True, null=True)),
-                ('product', models.ForeignKey(to='products.Product')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Zone',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('zone_name', models.CharField(max_length=30)),
             ],
         ),
@@ -134,9 +93,5 @@ class Migration(migrations.Migration):
             model_name='agency',
             name='zones',
             field=models.ManyToManyField(to='products.Zone', null=True, blank=True),
-        ),
-        migrations.AlterUniqueTogether(
-            name='product',
-            unique_together=set([('title', 'slug')]),
         ),
     ]
