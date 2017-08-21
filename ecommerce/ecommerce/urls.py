@@ -16,14 +16,7 @@ urlpatterns = patterns('',
 
     url(r'^products/$', 'products.views.all', name='products'),
     url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),
-    url(r'^cart/(?P<id>\d+)/$', 'carts.views.remove_from_cart', name='remove_from_cart'),
-    url(r'^cart/(?P<slug>[\w-]+)/$', 'carts.views.add_to_cart', name='add_to_cart'),
-    url(r'^cart/$', 'carts.views.view', name='cart'),
-    url(r'^checkout/$', 'orders.views.checkout', name='checkout'),
-    url(r'^orders/$', 'orders.views.orders', name='user_orders'),
-    url(r'^ajax/dismiss_marketing_message/$', 'marketing.views.dismiss_marketing_message', name='dismiss_marketing_message'),
-    url(r'^ajax/email_signup/$', 'marketing.views.email_signup', name='ajax_email_signup'),
-    url(r'^ajax/add_user_address/$', 'accounts.views.add_user_address', name='ajax_add_user_address'),
+
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
 
     # url(r'^blog/', include('blog.urls')),
@@ -52,10 +45,7 @@ urlpatterns = patterns('',
     url(r'^owner/price/add$', 'products.views.addIndiPrice', name='owner_interface_add_new_price_indi'),
 
     url(r'^admin/', include(admin.site.urls)),
-    
-    
-    url(r'^accounts/address/add/$', 'accounts.views.add_user_address', name='add_user_address'),
-    url(r'^accounts/activate/(?P<activation_key>\w+)/$', 'accounts.views.activation_view', name='activation_view'),
+
 ) 
 
 

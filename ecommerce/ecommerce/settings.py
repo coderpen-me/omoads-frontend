@@ -53,12 +53,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'south', no longer supported
-    'accounts',
-    'carts',
-    'marketing',
-    'orders',
+    
     'products',
-    'localflavor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,7 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'marketing.middleware.DisplayMarketing',
+    
     #
 )
 #AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
@@ -81,12 +77,21 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'omoads',
+        'USER': 'omouser',                      # Not used with sqlite3.
+        'PASSWORD': 'qwe123',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',
     }
+}
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': 'omodb',
@@ -95,7 +100,7 @@ DATABASES = {
     #     'HOST': 'localhost',
     #     'PORT': '',
     # }
-}
+#}
 
 # import dj_database_url
 # DATABASES['default'] =  dj_database_url.config()

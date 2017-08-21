@@ -9,12 +9,11 @@ from django.db.models import Q
 import json, time
 # Create your views here.
 
-from marketing.forms import EmailForm
-from marketing.models import MarketingMessage, Slider
+
 
 
 from .forms import *
-from .models import Product, ProductImage, Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod,Zone
+from .models import Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod,Zone
 
 
 from django.contrib.auth import logout, login, authenticate
@@ -41,8 +40,6 @@ class Home(generic.TemplateView):
 	login_form_class = LoginForm
 	signup_form_class = UserForm
 	def get(self, request, *args, **kwargs):
-		sliders = Slider.objects.all_featured()
-		products = Product.objects.all()
 		template = 'products/home.html'	
 		login_form = self.login_form_class
 		signup_form = self.signup_form_class
@@ -117,8 +114,6 @@ class Home(generic.TemplateView):
 			except Agency.DoesNotExist:
 				userType = "Buyer"
 		context = {
-			"products": products,
-			"sliders": sliders,
 			'form': form,
 			'result': results,
 			'all': all_banner,
