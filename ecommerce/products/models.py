@@ -66,7 +66,6 @@ class Agency(models.Model):
 	agency_name = models.CharField(max_length=30)
 	agency_state = models.CharField(max_length=50)
 	agency_city = models.CharField(max_length=50)
-	zones = models.ManyToManyField(Zone,blank=True, null=True)
 
 	def __str__(self):
 		return '%s %s %s %s' % (self.id, self.agency_name, self.agency_state, self.agency_city)
@@ -75,8 +74,6 @@ class Agency(models.Model):
 
 
 class Banner(models.Model):
-	def zoneList(agency):
-		return agency.zones.all()
 	agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
 	zone = models.ForeignKey(Zone)
 	banner_facing = models.CharField( max_length = 200,default= 'Facing IMS')
@@ -107,9 +104,6 @@ class BookingDetails(models.Model):
 	endDate = models.DateField()
 	numberDays = models.IntegerField()
 	active = models.BooleanField(default = False)
-	def changeBannerBookingStatus(self):
-		self.banner.banner_bookingStatus = True
-		self.banner.save()
 	def __str__(self):
 		return '%s %s' % (self.banner.id, self.bookingDate)
 

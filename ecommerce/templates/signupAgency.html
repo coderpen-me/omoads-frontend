@@ -44,37 +44,12 @@
             <div class="form-group">
                 {{ agency.agency_state }}
             </div>
-            <div class="form-group">
-                {{ agency.zones }}
-            </div>
 
 
-            <div id = "new">
-                
-            </div>
-            <button type = "button" id = "addZone" onclick="addNewZone()">add new zone</button>
+        
 
 
-
-            <script type="text/javascript">
-            $(window).ready(function(){
-                //$('#id_zones').select2();
-            })
-                function addNewZone(){
-                    var formDiv = document.createElement("div");
-                    formDiv.className = "form-group";
-
-                    var zoneInput = document.createElement("input");
-                    zoneInput.type = "text";
-                    zoneInput.name = "newZones";
-                    zoneInput.className = "form-control";
-                    zoneInput.placeholder = "enter new Zone";
-
-                    formDiv.appendChild(zoneInput);
-
-                    document.getElementById("new").appendChild(formDiv);
-                }
-            </script>
+           
 
             <div class="checkbox">
                 <label><input type="checkbox"> Remember me</label>

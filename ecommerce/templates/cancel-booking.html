@@ -45,7 +45,7 @@
         </thead>
         <tbody>
           {% for item in details %}
-          <tr id = "{{item.bdID}}" class = "cardRowsJS">
+          <tr id = "row{{item.bdID}}" class = "cardRowsJS">
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_landmark}}</td>
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_facing}}</td>
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.id}}</td>
@@ -53,24 +53,26 @@
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.startDate}}</td>
           <td style="padding-top: 15px; padding-bottom: 15px;">{{item.endDate}}</td>
           <td style="padding-top: 10px; padding-bottom: 5px;">
-          <button type="button" class="btn btn-danger" id = "{{item.banner.id}}" style="margin: ;">Cancel</button></td>
+          <button type="button" class="btn btn-danger" id = "button{{item.bdID}}" style="margin: ;">Cancel</button></td>
           </tr>
           <script type="text/javascript">
 
-            var item = document.getElementById("{{item.banner.id}}")
+            var item = document.getElementById("button{{item.bdID}}")
             item.bdID = "{{item.bdID}}"
-            console.log(item.bdID)
+            item.boardID = "{{item.banner.id}}"
+            console.log("id:"+item.id)
+            console.log("bdid:"+item.bdID)
            item.onclick = function(){
               $.ajax({
                   type: "POST",
                   url: "{% url 'owner_interface_cancel_board' %}",
                   data: {
                   "csrfmiddlewaretoken": "{{ csrf_token }}",
-                  "boardID":this.id,
+                  "boardID":this.boardID,
                   "bdID":this.bdID
                   },
                   success: function(data){
-                    var tr = document.getElementById("{{item.bdID}}")
+                    var tr = document.getElementById("row{{item.bdID}}")
                     tr.parentNode.removeChild(tr)
 
                   },
@@ -80,8 +82,8 @@
               });
             }
           </script>
-          <script type="text/javascript">
-        var card = document.getElementById("{{item.bdID}}")
+        <script type="text/javascript">
+        var card = document.getElementById("row{{item.bdID}}")
         card.zone = "{{item.banner.zone}}"
         </script>
         {% endfor %}

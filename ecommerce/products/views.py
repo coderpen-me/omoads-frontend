@@ -302,17 +302,6 @@ class SignupOwner(generic.edit.FormView):
 				print("bawal")
 				new_agency.user = new_user
 				new_agency.save()
-				for z in request.POST.getlist('zone'):
-					if z is not None and z is not "":
-						new_agency.zones.add(z)
-
-
-				for zone in request.POST.getlist('newZones'):
-					if zone is not None and zone is not "":
-						z = Zone(zone_name = zone)
-						z.save()
-						new_agency.zones.add(z)
-				new_agency.save()
 				return HttpResponseRedirect("/")
 			else:
 				#messages.error(request, "The username or email already exists.")
@@ -392,7 +381,7 @@ class OwnerInterfaceHome(generic.TemplateView):
 					'username':username,
 					'userType':userType,
 					'details': Banner.objects.filter(agency=a),
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -417,16 +406,17 @@ class CancelBooking(generic.TemplateView):
 				userType = "Agency"
 				details = []
 				for banner in Banner.objects.filter(agency=a, banner_bookingStatus = True):
-					bd = banner.bookingdetails_set.get(active = True)
-					details.append({'banner':banner, 'bookingDate':bd.bookingDate, 'startDate':bd.startDate,
-								 'endDate':bd.endDate, 'bdID':bd.id})
+					bannerDetails = banner.bookingdetails_set.filter(active = True)
+					for detail in bannerDetails:
+						details.append({'banner':banner, 'bookingDate':detail.bookingDate, 'startDate':detail.startDate,
+								 	'endDate':detail.endDate, 'bdID':detail.id})
 
 				context = {
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
 					'details':details,
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -454,7 +444,7 @@ class StatusBoards(generic.TemplateView):
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -489,7 +479,7 @@ class PriceBoards(generic.TemplateView):
 					'username':username,
 					'userType':userType,
 					'details':details,
-					'zones':a.zones.all()
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -514,13 +504,20 @@ class BookHoardings(generic.TemplateView):
 
 				username = request.user.username
 				a = Agency.objects.get(user = request.user)
+				details = []
+				for banner in Banner.objects.filter(agency=a):
+					bookDates = []
+					for detailset in banner.bookingdetails_set.filter(active = True):
+						bookDates.append({'startDate':detailset.startDate, 'endDate': detailset.endDate})
+					details.append({'banner':banner, 'dates':bookDates})
+					
 				userType = "Agency"
 				context = {
 					'loginStatus':True,
 					'username':username,
 					'userType':userType,
-					'details': Banner.objects.filter(agency=a, banner_bookingStatus = False),
-					'zones':a.zones.all()
+					'details': details,
+					'zones':Zone.objects.filter(banner__agency=a).distinct()
 				}
 
 				return render(request, self.template_name, context)
@@ -540,20 +537,21 @@ def bookBoards(request):
 		print(boardID)
 		banner = Banner.objects.get(pk = boardID)
 		bd = banner.bookingdetails_set.create(bookingDate = time.strftime("%Y-%m-%d"),
-									startDate = request.POST['dateStart'], endDate = request.POST['dateEnd'],
-									numberDays = request.POST['days'], active = True)
+									startDate = request.POST['dateStart'+ str(boardID)], endDate = request.POST['dateEnd'+ str(boardID)],
+									numberDays = request.POST['days'+ str(boardID)], active = True)
 		bd.save()
 		banner.banner_bookingStatus = True
 		banner.save()
-
+	messages.success(request, "board(s) booked", extra_tags = 'book_successful')
 	return HttpResponseRedirect(reverse('owner_interface'))
 
 
 def cancelBoard(request):
 	if request.is_ajax():
 		banner = Banner.objects.get(pk = request.POST['boardID'])
-		banner.banner_bookingStatus = False
-		banner.save()
+		if banner.bookingdetails_set.filter(active = True).count() is 0:
+			banner.banner_bookingStatus = False
+			banner.save()
 		bd = BookingDetails.objects.get(pk = request.POST['bdID'])
 		bd.active = False
 		bd.save()
