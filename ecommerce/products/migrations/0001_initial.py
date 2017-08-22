@@ -89,9 +89,4 @@ class Migration(migrations.Migration):
             name='zone',
             field=models.ForeignKey(to='products.Zone'),
         ),
-        migrations.AddField(
-            model_name='agency',
-            name='zones',
-            field=models.ManyToManyField(to='products.Zone', null=True, blank=True),
-        ),
     ]

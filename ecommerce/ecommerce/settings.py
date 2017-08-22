@@ -23,7 +23,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 
@@ -40,7 +40,7 @@ try:
 except:
     pass
 
-SITE_URL = "http://cfestore.com"
+# SITE_URL = "http://cfestore.com"
  
 
 # Application definition
@@ -52,8 +52,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'south', no longer supported
-    
+    'storages',
+
     'products',
 )
 
@@ -77,33 +77,43 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'omoads',
-        'USER': 'omouser',                      # Not used with sqlite3.
-        'PASSWORD': 'qwe123',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'omoads',
+            'USER': 'omouser',                      # Not used with sqlite3.
+            'PASSWORD': 'qwe123',                  # Not used with sqlite3.
+            'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '5432',
+        }
+    }
+    #DATABASES = {
+     #   'default': {
+      #      'ENGINE': 'django.db.backends.sqlite3',
+       #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #}
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #     'NAME': 'omodb',
+        #     'USER': 'omouser',
+        #     'PASSWORD': 'qwe123',
+        #     'HOST': 'localhost',
+        #     'PORT': '',
+        # }
     #}
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'omodb',
-    #     'USER': 'omouser',
-    #     'PASSWORD': 'qwe123',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
-#}
 
-# import dj_database_url
-# DATABASES['default'] =  dj_database_url.config()
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -144,9 +154,9 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_root")
 
-STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
+# )
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
@@ -158,3 +168,32 @@ TEMPLATE_DIRS = (
 #
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+
+AWS_ACCESS_KEY_ID = 'AKIAJID43ZCVHQEA7BQQ'
+AWS_SECRET_ACCESS_KEY = '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' 
+AWS_STORAGE_BUCKET_NAME = 'omostatic'
+
+# This will make sure that the file URL does not have unnecessary parameters like your access key.
+AWS_QUERYSTRING_AUTH = False 
+# AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
+#static media settings
+# STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+STATIC_URL = 'https://s3.ap-south-1.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME + "/static/";
+MEDIA_URL = STATIC_URL + 'media/'
+STATICFILES_DIRS = ( 
+    os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
+    )
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_root")
+# ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+    )
