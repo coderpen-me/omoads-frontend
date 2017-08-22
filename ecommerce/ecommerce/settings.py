@@ -40,7 +40,7 @@ try:
 except:
     pass
 
-# SITE_URL = "http://cfestore.com"
+# SITE_URL = "http://omoads.com"
  
 
 # Application definition
