@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
   <!-- <script src="{% static 'js/landingPage.js' %}"></script> -->
   
   <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
@@ -326,18 +327,22 @@
       function initMap() {
               map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 28.683349, lng: 77.428079 },
-                zoom: 12
+                zoom: 9
               });
               var markerGroup = locations.map(function(location, i) {
                 return new google.maps.Marker({
                   position: location,
-                  map: map,
+                  
                   title: "OMOADS Site",
                   icon: "{% static 'resources/images/marker3.png' %}"
       			
                 });
               });
-
+              var oms = new OverlappingMarkerSpiderfier(map, { 
+                              markersWontMove: true, 
+                              markersWontHide: true,
+                              basicFormatEvents: true
+              });
               // var marker = new google.maps.Marker({
               //   position: locations[0],
               //   map: map,                     // required
@@ -348,7 +353,7 @@
               for (var i = 0; i < locations.length; i++) {
       			markerGroup[i].id_try = locID[i];
             console.log(String(markerGroup[i].position))
-      			markerGroup[i].addListener('click', function() {
+      			markerGroup[i].addListener('spider_click', function() {
                   // infowindow.setContent(this.content);
                   // infowindow.open(map, this);
                   // console.log("hey popups!");
@@ -383,9 +388,24 @@
       			
                   $('#myModal').modal('show');
                 });
+               oms.addMarker(markerGroup[i]); 
               }
+
+              minClusterZoom = 17;
+              
+
               var markerCluster = new MarkerClusterer(map, markerGroup,
                 {imagePath: "{% static 'js/m' %}"});
+
+              markerCluster.setMaxZoom(minClusterZoom);
+
+
+              google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+            map.fitBounds(cluster.getBounds()); // Fit the bounds of the cluster clicked on
+            if( map.getZoom() > minClusterZoom+1 ) // If zoomed in past 15 (first level without clustering), zoom out to 17
+                map.setZoom(minClusterZoom+1);
+        });
+
               
               // Create the search box and link it to the UI element.
               var input = document.getElementById('pac-input');
