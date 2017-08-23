@@ -26,23 +26,28 @@
             <!--</div>-->
             <div class="form-group">
                 {{ form.username }}
+                <p id = "usenamemsg"></p>
             </div>
 
             <div class="form-group">
                 {{ form.email }}
+                <p id = "emailmsg"></p>
             </div>
             <div class="form-group">
                 {{ form.password1 }}
             </div>
             <div class="form-group">
                 {{ agency.agency_name }}
+                <p id = "agencymsg"></p>
             </div>
 
             <div class="form-group">
                 {{ agency.agency_city }}
+                <p id = "citymsg"></p>
             </div>
             <div class="form-group">
                 {{ agency.agency_state }}
+                <p id = "statemsg"></p>
             </div>
 
 
@@ -55,7 +60,7 @@
                 <label><input type="checkbox"> Remember me</label>
             </div>
             <div class="row">
-                <input type='submit' value='submit' class='btn btn-default' />
+                <input type='submit' value='submit' class='btn btn-default' id = "sub"/>
                 <button type="submit" class="btn btnLogin" style="border-radius: 4px;">Login</button>
             </div>
         </form>
@@ -64,4 +69,180 @@
     <div class="col-sm-4"></div>
 </div>
 </body>
+
+<script type="text/javascript">
+
+  function checkEmail(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("emailmsg");
+
+  if(validateEmail(ele.value) == true)
+  {
+    msg.innerHTML = "VALID EMAIL";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID EMAIL ID";
+    msg.style.color = "red";
+    sub.disabled = true;
+    
+
+  }
+}
+function checkUserName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("usenamemsg");
+
+
+  if(validateUserName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID USERNAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID USERNAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function agencyName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("agencymsg");
+
+
+  if(validateAgencyName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID AGENCY NAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID AGENCY NAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function cityName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("citymsg");
+
+
+  if(validateCityName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID CITY NAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID CITY NAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function stateName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("statemsg");
+
+
+  if(validateStateName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID STATE NAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID STATE NAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+
+
+
+
+function validateEmail(elementValue){        
+   var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
+   return emailPattern.test(elementValue);   
+ }   
+function validateUserName(elementValue){
+   
+     var UserNamePattern = /^[a-zA-Z0-9._-]{3,15}$/;  
+     return UserNamePattern.test(elementValue); 
+     
+ }
+ function validateAgencyName(elementValue){
+   
+     var agentPattern = /^[a-zA-Z]{3,15}$/;  
+     return agentPattern.test(elementValue); 
+     
+ }
+ function validateCityName(elementValue){
+   
+     var cityPattern = /^[a-zA-Z]{3,15}$/;  
+     return cityPattern.test(elementValue); 
+     
+ }
+ function validateStateName(elementValue){
+   
+     var statePattern = /^[a-zA-Z]{2,15}$/;  
+     return statePattern.test(elementValue); 
+     
+ }
+
+function validateAll()
+{
+    var username = document.getElementById("id_username");
+    var email = document.getElementById("id_email");
+    var agency = document.getElementById("name");
+    var city = document.getElementById("state");
+    var state = document.getElementById("city");
+    if(validateUserName(username.value)&&validateEmail(email.value)&&validateAgencyName(agency.value)
+        &&validateCityName(city.value)&&validateStateName(state).value)
+    {
+        return true;
+    }
+    else
+        return false;
+}
+
+
+ var sub = document.getElementById("sub");
+
+ sub.disabled = true;
+
+  
+
+</script>
+
 </html>
