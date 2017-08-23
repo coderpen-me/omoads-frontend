@@ -43,7 +43,7 @@ class filterForm(forms.Form):
 class UserForm(forms.ModelForm):#user form pre build class
 	username=forms.CharField(label="Username", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...','onkeyup':'checkUserName(this)'}))
 	email=forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...','onkeyup':'checkEmail(this)'}))
-	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...'}),min_length=6)
+	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...','onkeyup':'password(this)'}),min_length=6)
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password1']
