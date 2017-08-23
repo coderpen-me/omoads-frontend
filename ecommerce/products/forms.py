@@ -41,8 +41,8 @@ class filterForm(forms.Form):
 
 
 class UserForm(forms.ModelForm):#user form pre build class
-	username=forms.CharField(label="Username", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...'}))
-	email=forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...'}))
+	username=forms.CharField(label="Username", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...','onkeyup':'checkUserName(this)'}))
+	email=forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...','onkeyup':'checkEmail(this)'}))
 	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...'}),min_length=6)
 	class Meta:
 		model = User
@@ -50,9 +50,9 @@ class UserForm(forms.ModelForm):#user form pre build class
 
 class AgencyForm(forms.ModelForm):
 
-	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_name...', 'id': 'name'}))
-	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_state...', 'id': 'state'}))
-	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_city...', 'id': 'city'}),min_length=6)
+	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_name...', 'id': 'name','onkeyup':'agencyName(this)'}))
+	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_state...', 'id': 'state','onkeyup':'stateName(this)'}))
+	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_city...', 'id': 'city','onkeyup':'cityName(this)'}),min_length=6)
 
 
 	class Meta:
@@ -62,5 +62,5 @@ class AgencyForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-	username = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...', 'id': 'email'}))
+	username = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...', 'id': 'email','onkeyup':'checkUserNameLogin(this)'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...', 'id': 'pwd'}))

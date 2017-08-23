@@ -557,7 +557,7 @@ def cancelBoard(request):
 		bd.save()
 		data = {"success":True}
 		json_data = json.dumps(data)
-
+		messages.success(request, "board cancelled", extra_tags = 'cancel_successful')
 		return HttpResponse(json_data, content_type='application/json')
 	else:
 		Http404
@@ -596,6 +596,7 @@ def addIndiPrice(request):
 		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
 		newPrice.save()
 		banner.save()
+		
 		return HttpResponseRedirect(reverse('owner_interface_price'))
 	else:
 		Http404
