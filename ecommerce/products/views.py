@@ -13,7 +13,7 @@ import json, time
 
 
 from .forms import *
-from .models import Banner, Agency, DIMENSION_CHOICES,BookingDetails,PricePeriod,Zone
+from .models import Banner, Agency, dimension_choices, type_choices, light_choices, BookingDetails,PricePeriod,Zone
 
 
 from django.contrib.auth import logout, login, authenticate
@@ -162,7 +162,18 @@ def onclickMapPoints(request):
 		
 
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
-		data = {"id" : str(b.id), "landmark": str(b.banner_landmark), "url": str(b.banner_image), "cost" : str(b.banner_cost), "lat" : str(b.banner_lattitude), "long" : str(b.banner_longitude), "dim" : str(DIMENSION_CHOICES[int(b.banner_dimensions)][1])}
+		data = {
+		"id" : str(b.id),
+		# "landmark": str(b.banner_landmark),
+		"url": str(b.banner_image),
+		"type": str(type_choices[str(b.banner_type)]),
+		"lighted": str(light_choices[str(b.banner_lighted)]),
+		# "cost" : str(b.banner_cost),
+		"lat" : str(b.banner_lattitude),
+		"long" : str(b.banner_longitude),
+		"dim" : str(dimension_choices[str(b.banner_dimensions)])
+		}
+		# print(data)
 		json_data = json.dumps(data)
 
 		return HttpResponse(json_data, content_type='application/json')

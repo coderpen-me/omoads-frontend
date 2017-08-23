@@ -21,11 +21,22 @@ TYPE_CHOICES = (
 	('unipole', 'Unipole'),
 )
 
+type_choices = {
+	'gantry': 'Gantry' ,
+	'unipole': 'Unipole' ,
+}
+
 LIGHTED_CHOICES = (
 	('f', 'Front Lit'),
 	('b', 'Back Lit'),
 	('n', 'Not Lighted'),
 )
+
+light_choices = {
+	'f':'Front Lit',
+	'b':'Back Lit',
+	'n':'Not Lighted'
+	}
 
 DIMENSION_CHOICES = (
 	('0', '50x10'),
@@ -33,6 +44,13 @@ DIMENSION_CHOICES = (
 	('2', '30x10'),
 	('3', '20x10'),
 )
+
+dimension_choices = {
+	'0': '50x10',
+	'1': '40x10',
+	'2': '30x10',
+	'3': '20x10',
+}
 
 
 class Category(models.Model):

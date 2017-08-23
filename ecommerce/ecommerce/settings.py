@@ -40,7 +40,7 @@ try:
 except:
     pass
 
-# SITE_URL = "http://cfestore.com"
+# SITE_URL = "http://omoads.com"
  
 
 # Application definition
@@ -99,20 +99,6 @@ else:
             'PORT': '5432',
         }
     }
-    #DATABASES = {
-     #   'default': {
-      #      'ENGINE': 'django.db.backends.sqlite3',
-       #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        #}
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #     'NAME': 'omodb',
-        #     'USER': 'omouser',
-        #     'PASSWORD': 'qwe123',
-        #     'HOST': 'localhost',
-        #     'PORT': '',
-        # }
-    #}
 
 
 # Internationalization
@@ -120,7 +106,7 @@ else:
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'US/Pacific'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
@@ -186,8 +172,9 @@ AWS_QUERYSTRING_AUTH = False
 # AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
 #static media settings
 # STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
-STATIC_URL = 'https://s3.ap-south-1.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME + "/static/";
-MEDIA_URL = STATIC_URL + 'media/'
+aws_string = 'https://s3.ap-south-1.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME 
+STATIC_URL = aws_string + '/static/'
+MEDIA_URL = aws_string + '/'
 STATICFILES_DIRS = ( 
     os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
     )
