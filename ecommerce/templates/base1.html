@@ -22,15 +22,15 @@
 </head>
 <style type="text/css">
   @keyframes fadeout {
-  0%{opacity:0;top:50%}
+    0%{opacity:0;top:50%}
     20%{opacity:1;}
-  80%{opacity:1;top:50%;}
-  100%{opacity:0;
-        top:-50%;
+    80%{opacity:1;top:50%;}
+    100%{opacity:0;
+      top:-50%;
     }
 
-}
-#message {
+  }
+  #message {
     position: absolute;
     z-index: 9999;
     top: -50%;
@@ -38,13 +38,13 @@
     right: 25%;
     background: #fde073;
     text-align: center;
-  animation-name: fadeout;
-  animation-duration: 2s;
+    animation-name: fadeout;
+    animation-duration: 2s;
     overflow: hidden;
-  opacity:0;
-  box-shadow: 0 0 5px black;
+    opacity:0;
+    box-shadow: 0 0 5px black;
 
-}
+  }
 </style>
 <body>
 {% if messages %}
@@ -57,30 +57,7 @@
     </div>
 {% endif %}
 
-<header>
-    <nav class="navbar navbar-inverse navigationBar">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#" style="padding: 15Px; padding-left: 45px;">O M O A D S</a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Directions</a></li>
-          <li><a href="#">Help</a></li>
-          {% if not loginStatus %}
-          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% endif %}
-        {% if loginStatus %}
-          <li><a href="#">{{username}}</a></li>
-          <li><a href="#">{{userType}}</a></li>
-          <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
-        {% endif %}
-        </ul>
-      </div>
-    </nav>
-</header>
+{% include 'navbar1.html'%}
 <div class="container-fluid">
 	<div class="col-sm-3 side-bar">
 		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>

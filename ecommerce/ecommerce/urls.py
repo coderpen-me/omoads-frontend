@@ -10,9 +10,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', productsViews.Home.as_view(), name='home'),
-    url(r'^s/$', 'products.views.search', name='search'),
 
-    
+    url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
 
     url(r'^products/$', 'products.views.all', name='products'),
     url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),
@@ -20,18 +19,12 @@ urlpatterns = patterns('',
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
 
     # url(r'^blog/', include('blog.urls')),
-    #(?P<all_items>.*)
-    #(?P<id>\d+)
-    
 
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),
     url(r'^register/$', 'products.views.signup', name='auth_register2'),
     url(r'^registerowner/$', productsViews.SignupOwner.as_view(), name='auth_register_owner'),
     url(r'^logout/$', 'products.views.logoutUser', name='auth_logout'),
     url(r'^login/$', productsViews.LoginUsers.as_view(), name='auth_login'),
-
-
-
 
     url(r'^owner/home/$', productsViews.OwnerInterfaceHome.as_view(), name='owner_interface'),
     url(r'^owner/book/$', productsViews.BookHoardings.as_view(), name='owner_interface_book'),

@@ -20,18 +20,18 @@
 </head>
 <style type="text/css">
   .bannerImage {
-      background: black;
+    background: black;
   }
   @keyframes fadeout {
-  0%{opacity:0;top:50%}
+    0%{opacity:0;top:50%}
     20%{opacity:1;}
-  80%{opacity:1;top:50%;}
-  100%{opacity:0;
-        top:-50%;
+    80%{opacity:1;top:50%;}
+    100%{opacity:0;
+      top:-50%;
     }
 
-}
-#message {
+  }
+  #message {
     position: absolute;
     z-index: 9999;
     top: -50%;
@@ -39,30 +39,27 @@
     right: 25%;
     background: #fde073;
     text-align: center;
-  animation-name: fadeout;
-  animation-duration: 2s;
+    animation-name: fadeout;
+    animation-duration: 2s;
     overflow: hidden;
-  opacity:0;
-  box-shadow: 0 0 5px black;
+    opacity:0;
+    box-shadow: 0 0 5px black;
 
-}
+  }
 </style>
 <body>
 {% if messages %}
     <div id="message">
 {% for message in messages %}
    
-   <script type="text/javascript">
-      if("{{message.extra_tags}}" == "wrong_credentials"){
-        console.log("fuck")
-        $(window).ready(function(){
-          $('#loginModal').modal()
-        })
-        
-      }
-
-
-   </script>
+<script type="text/javascript">
+  if("{{message.extra_tags}}" == "wrong_credentials"){
+    console.log("fuck");
+    $(window).ready(function(){
+      $('#loginModal').modal();
+    });
+  }
+</script>
 
    <h3> {{ message }}</h3>
 {% endfor %}
@@ -70,38 +67,7 @@
 {% endif %}
 
 <section>
-<header>
-    <nav class="navbar navbar-inverse navigationBar">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"
-               src="{% static 'resources/images/re-logo.png' %}"></a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-        {% if not loginStatus %}
-          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% endif %}
-        {% if loginStatus %}
-          <li><a href="#">{{username}}</a></li>
-          {% if userType == "Agency" %}
-            <li><a href="{% url 'owner_interface' %}">{{userType}}</a></li>
-          {% else %}
-            <li><a href="#">{{userType}}</a></li>
-          {% endif %}
-          <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
-        {% endif %}
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Directions</a></li>
-          <li><a href="#">Help</a></li>
-        </ul>
-      </div>
-    </nav>
-</header>
-
+{% include 'navbar1.html' %}
   <!-- Login Modal -->
   <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
