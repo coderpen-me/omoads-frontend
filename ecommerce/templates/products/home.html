@@ -18,6 +18,7 @@
   
   <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
 </head>
+
 <style type="text/css">
   .bannerImage {
     background: black;
@@ -47,6 +48,7 @@
 
   }
 </style>
+
 <body>
 {% if messages %}
     <div id="message">
@@ -289,38 +291,38 @@
         {lat: 28.6808859, lng: 77.4252781},
         {lat: 28.683349, lng: 77.428079}
         ];
-      */
+        */
         var locations = [];
-		var locID = [];
+        var locID = [];
 		//the above var location is javascript var and the below one comes from djago code.bad names. confusing. gotta change
-        {% for location in locations %}
-        locations.push({
-          lat: {{ location.lat }},
-          lng: {{ location.lng }},
+    {% for location in locations %}
+    locations.push({
+      lat: {{ location.lat }},
+      lng: {{ location.lng }},
 		  //id: {{ location.id }}
+    });
+    locID.push({{ location.id }});
+
+    {% endfor %}
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 28.683349, lng: 77.428079 },
+        zoom: 7
+      });
+      var markerGroup = locations.map(function(location, i) {
+        return new google.maps.Marker({
+          position: location,
+
+          title: "OMOADS Site",
+          icon: "{% static 'resources/images/marker3.png' %}"
+
         });
-		locID.push({{ location.id }});
-		
-        {% endfor %}
-      function initMap() {
-              map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 28.683349, lng: 77.428079 },
-                zoom: 9
-              });
-              var markerGroup = locations.map(function(location, i) {
-                return new google.maps.Marker({
-                  position: location,
-                  
-                  title: "OMOADS Site",
-                  icon: "{% static 'resources/images/marker3.png' %}"
-      			
-                });
-              });
-              var oms = new OverlappingMarkerSpiderfier(map, { 
-                              markersWontMove: true, 
-                              markersWontHide: true,
-                              basicFormatEvents: true
-              });
+      });
+      var oms = new OverlappingMarkerSpiderfier(map, { 
+        markersWontMove: true, 
+        markersWontHide: true,
+        basicFormatEvents: true
+      });
               // var marker = new google.maps.Marker({
               //   position: locations[0],
               //   map: map,                     // required
@@ -328,65 +330,65 @@
               //   });
               //var markerCluster = new MarkerClusterer(map, markerGroup,
                 //  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-              for (var i = 0; i < locations.length; i++) {
-      			markerGroup[i].id_try = locID[i];
-            console.log(String(markerGroup[i].position))
-      			markerGroup[i].addListener('spider_click', function() {
+                for (var i = 0; i < locations.length; i++) {
+                 markerGroup[i].id_try = locID[i];
+                 console.log(String(markerGroup[i].position))
+                 markerGroup[i].addListener('spider_click', function() {
                   // infowindow.setContent(this.content);
                   // infowindow.open(map, this);
                   // console.log("hey popups!");
-      			console.log(this.id_try);
-      			$.ajax({
-      				  type: "POST",
-      				  url: "{% url 'onclickMapPoints' %}",
-      				  data: {
-      					"csrfmiddlewaretoken": "{{ csrf_token }}",
-      					"id_point":String(this.id_try)
-      					
-      				  },
-      				  success: function(data){
+                  console.log(this.id_try);
+                  $.ajax({
+                    type: "POST",
+                    url: "{% url 'onclickMapPoints' %}",
+                    data: {
+                     "csrfmiddlewaretoken": "{{ csrf_token }}",
+                     "id_point":String(this.id_try)
+
+                   },
+                   success: function(data){
       				  //set values according to id here
       				  
       				  //#################################################################################################################
       				  //heere chaasifhsklgsalgjsalgjaslkgjsalkg
-                				  
+
       				  $('#panelID').text(data["id"])
                 $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"])
-      				  $('#price').text(data["cost"])
-      				  $('#MapLoc').text(data["lat"] + " / " + data["long"])
-      				  $('#dimensions').text(data["dim"])
+                $('#price').text(data["cost"])
+                $('#MapLoc').text(data["lat"] + " / " + data["long"])
+                $('#dimensions').text(data["dim"])
                 $('#type').text(data["type"])
                 $('#lighted').text(data["lighted"])
                 // $('#landmark').text(data["landmark"])
-      				  },
-      				  error: function(){
-      					alert("Error! Something wrong. Please try again later")
-      				  },
-      				});
+              },
+              error: function(){
+               alert("Error! Something wrong. Please try again later")
+             },
+           });
 
-      			
-      			
+
+
                   $('#myModal').modal('show');
                 });
-               oms.addMarker(markerGroup[i]); 
-              }
+                 oms.addMarker(markerGroup[i]); 
+               }
 
-              minClusterZoom = 17;
-              
+               minClusterZoom = 17;
 
-              var markerCluster = new MarkerClusterer(map, markerGroup,
+
+               var markerCluster = new MarkerClusterer(map, markerGroup,
                 {imagePath: "{% static 'js/m' %}"});
 
-              markerCluster.setMaxZoom(minClusterZoom);
+               markerCluster.setMaxZoom(minClusterZoom);
 
 
-              google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+               google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
             map.fitBounds(cluster.getBounds()); // Fit the bounds of the cluster clicked on
             if( map.getZoom() > minClusterZoom+1 ) // If zoomed in past 15 (first level without clustering), zoom out to 17
-                map.setZoom(minClusterZoom+1);
-        });
+              map.setZoom(minClusterZoom+1);
+          });
 
-              
+
               // Create the search box and link it to the UI element.
               var input = document.getElementById('pac-input');
               var searchBox = new google.maps.places.SearchBox(input);
@@ -438,8 +440,8 @@
                 });
                 map.fitBounds(bounds);
               });
-        }
-        
+            }
+
 
             
 </script>
