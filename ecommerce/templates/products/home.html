@@ -325,17 +325,18 @@
       var oms = new OverlappingMarkerSpiderfier(map, { 
         markersWontMove: true, 
         markersWontHide: true,
+        keepSpiderfied: true,
         basicFormatEvents: true
       });
 
       for (var i = 0; i < locations.length; i++) {
        markerGroup[i].id_try = locID[i];
-       console.log(String(markerGroup[i].position))
+       // console.log(String(markerGroup[i].position))
        markerGroup[i].addListener('spider_click', function() {
                   // infowindow.setContent(this.content);
                   // infowindow.open(map, this);
                   // console.log("hey popups!");
-                  console.log(this.id_try);
+                  // console.log(this.id_try);
                   $.ajax({
                     type: "POST",
                     url: "{% url 'onclickMapPoints' %}",
