@@ -90,6 +90,10 @@ class Agency(models.Model):
 
 
 
+def content_file_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (instance.banner.id,ext)
+    return '/'.join(['static/boardimages', filename])
 
 class Banner(models.Model):
 	agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
@@ -104,15 +108,20 @@ class Banner(models.Model):
 	banner_landmark = models.CharField( max_length = 200 )
 	banner_face_side = models.CharField( max_length = 10, choices = (('Left', 'Left'), ('Right', 'Right')) )
 	banner_status = models.CharField( max_length=100, choices = STATUS_CHOICES, default= 'available')
-	banner_image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,default='omoads/Image/banner1.jpg')
 	banner_bookingStatus = models.BooleanField(default= False)
-
-
-	# banner_zone = models.CharField( max_length=100, default= 'RDC')
-	
-
 	def __str__(self):
 		return '%s %s %s %s %s %s' % (self.id, self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
+
+
+class BannerImage(models.Model):
+	def __str__(self):
+		return str(self.image).split('/')[-1]
+
+	banner = models.OneToOneField(Banner, on_delete=models.CASCADE)
+	image = models.ImageField(upload_to=content_file_name,default='boardimages/'+str(id)+'.jpg')
+	
+
+	
 
 
 class BookingDetails(models.Model):

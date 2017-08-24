@@ -228,7 +228,7 @@ function validateUserName(elementValue){
  }
  function validateAgencyName(elementValue){
    
-     var agentPattern = /^[a-zA-Z]{3,15}$/;  
+     var agentPattern = /^[a-zA-Z_ '!?-]{3,15}$/;  
      return agentPattern.test(elementValue); 
      
  }
@@ -240,13 +240,13 @@ function validateUserName(elementValue){
  }
  function validateStateName(elementValue){
    
-     var statePattern = /^[a-zA-Z]{2,15}$/;  
+     var statePattern = /^[a-zA-Z ]{2,15}$/;  
      return statePattern.test(elementValue); 
      
  }
  function validatePassword(elementValue){
    
-     var passPattern = /^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9]{6,25}$/;  
+     var passPattern = /^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!?@_-]{6,25}$/;  
      return passPattern.test(elementValue); 
      
  }
@@ -256,9 +256,16 @@ function validateAll()
     var username = document.getElementById("id_username");
     var email = document.getElementById("id_email");
     var agency = document.getElementById("name");
-    var city = document.getElementById("state");
-    var state = document.getElementById("city");
+    var city = document.getElementById("city");
+    var state = document.getElementById("state");
     var pass = document.getElementById("id_password1");
+    console.log(validateUserName(username.value))
+    console.log(validateEmail(email.value))
+    console.log(validateAgencyName(agency.value))
+    console.log(validateCityName(city.value))
+    console.log(validateStateName(state.value))
+    console.log(validatePassword(pass.value))
+
     if(validateUserName(username.value)&&validateEmail(email.value)&&validateAgencyName(agency.value)
         &&validateCityName(city.value)&&validateStateName(state.value)&&validatePassword(pass.value))
     {
