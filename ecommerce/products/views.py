@@ -21,19 +21,24 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 import datetime
 
-def search(request):
-	try:
-		q = request.GET.get('q')
-	except:
-		q = None
-	
-	if q:
-		products = Product.objects.filter(title__icontains=q)
-		context = {'query': q, 'products': products}
-		template = 'products/results.html'	
-	else:
-		template = 'products/home.html'	
-		context = {}
+def buyer_cart(request):
+	template = 'products/buyer_cart.html'	
+	username = ""
+	userType = ""
+
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+
+	context = {
+		'loginStatus':request.user.is_authenticated(),
+		'username':username,
+		'userType':userType
+	}
 	return render(request, template, context)
 
 class Home(generic.TemplateView):
@@ -100,9 +105,6 @@ class Home(generic.TemplateView):
 			for result in results:
 				locations.append({"lng": result.banner_longitude, "lat": result.banner_lattitude, "id":result.id})
 			# print( str( locations ) )
-
-
-
 
 		username = ""
 		userType = ""
