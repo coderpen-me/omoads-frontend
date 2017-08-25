@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'l8jyt^qbes)16fvzgx=t_kd3=0ch(&^x02x%rp#q71kewuz%%p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -27,7 +27,6 @@ ALLOWED_HOSTS = ["*"]
 
 
 
-DEFAULT_FROM_EMAIL = "Coding For Entrepreneurs <codingforentrepreneurs@gmail.com>"
 
 try:
     # from .email_settings import host, user, password
@@ -140,20 +139,22 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_root")
 
-# STATICFILES_DIRS = (
-#     os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
-# )
+
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
+)
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
 
 #
 # STRIPE_SECRET_KEY = "sk_test_tXCtSORPdz4nrozcoOsiCy2A"
 # STRIPE_PUBLISHABLE_KEY = "pk_test_giqz4Y9dhjdg6QtIUbuOBahj"
 #
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 
@@ -175,12 +176,23 @@ AWS_QUERYSTRING_AUTH = False
 aws_string = 'https://s3.ap-south-1.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME 
 STATIC_URL = aws_string + '/static/'
 MEDIA_URL = aws_string + '/'
+
 STATICFILES_DIRS = ( 
     os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
     )
+
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_root")
 # ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
     )
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+# Override production variables if DJANGO_DEVELOPMENT env variable is set
+if os.environ.get('DJANGO_DEVELOPMENT', 'true'):
+    from settings_dev import * 
