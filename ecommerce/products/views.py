@@ -631,6 +631,7 @@ def calculatePrice(request):
 
 		for price in price_set:
 			#if(price.startDate <= )
+			print(price)
 
 
 		data = {
