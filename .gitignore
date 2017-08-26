@@ -68,6 +68,7 @@ target/
 
 #static files
 static/media/None
+static/media/static
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
