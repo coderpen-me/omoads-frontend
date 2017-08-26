@@ -199,45 +199,46 @@ Book Hoarding ||
                                     
                                   },
                                   function(start, end){
-                                    console.log("call back");
-                                    startDateForm = start;
-                                    endDateForm = end;
-                                    var diff = end.diff(start, 'days')
-                                    $('#startDateForm{{item.banner.id}}').val(start.format('YYYY-MM-DD'));
-                                    $('#endDateForm{{item.banner.id}}').val(end.format('YYYY-MM-DD'));
-                                    $('#daysForm{{item.banner.id}}').val(diff);
-                                    console.log(diff)
-                                    
-                                    var flag = 0
-                                    for (var i = 0; i<invalidDates.length;i++)
-                                    {
-                                      console.log("fuck")
-                                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
-                                      {
-                                        flag  = 1;
-                                        console.log("fucker")
-                                        var datemsg = document.getElementById("datemsg{{item.banner.id}}");
-                                        datemsg.innerHTML = "DATE RANGE HAS INVALID DATES";
-                                        datemsg.style.color = "red";
-                                         $('#{{item.banner.id}}').attr("disabled", true)
-                                        break;
-                                      }
-                                    }
-                                    if(flag == 0)
-                                    {
-                                      $('#bookHoarding').attr("disabled", false)
-                                      $('#{{item.banner.id}}').attr("disabled", false)
-                                      var datemsg = document.getElementById("datemsg{{item.banner.id}}");
-                                        datemsg.innerHTML = "DATE RANGE IS AVAILABLE";
-                                        datemsg.style.color = "green";
+                                          console.log("call back");
+                                          startDateForm = start;
+                                          endDateForm = end;
+                                          var diff = end.diff(start, 'days')
+                                          $('#startDateForm{{item.banner.id}}').val(start.format('YYYY-MM-DD'));
+                                          $('#endDateForm{{item.banner.id}}').val(end.format('YYYY-MM-DD'));
+                                          $('#daysForm{{item.banner.id}}').val(diff);
+                                          console.log(diff)
+                                          
+                                          var flag = 0
+                                          for (var i = 0; i<invalidDates.length;i++)
+                                          {
+                                            console.log("fuck")
+                                            if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+                                            {
+                                              flag  = 1;
+                                              console.log("fucker")
+                                              var datemsg = document.getElementById("datemsg{{item.banner.id}}");
+                                              datemsg.innerHTML = "DATE RANGE HAS INVALID DATES";
+                                              datemsg.style.color = "red";
+                                               $('#{{item.banner.id}}').attr("disabled", true)
+                                              break;
+                                            }
+                                          }
+                                          if(flag == 0)
+                                          {
+                                            $('#bookHoarding').attr("disabled", false)
+                                            $('#{{item.banner.id}}').attr("disabled", false)
+                                            var datemsg = document.getElementById("datemsg{{item.banner.id}}");
+                                              datemsg.innerHTML = "DATE RANGE IS AVAILABLE";
+                                              datemsg.style.color = "green";
 
-                                    }
-                                    else
-                                    {
+                                          }
+                                          else
+                                          {
 
-                                    }
-                                    invalidDates = [];
-                                  });
+                                          }
+                                          invalidDates = [];
+                                  }
+                                  );
 
                               });
 

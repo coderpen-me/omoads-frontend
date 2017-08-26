@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 # Create your models here.
 from django.contrib.auth.models import User
-
+import datetime
 
 STATUS_CHOICES = (
 	('available', 'Available'),
@@ -111,11 +111,19 @@ class Banner(models.Model):
 	banner_bookingStatus = models.BooleanField(default= False)
 	def __str__(self):
 		return '%s %s %s %s %s %s' % (self.id, self.banner_type, self.banner_landmark, self.banner_lighted,  self.banner_cost, self.banner_dimensions)
+	def save(self, *args, **kwargs):
+		super(Banner, self).save(*args, **kwargs) # Call the "real" save() method.
+		if(self.priceperiod_set.all().count() == 0):
+			startDateParsed = datetime.datetime.strptime(str(datetime.date.today()), "%Y-%m-%d").date()
+			endDateParsed = datetime.datetime.strptime(str(datetime.date.today() + datetime.timedelta(days=31)), "%Y-%m-%d").date()
+			delta = endDateParsed - startDateParsed
+			p = self.priceperiod_set.create(startDate=startDateParsed,endDate=endDateParsed,numberDays=delta.days,price=self.banner_cost)
+			p.save()
 
 
 class BannerImage(models.Model):
 	def __str__(self):
-		return str(self.image).split('/')[-1]
+		return str(self.image)
 
 	banner = models.OneToOneField(Banner, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to=content_file_name,default='boardimages/'+str(id)+'.jpg')
@@ -140,3 +148,6 @@ class PricePeriod(models.Model):
 	endDate = models.DateField()
 	numberDays = models.IntegerField()
 	price = models.FloatField()
+
+	def __str__(self):
+		return '%s %s %s' % (self.startDate, self.endDate, self.price)

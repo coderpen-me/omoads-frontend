@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
-
+    url(r'^ajax/calculatePrice/$', 'products.views.calculatePrice', name='calculatePrice'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),
