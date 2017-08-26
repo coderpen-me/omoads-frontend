@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'l8jyt^qbes)16fvzgx=t_kd3=0ch(&^x02x%rp#q71kewuz%%p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -27,7 +27,6 @@ ALLOWED_HOSTS = ["*"]
 
 
 
-DEFAULT_FROM_EMAIL = "Coding For Entrepreneurs <codingforentrepreneurs@gmail.com>"
 
 try:
     # from .email_settings import host, user, password
@@ -140,20 +139,22 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_root")
 
-# STATICFILES_DIRS = (
-#     os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
-# )
+
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
+)
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
 
 #
 # STRIPE_SECRET_KEY = "sk_test_tXCtSORPdz4nrozcoOsiCy2A"
 # STRIPE_PUBLISHABLE_KEY = "pk_test_giqz4Y9dhjdg6QtIUbuOBahj"
 #
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 
@@ -163,24 +164,19 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 # AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
 
-AWS_ACCESS_KEY_ID = 'AKIAJID43ZCVHQEA7BQQ'
-AWS_SECRET_ACCESS_KEY = '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' 
-AWS_STORAGE_BUCKET_NAME = 'omostatic'
-
-# This will make sure that the file URL does not have unnecessary parameters like your access key.
-AWS_QUERYSTRING_AUTH = False 
-# AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com'
-#static media settings
-# STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
-aws_string = 'https://s3.ap-south-1.amazonaws.com/' + AWS_STORAGE_BUCKET_NAME 
-STATIC_URL = aws_string + '/static/'
-MEDIA_URL = aws_string + '/'
-STATICFILES_DIRS = ( 
-    os.path.join(os.path.dirname(BASE_DIR), "static", "static_files"),
-    )
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_root")
 # ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
     )
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+from ecommerce.aws.conf import *
+
+# Override production variables if DJANGO_DEVELOPMENT env variable is set
+if os.environ.get('DJANGO_DEVELOPMENT', 'true'):
+    from .settings_dev import * 

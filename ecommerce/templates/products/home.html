@@ -346,19 +346,108 @@
 
                    },
                    success: function(data){
-      				  //set values according to id here
-      				  
-      				  //#################################################################################################################
-      				  //heere chaasifhsklgsalgjsalgjaslkgjsalkg
+                      				 
 
-      				  $('#panelID').text(data["id"])
-                $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"])
-                $('#price').text(data["cost"])
-                $('#MapLoc').text(data["lat"] + " / " + data["long"])
-                $('#dimensions').text(data["dim"])
-                $('#type').text(data["type"])
-                $('#lighted').text(data["lighted"])
-                // $('#landmark').text(data["landmark"])
+                      				  $('#panelID').text(data["id"])
+                                $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"])
+                                $('#price').text(data["cost"])
+                                $('#MapLoc').text(data["lat"] + " / " + data["long"])
+                                $('#dimensions').text(data["dim"])
+                                $('#type').text(data["type"])
+                                $('#lighted').text(data["lighted"])
+                                
+                                var bookDates = data["bookDates"]
+                                var BoardIdForPrice = (data["id"])
+                                console.log(bookDates)
+                                invalidDates=[]
+                                // $('#landmark').text(data["landmark"])
+                                $('#myModal').attr("boardID",this.id_try)
+                                 $('input[name="daterange"]').daterangepicker({
+                                                    minDate: moment(),
+                                                    format: 'DD/MM/YYYY',
+                                                    seperator: 'To',
+                                                    opens: "left",
+                                                    isInvalidDate: function(date)
+                                                    {
+                                                        x=0
+                                                        for(i = 0; i < bookDates.length; i++)
+                                                          x=(x||((date.format('YYYY-MM-DD') >= bookDates[i].startDate)&&(date.format('YYYY-MM-DD') <= bookDates[i].endDate)))
+
+                                                      
+
+                                                        if (x!=0)
+                                                        {
+                                                            invalidDates.push(date.format('YYYY-MM-DD'))
+                                                            
+
+                                                            return true; 
+                                                        }
+                                                        else
+                                                        {
+                                                            return false; 
+                                                        }
+                                                    }
+                                                    },
+                                                  function(start, end){
+                                                    console.log("call back");
+                                                    var diff = end.diff(start, 'days')
+                                                    console.log(diff)
+                                                    
+                                                    var flag = 0
+                                                    for (var i = 0; i<invalidDates.length;i++)
+                                                    {
+
+                                                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+                                                      {
+                                                        flag  = 1;
+
+                                                        var dateMsg = document.getElementById("msgMyModal");
+                                                        dateMsg.innerHTML = "DATE RANGE HAS INVALID DATES";
+                                                        dateMsg.style.color = "red";
+                                                         $('#MyModalAddCart').attr("disabled", true)
+                                                        break;
+                                                      }
+                                                    }
+                                                    if(flag == 0)
+                                                    {
+                                                      $('#MyModalAddCart').attr("disabled", false)
+                                                      
+                                                      var dateMsg = document.getElementById("msgMyModal");
+                                                        dateMsg.innerHTML = "DATE RANGE IS AVAILABLE";
+                                                        dateMsg.style.color = "green";
+
+
+
+                                                      $.ajax({
+                                                      type: "POST",
+                                                      url: "{% url 'calculatePrice' %}",
+                                                      data: {
+                                                       "csrfmiddlewaretoken": "{{ csrf_token }}",
+                                                       "id_point":BoardIdForPrice,
+                                                       "startDate":start.format('YYYY-MM-DD'),
+                                                       "endDate":end.format('YYYY-MM-DD'),
+
+                                                     },
+                                                     success: function(data){
+                                                     },
+                                                     error: function(){
+                                                      alert("Error! Something wrong. Please try again later")
+                                                      },
+                                                 });
+                               
+
+
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                    invalidDates = [];
+
+                                                  },
+
+                                              );
               },
               error: function(){
                alert("Error! Something wrong. Please try again later")
@@ -368,6 +457,9 @@
 
 
                   $('#myModal').modal('show');
+                  
+                  
+
                 });
        oms.addMarker(markerGroup[i]); 
      }
@@ -492,14 +584,9 @@
                     <div class="input-group">
                       <input id="date" type="text" class="form-control" name="daterange">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-
-                      <script type="text/javascript">
-                        $(function() {
-                          $('input[name="daterange"]').daterangepicker();
-                        });
-                      </script>
                     </div>
                   </form>
+                  <p id = "msgMyModal"></p>
                 </div>
               </div>  
             </div>
@@ -511,7 +598,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add To Cart</button>
+          <button type="button" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
         </div>
       </div>
     </div>
