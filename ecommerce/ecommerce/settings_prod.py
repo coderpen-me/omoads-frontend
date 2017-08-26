@@ -34,9 +34,9 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 # AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
 
-AWS_ACCESS_KEY_ID = 'AKIAJID43ZCVHQEA7BQQ'
-AWS_SECRET_ACCESS_KEY = '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' 
-AWS_STORAGE_BUCKET_NAME = 'omostatic'
+AWS_ACCESS_KEY_ID = 'AKIAJMCSWCDLXQ32QZGQ'
+AWS_SECRET_ACCESS_KEY = 'zz03XTDELiu0ItloJDkfC7JL6eegCzUqsC/sZL+p'
+AWS_STORAGE_BUCKET_NAME = 'omos'
 
 # This will make sure that the file URL does not have unnecessary parameters like your access key.
 AWS_QUERYSTRING_AUTH = False 
