@@ -9,6 +9,7 @@ ALLOWED_HOSTS = ["*"]
 
 # DEFAULT_FROM_EMAIL = "OmoAds <theomoads@gmail.com>"
 # SITE_URL = "http://omoads.com"
+
 print "-=-=-=-= using dev settings"
 
 # URL to reference the static files

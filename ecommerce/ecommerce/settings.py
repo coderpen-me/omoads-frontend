@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'l8jyt^qbes)16fvzgx=t_kd3=0ch(&^x02x%rp#q71kewuz%%p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -174,6 +174,7 @@ TEMPLATE_LOADERS = (
 )
 
 # Override production variables if DJANGO_DEVELOPMENT env variable is set
+
 print os.environ.get('DJANGO_DEVELOPMENT')
 
 if os.environ.get('DJANGO_DEVELOPMENT') is not None:
