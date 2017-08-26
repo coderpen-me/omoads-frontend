@@ -1,5 +1,9 @@
-To run the settings.py
+## Notes to run the code
 
-Step
-1. edit `~/.bashrc` file.
-2. Append `export DJANGO_DEVELOPMENT=true` to your `~/.bashrc` file.
+* Activate the `virtualenv`.
+
+* Before starting development, run
+
+```
+export DJANGO_DEVELOPMENT=true
+```
