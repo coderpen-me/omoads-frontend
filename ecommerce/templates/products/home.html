@@ -563,14 +563,16 @@
             <div class="tab-pane active" id="facing1">
               <div class="row">
                 <div class="col-sm-6">
-                  <div class="modal-img">
-                    <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
-                  </div>
-                </div>
-                <div class="col-sm-6">
                   <div class="bannerInfo">
                     <div class="panel panel-default">
                       <div class="panel-heading">Banner Details</div>
+                      <form>
+                        <div class="input-group">
+                          <input id="date" type="text" class="form-control" name="daterange">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                      </form>
+                      </form>
                       <div class="panel-body">
                       <p>Pole ID: <span id="panelID">loading...</span></p>
                         <p>Dimentions: <span id="dimensions">loading...</span></p>
@@ -580,13 +582,13 @@
                       </div>
                     </div>
                   </div>
-                  <form>
-                    <div class="input-group">
-                      <input id="date" type="text" class="form-control" name="daterange">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
-                  </form>
+                  
                   <p id = "msgMyModal"></p>
+                </div>
+                <div class="col-sm-6">
+                  <div class="modal-img">
+                    <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
+                  </div>
                 </div>
               </div>  
             </div>
