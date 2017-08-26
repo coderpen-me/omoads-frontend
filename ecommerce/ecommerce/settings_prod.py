@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = False
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-print "-=-=--=- using prod settings"
+print ("-=-=--=- using prod settings")
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

@@ -13,7 +13,7 @@ import json, time
 from django.core import serializers
 
 from .forms import *
-from .models import Banner, Agency, dimension_choices, type_choices, light_choices, BookingDetails,PricePeriod,Zone
+from .models import Banner, Agency, dimension_choices, type_choices, light_choices, BookingDetails,PricePeriod,Zone,Area
 
 
 from django.contrib.auth import logout, login, authenticate
@@ -626,16 +626,36 @@ def calculatePrice(request):
 		print(b)
 		startDateParsed = datetime.datetime.strptime(request.POST['startDate'], "%Y-%m-%d").date()
 		endDateParsed = datetime.datetime.strptime(request.POST['endDate'], "%Y-%m-%d").date()
-		price_set = b.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
+		price_set = b.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed).order_by('startDate')
+		print(Area[str(b.banner_dimensions)])
 		print(price_set)
-
+		total = 0
 		for price in price_set:
-			#if(price.startDate <= )
 			print(price)
+
+			if(startDateParsed >= price.startDate and endDateParsed <= price.endDate):
+				delta = endDateParsed - startDateParsed
+				total = total + ((Area[str(b.banner_dimensions)])*price.price*delta.days/30.4)
+				print(total)
+			elif(startDateParsed <= price.endDate and startDateParsed >= price.startDate and endDateParsed > price.endDate):
+				delta = price.endDate - startDateParsed + datetime.timedelta(days=1)
+				total = total + ((Area[str(b.banner_dimensions)])*price.price*delta.days/30.4)
+				print(total)
+			elif(startDateParsed <= price.startDate and endDateParsed >= price.endDate):
+				total = total + ((Area[str(b.banner_dimensions)])*price.price*(price.numberDays+1)/30.4)
+				print(total)
+			elif(startDateParsed < price.startDate and endDateParsed > price.startDate and endDateParsed <= price.endDate):
+				delta = endDateParsed - price.startDate
+				total = total + ((Area[str(b.banner_dimensions)])*price.price*delta.days/30.4)
+				print(total)
+
+			
+			
+		print(total)
 
 
 		data = {
-		
+		'total':total
 		}
 		# print(data)
 		json_data = json.dumps(data)

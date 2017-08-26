@@ -416,7 +416,9 @@
                                                         dateMsg.innerHTML = "DATE RANGE IS AVAILABLE";
                                                         dateMsg.style.color = "green";
 
-
+                                                      var priceMsg = document.getElementById("priceMyModal");
+                                                      
+                                                        priceMsg.style.color = "green";
 
                                                       $.ajax({
                                                       type: "POST",
@@ -429,6 +431,7 @@
 
                                                      },
                                                      success: function(data){
+                                                      priceMsg.innerHTML = data["total"]
                                                      },
                                                      error: function(){
                                                       alert("Error! Something wrong. Please try again later")
@@ -587,6 +590,7 @@
                     </div>
                   </form>
                   <p id = "msgMyModal"></p>
+                  <p id = "priceMyModal"></p>
                 </div>
               </div>  
             </div>
