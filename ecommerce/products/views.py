@@ -21,6 +21,10 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 import datetime
 
+######
+#LANDING PAGE
+######
+
 def buyer_cart(request):
 	template = 'products/buyer_cart.html'	
 	username = ""
@@ -186,23 +190,35 @@ def onclickMapPoints(request):
 	else:
 		raise Http404
 
-def all(request):
-	products = Product.objects.all()
-	context = {'products': products}
-	template = 'products/all.html'	
-	return render(request, template, context)
+def AjaxBannerPrice(request):
+	if request.is_ajax():
+		b = Banner.objects.get(pk=int(request.POST['id_point']))
+		print(b)
+		startDateParsed = datetime.datetime.strptime(request.POST['startDate'], "%Y-%m-%d").date()
+		endDateParsed = datetime.datetime.strptime(request.POST['endDate'], "%Y-%m-%d").date()
 
 
-def single(request, slug):
-	try:
-		product = Product.objects.get(slug=slug)
-		#images = product.productimage_set.all()
-		images = ProductImage.objects.filter(product=product)
-		context = {'product': product, "images": images}
-		template = 'products/single.html'	
-		return render(request, template, context)
-	except:
+		total = calculatePrice(b,startDateParsed,endDateParsed)
+
+			
+			
+		print(total)
+
+
+		data = {
+		'total':total
+		}
+		# print(data)
+		json_data = json.dumps(data)
+
+		return HttpResponse(json_data, content_type='application/json')
+	else:
 		raise Http404
+
+
+######
+#SIGUNUP PAGE AND SIGNUP FUNCTION FOR HOME PAGE
+######
 
 class Signup(generic.edit.FormView):
 	form_class  = UserForm
@@ -280,6 +296,11 @@ def signup(request):
 		return HttpResponseRedirect(reverse('auth_register'))
 
 
+
+######
+#SIGNUP OWNER
+######
+
 class SignupOwner(generic.edit.FormView):
 	form_user  = UserForm
 	form_agency = AgencyForm
@@ -329,6 +350,10 @@ class SignupOwner(generic.edit.FormView):
 			print("invalid email already")
 			return HttpResponseRedirect(reverse('auth_register_owner'))
 
+
+######
+#SESSION AND LOGIN LOGOUT
+######
 
 class LoginUsers(generic.edit.FormView):
 	form_class = LoginForm
@@ -384,6 +409,15 @@ def logoutUser(request):
 	return HttpResponseRedirect("/")
 
 
+
+######
+#OWNER START
+######
+
+######
+#OWNER LANDING PAGE
+######
+
 class OwnerInterfaceHome(generic.TemplateView):
 	template_name = "adminIndex.html"
 	def get(self, request, *args, **kwargs):
@@ -411,6 +445,11 @@ class OwnerInterfaceHome(generic.TemplateView):
 			print("u need to login")
 			#To-Do: Generate a msg
 			return HttpResponseRedirect(reverse('auth_login'))
+
+
+######
+#CANCEL PAGE
+######
 
 class CancelBooking(generic.TemplateView):
 	template_name = "cancel-booking.html"
@@ -448,6 +487,26 @@ class CancelBooking(generic.TemplateView):
 			return HttpResponseRedirect(reverse('auth_login'))
 
 
+def cancelBoard(request):
+	if request.is_ajax():
+		banner = Banner.objects.get(pk = request.POST['boardID'])
+		if banner.bookingdetails_set.filter(active = True).count() is 0:
+			banner.banner_bookingStatus = False
+			banner.save()
+		bd = BookingDetails.objects.get(pk = request.POST['bdID'])
+		bd.active = False
+		bd.save()
+		data = {"success":True}
+		json_data = json.dumps(data)
+		messages.success(request, "board cancelled", extra_tags = 'cancel_successful')
+		return HttpResponse(json_data, content_type='application/json')
+	else:
+		Http404
+
+
+######
+#STATUS PAGE
+######
 
 class StatusBoards(generic.TemplateView):
 	template_name = "status.html"
@@ -474,6 +533,11 @@ class StatusBoards(generic.TemplateView):
 			print("u need to login")
 			#To-Do: Generate a msg
 			return HttpResponseRedirect(reverse('auth_login'))
+
+
+######
+#PRICE CHANGE PAGE
+######
 
 class PriceBoards(generic.TemplateView):
 	template_name = "change-price.html"
@@ -510,8 +574,47 @@ class PriceBoards(generic.TemplateView):
 			#To-Do: Generate a msg
 			return HttpResponseRedirect(reverse('auth_login'))
 
+def addIndiPrice(request):
+	banner = Banner.objects.get(pk = request.POST['boardID'])
+	startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
+	endDateParsed = datetime.datetime.strptime(request.POST['dateEnd'], "%Y-%m-%d").date()
 
+	price_set = banner.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
 
+	book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, startDate__lte = endDateParsed, active = True)
+	book_set_2 = banner.bookingdetails_set.filter(endDate__gte = startDateParsed, endDate__lte = endDateParsed, active = True)
+	book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
+	if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
+		for price in price_set:
+			if (price.startDate < startDateParsed) and (price.endDate > endDateParsed):
+				delta = price.endDate-endDateParsed
+				newPrice1 = banner.priceperiod_set.create(startDate = endDateParsed + datetime.timedelta(days=1), endDate = price.endDate, numberDays = delta.days + 1, price = price.price)
+				newPrice1.save()
+				price.endDate = (startDateParsed - datetime.timedelta(days=1))
+				price.save()
+			elif (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
+				price.endDate = (startDateParsed - datetime.timedelta(days=1))
+				print(startDateParsed)
+				price.save()
+			elif (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
+				price.startDate = (endDateParsed + datetime.timedelta(days=1))
+				price.save()
+			elif (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
+				price.delete()
+
+		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
+		newPrice.save()
+		banner.save()
+		messages.success(request,"price changed", extra_tags = "price_change_success")
+		return HttpResponseRedirect(reverse('owner_interface_price'))
+	else:
+		messages.success(request,"the selected dates have board bookings", extra_tags = "price_change_success")
+		return HttpResponseRedirect(reverse('owner_interface_price'))
+	
+
+######
+#booking PAGE
+######
 
 class BookHoardings(generic.TemplateView):
 	template_name = "book-hoarding.html"
@@ -563,103 +666,39 @@ def bookBoards(request):
 	return HttpResponseRedirect(reverse('owner_interface'))
 
 
-def cancelBoard(request):
-	if request.is_ajax():
-		banner = Banner.objects.get(pk = request.POST['boardID'])
-		if banner.bookingdetails_set.filter(active = True).count() is 0:
-			banner.banner_bookingStatus = False
-			banner.save()
-		bd = BookingDetails.objects.get(pk = request.POST['bdID'])
-		bd.active = False
-		bd.save()
-		data = {"success":True}
-		json_data = json.dumps(data)
-		messages.success(request, "board cancelled", extra_tags = 'cancel_successful')
-		return HttpResponse(json_data, content_type='application/json')
-	else:
-		Http404
 
 
 
 
-def addIndiPrice(request):
-	banner = Banner.objects.get(pk = request.POST['boardID'])
-	startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
-	endDateParsed = datetime.datetime.strptime(request.POST['dateEnd'], "%Y-%m-%d").date()
-
-	price_set = banner.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
-
-	book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, startDate__lte = endDateParsed, active = True)
-	book_set_2 = banner.bookingdetails_set.filter(endDate__gte = startDateParsed, endDate__lte = endDateParsed, active = True)
-	book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
-	if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
-		for price in price_set:
-			if (price.startDate < startDateParsed) and (price.endDate > endDateParsed):
-				delta = price.endDate-endDateParsed
-				newPrice1 = banner.priceperiod_set.create(startDate = endDateParsed + datetime.timedelta(days=1), endDate = price.endDate, numberDays = delta.days + 1, price = price.price)
-				newPrice1.save()
-				price.endDate = (startDateParsed - datetime.timedelta(days=1))
-				price.save()
-			elif (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
-				price.endDate = (startDateParsed - datetime.timedelta(days=1))
-				print(startDateParsed)
-				price.save()
-			elif (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
-				price.startDate = (endDateParsed + datetime.timedelta(days=1))
-				price.save()
-			elif (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
-				price.delete()
-
-		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
-		newPrice.save()
-		banner.save()
-		
-		return HttpResponseRedirect(reverse('owner_interface_price'))
-	else:
-		Http404
-	
 
 
-def calculatePrice(request):
-	if request.is_ajax():
-		b = Banner.objects.get(pk=int(request.POST['id_point']))
-		print(b)
-		startDateParsed = datetime.datetime.strptime(request.POST['startDate'], "%Y-%m-%d").date()
-		endDateParsed = datetime.datetime.strptime(request.POST['endDate'], "%Y-%m-%d").date()
-		price_set = b.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed).order_by('startDate')
-		print(Area[str(b.banner_dimensions)])
-		print(price_set)
-		total = 0
-		for price in price_set:
-			print(price)
-
-			if(startDateParsed >= price.startDate and endDateParsed <= price.endDate):
-				delta = endDateParsed - startDateParsed
-				total = total + ((Area[str(b.banner_dimensions)])*price.price*delta.days/30.4)
-				print(total)
-			elif(startDateParsed <= price.endDate and startDateParsed >= price.startDate and endDateParsed > price.endDate):
-				delta = price.endDate - startDateParsed + datetime.timedelta(days=1)
-				total = total + ((Area[str(b.banner_dimensions)])*price.price*delta.days/30.4)
-				print(total)
-			elif(startDateParsed <= price.startDate and endDateParsed >= price.endDate):
-				total = total + ((Area[str(b.banner_dimensions)])*price.price*(price.numberDays+1)/30.4)
-				print(total)
-			elif(startDateParsed < price.startDate and endDateParsed > price.startDate and endDateParsed <= price.endDate):
-				delta = endDateParsed - price.startDate
-				total = total + ((Area[str(b.banner_dimensions)])*price.price*delta.days/30.4)
-				print(total)
-
-			
-			
-		print(total)
 
 
-		data = {
-		'total':total
-		}
-		# print(data)
-		json_data = json.dumps(data)
+######
+#HELPERS
+######
 
-		return HttpResponse(json_data, content_type='application/json')
-	else:
-		raise Http404
+def calculatePrice(banner,startDate,endDate):
+	price_set = banner.priceperiod_set.filter(endDate__gte = startDate, startDate__lte = endDate).order_by('startDate')
+	print(Area[str(banner.banner_dimensions)])
+	print(price_set)
+	total = 0
+	for price in price_set:
+		print(price)
+
+		if(startDate >= price.startDate and endDate <= price.endDate):
+			delta = endDate - startDate
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.4)
+			print(total)
+		elif(startDate <= price.endDate and startDate >= price.startDate and endDate > price.endDate):
+			delta = price.endDate - startDate + datetime.timedelta(days=1)
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*delta.days/30.4)
+			print(total)
+		elif(startDate <= price.startDate and endDate >= price.endDate):
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(price.numberDays+1)/30.4)
+			print(total)
+		elif(startDate < price.startDate and endDate >= price.startDate and endDate <= price.endDate):
+			delta = endDate - price.startDate
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.4)
+			print(total)
+	return total
