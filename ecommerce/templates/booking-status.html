@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OmoAds</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  
+
+  <style type="text/css">
+  html,body{
+    height: 100%;
+    margin: 0px;
+    overflow-y: ;
+    background-color: #f2f2f2;
+  }
+  .navbar{
+    background-color: #1c1c1c;
+  }
+  .navigationBar{
+    margin: 0px;
+    border-radius: 0px;
+    border-width: 0px;
+    height: ;
+    }
+  .shadow{
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+  }
+  .line{
+    height: 1px;
+    background-color: #c1c1c1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .content{
+    /*height: 400px;*/
+    background-color: #fff;
+    padding-bottom: 10px;
+    margin-top: 15px;
+  }
+  .content-header{
+    padding: 12px;
+    padding-left: 20px;
+    font-size: 17px; 
+    color: #666;
+    font-weight: 500;
+    border-bottom: 1px solid #dbdbdb;
+    background-color: #d0d0d0;
+  }
+    
+  .order-details{
+    padding: 10px;
+    padding-left: 20px;
+    padding-top: 15px;
+  }
+  .order-details p{
+    font-size: 20px;
+  }
+  .total-price{
+    font-size: 17px; 
+    font-weight: bold;
+    color: #ff6c00;
+  }
+
+  /*status style*/
+  .status-bar{
+    padding: 15px;
+    padding-bottom: 40px;
+    padding-left: 50px;
+  }
+
+  ol.progtrckr {
+      margin: 0;
+      padding: 0;
+      list-style-type none;
+  }
+
+  ol.progtrckr li {
+      display: inline-block;
+      text-align: center;
+      line-height: 3.5em;
+  }
+
+  ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+  ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+  ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+  ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+  ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+  ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+  ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+  ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+  ol.progtrckr li.progtrckr-done {
+      color: black;
+      border-bottom: 4px solid yellowgreen;
+  }
+  ol.progtrckr li.progtrckr-todo {
+      color: silver; 
+      border-bottom: 4px solid silver;
+  }
+
+  ol.progtrckr li:after {
+      content: "\00a0\00a0";
+  }
+  ol.progtrckr li:before {
+      position: relative;
+      bottom: -2.5em;
+      float: left;
+      left: 50%;
+      line-height: 1em;
+  }
+  ol.progtrckr li.progtrckr-done:before {
+      content: "\2713";
+      color: white;
+      background-color: yellowgreen;
+      height: 2.2em;
+      width: 2.2em;
+      line-height: 2.2em;
+      border: none;
+      border-radius: 2.2em;
+  }
+  ol.progtrckr li.progtrckr-todo:before {
+      content: "\039F";
+      color: silver;
+      background-color: white;
+      font-size: 2.2em;
+      bottom: -1.2em;
+  }
+
+
+
+
+</style>
+</head>
+<body>
+<section>
+<header>
+    <nav class="navbar navbar-inverse navigationBar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"       
+               src="resources/images/re-logo.png"></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Directions</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+<div class="container">
+      <!-- To change status of process from todo to checked, just change it's class from "progtrckr-todo" to "progtrckr-done".  -->
+      <div class="content shadow">
+        <div class="content-header">Order Status</div>
+          <div class="status-bar"> 
+            <ol class="progtrckr" data-progtrckr-steps="5">
+                <li class="progtrckr-done">Place Order</li><!--
+             --><li class="progtrckr-done">Advance Payment</li><!--
+             --><li class="progtrckr-todo">First Payment</li><!--
+             --><li class="progtrckr-todo">Second Payment</li><!--
+             --><li class="progtrckr-todo">Hoarding Placed</li>
+            </ol>
+          </div>
+      </div>
+
+      <div class="content shadow">
+        <div class="content-header">Your Order</div>
+          <div class="order-details">
+            <p>Order Details</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Pole ID</th>
+                  <th>Location</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0001-A</td>
+                  <td>Hapur Road, RDC Market</td>
+                  <td>&#8377 1,40,000</td>
+                </tr>
+
+                <tr>
+                  <td>0001-A</td>
+                  <td>Hapur Road, RDC Market</td>
+                  <td>&#8377 1,40,000</td>
+                </tr>
+
+                <tr>
+                  <td>0001-A</td>
+                  <td>Hapur Road, RDC Market</td>
+                  <td>&#8377 1,40,000</td>
+                </tr>
+
+                <tr>
+                  <td>0001-A</td>
+                  <td>Hapur Road, RDC Market</td>
+                  <td>&#8377 1,40,000</td>
+                </tr>
+
+                <tr class="total-price">
+                  <td colspan="2">Total</td>
+                  <td>&#8377 1,40,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+
+</div>
+
+
+
+</section>
+</body>
+</html>
