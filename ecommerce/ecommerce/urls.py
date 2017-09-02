@@ -12,8 +12,8 @@ urlpatterns = patterns('',
     url(r'^$', productsViews.Home.as_view(), name='home'),
 
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
-
-
+    url(r'^addToCart/$', 'products.views.addToCart', name='addToCart'),
+    url(r'^booking_status/$', 'products.views.booking_status', name='booking_status'),
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
     url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
     # url(r'^blog/', include('blog.urls')),

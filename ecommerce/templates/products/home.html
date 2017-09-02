@@ -86,7 +86,7 @@
    
 <script type="text/javascript">
   if("{{message.extra_tags}}" == "wrong_credentials"){
-    console.log("fuck");
+    
     $(window).ready(function(){
       $('#loginModal').modal();
     });
@@ -462,6 +462,9 @@
                                                               },
                                                                success: function(data){
                                                                 priceMsg.innerHTML = data["total"]
+                                                                $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
+                                                                $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
+                                                                $("#bannerIDAddCart").val(BoardIdForPrice)
                                                                },
                                                                error: function(){
                                                                 alert("Error! Something wrong. Please try again later")
@@ -634,7 +637,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
+          <form method = "POST" action = "{% url 'addToCart' %}">
+          {% csrf_token %}
+            <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
+            <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
+            <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
+            <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
+          </form>
         </div>
       </div>
     </div>
@@ -660,7 +669,7 @@
 
 
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzoYSoBoClc5AXB5peOD3X8k-OdMXky3E&libraries=places&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"
 async defer></script>
 
 </body>

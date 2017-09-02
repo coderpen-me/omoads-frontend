@@ -138,7 +138,7 @@ class BannerImage(models.Model):
 
 	
 
-
+#maybe rename to orderDetails
 class BookingDetails(models.Model):
 	banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
 	bookingDate = models.DateField()
@@ -149,6 +149,7 @@ class BookingDetails(models.Model):
 	def __str__(self):
 		return '%s %s' % (self.banner.id, self.bookingDate)
 
+
 class PricePeriod(models.Model):
 	banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
 	startDate = models.DateField()
@@ -158,3 +159,21 @@ class PricePeriod(models.Model):
 
 	def __str__(self):
 		return '%s %s %s' % (self.startDate, self.endDate, self.price)
+
+class Cart(models.Model):
+	user = models.OneToOneField(User, on_delete= models.CASCADE)
+	totalPrice = models.FloatField(default = 0.0000)
+	def __str__(self):
+		return '%s %s %s' % (self.id, self.user.username, self.totalPrice)
+
+
+
+class CartItem(models.Model):
+	banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+	cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+	startDate = models.DateField()
+	endDate = models.DateField()
+	price = models.FloatField()
+	def __str__(self):
+		return '%s %s %s %s' % (self.id, self.startDate, self.endDate, self.price)
+

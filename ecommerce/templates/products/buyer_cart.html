@@ -96,38 +96,25 @@
         <div class="col-sm-8">
           <div class="cont shadow">
             <div class="content-header">MY CART</div>
-
+            {% for cartitem in cart.cartitem_set.all %}
             <div class="cart-item">
               <div class="row">
                 <div class="col-sm-3">
                   <img src="resources/images/banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="250" height="180">
                 </div>
                 <div class="col-sm-6">
-                  <h4>Hapur Road, Near Hapur Chungi</h4>
-                  <p>Start Date: 04/08/2017</p>
-                  <p>End Date: 24/08/2017</p>
+                  <h4>{{cartitem.banner.landmark}}</h4>
+                  <p>Start Date: {{cartitem.startDate}}</p>
+                  <p>End Date: {{cartitem.endDate}}</p>
                 </div>
                 <div class="col-sm-3">
-                  <h3>&#8377 1,40,000</h3>
+                  <h3>&#8377 {{cartitem.price|floatformat:2}}</h3>
                 </div>
               </div>
             </div>
+            {% endfor %}
 
-            <div class="cart-item">
-              <div class="row">
-                <div class="col-sm-3">
-                  <img src="resources/images/banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="250" height="180">
-                </div>
-                <div class="col-sm-6">
-                  <h4>Hapur Road, Near Hapur Chungi</h4>
-                  <p>Start Date: 04/08/2017</p>
-                  <p>End Date: 24/08/2017</p>
-                </div>
-                <div class="col-sm-3">
-                  <h3>&#8377 1,40,000</h3>
-                </div>
-              </div>
-            </div>
+            
 
           </div>
         </div>
@@ -135,10 +122,10 @@
           <div class="cont shadow">
             <div class="content-header">PRICE DETAILS</div>
             <div class="priceDetails">
-              <p>Price(2 Items):<span class="pull-right">&#8377 2,80,000</span></p>
+              <p>Price({{cart.cartitem_set.all.count}} Items):<span class="pull-right">&#8377 {{cart.totalPrice|floatformat:2}}</span></p>
               <p>Installation Cost:<span class="pull-right">&#8377 0</span></p>
               <div class="line"></div>
-              <p class="finalPrice">Total:<span class="pull-right">&#8377 2,80,000</span></p>
+              <p class="finalPrice">Total:<span class="pull-right">&#8377 {{cart.totalPrice|floatformat:2}}</span></p>
               <button type="button" class="btn btn-primary">Checkout</button>
             </div>
           </div>

@@ -13,7 +13,7 @@ import json, time
 from django.core import serializers
 
 from .forms import *
-from .models import Banner, Agency, dimension_choices, type_choices, light_choices, BookingDetails,PricePeriod,Zone,Area
+from .models import *
 
 
 from django.contrib.auth import logout, login, authenticate
@@ -24,6 +24,28 @@ import datetime
 ######
 #LANDING PAGE
 ######
+def booking_status(request):
+	template = 'products/booking-status.html'	
+	username = ""
+	userType = ""
+
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+
+		context = {
+			'loginStatus':request.user.is_authenticated(),
+			'username':username,
+			'userType':userType,
+			'cart':request.user.cart,
+		}
+		return render(request, template, context)
+	else:
+		return HttpResponseRedirect("/")
 
 def buyer_cart(request):
 	template = 'products/buyer_cart.html'	
@@ -38,12 +60,16 @@ def buyer_cart(request):
 		except Agency.DoesNotExist:
 			userType = "Buyer"
 
-	context = {
-		'loginStatus':request.user.is_authenticated(),
-		'username':username,
-		'userType':userType
-	}
-	return render(request, template, context)
+		context = {
+			'loginStatus':request.user.is_authenticated(),
+			'username':username,
+			'userType':userType,
+			'cart':request.user.cart,
+		}
+		return render(request, template, context)
+	else:
+		return HttpResponseRedirect("/")
+
 
 class Home(generic.TemplateView):
 	login_form_class = LoginForm
@@ -255,6 +281,8 @@ class Signup(generic.edit.FormView):
 				quer=User.objects.get(username=new_user.username)
 			except User.DoesNotExist:
 				new_user.save()
+				c = Cart(user = new_user)
+				c.save()
 				return HttpResponseRedirect("/")
 			else:
 				#messages.error(request, "The username or email already exists.")
@@ -285,6 +313,8 @@ def signup(request):
 			quer=User.objects.get(username=new_user.username)
 		except User.DoesNotExist:
 			new_user.save()
+			c = Cart(user = new_user)
+			c.save()
 			return HttpResponseRedirect("/")
 		else:
 			#messages.error(request, "The username or email already exists.")
@@ -701,4 +731,27 @@ def calculatePrice(banner,startDate,endDate):
 			delta = endDate - price.startDate
 			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.4)
 			print(total)
-	return total
+	return round(total,2)
+
+def addToCart(request):
+	b = Banner.objects.get(pk=int(request.POST['bannerIDAddCart']))
+	print(b)
+	startDateParsed = datetime.datetime.strptime(request.POST['startDateAddCart'], "%Y-%m-%d").date()
+	endDateParsed = datetime.datetime.strptime(request.POST['endDateAddCart'], "%Y-%m-%d").date()
+
+
+	total = calculatePrice(b,startDateParsed,endDateParsed)
+	try:
+		cart = request.user.cart
+	except Cart.DoesNotExist:
+		cart = Cart(user = request.user)
+		cart.save()
+	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
+	cartItem.save()
+	cart.totalPrice = cart.totalPrice + total
+	cart.save()
+
+	print(cart)
+	print(cart.cartitem_set.all())
+	return HttpResponseRedirect(reverse('buyer_cart'))
+	
