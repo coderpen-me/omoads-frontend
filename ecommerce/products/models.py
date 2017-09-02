@@ -45,6 +45,13 @@ DIMENSION_CHOICES = (
 	('3', '20x10'),
 )
 
+Area = {
+	'0':500,
+	'1':400,
+	'2':300,
+	'3':200
+}
+
 dimension_choices = {
 	'0': '50x10',
 	'1': '40x10',
@@ -115,7 +122,7 @@ class Banner(models.Model):
 		super(Banner, self).save(*args, **kwargs) # Call the "real" save() method.
 		if(self.priceperiod_set.all().count() == 0):
 			startDateParsed = datetime.datetime.strptime(str(datetime.date.today()), "%Y-%m-%d").date()
-			endDateParsed = datetime.datetime.strptime(str(datetime.date.today() + datetime.timedelta(days=31)), "%Y-%m-%d").date()
+			endDateParsed = datetime.datetime.strptime(str(datetime.date.today() + datetime.timedelta(days=365)), "%Y-%m-%d").date()
 			delta = endDateParsed - startDateParsed
 			p = self.priceperiod_set.create(startDate=startDateParsed,endDate=endDateParsed,numberDays=delta.days,price=self.banner_cost)
 			p.save()

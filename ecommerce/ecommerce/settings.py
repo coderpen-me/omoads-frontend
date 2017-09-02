@@ -175,7 +175,7 @@ TEMPLATE_LOADERS = (
 
 # Override production variables if DJANGO_DEVELOPMENT env variable is set
 
-print os.environ.get('DJANGO_DEVELOPMENT')
+print(os.environ.get('DJANGO_DEVELOPMENT'))
 
 if os.environ.get('DJANGO_DEVELOPMENT') is not None:
     from .settings_dev import *

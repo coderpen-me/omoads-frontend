@@ -13,11 +13,9 @@ urlpatterns = patterns('',
 
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
 
-    url(r'^products/$', 'products.views.all', name='products'),
-    url(r'^products/(?P<slug>[\w-]+)/$', 'products.views.single', name='single_product'),
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
-    url(r'^ajax/calculatePrice/$', 'products.views.calculatePrice', name='calculatePrice'),
+    url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),

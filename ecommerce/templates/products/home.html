@@ -446,24 +446,27 @@
                                                         dateMsg.innerHTML = "DATE RANGE IS AVAILABLE";
                                                         dateMsg.style.color = "green";
 
-
+                                                      var priceMsg = document.getElementById("priceMyModal");
+                                                      
+                                                        priceMsg.style.color = "green";
 
                                                       $.ajax({
-                                                      type: "POST",
-                                                      url: "{% url 'calculatePrice' %}",
-                                                      data: {
-                                                       "csrfmiddlewaretoken": "{{ csrf_token }}",
-                                                       "id_point":BoardIdForPrice,
-                                                       "startDate":start.format('YYYY-MM-DD'),
-                                                       "endDate":end.format('YYYY-MM-DD'),
+                                                              type: "POST",
+                                                              url: "{% url 'AjaxBannerPrice' %}",
+                                                              data: {
+                                                               "csrfmiddlewaretoken": "{{ csrf_token }}",
+                                                               "id_point":BoardIdForPrice,
+                                                               "startDate":start.format('YYYY-MM-DD'),
+                                                               "endDate":end.format('YYYY-MM-DD'),
 
-                                                     },
-                                                     success: function(data){
-                                                     },
-                                                     error: function(){
-                                                      alert("Error! Something wrong. Please try again later")
-                                                      },
-                                                 });
+                                                              },
+                                                               success: function(data){
+                                                                priceMsg.innerHTML = data["total"]
+                                                               },
+                                                               error: function(){
+                                                                alert("Error! Something wrong. Please try again later")
+                                                                },
+                                                      });
                                
 
 
@@ -614,6 +617,7 @@
                   </div>
                   
                   <p id = "msgMyModal"></p>
+                  <p id = "priceMyModal"></p>
                 </div>
                 <div class="col-sm-6">
                   <div class="modal-img">
