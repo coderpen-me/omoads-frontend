@@ -14,6 +14,11 @@ urlpatterns = patterns('',
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
     url(r'^addToCart/$', 'products.views.addToCart', name='addToCart'),
     url(r'^booking_status/$', 'products.views.booking_status', name='booking_status'),
+    url(r'^check_out/$', 'products.views.check_out', name='check_out'),
+    url(r'^clear_cart/$', 'products.views.clear_cart', name='clear_cart'),
+    
+
+
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
     url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
     # url(r'^blog/', include('blog.urls')),

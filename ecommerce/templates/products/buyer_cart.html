@@ -123,10 +123,18 @@
             <div class="content-header">PRICE DETAILS</div>
             <div class="priceDetails">
               <p>Price({{cart.cartitem_set.all.count}} Items):<span class="pull-right">&#8377 {{cart.totalPrice|floatformat:2}}</span></p>
-              <p>Installation Cost:<span class="pull-right">&#8377 0</span></p>
+              <p>Installation Cost:<span class="pull-right">&#8377 {{cart.installationPrice|floatformat:2}}</span></p>
+              <p>GST:<span class="pull-right">&#8377 {{cart.tax|floatformat:2}}</span></p>
               <div class="line"></div>
               <p class="finalPrice">Total:<span class="pull-right">&#8377 {{cart.totalPrice|floatformat:2}}</span></p>
-              <button type="button" class="btn btn-primary">Checkout</button>
+              <div class="line"></div>
+              <p>Advanced(to be payed now):
+              <span class="pull-right">&#8377 {{cart.paymentAdvance|floatformat:2}}</span>
+              </p>
+              <p>Payment1:<span class="pull-right">&#8377 {{cart.payment1|floatformat:2}}</span></p>
+              <p>Payment2:<span class="pull-right">&#8377 {{cart.payment2|floatformat:2}}</span></p>
+              <a href = "{% url 'check_out' %}"  class="btn btn-primary">Checkout</a>
+
             </div>
           </div>
         </div>

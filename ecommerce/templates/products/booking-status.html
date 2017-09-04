@@ -137,28 +137,10 @@
 </head>
 <body>
 <section>
-<header>
-    <nav class="navbar navbar-inverse navigationBar">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"       
-               src="resources/images/re-logo.png"></a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Directions</a></li>
-          <li><a href="#">Help</a></li>
-        </ul>
-      </div>
-    </nav>
-</header>
+{% include 'navbar1.html' %}
 <div class="container">
       <!-- To change status of process from todo to checked, just change it's class from "progtrckr-todo" to "progtrckr-done".  -->
+      {% for order in orders %}
       <div class="content shadow">
         <div class="content-header">Order Status</div>
           <div class="status-bar"> 
@@ -185,39 +167,45 @@
                 </tr>
               </thead>
               <tbody>
+              {% for item in order.orderitem_set.all %}
                 <tr>
-                  <td>0001-A</td>
-                  <td>Hapur Road, RDC Market</td>
-                  <td>&#8377 1,40,000</td>
+                  <td>{{item.bookingDetails.banner.id}}</td>
+                  <td>{{item.bookingDetails.banner.banner_landmark}}</td>
+                  <td>&#8377 {{item.price|floatformat:2}}</td>
                 </tr>
 
+              {% endfor %}
                 <tr>
-                  <td>0001-A</td>
-                  <td>Hapur Road, RDC Market</td>
-                  <td>&#8377 1,40,000</td>
+                  <td colspan="2">Installation</td>
+                  <td>&#8377 {{order.installationPrice|floatformat:2}}</td>
                 </tr>
-
                 <tr>
-                  <td>0001-A</td>
-                  <td>Hapur Road, RDC Market</td>
-                  <td>&#8377 1,40,000</td>
+                  <td colspan="2">Tax</td>
+                  <td>&#8377 {{order.tax|floatformat:2}}</td>
                 </tr>
-
-                <tr>
-                  <td>0001-A</td>
-                  <td>Hapur Road, RDC Market</td>
-                  <td>&#8377 1,40,000</td>
-                </tr>
-
                 <tr class="total-price">
                   <td colspan="2">Total</td>
-                  <td>&#8377 1,40,000</td>
+                  <td>&#8377 {{order.totalPrice|floatformat:2}}</td>
+                </tr>
+
+
+                <tr>
+                  <td colspan="2">advanced</td>
+                  <td>&#8377 {{order.paymentAdvance|floatformat:2}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">payment1</td>
+                  <td>&#8377 {{order.payment1|floatformat:2}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">payment2</td>
+                  <td>&#8377 {{order.payment2|floatformat:2}}</td>
                 </tr>
               </tbody>
             </table>
           </div>
       </div>
-
+  {% endfor %}
 </div>
 
 
