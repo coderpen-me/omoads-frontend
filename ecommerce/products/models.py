@@ -147,7 +147,7 @@ class BookingDetails(models.Model):
 	numberDays = models.IntegerField()
 	active = models.BooleanField(default = False)
 	def __str__(self):
-		return '%s %s' % (self.banner.id, self.bookingDate)
+		return '%s %s %s' % (self.id, self.banner.id, self.bookingDate)
 
 
 class PricePeriod(models.Model):
@@ -163,6 +163,12 @@ class PricePeriod(models.Model):
 class Cart(models.Model):
 	user = models.OneToOneField(User, on_delete= models.CASCADE)
 	totalPrice = models.FloatField(default = 0.0000)
+	paymentAdvance = models.FloatField(default = 0.00)
+	payment1 = models.FloatField(default = 0.00)
+	payment2 = models.FloatField(default = 0.00)
+	installationPrice = models.FloatField(default = 0.00)
+	tax = models.FloatField(default = 0.00)
+	totalSumPrice = models.FloatField(default = 0.00)
 	def __str__(self):
 		return '%s %s %s' % (self.id, self.user.username, self.totalPrice)
 
@@ -174,6 +180,32 @@ class CartItem(models.Model):
 	startDate = models.DateField()
 	endDate = models.DateField()
 	price = models.FloatField()
+	dateAccept = models.BooleanField(default = True)
 	def __str__(self):
 		return '%s %s %s %s' % (self.id, self.startDate, self.endDate, self.price)
+
+class Order(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	totalPrice = models.FloatField(default = 0.0000)
+	paymentAdvance = models.FloatField(default = 0.00)
+	payment1 = models.FloatField(default = 0.00)
+	payment2 = models.FloatField(default = 0.00)
+	installationPrice = models.FloatField(default = 0.00)
+	tax = models.FloatField(default = 0.00)
+	totalSumPrice = models.FloatField(default = 0.00)
+	status = models.IntegerField()
+	def __str__(self):
+		return '%s %s %s' % (self.id, self.status, self.totalSumPrice)
+
+class OrderItem(models.Model):
+	order = models.ForeignKey(Order, on_delete=models.CASCADE)
+	bookingDetails = models.OneToOneField(BookingDetails, on_delete = models.CASCADE)
+	price = models.FloatField()
+	def __str__(self):
+		return '%s %s %s' % (self.id,  self.price, self.bookingDetails.id)
+	def delete(self, *args, **kwargs):
+		super().delete(*args, **kwargs)
+		if self.bookingDetails:
+			self.bookingDetails.delete()
+
 

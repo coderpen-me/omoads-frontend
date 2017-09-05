@@ -12,10 +12,12 @@
           <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         {% endif %}
         {% if loginStatus %}
-          <li><a href="#">{{username}}</a></li>
+          
           {% if userType == "Agency" %}
+            <li><a href="#">{{username}}</a></li>
             <li><a href="{% url 'owner_interface' %}">{{userType}}</a></li>
           {% elif userType == "Buyer" %}
+            <li><a href="{% url 'booking_status' %}">{{username}}</a></li>
             <li><a href="{% url 'buyer_cart' %}">{{userType}}</a></li>
           {% endif %}
           <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>

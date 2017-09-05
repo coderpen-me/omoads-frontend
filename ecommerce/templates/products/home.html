@@ -2,9 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
   <title>OmoAds</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
+  
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon/apple-icon-57x57.png' %}">
@@ -46,7 +50,11 @@
 
   <!-- <script src="{% static 'js/landingPage.js' %}"></script> -->
   
+
+
   <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
+  <script src="{% static 'js/nprogress.js' %}"></script>
+  
 </head>
 
 <style type="text/css">
@@ -80,6 +88,10 @@
 </style>
 
 <body>
+<script type="text/javascript">
+  NProgress.start();
+
+  </script>
 {% if messages %}
     <div id="message">
 {% for message in messages %}
@@ -87,7 +99,7 @@
 <script type="text/javascript">
   if("{{message.extra_tags}}" == "wrong_credentials"){
     
-    $(window).ready(function(){
+    $(document).ready(function(){
       $('#loginModal').modal();
     });
   }
@@ -126,7 +138,7 @@
               <label><input type="checkbox"> Remember me</label>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-success" style="border-radius: 4px;">Login</button>
+              <button type="submit" class="btn btn-success" id = "subLogin" style="border-radius: 4px;">Login</button>
               <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#registerModal" style="border-radius: 4px;">Sign Up</button> -->
 
             </div>
@@ -245,6 +257,7 @@
 </section>
 <script src = "{% static 'js/markerclusterer.js' %}"></script>
 <script>
+
       var map;
       /* var locations =[ {lat: 28.6781518, lng: 77.4796894},
         {lat: 28.6769073, lng: 77.4728407},
@@ -367,6 +380,21 @@
                   $.ajax({
                     type: "POST",
                     url: "{% url 'onclickMapPoints' %}",
+                    
+                     beforeSend: function(){
+                      // Handle the beforeSend event
+                      console.log("working")
+                      NProgress.start();
+                     },
+                     complete: function(){
+                       // Handle the complete event
+                       $('#bannerImage').on('load', function(){
+                        console.log("stop")
+                        NProgress.done();
+                       })
+                       
+                     },
+                    global: true,
                     data: {
                      "csrfmiddlewaretoken": "{{ csrf_token }}",
                      "id_point":String(this.id_try)
@@ -390,7 +418,7 @@
                                 // $('#landmark').text(data["landmark"])
                                 $('#myModal').attr("boardID",this.id_try)
                                  $('input[name="daterange"]').daterangepicker({
-                                                    minDate: moment(),
+                                                    minDate: moment().add(2, 'days'),
                                                     format: 'DD/MM/YYYY',
                                                     seperator: 'To',
                                                     opens: "left",
@@ -450,6 +478,15 @@
                                                       $.ajax({
                                                               type: "POST",
                                                               url: "{% url 'AjaxBannerPrice' %}",
+                                                              beforeSend: function(){
+                                                                // Handle the beforeSend event
+                                                                console.log("working")
+                                                                NProgress.start();
+                                                               },
+                                                               complete: function(){
+                                                                 // Handle the complete event
+                                                                 NProgress.done();
+                                                               },
                                                               data: {
                                                                "csrfmiddlewaretoken": "{{ csrf_token }}",
                                                                "id_point":BoardIdForPrice,
@@ -666,7 +703,7 @@
  -->
 
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap"
 async defer></script>
 
 </body>
@@ -791,5 +828,10 @@ function validateUserName(elementValue){
  sub.disabled = true;
   
 
+</script>
+<script type="text/javascript">
+  $(window).on('load', function(){
+    NProgress.done();
+  })
 </script>
 </html>

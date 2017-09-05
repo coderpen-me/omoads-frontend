@@ -5,6 +5,7 @@ from django.views import generic
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 import json, time
 # Create your views here.
@@ -18,12 +19,18 @@ from .models import *
 
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 import datetime
+
+ADVANCE_PRICE = 0.02
+GST = 0.18
+PAYMENT_1 = 0.48
+PAYMENT_2 = 0.5
 
 ######
 #LANDING PAGE
 ######
+@login_required(login_url = "/")
 def booking_status(request):
 	template = 'products/booking-status.html'	
 	username = ""
@@ -41,12 +48,12 @@ def booking_status(request):
 			'loginStatus':request.user.is_authenticated(),
 			'username':username,
 			'userType':userType,
-			'cart':request.user.cart,
+			'orders':Order.objects.filter(user = request.user),
 		}
 		return render(request, template, context)
 	else:
 		return HttpResponseRedirect("/")
-
+@login_required(login_url = "/")
 def buyer_cart(request):
 	template = 'products/buyer_cart.html'	
 	username = ""
@@ -57,8 +64,15 @@ def buyer_cart(request):
 		try:
 			Agency.objects.get(user = request.user)
 			userType = "Agency"
+			messages.error(request, "you can't access this page")
+			return HttpResponseRedirect(reverse('owner_interface'))
 		except Agency.DoesNotExist:
 			userType = "Buyer"
+
+		for item in request.user.cart.cartitem_set.all():
+			if not checkDateRange(item.startDate, item.endDate, item.banner):
+				item.dateAccept = False
+			
 
 		context = {
 			'loginStatus':request.user.is_authenticated(),
@@ -195,6 +209,12 @@ def onclickMapPoints(request):
 		bookDates = []
 		for detailset in b.bookingdetails_set.filter(active = True):
 			bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate)})
+		try:
+			for item in request.user.cart.cartitem_set.filter(banner = b):
+				bookDates.append({'startDate':str(item.startDate), 'endDate': str(item.endDate)})
+		except:
+			print("no user")
+
 		
 		context = {"bookdates":bookDates}
 		data = {
@@ -223,6 +243,10 @@ def AjaxBannerPrice(request):
 		startDateParsed = datetime.datetime.strptime(request.POST['startDate'], "%Y-%m-%d").date()
 		endDateParsed = datetime.datetime.strptime(request.POST['endDate'], "%Y-%m-%d").date()
 
+		if not checkDateRange(startDateParsed, endDateParsed, b):
+			print("fault in date")
+			messages.error(request, "fault in date")
+			return
 
 		total = calculatePrice(b,startDateParsed,endDateParsed)
 
@@ -300,8 +324,7 @@ def signup(request):
 	if form.is_valid():
 		pass
 	else:
-		#messages.error(request,"Enter Correct Values In All The Fields")
-		print("invalid pagalpanti")
+		messages.error(request,"Enter Correct Values In All The Fields")
 		return HttpResponseRedirect("/")
 	new_user = form.save(commit=False)
 	password = request.POST['password1']
@@ -450,6 +473,7 @@ def logoutUser(request):
 
 class OwnerInterfaceHome(generic.TemplateView):
 	template_name = "adminIndex.html"
+
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
 			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
@@ -467,14 +491,16 @@ class OwnerInterfaceHome(generic.TemplateView):
 
 				return render(request, self.template_name, context)
 			else:
-				context = {}
+				
 				print("u r not an agency")
 				#To-Do: Generate a msg
+				messages.error(request, "you are not authorised to access this page")
 				return HttpResponseRedirect("/")
 		else:
 			print("u need to login")
 			#To-Do: Generate a msg
-			return HttpResponseRedirect(reverse('auth_login'))
+			messages.error(request, "Login required")
+			return HttpResponseRedirect('/?next=%s' % (request.path))
 
 
 ######
@@ -509,14 +535,16 @@ class CancelBooking(generic.TemplateView):
 			else:
 				context = {}
 				print("u r not an agency")
+				messages.error(request, "you are not authorised to access this page")
 				return HttpResponseRedirect("/")
 				#To-Do: Generate a msg
 		else:
 			print("u need to login")
 			#To-Do: Generate a msg
-			return HttpResponseRedirect(reverse('auth_login'))
+			messages.error(request, "Login required")
+			return HttpResponseRedirect('/?next=%s' % (request.path))
 
-
+@login_required(login_url = "/", redirect_field_name = reverse_lazy('owner_interface_cancel'))
 def cancelBoard(request):
 	if request.is_ajax():
 		banner = Banner.objects.get(pk = request.POST['boardID'])
@@ -557,12 +585,12 @@ class StatusBoards(generic.TemplateView):
 			else:
 				context = {}
 				print("u r not an agency")
+				messages.error(request, "you are not authorised to access this page")
 				return HttpResponseRedirect("/")
-				#To-Do: Generate a msg
 		else:
 			print("u need to login")
-			#To-Do: Generate a msg
-			return HttpResponseRedirect(reverse('auth_login'))
+			messages.error(request, "Login required")
+			return HttpResponseRedirect('/?next=%s' % (request.path))
 
 
 ######
@@ -595,15 +623,15 @@ class PriceBoards(generic.TemplateView):
 
 				return render(request, self.template_name, context)
 			else:
-				context = {}
+				messages.error(request, "you are not authorised to access this page")
 				print("u r not an agency")
 				return HttpResponseRedirect("/")
-				#To-Do: Generate a msg
 		else:
 			print("u need to login")
-			#To-Do: Generate a msg
-			return HttpResponseRedirect(reverse('auth_login'))
-
+			messages.error(request, "Login required")
+			return HttpResponseRedirect('/?next=%s' % (request.path))
+			
+@login_required(login_url = "/", redirect_field_name = reverse_lazy('owner_interface_price'))
 def addIndiPrice(request):
 	banner = Banner.objects.get(pk = request.POST['boardID'])
 	startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
@@ -674,14 +702,14 @@ class BookHoardings(generic.TemplateView):
 			else:
 				context = {}
 				print("u r not an agency")
-				#To-Do: Generate a msg
+				messages.error(request, "you are not authorised to access this page")
 				return HttpResponseRedirect("/")
 		else:
 			print("u need to login")
-			#To-Do: Generate a msg
-			return HttpResponseRedirect(reverse('auth_login'))
+			messages.error(request, "Login required")
+			return HttpResponseRedirect('/?next=%s' % (request.path))
 
-
+@login_required(login_url = "/", redirect_field_name = reverse_lazy('owner_interface_book'))
 def bookBoards(request):
 	for boardID in request.POST.getlist('boards'):
 		print(boardID)
@@ -733,6 +761,21 @@ def calculatePrice(banner,startDate,endDate):
 			print(total)
 	return round(total,2)
 
+def processCart(cart):
+	cart.totalPrice = 0.00
+	for cartItems in cart.cartitem_set.all():
+		cart.totalPrice = cart.totalPrice + cartItem.price
+
+	cart.totalSumPrice = cart.totalPrice + cart.installationPrice
+	cart.tax = cart.totalSumPrice * GST
+	cart.totalSumPrice = cart.totalSumPrice + cart.tax
+
+	cart.paymentAdvance = cart.totalPrice * ADVANCE_PRICE
+	cart.payment1 = cart.totalPrice * PAYMENT_1
+	cart.payment2 = cart.totalPrice * PAYMENT_2
+	cart.save()
+	
+
 def addToCart(request):
 	b = Banner.objects.get(pk=int(request.POST['bannerIDAddCart']))
 	print(b)
@@ -748,10 +791,56 @@ def addToCart(request):
 		cart.save()
 	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
 	cartItem.save()
-	cart.totalPrice = cart.totalPrice + total
 	cart.save()
-
+	processCart(cart)
 	print(cart)
 	print(cart.cartitem_set.all())
 	return HttpResponseRedirect(reverse('buyer_cart'))
 	
+
+def check_out(request):
+	for item in request.user.cart.cartitem_set.all():
+		if not checkDateRange(item.startDate, item.endDate, item.banner):
+			print("fault in date")
+			return HttpResponseRedirect(reverse("buyer_cart"))
+
+	print("checkOut")
+	order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
+						paymentAdvance =  request.user.cart.paymentAdvance,
+				 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
+				 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
+				 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
+	order.save()
+	for item in request.user.cart.cartitem_set.all():
+		bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
+									startDate = item.startDate, endDate = item.endDate,
+									numberDays = (item.endDate - item.startDate).days, active = True)
+		bd.save()
+		order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
+		
+	clear_cart(request.user.cart)
+	return HttpResponseRedirect(reverse("booking_status"))
+
+def clear_cart(cart):
+	cart.cartitem_set.all().delete()
+	cart.totalPrice = 0.00
+	cart.paymentAdvance = 0.00
+	cart.payment1 = 0.00
+	cart.payment2 = 0.00
+	cart.installationPrice = 0.00
+	cart.tax = 0.00
+	cart.totalSumPrice = 0.00
+	cart.save()
+
+def checkDateRange(startDate, endDate, banner):
+	for detailset in banner.bookingdetails_set.filter(active = True):
+		if ((detailset.startDate <= startDate and startDate <= detailset.endDate) or 
+			(detailset.startDate <= endDate and endDate <= detailset.endDate)):
+			return False
+	#TO-DO
+	#for cartitem in banner.cartitem_set.filter(cart.user = request.user):
+	#	if ((cartitem.startDate <= startDate and startDate <= cartitem.endDate) or 
+	#		(cartitem.startDate <= endDate and endDate <= cartitem.endDate)):
+	#		messages
+	#		return False
+	return True
