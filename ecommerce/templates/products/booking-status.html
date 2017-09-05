@@ -176,6 +176,10 @@
 
               {% endfor %}
                 <tr>
+                  <td colspan="2">Total</td>
+                  <td>&#8377 {{order.totalPrice|floatformat:2}}</td>
+                </tr>
+                <tr>
                   <td colspan="2">Installation</td>
                   <td>&#8377 {{order.installationPrice|floatformat:2}}</td>
                 </tr>
@@ -185,7 +189,7 @@
                 </tr>
                 <tr class="total-price">
                   <td colspan="2">Total</td>
-                  <td>&#8377 {{order.totalPrice|floatformat:2}}</td>
+                  <td>&#8377 {{order.totalSumPrice|floatformat:2}}</td>
                 </tr>
 
 

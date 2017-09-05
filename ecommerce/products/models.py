@@ -180,6 +180,7 @@ class CartItem(models.Model):
 	startDate = models.DateField()
 	endDate = models.DateField()
 	price = models.FloatField()
+	dateAccept = models.BooleanField(default = True)
 	def __str__(self):
 		return '%s %s %s %s' % (self.id, self.startDate, self.endDate, self.price)
 
