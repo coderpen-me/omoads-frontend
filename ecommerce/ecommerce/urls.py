@@ -40,6 +40,8 @@ urlpatterns = patterns('',
     url(r'^owner/cancel/cancel$', 'products.views.cancelBoard', name='owner_interface_cancel_board'),
     url(r'^owner/price/add$', 'products.views.addIndiPrice', name='owner_interface_add_new_price_indi'),
 
+    url(r'^aboutus/$', 'products.views.aboutus', name='aboutus'),
+
     url(r'^admin/', include(admin.site.urls)),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
