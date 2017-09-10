@@ -793,9 +793,13 @@ def addToCart(request):
 	total = calculatePrice(b,startDateParsed,endDateParsed)
 	try:
 		cart = request.user.cart
-	except Cart.DoesNotExist:
-		cart = Cart(user = request.user)
-		cart.save()
+	except AttributeError:
+		if request.user.is_authenticated():
+			cart = Cart(user = request.user)
+			cart.save()
+		else:
+			messages.error(request, "login first")
+			return HttpResponseRedirect('/')
 	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
 	cartItem.save()
 	cart.save()
