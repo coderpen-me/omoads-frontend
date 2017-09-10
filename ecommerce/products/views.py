@@ -763,7 +763,7 @@ def calculatePrice(banner,startDate,endDate):
 
 def processCart(cart):
 	cart.totalPrice = 0.00
-	for cartItems in cart.cartitem_set.all():
+	for cartItem in cart.cartitem_set.all():
 		cart.totalPrice = cart.totalPrice + cartItem.price
 
 	cart.totalSumPrice = cart.totalPrice + cart.installationPrice
