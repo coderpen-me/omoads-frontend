@@ -275,7 +275,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
           <h3 class="modal-title" id="myModalLabel">Hapur Road, Near Hapur Chungi</h3>
-          <p>SELECT DATE RANGE TO FIND PRICE OF BANNER</p>
+          <h3 id="priceMyModal">SELECT DATE RANGE TO FIND PRICE OF BANNER</h3>
         </div>
         <div class="modal-body">
 
@@ -312,7 +312,7 @@
                   </div>
                   
                   <p id = "msgMyModal"></p>
-                  <p id = "priceMyModal"></p>
+                  <!-- <p id = "priceMyModal"></p> -->
                 </div>
                 <div class="col-sm-6">
                   <div class="modal-img">
@@ -341,25 +341,6 @@
     </div>
 
   </div>
-
-<!--   <h3>All:</h3>
-
-    {% for one in all  %}
-      <p>
-        {{one}}
-      </p>
-    {% endfor %}
-
-  <h3>Result:</h3>
-
-
-    {% for one in result  %}
-      <p>
-        {{one }}
-      </p>
-    {% endfor %}
- -->
-
 
 </body>
 
@@ -454,6 +435,19 @@
     locID.push({{ location.id }});
 
     {% endfor %}
+    function resetInfo(){
+      $('#panelID').text("loading...")
+      $('#bannerImage').attr("src", "{% static 'resources/images/omoloader.gif' %}")
+      $('#price').text("loading...")
+      $('#MapLoc').text("loading...")
+      $('#dimensions').text("loading...")
+      $('#type').text("loading...")
+      $('#lighted').text("loading...")
+      $('#priceMyModal').text("SELECT DATE RANGE TO FIND PRICE OF BANNER").css('color', 'red')
+      $('#msgMyModal').text("")
+    }
+
+
     function initMap() {
       
       map = new google.maps.Map(document.getElementById('map'), {
@@ -495,7 +489,8 @@
                     
                      beforeSend: function(){
                       // Handle the beforeSend event
-                      console.log("working")
+                      resetInfo();
+                      // console.log("working")
                       NProgress.start();
                      },
                      complete: function(){
@@ -514,19 +509,18 @@
                    },
                    success: function(data){
                                
-
-                                $('#panelID').text(data["id"])
-                                $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"])
-                                $('#price').text(data["cost"])
-                                $('#MapLoc').text(data["lat"] + " / " + data["long"])
-                                $('#dimensions').text(data["dim"])
-                                $('#type').text(data["type"])
-                                $('#lighted').text(data["lighted"])
+                                $('#panelID').text(data["id"]);
+                                $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
+                                $('#price').text(data["cost"]);
+                                $('#MapLoc').text(data["lat"] + " / " + data["long"]);
+                                $('#dimensions').text(data["dim"]);
+                                $('#type').text(data["type"]);
+                                $('#lighted').text(data["lighted"]);
                                 
-                                var bookDates = data["bookDates"]
-                                var BoardIdForPrice = (data["id"])
-                                console.log(bookDates)
-                                invalidDates=[]
+                                var bookDates = data["bookDates"];
+                                var BoardIdForPrice = (data["id"]);
+                                console.log(bookDates);
+                                invalidDates=[];
                                 // $('#landmark').text(data["landmark"])
                                 $('#myModal').attr("boardID",this.id_try)
                                  $('input[name="daterange"]').daterangepicker({
@@ -617,9 +611,6 @@
                                                                 },
                                                       });
                                
-
-
-
                                                     }
                                                     else
                                                     {
