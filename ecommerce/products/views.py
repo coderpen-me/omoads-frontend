@@ -30,6 +30,13 @@ PAYMENT_2 = 0.5
 ######
 #LANDING PAGE
 ######
+
+def aboutus(request):
+	template = "aboutus.html"
+	return render(request, template, {})
+
+
+
 @login_required(login_url = "/")
 def booking_status(request):
 	template = 'products/booking-status.html'	
@@ -763,7 +770,7 @@ def calculatePrice(banner,startDate,endDate):
 
 def processCart(cart):
 	cart.totalPrice = 0.00
-	for cartItems in cart.cartitem_set.all():
+	for cartItem in cart.cartitem_set.all():
 		cart.totalPrice = cart.totalPrice + cartItem.price
 
 	cart.totalSumPrice = cart.totalPrice + cart.installationPrice
@@ -786,9 +793,13 @@ def addToCart(request):
 	total = calculatePrice(b,startDateParsed,endDateParsed)
 	try:
 		cart = request.user.cart
-	except Cart.DoesNotExist:
-		cart = Cart(user = request.user)
-		cart.save()
+	except AttributeError:
+		if request.user.is_authenticated():
+			cart = Cart(user = request.user)
+			cart.save()
+		else:
+			messages.error(request, "login first")
+			return HttpResponseRedirect('/')
 	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
 	cartItem.save()
 	cart.save()
