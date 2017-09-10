@@ -30,6 +30,13 @@ PAYMENT_2 = 0.5
 ######
 #LANDING PAGE
 ######
+
+def aboutus(request):
+	template = "aboutus.html"
+	return render(request, template, {})
+
+
+
 @login_required(login_url = "/")
 def booking_status(request):
 	template = 'products/booking-status.html'	

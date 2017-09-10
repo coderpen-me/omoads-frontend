@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,6 +123,10 @@
     #contact .outer{
       padding-top: 40px;
     }
+    #map{
+      width: 80%;
+      height: 200px;
+    }
   </style>
 </head>
 <body>
@@ -130,15 +135,28 @@
         <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"       
-                 src="resources/images/re-logo.png"></a>
+                 src="{% static 'resources/images/re-logo.png' %}"></a>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  {% if not loginStatus %}
+                    <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  {% endif %}
+                  {% if loginStatus %}
+                    
+                    {% if userType == "Agency" %}
+                      <li><a href="#">{{username}}</a></li>
+                      <li><a href="{% url 'owner_interface' %}">{{userType}}</a></li>
+                    {% elif userType == "Buyer" %}
+                      <li><a href="{% url 'booking_status' %}">{{username}}</a></li>
+                      <li><a href="{% url 'buyer_cart' %}">{{userType}}</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
+                  {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li class="active"><a href="#">About Us</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="active"><a href="{% url 'aboutus' %}">About Us</a></li>
             <li><a href="#">Directions</a></li>
             <li><a href="#">Help</a></li>
           </ul>
@@ -157,7 +175,7 @@
   <div class="container-fluid about-us-text">
     <div class="row">
       <div class="col-sm-4 text-center slide image-container">
-        <img src="resources/images/customer.png" height="250">
+        <img src="{% static 'resources/images/customer1.png' %}" height="250">
       </div>
       <div class="col-sm-8">
         <h2>Who <span class="highlight">we</span> are...</h2>
@@ -186,27 +204,33 @@
   <div id="contact" class="container-fluid bg-black">
     <h2 class="text-center">CONTACT US</h2>
     <div class="row outer">
-      <div class="col-sm-5">
+      <div class="col-sm-6">
+        <br>
         <p>Contact us and we'll get back to you within 24 hours.</p>
         <p><span class="glyphicon glyphicon-map-marker"></span> Ghaziabad, India</p>
         <p><span class="glyphicon glyphicon-phone"></span> +91 99116 39985</p>
         <p><span class="glyphicon glyphicon-envelope"></span> teamomoads@gmail.com</p>
       </div>
-      <div class="col-sm-7 slideanim">
-        <div class="row">
-          <div class="col-sm-6 form-group">
-            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-          </div>
-          <div class="col-sm-6 form-group">
-            <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
-          </div>
-        </div>
-        <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
-        <div class="row">
-          <div class="col-sm-12 form-group">
-            <button class="btn btn-default pull-right" type="submit">Send</button>
-          </div>
-        </div>
+      <div class="col-sm-6">
+          <center>
+            <div id="map"></div>
+          </center>
+              <script>
+                function initMap() {
+                  var loc = {lat: 28.683349, lng: 77.428079 };
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: loc
+                  });
+                  var marker = new google.maps.Marker({
+                    position: loc,
+                    map: map
+                  });
+                }
+              </script>
+              <script async defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALm9qA56Ahi_FH-QBqQZz2rJIvYRtHXww&callback=initMap">
+              </script>
       </div>
     </div>
   </div>
