@@ -1,0 +1,254 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OmoAds</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Cantarell" />
+
+  <style type="text/css">
+    html,body{
+        height: 100%;
+        margin: 0px;
+        overflow-y: ;
+        background-color: #fff;
+      }
+      .navbar{
+        background-color: #1c1c1c;
+      }
+      .navigationBar{
+        margin: 0px;
+        border-radius: 0px;
+        border-width: 0px;
+        height: ;
+        }
+    .jumbo-container{
+      padding: 0px;
+      margin-bottom: 0px;
+    }
+    .jumbo{
+      margin-bottom: 0px;
+    }
+    .jumbotron{
+      background-color: #1c1c1c;
+      color: #fff;
+    }
+    .jumbotron p{
+      color: #fff;
+    }
+    .jumbotron h1 span{
+      color: #ff6c00;
+      margin-bottom: 10px;
+    }
+    @font-face {
+       font-family: hfont;
+       src: url(font/CaviarDreams_Bold.ttf);
+    }
+
+    .slideanim {visibility:hidden;}
+    .slide {
+        animation-name: slide;
+        -webkit-animation-name: slide;
+        animation-duration: 1s;
+        -webkit-animation-duration: 1s;
+        visibility: visible;
+    }
+    @keyframes slide {
+      0% {
+        opacity: 0;
+        transform: translateY(70%);
+      } 
+      100% {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    }
+    @-webkit-keyframes slide {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+      } 
+      100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+      }
+    }
+    .highlight{
+      color: #ff6c00;
+    }
+
+    .bg-black {
+          background-color: #1c1c1c;
+      }
+    #contact{
+      padding-top: 2%;
+      padding-bottom: 4%;
+      padding-left: 25px;
+      padding-right: 25px;
+      color: #fff;
+    }
+    #contact .outer{
+      padding-top: 40px;
+    }
+    .question-box{
+      padding: 40px;
+      padding-left: 100px;
+      padding-right: 100px;
+      padding-bottom: 50px;
+    }
+    .content-heading{
+      color: #a0a0a0;
+      margin-bottom: 60px;
+    }
+    .ques-group{
+      margin-top: 30px;
+    }
+    .ques{
+      font-weight: bold;
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+    .ans{
+      font-size: 16px;
+      color: #5a5a5a;
+      line-height: 30px;
+      padding-left: 15px;
+      text-align: justify;
+    }
+    #map{
+      width: 80%;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <nav class="navbar navbar-inverse navigationBar navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"       
+                 src="{% static 'resources/images/re-logo.png' %}"></a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'aboutus' %}">About Us</a></li>
+            <li><a href="{% url 'directions' %}">Directions</a></li>
+            <li class="active"><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+      </nav>
+  </header>
+
+  
+  <div class="container-fluid jumbo-container">
+    <div class="jumbotron text-center jumbo" style="border-radius: 0px;">
+      <h1><span>OMO</span>ADS</h1>
+      <p class="text-center">An online market place for outdoor advertisement</p>
+    </div>
+  </div>
+
+  <div class="container-fluid question-box">
+    <h1 class="content-heading text-center">Frequently Asked Questions</h1>
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+
+    <div class="ques-group">
+      <p class="ques">Q1. What is Omoads?</p>
+      <p class="ans">Ans. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+  </div>
+
+  <div id="contact" class="container-fluid bg-black">
+    <h2 class="text-center">CONTACT US</h2>
+    <div class="row outer">
+      <div class="col-sm-6">
+        <br>
+        <p>Contact us and we'll get back to you within 24 hours.</p>
+        <p><span class="glyphicon glyphicon-map-marker"></span> Ghaziabad, India</p>
+        <p><span class="glyphicon glyphicon-phone"></span> +91 99116 39985</p>
+        <p><span class="glyphicon glyphicon-envelope"></span> teamomoads@gmail.com</p>
+      </div>
+      <div class="col-sm-6">
+          <center>
+            <div id="map"></div>
+          </center>
+              <script>
+                function initMap() {
+                  var loc = {lat: 28.683349, lng: 77.428079 };
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: loc
+                  });
+                  var marker = new google.maps.Marker({
+                    position: loc,
+                    map: map
+                  });
+                }
+              </script>
+              <script async defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALm9qA56Ahi_FH-QBqQZz2rJIvYRtHXww&callback=initMap">
+              </script>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(window).scroll(function() {
+        $(".slideanim").each(function(){
+          var pos = $(this).offset().top;
+
+          var winTop = $(window).scrollTop();
+            if (pos < winTop + 600) {
+              $(this).addClass("slide");
+            }
+        });
+      });
+  </script>
+</body>
+</html>
