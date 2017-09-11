@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^booking_status/$', 'products.views.booking_status', name='booking_status'),
     url(r'^check_out/$', 'products.views.check_out', name='check_out'),
     url(r'^clear_cart/$', 'products.views.clear_cart', name='clear_cart'),
+    url(r'^buyer_cart/deleteItem/([0-9]+)$', 'products.views.deleteCartItem', name='cart_deleteItem'),
     
 
 
