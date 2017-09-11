@@ -35,6 +35,10 @@ def aboutus(request):
 	template = "aboutus.html"
 	return render(request, template, {})
 
+def directions(request):
+	template = "directions.html"
+	return render(request, template, {})
+
 
 
 @login_required(login_url = "/")

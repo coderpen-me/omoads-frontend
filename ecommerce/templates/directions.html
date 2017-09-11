@@ -1,0 +1,259 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OmoAds</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Cantarell" />
+
+  <style type="text/css">
+    html,body{
+        height: 100%;
+        margin: 0px;
+        overflow-y: ;
+        background-color: #fff;
+      }
+      .navbar{
+        background-color: #1c1c1c;
+      }
+      .navigationBar{
+        margin: 0px;
+        border-radius: 0px;
+        border-width: 0px;
+        height: ;
+        }
+    .jumbo-container{
+      padding: 0px;
+      margin-bottom: 0px;
+    }
+    .jumbo{
+      margin-bottom: 0px;
+    }
+    .jumbotron{
+      background-color: #1c1c1c;
+      color: #fff;
+    }
+    .jumbotron p{
+      color: #fff;
+    }
+    /*.jumbotron h1 span{
+      color: #ff6c00;
+      margin-bottom: 10px;
+    }*/
+    .jumbo-span{
+      font-size: 45px;
+      font-weight: bold;
+      color: #fff;
+    }
+    @font-face {
+       font-family: hfont;
+       src: url(font/CaviarDreams_Bold.ttf);
+    }
+
+    .slideanim {visibility:hidden;}
+    .slide {
+        animation-name: slide;
+        -webkit-animation-name: slide;
+        animation-duration: 1s;
+        -webkit-animation-duration: 1s;
+        visibility: visible;
+    }
+    @keyframes slide {
+      0% {
+        opacity: 0;
+        transform: translateY(70%);
+      } 
+      100% {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    }
+    @-webkit-keyframes slide {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+      } 
+      100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+      }
+    }
+    .highlight{
+      color: #ff6c00;
+    }
+    
+    .bg-grey{
+      background-color: #f1f1f1;
+    }
+    .bg-black {
+          background-color: #1c1c1c;
+      }
+    .description{
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    h2{
+      margin-top: 35px;
+    }
+    .image-left{
+      padding-left: 50px;
+    }
+    .image-right{
+      /*margin-right: 10px;*/
+    }
+    #contact{
+      padding-top: 2%;
+      padding-bottom: 4%;
+      padding-left: 25px;
+      padding-right: 25px;
+      color: #fff;
+    }
+    #contact .outer{
+      padding-top: 40px;
+    }
+    .description-test{
+      padding-top: 90px;
+      color: #5d5d5d;
+    }
+    .heading{
+      margin-top: 45px;
+    }
+    #map{
+      width: 80%;
+      height: 200px;
+    }
+    /*.row-container{
+      padding: 20px;
+    }*/
+  </style>
+</head>
+<body>
+  <header>
+      <nav class="navbar navbar-inverse navigationBar navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"       
+                 src="{% static 'resources/images/re-logo.png' %}"></a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+                            {% if not loginStatus %}
+                              <li><a data-toggle="modal" data-target="#registerModal" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                              <li><a data-toggle="modal" data-target="#loginModal" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            {% endif %}
+                            {% if loginStatus %}
+                              
+                              {% if userType == "Agency" %}
+                                <li><a href="#">{{username}}</a></li>
+                                <li><a href="{% url 'owner_interface' %}">{{userType}}</a></li>
+                              {% elif userType == "Buyer" %}
+                                <li><a href="{% url 'booking_status' %}">{{username}}</a></li>
+                                <li><a href="{% url 'buyer_cart' %}">{{userType}}</a></li>
+                              {% endif %}
+                              <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
+                            {% endif %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'aboutus' %}">About Us</a></li>
+            <li class="active"><a href="{% url 'directions' %}">Directions</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </nav>
+  </header>
+
+  
+  <div class="container-fluid jumbo-container">
+    <div class="jumbotron text-center jumbo" style="border-radius: 0px;">
+      <h1><span class="jumbo-span">Directions to use :</span><br><span class="highlight">OMO</span>ADS</h1>
+    </div>
+  </div>
+
+  <div class="container-fluid description">
+    <div class="row">
+      <div class="col-sm-6 image-left slide"><img src="{% static 'resources/images/1.png' %}" height="300"></div>
+      <div class="col-sm-6">
+        <center class="description-test">
+          <h2>Search for the locations.</h2>
+        </center>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid description bg-grey">
+    <div class="row">
+      <div class="col-sm-6">
+        <center class="description-test">
+          <h2>Analyze the Hoarding and<br>select the booking period.</h2>
+        </center>
+      </div>
+      <div class="col-sm-6 image-right slideanim"><center><img src="{% static 'resources/images/3.png' %}" height="300"></center></div>
+    </div>
+  </div>
+
+  <div class="container-fluid description">
+    <div class="row">
+      <div class="col-sm-6 image-left slideanim"><img src="{% static 'resources/images/2.png' %}" height="300"></div>
+      <div class="col-sm-6">
+        <center class="description-test">
+          <h2>Apply Advance Filters.</h2>
+        </center>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="contact" class="container-fluid bg-black">
+    <h2 class="text-center">CONTACT US</h2>
+    <div class="row outer">
+      <div class="col-sm-6">
+        <br>
+        <p>Contact us and we'll get back to you within 24 hours.</p>
+        <p><span class="glyphicon glyphicon-map-marker"></span> Ghaziabad, India</p>
+        <p><span class="glyphicon glyphicon-phone"></span> +91 99116 39985</p>
+        <p><span class="glyphicon glyphicon-envelope"></span> teamomoads@gmail.com</p>
+      </div>
+      <div class="col-sm-6">
+          <center>
+            <div id="map"></div>
+          </center>
+              <script>
+                function initMap() {
+                  var loc = {lat: 28.683349, lng: 77.428079 };
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: loc
+                  });
+                  var marker = new google.maps.Marker({
+                    position: loc,
+                    map: map
+                  });
+                }
+              </script>
+              <script async defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALm9qA56Ahi_FH-QBqQZz2rJIvYRtHXww&callback=initMap">
+              </script>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript">
+    $(window).scroll(function() {
+        $(".slideanim").each(function(){
+          var pos = $(this).offset().top;
+
+          var winTop = $(window).scrollTop();
+            if (pos < winTop + 600) {
+              $(this).addClass("slide");
+            }
+        });
+      });
+  </script>
+</body>
+</html>

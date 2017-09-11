@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^owner/price/add$', 'products.views.addIndiPrice', name='owner_interface_add_new_price_indi'),
 
     url(r'^aboutus/$', 'products.views.aboutus', name='aboutus'),
+    url(r'^directions/$', 'products.views.directions', name='directions'),
 
     url(r'^admin/', include(admin.site.urls)),
 
