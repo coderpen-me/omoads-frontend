@@ -276,6 +276,14 @@ class Home(generic.TemplateView):
 			password = request.POST['password']
 			print(username + " " + password)
 			user = authenticate(username = username, password = password)
+			print(user)
+			if user is None:
+				try:
+					u = User.objects.get(email = username)
+					username = u.get_username()
+					user = authenticate(username = username, password = password)
+				except User.DoesNotExist:
+					user = None
 			if user is not None:
 				try:
 					a = Agency.objects.get(user = user)
