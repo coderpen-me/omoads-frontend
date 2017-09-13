@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^check_out/$', 'products.views.check_out', name='check_out'),
     url(r'^clear_cart/$', 'products.views.clear_cart', name='clear_cart'),
     url(r'^buyer_cart/deleteItem/([0-9]+)$', 'products.views.deleteCartItem', name='cart_deleteItem'),
-    
+    url(r'^process_payment/$', 'products.views.processPayment', name='cart_process_payment'),
 
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
