@@ -197,12 +197,12 @@ def processPayment(request):
 	# Create a new Payment Request
 	response = api.payment_request_payment_status(paymentRequestID, paymentID)
 
-	print (response['payment_request']['purpose'])             # Purpose of Payment Request
-	print (response['payment_request']['payment']['status'])   # Payment status
+	print ("test")             # Purpose of Payment Request
+	   # Payment status
 
 	status = response['payment_request']['payment']['status']
-
-	if status == "Credit":
+	print (status)
+	if (status == "Credit"):
 		order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
 							paymentAdvance =  request.user.cart.paymentAdvance,
 					 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
@@ -220,9 +220,9 @@ def processPayment(request):
 		clear_cart(request.user.cart)
 		messages.success(request, "payment successful")
 		return HttpResponseRedirect(reverse('booking_status'))
-	elif status == "Failed":
+	elif (status == "Failed"):
 		messages.error(request, "payment failed")
-		HttpResponseRedirect(reverse('buyer_cart'))
+		return HttpResponseRedirect(reverse('buyer_cart'))
 
 
 
