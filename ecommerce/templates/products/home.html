@@ -796,7 +796,7 @@ function checkUserNameLogin(ele)
   var msg = document.getElementById("msg3");
 
 
-  if(validateUserName(ele.value) == true)
+  if(validateUserName(ele.value) == true || validateEmail(ele.value) == true)
   {
     msg.innerHTML = "VALID USERNAME";
     msg.style.color = "green";

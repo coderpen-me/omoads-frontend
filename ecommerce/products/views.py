@@ -35,6 +35,13 @@ def aboutus(request):
 	template = "aboutus.html"
 	return render(request, template, {})
 
+def directions(request):
+	template = "directions.html"
+	return render(request, template, {})
+
+def faq(request):
+	template = "faqs.html"
+	return render(request, template, {})
 
 
 @login_required(login_url = "/")
@@ -90,6 +97,89 @@ def buyer_cart(request):
 		return render(request, template, context)
 	else:
 		return HttpResponseRedirect("/")
+
+def processCart(cart):
+	cart.totalPrice = 0.00
+	for cartItem in cart.cartitem_set.all():
+		cart.totalPrice = cart.totalPrice + cartItem.price
+
+	cart.totalSumPrice = cart.totalPrice + cart.installationPrice
+	cart.tax = cart.totalSumPrice * GST
+	cart.totalSumPrice = cart.totalSumPrice + cart.tax
+
+	cart.paymentAdvance = cart.totalPrice * ADVANCE_PRICE
+	cart.payment1 = cart.totalPrice * PAYMENT_1
+	cart.payment2 = cart.totalPrice * PAYMENT_2
+	cart.save()
+	
+
+def addToCart(request):
+	b = Banner.objects.get(pk=int(request.POST['bannerIDAddCart']))
+	print(b)
+	startDateParsed = datetime.datetime.strptime(request.POST['startDateAddCart'], "%Y-%m-%d").date()
+	endDateParsed = datetime.datetime.strptime(request.POST['endDateAddCart'], "%Y-%m-%d").date()
+
+
+	total = calculatePrice(b,startDateParsed,endDateParsed)
+	try:
+		cart = request.user.cart
+	except AttributeError:
+		if request.user.is_authenticated():
+			cart = Cart(user = request.user)
+			cart.save()
+		else:
+			messages.error(request, "login first")
+			return HttpResponseRedirect('/')
+	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
+	cartItem.save()
+	cart.save()
+	processCart(cart)
+	print(cart)
+	print(cart.cartitem_set.all())
+	return HttpResponseRedirect(reverse('buyer_cart'))
+	
+
+def check_out(request):
+	for item in request.user.cart.cartitem_set.all():
+		if not checkDateRange(item.startDate, item.endDate, item.banner):
+			print("fault in date")
+			return HttpResponseRedirect(reverse("buyer_cart"))
+
+	print("checkOut")
+	order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
+						paymentAdvance =  request.user.cart.paymentAdvance,
+				 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
+				 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
+				 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
+	order.save()
+	for item in request.user.cart.cartitem_set.all():
+		bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
+									startDate = item.startDate, endDate = item.endDate,
+									numberDays = (item.endDate - item.startDate).days, active = True)
+		bd.save()
+		order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
+		
+	clear_cart(request.user.cart)
+	return HttpResponseRedirect(reverse("booking_status"))
+
+def clear_cart(cart):
+	cart.cartitem_set.all().delete()
+	cart.totalPrice = 0.00
+	cart.paymentAdvance = 0.00
+	cart.payment1 = 0.00
+	cart.payment2 = 0.00
+	cart.installationPrice = 0.00
+	cart.tax = 0.00
+	cart.totalSumPrice = 0.00
+	cart.save()
+
+def deleteCartItem(request, itemId):
+	ci = request.user.cart.cartitem_set.get(pk=int(itemId))
+	print(ci)
+	ci.delete()
+	processCart(request.user.cart)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 class Home(generic.TemplateView):
@@ -186,6 +276,14 @@ class Home(generic.TemplateView):
 			password = request.POST['password']
 			print(username + " " + password)
 			user = authenticate(username = username, password = password)
+			print(user)
+			if user is None:
+				try:
+					u = User.objects.get(email = username)
+					username = u.get_username()
+					user = authenticate(username = username, password = password)
+				except User.DoesNotExist:
+					user = None
 			if user is not None:
 				try:
 					a = Agency.objects.get(user = user)
@@ -768,80 +866,6 @@ def calculatePrice(banner,startDate,endDate):
 			print(total)
 	return round(total,2)
 
-def processCart(cart):
-	cart.totalPrice = 0.00
-	for cartItem in cart.cartitem_set.all():
-		cart.totalPrice = cart.totalPrice + cartItem.price
-
-	cart.totalSumPrice = cart.totalPrice + cart.installationPrice
-	cart.tax = cart.totalSumPrice * GST
-	cart.totalSumPrice = cart.totalSumPrice + cart.tax
-
-	cart.paymentAdvance = cart.totalPrice * ADVANCE_PRICE
-	cart.payment1 = cart.totalPrice * PAYMENT_1
-	cart.payment2 = cart.totalPrice * PAYMENT_2
-	cart.save()
-	
-
-def addToCart(request):
-	b = Banner.objects.get(pk=int(request.POST['bannerIDAddCart']))
-	print(b)
-	startDateParsed = datetime.datetime.strptime(request.POST['startDateAddCart'], "%Y-%m-%d").date()
-	endDateParsed = datetime.datetime.strptime(request.POST['endDateAddCart'], "%Y-%m-%d").date()
-
-
-	total = calculatePrice(b,startDateParsed,endDateParsed)
-	try:
-		cart = request.user.cart
-	except AttributeError:
-		if request.user.is_authenticated():
-			cart = Cart(user = request.user)
-			cart.save()
-		else:
-			messages.error(request, "login first")
-			return HttpResponseRedirect('/')
-	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
-	cartItem.save()
-	cart.save()
-	processCart(cart)
-	print(cart)
-	print(cart.cartitem_set.all())
-	return HttpResponseRedirect(reverse('buyer_cart'))
-	
-
-def check_out(request):
-	for item in request.user.cart.cartitem_set.all():
-		if not checkDateRange(item.startDate, item.endDate, item.banner):
-			print("fault in date")
-			return HttpResponseRedirect(reverse("buyer_cart"))
-
-	print("checkOut")
-	order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
-						paymentAdvance =  request.user.cart.paymentAdvance,
-				 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
-				 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
-				 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
-	order.save()
-	for item in request.user.cart.cartitem_set.all():
-		bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
-									startDate = item.startDate, endDate = item.endDate,
-									numberDays = (item.endDate - item.startDate).days, active = True)
-		bd.save()
-		order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
-		
-	clear_cart(request.user.cart)
-	return HttpResponseRedirect(reverse("booking_status"))
-
-def clear_cart(cart):
-	cart.cartitem_set.all().delete()
-	cart.totalPrice = 0.00
-	cart.paymentAdvance = 0.00
-	cart.payment1 = 0.00
-	cart.payment2 = 0.00
-	cart.installationPrice = 0.00
-	cart.tax = 0.00
-	cart.totalSumPrice = 0.00
-	cart.save()
 
 def checkDateRange(startDate, endDate, banner):
 	for detailset in banner.bookingdetails_set.filter(active = True):

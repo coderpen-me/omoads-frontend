@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^booking_status/$', 'products.views.booking_status', name='booking_status'),
     url(r'^check_out/$', 'products.views.check_out', name='check_out'),
     url(r'^clear_cart/$', 'products.views.clear_cart', name='clear_cart'),
+    url(r'^buyer_cart/deleteItem/([0-9]+)$', 'products.views.deleteCartItem', name='cart_deleteItem'),
     
 
 
@@ -41,6 +42,8 @@ urlpatterns = patterns('',
     url(r'^owner/price/add$', 'products.views.addIndiPrice', name='owner_interface_add_new_price_indi'),
 
     url(r'^aboutus/$', 'products.views.aboutus', name='aboutus'),
+    url(r'^directions/$', 'products.views.directions', name='directions'),
+    url(r'^faq/$', 'products.views.faq', name='faq'),
 
     url(r'^admin/', include(admin.site.urls)),
 

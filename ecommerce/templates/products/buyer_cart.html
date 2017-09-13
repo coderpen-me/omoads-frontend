@@ -70,6 +70,9 @@
       margin-bottom: 0px;
       color: #737373; 
     }
+    .cart-item h3{
+      margin-top: 10px;
+    }
     .priceDetails{
       padding: 10px 20px;
     }
@@ -86,6 +89,24 @@
       font-weight: 600;
       padding-top: 10px;
     }
+    .edit-button{
+      /*margin-top: 15px;*/
+      font-size: 17px;
+      padding-left: 15px;
+      color: #545454;
+    }
+    .edit-button:hover{
+      color: #337ab7;
+    }
+    .remove-button{
+      /*margin-top: 15px;*/
+      font-size: 17px;
+      padding-left: 15px;
+      color: #545454;
+    }
+    .remove-button:hover{
+      color: #f70000;
+    }
   </style>
 </head>
 <body>
@@ -97,7 +118,7 @@
           <div class="cont shadow">
             <div class="content-header">MY CART</div>
             {% for cartitem in cart.cartitem_set.all %}
-            <div class="cart-item">
+            <div class="cart-item" id = "{{cartitem.id}}">
               <div class="row">
                 <div class="col-sm-3">
                   <img src="resources/images/banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="250" height="180">
@@ -108,12 +129,17 @@
                   <p>End Date: {{cartitem.endDate}}</p>
                 </div>
                 <div class="col-sm-3">
-                  <h3>&#8377 {{cartitem.price|floatformat:2}}</h3>
+                  <h3 class="pull-right">&#8377 {{cartitem.price|floatformat:2}}</h3>
+                  <div class="pull-right">
+                    <a class = "editCartItem" href = "#" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-edit edit-button"></span></a>
+                    
+                    <a class = "deleteCartItem" href = "{% url 'cart_deleteItem' cartitem.id %}" data-cartitemid="{{cartitem.id}}" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle remove-button"></span></a>
+                  </div>
                 </div>
               </div>
             </div>
             {% endfor %}
-
+            
             
 
           </div>
