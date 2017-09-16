@@ -209,3 +209,11 @@ class OrderItem(models.Model):
 			self.bookingDetails.delete()
 
 
+class Payments(models.Model):
+	order = models.OneToOneField(Order)
+	user = models.ForeignKey(User)
+	paymentId = models.CharField(max_length = 150)
+	paymentRequestId = models.CharField(max_length = 150)
+	paymentStatus = models.CharField(max_length = 20)
+
+

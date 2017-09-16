@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 import json, time
 # Create your views here.
-
+from django.views.decorators.csrf import csrf_exempt
 
 from django.core import serializers
 
@@ -167,14 +167,14 @@ def check_out(request):
 
 	# Create a new Payment Request
 	response = api.payment_request_create(
-	    amount=str(request.user.cart.paymentAdvance),
-	    email = request.user.email,
-	    purpose=str(request.user.cart),
-	    redirect_url="http://3fbcee45.ngrok.io/process_payment",
-	    send_email = False,
-	    send_sms = False,
-	    allow_repeated_payments = False
-	    )
+		amount=str(request.user.cart.paymentAdvance),
+		email = request.user.email,
+		purpose=str(request.user.get_username()),
+		redirect_url="http://a66081f4.ngrok.io/process_payment",
+	 	send_email = False,
+		send_sms = False,
+		allow_repeated_payments = False
+		)
 
 	# print response
 	print (response)
@@ -195,38 +195,47 @@ def processPayment(request):
 				auth_token=AUTH_TOKEN)
 
 	# Create a new Payment Request
-	response = api.payment_request_payment_status(paymentRequestID, paymentID)
-
-	print ("test")             # Purpose of Payment Request
+	try:
+		response = api.payment_request_payment_status(paymentRequestID, paymentID)
+		print(response)
+		print ("test")             # Purpose of Payment Request
 	   # Payment status
-
-	status = response['payment_request']['payment']['status']
-	print (status)
-	if (status == "Credit"):
-		order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
+		success = response['success']
+		if success is True:
+			status = response['payment_request']['payment']['status']
+			payment = Payments(user = request.user, paymentId = paymentID, paymentRequestId = paymentRequestID, paymentStatus = status)
+			
+			print (status)
+			if (status == "Credit"):
+				order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
 							paymentAdvance =  request.user.cart.paymentAdvance,
 					 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
 					 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
-					 		totalSumPrice =  request.user.cart.totalSumPrice, status = 0)
-		order.save()
-		print(order)
-		for item in request.user.cart.cartitem_set.all():
-			bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
-										startDate = item.startDate, endDate = item.endDate,
-										numberDays = (item.endDate - item.startDate).days, active = True)
-			bd.save()
-			order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
-			
-		clear_cart(request.user.cart)
-		messages.success(request, "payment successful")
-		return HttpResponseRedirect(reverse('booking_status'))
-	elif (status == "Failed"):
-		messages.error(request, "payment failed")
-		return HttpResponseRedirect(reverse('buyer_cart'))
+					 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
+				order.save()
+				payment.order = order
+				
+				
+				for item in request.user.cart.cartitem_set.all():
+					bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
+												startDate = item.startDate, endDate = item.endDate,
+												numberDays = (item.endDate - item.startDate).days, active = True)
+					bd.save()
+					order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
+					
+				clear_cart(request.user.cart)
+				messages.success(request, "payment successful")
+				return HttpResponseRedirect(reverse('booking_status'))
+			elif (status == "Failed"):
+				messages.error(request, "payment failed")
+				return HttpResponseRedirect(reverse('buyer_cart'))
+			payment.save()
+		else:
+			print("something went wrong.payment details couldnt be fetched")
+	except Exception as e:
+		print("something went wrong :" + str(e))
 
-
-
-
+	
 
 def clear_cart(cart):
 	cart.cartitem_set.all().delete()
