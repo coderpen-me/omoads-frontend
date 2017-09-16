@@ -97,3 +97,26 @@ html,body{
       padding: 10px;
       font-weight: bold;
     }
+
+
+    input[type=checkbox] {
+      display: none;
+    }
+
+    .banner-modal-image img {
+      cursor: zoom-in;
+      /*margin: 100px;*/
+      transition: transform 0.25s ease;
+    }
+
+    input[type=checkbox]:checked ~ label > img {
+      position: absolute;
+      margin-top: 5%;
+      margin-left: -55%;
+      cursor: zoom-out;
+      transform: scale(3);
+    }
+
+    .input-group .form-control {
+      z-index: 0;
+    }

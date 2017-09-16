@@ -87,6 +87,9 @@
     box-shadow: 0 0 5px black;
 
   }
+  
+
+
 </style>
 
 <body>
@@ -315,15 +318,16 @@
                   <!-- <p id = "priceMyModal"></p> -->
                 </div>
                 <div class="col-sm-6">
-                  <div class="modal-img">
-                    <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
+                  <div class="modal-img banner-modal-image">
+                    <input type="checkbox" id="zoomCheck">
+                      <label for="zoomCheck">
+                        <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
+                      </label>
                   </div>
                 </div>
               </div>  
             </div>
           </div>
-
-
 
 
         </div>
