@@ -489,6 +489,12 @@
                   // infowindow.open(map, this);
                   // console.log("hey popups!");
                   // console.log(this.id_try);
+                  $('#MyModalAddCart').attr("disabled", true);
+                  var dateMsg = document.getElementById("msgMyModal");
+                  dateMsg.innerHTML = "Select Date Range";
+                  dateMsg.style.color = "red";
+                  var priceMsg = document.getElementById("priceMyModal");
+                  priceMsg.innerHTML = ""
                   $.ajax({
                     type: "POST",
                     url: "{% url 'onclickMapPoints' %}",
