@@ -33,15 +33,57 @@ PAYMENT_2 = 0.5
 
 def aboutus(request):
 	template = "aboutus.html"
-	return render(request, template, {})
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
 
 def directions(request):
 	template = "directions.html"
-	return render(request, template, {})
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
 
 def faq(request):
 	template = "faqs.html"
-	return render(request, template, {})
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
 
 
 @login_required(login_url = "/")
