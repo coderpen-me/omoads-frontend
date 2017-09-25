@@ -99,7 +99,7 @@ html,body{
     }
 
 
-    input[type=checkbox] {
+    .modal-img input[type=checkbox] {
       display: none;
     }
 
