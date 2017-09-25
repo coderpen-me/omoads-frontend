@@ -170,7 +170,7 @@ def check_out(request):
 		amount=str(request.user.cart.paymentAdvance),
 		email = request.user.email,
 		purpose=str(request.user.get_username()),
-		redirect_url="http://a66081f4.ngrok.io/process_payment",
+		redirect_url="http://www.omoads.com/process_payment",
 	 	send_email = False,
 		send_sms = False,
 		allow_repeated_payments = False
