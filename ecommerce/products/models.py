@@ -210,7 +210,7 @@ class OrderItem(models.Model):
 
 
 class Payments(models.Model):
-	order = models.OneToOneField(Order)
+	order = models.OneToOneField(Order, null=True, blank=True)
 	user = models.ForeignKey(User)
 	paymentId = models.CharField(max_length = 150)
 	paymentRequestId = models.CharField(max_length = 150)

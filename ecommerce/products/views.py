@@ -204,7 +204,7 @@ def processPayment(request):
 		if success is True:
 			status = response['payment_request']['payment']['status']
 			payment = Payments(user = request.user, paymentId = paymentID, paymentRequestId = paymentRequestID, paymentStatus = status)
-			
+			payment.save()
 			print (status)
 			if (status == "Credit"):
 				order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
@@ -225,11 +225,12 @@ def processPayment(request):
 					
 				clear_cart(request.user.cart)
 				messages.success(request, "payment successful")
+				payment.save()
 				return HttpResponseRedirect(reverse('booking_status'))
 			elif (status == "Failed"):
 				messages.error(request, "payment failed")
 				return HttpResponseRedirect(reverse('buyer_cart'))
-			payment.save()
+			
 		else:
 			print("something went wrong.payment details couldnt be fetched")
 	except Exception as e:
