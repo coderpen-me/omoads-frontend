@@ -170,7 +170,7 @@ class Cart(models.Model):
 	tax = models.FloatField(default = 0.00)
 	totalSumPrice = models.FloatField(default = 0.00)
 	def __str__(self):
-		return '%s %s %s' % (self.id, self.user.username, self.totalPrice)
+		return '%s %s %s' % (self.id, self.user.username, self.paymentAdvance)
 
 
 
@@ -195,7 +195,7 @@ class Order(models.Model):
 	totalSumPrice = models.FloatField(default = 0.00)
 	status = models.IntegerField()
 	def __str__(self):
-		return '%s %s %s' % (self.id, self.status, self.totalSumPrice)
+		return '%s %s %s %s' % (self.id, self.status, self.totalSumPrice, self.paymentAdvance)
 
 class OrderItem(models.Model):
 	order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -207,5 +207,13 @@ class OrderItem(models.Model):
 		super().delete(*args, **kwargs)
 		if self.bookingDetails:
 			self.bookingDetails.delete()
+
+
+class Payments(models.Model):
+	order = models.OneToOneField(Order, null=True, blank=True)
+	user = models.ForeignKey(User)
+	paymentId = models.CharField(max_length = 150)
+	paymentRequestId = models.CharField(max_length = 150)
+	paymentStatus = models.CharField(max_length = 20)
 
 

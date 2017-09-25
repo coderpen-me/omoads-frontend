@@ -1,4 +1,4 @@
-from django.shortcuts import render, Http404, HttpResponseRedirect
+from django.shortcuts import render, Http404, HttpResponseRedirect, redirect
 from django.contrib import messages
 from django.views import generic
 
@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 import json, time
 # Create your views here.
-
+from django.views.decorators.csrf import csrf_exempt
 
 from django.core import serializers
 
@@ -21,6 +21,11 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse, reverse_lazy
 import datetime
+from instamojo_wrapper import Instamojo
+
+API_KEY='41ac278373a4e455997329fc318344d2'
+AUTH_TOKEN='502835a970d07f3f739ef94e9fe1d5d0'
+
 
 ADVANCE_PRICE = 0.02
 GST = 0.18
@@ -145,13 +150,13 @@ def processCart(cart):
 	for cartItem in cart.cartitem_set.all():
 		cart.totalPrice = cart.totalPrice + cartItem.price
 
-	cart.totalSumPrice = cart.totalPrice + cart.installationPrice
-	cart.tax = cart.totalSumPrice * GST
-	cart.totalSumPrice = cart.totalSumPrice + cart.tax
+	cart.totalSumPrice = round(cart.totalPrice + cart.installationPrice, 2)
+	cart.tax = round(cart.totalSumPrice * GST, 2)
+	cart.totalSumPrice = round(cart.totalSumPrice + cart.tax, 2)
 
-	cart.paymentAdvance = cart.totalPrice * ADVANCE_PRICE
-	cart.payment1 = cart.totalPrice * PAYMENT_1
-	cart.payment2 = cart.totalPrice * PAYMENT_2
+	cart.paymentAdvance = round(cart.totalPrice * ADVANCE_PRICE, 2)
+	cart.payment1 = round(cart.totalPrice * PAYMENT_1, 2)
+	cart.payment2 = round(cart.totalPrice * PAYMENT_2, 2)
 	cart.save()
 	
 
@@ -186,23 +191,94 @@ def check_out(request):
 		if not checkDateRange(item.startDate, item.endDate, item.banner):
 			print("fault in date")
 			return HttpResponseRedirect(reverse("buyer_cart"))
-
+	if request.user.cart.cartitem_set.all().count()==0:
+		print("no item in cart")
+		return HttpResponseRedirect(reverse("buyer_cart"))
 	print("checkOut")
-	order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
-						paymentAdvance =  request.user.cart.paymentAdvance,
-				 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
-				 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
-				 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
-	order.save()
-	for item in request.user.cart.cartitem_set.all():
-		bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
-									startDate = item.startDate, endDate = item.endDate,
-									numberDays = (item.endDate - item.startDate).days, active = True)
-		bd.save()
-		order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
-		
-	clear_cart(request.user.cart)
-	return HttpResponseRedirect(reverse("booking_status"))
+	print('create request url')
+
+
+	#create order
+	
+
+
+
+	#create api
+	api = Instamojo(api_key=API_KEY,
+				auth_token=AUTH_TOKEN)
+
+	# Create a new Payment Request
+	response = api.payment_request_create(
+		amount=str(request.user.cart.paymentAdvance),
+		email = request.user.email,
+		purpose=str(request.user.get_username()),
+		redirect_url="http://www.omoads.com/process_payment",
+	 	send_email = False,
+		send_sms = False,
+		allow_repeated_payments = False
+		)
+
+	# print response
+	print (response)
+
+	if(response['success'] is True):
+		return redirect(response['payment_request']['longurl'])
+	else:
+		print("no api working")
+
+
+	
+
+def processPayment(request):
+	paymentID = request.GET['payment_id']
+	paymentRequestID = request.GET['payment_request_id']
+
+	api = Instamojo(api_key=API_KEY,
+				auth_token=AUTH_TOKEN)
+
+	# Create a new Payment Request
+	try:
+		response = api.payment_request_payment_status(paymentRequestID, paymentID)
+		print(response)
+		print ("test")             # Purpose of Payment Request
+	   # Payment status
+		success = response['success']
+		if success is True:
+			status = response['payment_request']['payment']['status']
+			payment = Payments(user = request.user, paymentId = paymentID, paymentRequestId = paymentRequestID, paymentStatus = status)
+			payment.save()
+			print (status)
+			if (status == "Credit"):
+				order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
+							paymentAdvance =  request.user.cart.paymentAdvance,
+					 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
+					 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
+					 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
+				order.save()
+				payment.order = order
+				
+				
+				for item in request.user.cart.cartitem_set.all():
+					bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
+												startDate = item.startDate, endDate = item.endDate,
+												numberDays = (item.endDate - item.startDate).days, active = True)
+					bd.save()
+					order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
+					
+				clear_cart(request.user.cart)
+				messages.success(request, "payment successful")
+				payment.save()
+				return HttpResponseRedirect(reverse('booking_status'))
+			elif (status == "Failed"):
+				messages.error(request, "payment failed")
+				return HttpResponseRedirect(reverse('buyer_cart'))
+			
+		else:
+			print("something went wrong.payment details couldnt be fetched")
+	except Exception as e:
+		print("something went wrong :" + str(e))
+
+	
 
 def clear_cart(cart):
 	cart.cartitem_set.all().delete()
