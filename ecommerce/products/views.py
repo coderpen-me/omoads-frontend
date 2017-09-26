@@ -141,6 +141,7 @@ def buyer_cart(request):
 			'userType':userType,
 			'cart':request.user.cart,
 		}
+		request.currentPayementRequest = None
 		return render(request, template, context)
 	else:
 		return HttpResponseRedirect("/")
