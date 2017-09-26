@@ -2,121 +2,117 @@ html,body{
       height: 100%;
       margin: 0px;
       overflow-y: ;
-    }
-    .navbar{
-      background-color: #1c1c1c;
-    }
-    .navigationBar{
-      margin: 0px;
-      border-radius: 0px;
-      border-width: 0px;
-      height: ;
-      }
-    li.active {
-      background-color: #5a5a5a;
-    }
-    .box{
-      padding: 0px;
-      height: 100%;
-    }
-    .nav .active{
-      background-color: #ff6c00;
-    }
-    #pac-input{
-      width: 100%;
-      flex: 0 1 35px;
-      padding-left: 10px;
-    }
-    section {
-    display: flex;
-    flex-flow: column;
-    align-items: stretch;
-    height: 100%;
-    }
-    header {
-    flex: 0 1 auto;
-    }
-    .cont{
-      flex: 1 1 auto;
-      overflow: auto;
-      height: 100%;
-    }
-    .footer{
-      flex: 0 1 25px;
-      background-color: #000;
-    }
-    .secondBox{
-      display: flex;
-      flex-flow: column;
-      align-items: stretch;
-      height: 100%;
-      padding: 0px;
-    }
-    .filter{
-      max-height: 100%;
-      height: 100%;
-      background-color: #1c1c1c;
-      padding: 0px;
-    }
-    .list-group-item{
-    padding-top: 0px;
-    padding-bottom: 0px;
-    }
-    .filter-header{
-      background-color: #373737;
-      padding: 10px;
-      padding-left: 10px;
-      border-radius: 3px 3px 0px 0px;
-    }
-    h5{
-      margin: 0px;
-      color: #fff;
-    }
-    .check{
-      padding-left: 20px;
-    }
-    .card{
-      background-color: #f3f3f3;
-      padding-bottom: 2px;
-      margin-bottom: 4px;
-      margin-top: 4px;
-      margin-left: 4px;
-      margin-right: 4px;
-      border-radius: 5px 5px 4px 4px;
-      }
-    .sort{
-      margin-top: 0px;
-      background-color: #ff6c00;
-      color: #fff;
-      height: 33px;
-      margin-left: 3px;
-      margin-right: 3px;
-      border-radius: 3px;
-    }
-    .key{
-      padding: 10px;
-      font-weight: bold;
-    }
+  }
+.navbar{
+  background-color: #1c1c1c;
+}
+.navigationBar{
+  margin: 0px;
+  border-radius: 0px;
+  border-width: 0px;
+  height: ;
+  }
+li.active {
+  background-color: #5a5a5a;
+}
+.box{
+  padding: 0px;
+  height: 100%;
+}
+.nav .active{
+  background-color: #ff6c00;
+}
+#pac-input{
+  width: 100%;
+  flex: 0 1 35px;
+  padding-left: 10px;
+}
+section {
+display: flex;
+flex-flow: column;
+align-items: stretch;
+height: 100%;
+}
+header {
+flex: 0 1 auto;
+}
+.cont{
+  flex: 1 1 auto;
+  overflow: auto;
+  height: 100%;
+}
+.footer{
+  flex: 0 1 25px;
+  background-color: #000;
+}
+.secondBox{
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  height: 100%;
+  padding: 0px;
+}
+.filter{
+  max-height: 100%;
+  height: 100%;
+  background-color: #1c1c1c;
+  padding: 0px;
+}
+.list-group-item{
+padding-top: 0px;
+padding-bottom: 0px;
+}
+.filter-header{
+  background-color: #373737;
+  padding: 10px;
+  padding-left: 10px;
+  border-radius: 3px 3px 0px 0px;
+}
+h5{
+  margin: 0px;
+  color: #fff;
+}
+.check{
+  padding-left: 20px;
+}
+.card{
+  background-color: #f3f3f3;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  border-radius: 5px 5px 4px 4px;
+  }
+.sort{
+  margin-top: 0px;
+  background-color: #ff6c00;
+  color: #fff;
+  height: 33px;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-radius: 3px;
+}
+.key{
+  padding: 10px;
+  font-weight: bold;
+}
 
 
-    .modal-img input[type=checkbox] {
-      display: none;
-    }
+.modal-img input[type=checkbox] {
+  display: none;
+}
 
-    .banner-modal-image img {
-      cursor: zoom-in;
-      /*margin: 100px;*/
-      transition: transform 0.25s ease;
-    }
+.banner-modal-image img {
+  cursor: zoom-in;
+  /*margin: 100px;*/
+  transition: transform 0.25s ease;
+}
 
-    input[type=checkbox]:checked ~ label > img {
-      position: absolute;
-      margin-top: 5%;
-      margin-left: -55%;
-      cursor: zoom-out;
-      transform: scale(3);
-    }
-
-    .input-group .form-control {
-      z-index: 0;
-    }
+input[type=checkbox]:checked ~ label > img {
+  position: absolute;
+  margin-top: 5%;
+  margin-left: -55%;
+  cursor: zoom-out;
+  transform: scale(3);
+}

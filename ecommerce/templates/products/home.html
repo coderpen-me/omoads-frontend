@@ -312,16 +312,19 @@
                 </div>
                 <div class="col-sm-6">
 
-                  <div class="modal-img">
-                    <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
-                    <form>
-                      <div class="input-group">
-                        <input id="date" type="text" class="form-control" name="daterange">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                      </div>
-                    </form>
-
+                  <div class="modal-img banner-modal-image">
+                      <input type="checkbox" id="zoomCheck" />
+                        <label for="zoomCheck">
+                         <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
+                        </label>
+                  <form>
+                    <div class="input-group">
+                      <input id="date" type="text" class="form-control" name="daterange">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                  </form>
                   </div>
+
                 </div>
               </div>  
             </div>
