@@ -91,7 +91,7 @@ def faq(request):
 	return render(request, template, context)
 
 
-@login_required(login_url = "/")
+@login_required(login_url = "/login/")
 def booking_status(request):
 	template = 'products/booking-status.html'	
 	username = ""
@@ -113,8 +113,9 @@ def booking_status(request):
 		}
 		return render(request, template, context)
 	else:
+		messages.error(request, "login first")
 		return HttpResponseRedirect("/")
-@login_required(login_url = "/")
+@login_required(login_url = "/login/")
 def buyer_cart(request):
 	template = 'products/buyer_cart.html'	
 	username = ""
@@ -177,7 +178,7 @@ def addToCart(request):
 			cart.save()
 		else:
 			messages.error(request, "login first")
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/login/')
 	cartItem = cart.cartitem_set.create(banner = b, startDate = startDateParsed, endDate = endDateParsed, price = total)
 	cartItem.save()
 	cart.save()
@@ -186,7 +187,7 @@ def addToCart(request):
 	print(cart.cartitem_set.all())
 	return HttpResponseRedirect(reverse('buyer_cart'))
 	
-
+@login_required(login_url = "/login/")
 def check_out(request):
 	request.currentPayementRequest = None
 	for item in request.user.cart.cartitem_set.all():
@@ -207,7 +208,7 @@ def check_out(request):
 		amount=str(request.user.cart.paymentAdvance),
 		email = request.user.email,
 		purpose=str(request.user.get_username()),
-		redirect_url="http://www.omoads.com/process_payment",
+		redirect_url="https://omoads.com/process_payment",
 	 	send_email = False,
 		send_sms = False,
 		allow_repeated_payments = False
@@ -291,7 +292,7 @@ def clear_cart(cart):
 	cart.tax = 0.00
 	cart.totalSumPrice = 0.00
 	cart.save()
-
+@login_required(login_url = "/login/")
 def deleteCartItem(request, itemId):
 	ci = request.user.cart.cartitem_set.get(pk=int(itemId))
 	print(ci)
@@ -649,10 +650,29 @@ class LoginUsers(generic.edit.FormView):
 
 	def post(self, request, *args, **kwargs):
 		try:
+			haveNext = False
+			nextPage = ""
+			try:
+				nextPage = request.GET['next']
+				haveNext = True
+			except:
+				print("no next")
+
+			print(haveNext)
+			print("nextPage:" + reverse('home') + nextPage)
+
 			username = request.POST['username']
 			password = request.POST['password']
 			print(username + " " + password)
 			user = authenticate(username = username, password = password)
+			print(user)
+			if user is None:
+				try:
+					u = User.objects.get(email = username)
+					username = u.get_username()
+					user = authenticate(username = username, password = password)
+				except User.DoesNotExist:
+					user = None
 			if user is not None:
 				try:
 					a = Agency.objects.get(user = user)
@@ -660,20 +680,28 @@ class LoginUsers(generic.edit.FormView):
 					request.session['isAgency'] = True
 					request.session['AgencyId'] = a.id
 					print("logged in as an agency")
-					
+					if not haveNext:
+						return HttpResponseRedirect(reverse('owner_interface'))
+					else:
+						return HttpResponseRedirect(reverse('home') + nextPage)
 
 				except Agency.DoesNotExist:
 					login(request, user)
 					request.session['isAgency'] = False
 					print("logged in as a user")
-					return HttpResponseRedirect("/")
-				
+					if not haveNext:
+						return HttpResponseRedirect("/")
+					else:
+						return HttpResponseRedirect(nextPage)
+					
 			else:
 				print("galat daala")
-				return HttpResponseRedirect(reverse('auth_login'))
+				messages.error(request, "wrong username passowrd", extra_tags = 'wrong_credentials')
+				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		except Exception as e:
 			print(e)
-			return HttpResponseRedirect(reverse('auth_login'))
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 
@@ -724,7 +752,7 @@ class OwnerInterfaceHome(generic.TemplateView):
 			print("u need to login")
 			#To-Do: Generate a msg
 			messages.error(request, "Login required")
-			return HttpResponseRedirect('/?next=%s' % (request.path))
+			return HttpResponseRedirect('/login/?next=%s' % (request.path))
 
 
 ######
@@ -766,9 +794,9 @@ class CancelBooking(generic.TemplateView):
 			print("u need to login")
 			#To-Do: Generate a msg
 			messages.error(request, "Login required")
-			return HttpResponseRedirect('/?next=%s' % (request.path))
+			return HttpResponseRedirect('/login/?next=%s' % (request.path))
 
-@login_required(login_url = "/", redirect_field_name = reverse_lazy('owner_interface_cancel'))
+@login_required(login_url = reverse_lazy('auth_login'), redirect_field_name = reverse_lazy('owner_interface_cancel'))
 def cancelBoard(request):
 	if request.is_ajax():
 		banner = Banner.objects.get(pk = request.POST['boardID'])
@@ -814,7 +842,7 @@ class StatusBoards(generic.TemplateView):
 		else:
 			print("u need to login")
 			messages.error(request, "Login required")
-			return HttpResponseRedirect('/?next=%s' % (request.path))
+			return HttpResponseRedirect('/login/?next=%s' % (request.path))
 
 
 ######
@@ -853,9 +881,9 @@ class PriceBoards(generic.TemplateView):
 		else:
 			print("u need to login")
 			messages.error(request, "Login required")
-			return HttpResponseRedirect('/?next=%s' % (request.path))
+			return HttpResponseRedirect('/login/?next=%s' % (request.path))
 			
-@login_required(login_url = "/", redirect_field_name = reverse_lazy('owner_interface_price'))
+@login_required(login_url = reverse_lazy('auth_login'), redirect_field_name = reverse_lazy('owner_interface_price'))
 def addIndiPrice(request):
 	banner = Banner.objects.get(pk = request.POST['boardID'])
 	startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
@@ -931,7 +959,7 @@ class BookHoardings(generic.TemplateView):
 		else:
 			print("u need to login")
 			messages.error(request, "Login required")
-			return HttpResponseRedirect('/?next=%s' % (request.path))
+			return HttpResponseRedirect('/login/?next=%s' % (request.path))
 
 @login_required(login_url = "/", redirect_field_name = reverse_lazy('owner_interface_book'))
 def bookBoards(request):
