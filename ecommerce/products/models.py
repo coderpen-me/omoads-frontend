@@ -12,18 +12,20 @@ STATUS_CHOICES = (
 
 USER_CHOICES = (
 	('o', 'Owner'),
-	('c', 'Customer')
+	('c', 'Customer'),
 )
 
 
 TYPE_CHOICES = (
 	('gantry', 'Gantry'),
 	('unipole', 'Unipole'),
+	('traffic_light', 'Traffic Light Signage'),
 )
 
 type_choices = {
 	'gantry': 'Gantry' ,
 	'unipole': 'Unipole' ,
+	'traffic_light': 'Traffic Light Signage'
 }
 
 LIGHTED_CHOICES = (
@@ -43,13 +45,15 @@ DIMENSION_CHOICES = (
 	('1', '40x10'),
 	('2', '30x10'),
 	('3', '20x10'),
+	('4', '6x3'),
 )
 
 Area = {
 	'0':500,
 	'1':400,
 	'2':300,
-	'3':200
+	'3':200,
+	'4':18
 }
 
 dimension_choices = {
@@ -57,6 +61,7 @@ dimension_choices = {
 	'1': '40x10',
 	'2': '30x10',
 	'3': '20x10',
+	'4': '6x3',
 }
 
 
@@ -134,9 +139,6 @@ class BannerImage(models.Model):
 
 	banner = models.OneToOneField(Banner, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to=content_file_name,default='boardimages/'+str(id)+'.jpg')
-	
-
-	
 
 #maybe rename to orderDetails
 class BookingDetails(models.Model):

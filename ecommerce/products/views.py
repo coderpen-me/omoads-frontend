@@ -311,7 +311,7 @@ class Home(generic.TemplateView):
 		signup_form = self.signup_form_class
 		form = filterForm(request.GET)
 
-		print(form.is_valid())
+		# print(form.is_valid())
 		if form.is_valid():
 			type_banner_input_list = [str(x) for x in form.cleaned_data['type_banner']]
 			lighted_banner_input_list = [str(x) for x in form.cleaned_data['lighted_banner']]

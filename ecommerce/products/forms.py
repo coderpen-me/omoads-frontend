@@ -15,6 +15,7 @@ TOPIC_CHOICES = (
 TYPE_CHOICES = (
 	('gantry', 'Gantry'),
 	('unipole', 'Unipole'),
+	('traffic_light', 'Traffic Light Signage'),
 )
 
 LIGHTED_CHOICES = (
@@ -28,6 +29,7 @@ DIMENSION_CHOICES = (
 	('1', '40x10'),
 	('2', '30x10'),
 	('3', '20x10'),
+	('4', '6x3'),
 )
 
 
