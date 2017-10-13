@@ -12,16 +12,12 @@ html,body{
   border-width: 0px;
   height: ;
   }
-li.active {
-  background-color: #5a5a5a;
-}
+
 .box{
   padding: 0px;
   height: 100%;
 }
-.nav .active{
-  background-color: #ff6c00;
-}
+
 #pac-input{
   width: 100%;
   flex: 0 1 35px;
@@ -115,4 +111,42 @@ input[type=checkbox]:checked ~ label > img {
   margin-left: -55%;
   cursor: zoom-out;
   transform: scale(3);
+}
+
+
+
+.modal-img{
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+.modal-header{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #f3f3f3;
+  border-radius: 10px 10px 0px 0px;
+
+}
+.modal-header p{
+  margin-bottom: 0px;
+  color: #575757;
+}
+.modal-title{
+  color: #575757;
+}
+.bannerInfo{
+  margin-top: 15px;
+}
+.panel-body p{
+  margin-bottom: 2px;
+  color: #575757;
+}
+.panel-body{
+  padding: 5px;
+  padding-left: 15px;
+}
+.tab-content form{
+  margin-top: 10px;
+}
+.panel-default{
+  margin-bottom: 10px;
 }
