@@ -129,7 +129,38 @@
     overflow: hidden;
     opacity:0;
     box-shadow: 0 0 5px black;
+  }
 
+  .modal-header{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #f3f3f3;
+    border-radius: 10px 10px 0px 0px;
+
+  }
+  .modal-header p{
+    margin-bottom: 0px;
+    color: #575757;
+  }
+  .modal-title{
+    color: #575757;
+  }
+  .bannerInfo{
+    margin-top: 15px;
+  }
+  .panel-body p{
+    margin-bottom: 2px;
+    color: #575757;
+  }
+  .panel-body{
+    padding: 5px;
+    padding-left: 15px;
+  }
+  .tab-content form{
+    margin-top: 10px;
+  }
+  .panel-default{
+    margin-bottom: 10px;
   }
   </style>
 </head>
@@ -167,7 +198,7 @@
                 <div class="col-sm-3">
                   <h3 class="pull-right">&#8377 {{cartitem.price|floatformat:2}}</h3>
                   <div class="pull-right">
-                    <a class = "editCartItem" href = "#" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="glyphicon glyphicon-edit edit-button"></span></a>
+                    <a class = "editCartItem" href = "#" title="Edit" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit edit-button"></span></a>
                     
                     <a class = "deleteCartItem" href = "{% url 'cart_deleteItem' cartitem.id %}" data-cartitemid="{{cartitem.id}}" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle remove-button"></span></a>
                   </div>
@@ -198,6 +229,63 @@
               <a href = "{% url 'check_out' %}"  class="btn btn-primary">Checkout</a>
 
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Edit modal -->
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="myModalLabel">Hapur Road, Near Hapur Chungi</h3>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Banner Details</div>
+                  <div class="panel-body">
+                    <p>Pole ID: 0001-A</p>
+                    <p>Dimentions: 40 x 10 In</p>
+                    <p>Type: Gantry</p>
+                    <p>Lighted: Front-Lit</p>
+                    <p>Start Date:</p>
+                    <p>End Date:</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+
+                <h4>Change Dates</h4>
+                <form>
+                  <div class="input-group">
+                    <input id="date" type="text" class="form-control" name="daterange">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+
+                    <script type="text/javascript">
+                    $(function() {
+                        $('input[name="daterange"]').daterangepicker({
+                              drops: "down"
+                        });
+                    });
+                    </script>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="MyModalAddCart">Apply</button>
+            
           </div>
         </div>
       </div>
