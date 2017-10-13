@@ -111,9 +111,8 @@ input[type=checkbox]:checked ~ label > img {
   margin-left: -55%;
   cursor: zoom-out;
   transform: scale(3);
+  z-index: 3;
 }
-
-
 
 .modal-img{
   margin-top: 15px;
