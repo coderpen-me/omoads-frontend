@@ -3,9 +3,11 @@
 <html lang="en">
 <head>
   <title>About Us || OmoAds</title>
-  
-
   <meta charset="utf-8">
+  <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
+  
+  <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
+  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -131,6 +133,16 @@
       width: 80%;
       height: 200px;
     }
+    .phoneNo{
+      width: 170px;
+      height: 30px;
+      background-color: #fff;
+      padding: 5px 0px 5px 0px; 
+      margin: 10px 20px 10px 15px;
+      border-radius: 5px;
+      color: #ff6c00;
+      font-weight: ;
+    }
   </style>
 </head>
 <body>
@@ -163,6 +175,9 @@
             <li class="active"><a href="{% url 'aboutus' %}">About Us</a></li>
             <li><a href="{% url 'directions' %}">Directions</a></li>
             <li><a href="{% url 'faq' %}">FAQs</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <div class="phoneNo text-center"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;(+91) 99116 39985</div>
           </ul>
         </div>
       </nav>

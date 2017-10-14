@@ -131,6 +131,16 @@
     /*.row-container{
       padding: 20px;
     }*/
+    .phoneNo{
+      width: 170px;
+      height: 30px;
+      background-color: #fff;
+      padding: 5px 0px 5px 0px; 
+      margin: 10px 20px 10px 15px;
+      border-radius: 5px;
+      color: #ff6c00;
+      font-weight: ;
+    }
   </style>
 </head>
 <body>
@@ -163,6 +173,9 @@
             <li><a href="{% url 'aboutus' %}">About Us</a></li>
             <li class="active"><a href="{% url 'directions' %}">Directions</a></li>
             <li><a href="{% url 'faq' %}">FAQs</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <div class="phoneNo text-center"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;(+91) 99116 39985</div>
           </ul>
         </div>
       </nav>
