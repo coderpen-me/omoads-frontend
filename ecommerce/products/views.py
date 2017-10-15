@@ -404,6 +404,17 @@ class Home(generic.TemplateView):
 					user = authenticate(username = username, password = password)
 				except User.DoesNotExist:
 					user = None
+			
+			if user is None:
+				try:
+					ex = ExtendedUser(phone_number = username)
+					u = User.objects.get(extendeduser = ex)
+					username = u.get_username()
+					user = authenticate(username = username, password = password)
+				except ExtendedUser.DoesNotExist or User.DoesNotExist:
+					user = None
+
+
 			if user is not None:
 				try:
 					a = Agency.objects.get(user = user)
@@ -517,7 +528,7 @@ class Signup(generic.edit.FormView):
 		if form.is_valid():
 			pass
 		else:
-			#messages.error(request,"Enter Correct Values In All The Fields")
+			messages.error(request,"Enter Correct Values In All The Fields")
 			print("invalid")
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		new_user = form.save(commit=False)
@@ -529,16 +540,24 @@ class Signup(generic.edit.FormView):
 			try:
 				quer=User.objects.get(username=new_user.username)
 			except User.DoesNotExist:
-				new_user.save()
-				c = Cart(user = new_user)
-				c.save()
-				return HttpResponseRedirect("/")
+				try:
+					quer=ExtendedUser.objects.get(phone_number=request.POST['phone_number'])
+				except ExtendedUser.DoesNotExist:
+					new_user.save()
+					ExtendedUser(user = new_user, phone_number = request.POST['phone_number']).save()
+					c = Cart(user = new_user)
+					c.save()
+					return HttpResponseRedirect("/")
+				else:
+					messages.error(request, "The phone already exists.")
+					print("invalid phone already")
+					return HttpResponseRedirect(reverse('auth_register'))
 			else:
-				#messages.error(request, "The username or email already exists.")
+				messages.error(request, "The username already exists.")
 				print("invalid username already")
 				return HttpResponseRedirect(reverse('auth_register'))
 		else:
-			#messages.error(request, "The username or email already exists.")
+			messages.error(request, "The email already exists.")
 			print("invalid email already")
 			return HttpResponseRedirect(reverse('auth_register'))
 
@@ -560,19 +579,26 @@ def signup(request):
 		try:
 			quer=User.objects.get(username=new_user.username)
 		except User.DoesNotExist:
-			new_user.save()
-			c = Cart(user = new_user)
-			c.save()
-			return HttpResponseRedirect("/")
+			try:
+				quer=ExtendedUser.objects.get(phone_number=new_user.phoneNumber)
+			except ExtendedUser.DoesNotExist:
+				new_user.save()
+				ExtendedUser(user = new_user, phone_number = request.POST['phone_number']).save()
+				c = Cart(user = new_user)
+				c.save()
+				return HttpResponseRedirect("/")
+			else:
+				messages.error(request, "The phone already exists.")
+				print("invalid phone already")
+				return HttpResponseRedirect(reverse('auth_register'))
 		else:
-			#messages.error(request, "The username or email already exists.")
+			messages.error(request, "The username already exists.")
 			print("invalid username already")
 			return HttpResponseRedirect(reverse('auth_register'))
 	else:
-		#messages.error(request, "The username or email already exists.")
+		messages.error(request, "The email already exists.")
 		print("invalid email already")
 		return HttpResponseRedirect(reverse('auth_register'))
-
 
 
 ######
@@ -614,19 +640,30 @@ class SignupOwner(generic.edit.FormView):
 			try:
 				quer=User.objects.get(username=new_user.username)
 			except User.DoesNotExist:
-				new_user.save()
-				print("bawal")
-				new_agency.user = new_user
-				new_agency.save()
-				return HttpResponseRedirect("/")
+				try:
+					quer=ExtendedUser.objects.get(phone_number=new_user.phoneNumber)
+				except ExtendedUser.DoesNotExist:
+					new_user.save()
+					new_agency.user = new_user
+					new_agency.save()
+					ExtendedUser(user = new_user, phone_number = request.POST['phone_number']).save()
+					c = Cart(user = new_user)
+					c.save()
+					return HttpResponseRedirect("/")
+				else:
+					messages.error(request, "The phone already exists.")
+					print("invalid phone already")
+					return HttpResponseRedirect(reverse('auth_register'))
 			else:
-				#messages.error(request, "The username or email already exists.")
+				messages.error(request, "The username already exists.")
 				print("invalid username already")
-				return HttpResponseRedirect(reverse('auth_register_owner'))
+				return HttpResponseRedirect(reverse('auth_register'))
 		else:
-			#messages.error(request, "The username or email already exists.")
+			messages.error(request, "The email already exists.")
 			print("invalid email already")
-			return HttpResponseRedirect(reverse('auth_register_owner'))
+			return HttpResponseRedirect(reverse('auth_register'))
+
+
 
 
 ######
@@ -658,12 +695,11 @@ class LoginUsers(generic.edit.FormView):
 			except:
 				print("no next")
 
-			print(haveNext)
-			print("nextPage:" + reverse('home') + nextPage)
+			
 
 			username = request.POST['username']
 			password = request.POST['password']
-			print(username + " " + password)
+			
 			user = authenticate(username = username, password = password)
 			print(user)
 			if user is None:
@@ -673,6 +709,17 @@ class LoginUsers(generic.edit.FormView):
 					user = authenticate(username = username, password = password)
 				except User.DoesNotExist:
 					user = None
+			if user is None:
+				try:
+					ex = ExtendedUser.objects.get(phone_number = username)
+					u = ex.user
+					username = u.get_username()
+					user = authenticate(username = username, password = password)
+				except ExtendedUser.DoesNotExist:
+					user = None
+				except User.DoesNotExist:
+					user = None
+
 			if user is not None:
 				try:
 					a = Agency.objects.get(user = user)
@@ -689,6 +736,7 @@ class LoginUsers(generic.edit.FormView):
 					login(request, user)
 					request.session['isAgency'] = False
 					print("logged in as a user")
+					print(user.extendeduser.phone_number)
 					if not haveNext:
 						return HttpResponseRedirect("/")
 					else:

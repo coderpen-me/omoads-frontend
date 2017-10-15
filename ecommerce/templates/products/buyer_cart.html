@@ -186,14 +186,15 @@
             <div class="cart-item" id = "{{cartitem.id}}">
               <div class="row">
                 <div class="col-sm-3">
-                  <img src="resources/images/banner3.jpg" class="img-thumbnail" alt="Cinque Terre" width="250" height="180">
+                  <img src="{{ MEDIA_URL }}{{ cartitem.banner.bannerimage }}" class="img-thumbnail" alt="Cinque Terre" width="250" height="180">
                 </div>
                 <div class="col-sm-6">
-                  <h4>{{cartitem.banner.landmark}}</h4>
+                  <h4>{{cartitem.banner.banner_landmark}}</h4>
+                  <p>ID: {{cartitem.banner.id}}</p>
                   <p>Start Date: {{cartitem.startDate}}</p>
                   <p>End Date: {{cartitem.endDate}}</p>
-                  <p>Type: </p>
-                  <p>Size: </p>
+                  <p>Type: {{cartitem.banner.banner_type}}</p>
+                  <p>Size: {{cartitem.banner.getSize}}</p>
                 </div>
                 <div class="col-sm-3">
                   <h3 class="pull-right">&#8377 {{cartitem.price|floatformat:2}}</h3>

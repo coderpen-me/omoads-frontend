@@ -1,0 +1,7 @@
+DATE:15/10/2017 USER: TEG
+	>first commit
+		1>added phone number in models
+		2>login with phone number
+		3>validations needed
+	>second commit
+		4>fixed cart item details and image
