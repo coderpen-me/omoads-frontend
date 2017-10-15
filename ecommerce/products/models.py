@@ -132,6 +132,8 @@ class Banner(models.Model):
 			delta = endDateParsed - startDateParsed
 			p = self.priceperiod_set.create(startDate=startDateParsed,endDate=endDateParsed,numberDays=delta.days,price=self.banner_cost)
 			p.save()
+	def getSize(self):
+		return str(dimension_choices[str(self.banner_dimensions)])
 
 
 class BannerImage(models.Model):
