@@ -1,0 +1,4 @@
+DATE:15/10/2017 USER: TEG
+	1>added phone number in models
+	2>login with phone number
+	3>validations needed

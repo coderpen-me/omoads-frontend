@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 # Create your models here.
 from django.contrib.auth.models import User
 import datetime
-
+from phonenumber_field.modelfields import PhoneNumberField
 STATUS_CHOICES = (
 	('available', 'Available'),
 	('booked', 'Booked'),
@@ -78,9 +78,6 @@ class Category(models.Model):
 	def __unicode__(self):
 		return self.title
 
-# T-Shirt 1
-# Active Wear 2
-# Women's Clothing 3
 
 
 
@@ -90,6 +87,10 @@ class Zone(models.Model):
 	def __str__(self):
 		return self.zone_name
 
+
+class ExtendedUser(models.Model):
+	user = models.OneToOneField(User, on_delete = models.CASCADE)
+	phone_number = models.CharField( max_length = 15)
 
 class Agency(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
