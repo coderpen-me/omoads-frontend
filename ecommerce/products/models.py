@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 # Create your models here.
 from django.contrib.auth.models import User
 import datetime
-from phonenumber_field.modelfields import PhoneNumberField
+
 STATUS_CHOICES = (
 	('available', 'Available'),
 	('booked', 'Booked'),
