@@ -159,3 +159,6 @@ input[type=checkbox]:checked ~ label > img {
   color: #ff6c00;
   font-weight: ;
 }
+#priceMyModal{
+  margin-top: 5px;
+  }
