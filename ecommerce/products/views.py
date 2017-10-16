@@ -156,9 +156,9 @@ def processCart(cart):
 	cart.tax = round(cart.totalSumPrice * GST, 2)
 	cart.totalSumPrice = round(cart.totalSumPrice + cart.tax, 2)
 
-	cart.paymentAdvance = round(cart.totalPrice * ADVANCE_PRICE, 2)
-	cart.payment1 = round(cart.totalPrice * PAYMENT_1, 2)
-	cart.payment2 = round(cart.totalPrice * PAYMENT_2, 2)
+	cart.paymentAdvance = round(cart.totalSumPrice * ADVANCE_PRICE, 2)
+	cart.payment1 = round(cart.totalSumPrice * PAYMENT_1, 2)
+	cart.payment2 = round(cart.totalSumPrice * PAYMENT_2, 2)
 	cart.save()
 	
 
