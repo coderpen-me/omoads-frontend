@@ -126,7 +126,7 @@ def buyer_cart(request):
 		try:
 			Agency.objects.get(user = request.user)
 			userType = "Agency"
-			messages.error(request, "you can't access this page")
+			messages.error(request, "You can not buy banners because you are Agency owner")
 			return HttpResponseRedirect(reverse('owner_interface'))
 		except Agency.DoesNotExist:
 			userType = "Buyer"
