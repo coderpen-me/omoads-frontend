@@ -45,7 +45,7 @@ DIMENSION_CHOICES = (
 	('1', '40x10'),
 	('2', '30x10'),
 	('3', '20x10'),
-	('4', '6x3'),
+	('4', '8x4'),
 )
 
 Area = {
@@ -53,7 +53,7 @@ Area = {
 	'1':400,
 	'2':300,
 	'3':200,
-	'4':18
+	'4':32
 }
 
 dimension_choices = {
@@ -61,7 +61,7 @@ dimension_choices = {
 	'1': '40x10',
 	'2': '30x10',
 	'3': '20x10',
-	'4': '6x3',
+	'4': '8x4',
 }
 
 
@@ -77,10 +77,6 @@ class Category(models.Model):
 
 	def __unicode__(self):
 		return self.title
-
-
-
-
 
 class Zone(models.Model):
 	zone_name = models.CharField(max_length=30)
@@ -100,7 +96,6 @@ class Agency(models.Model):
 
 	def __str__(self):
 		return '%s %s %s %s' % (self.id, self.agency_name, self.agency_state, self.agency_city)
-
 
 
 def content_file_name(instance, filename):
@@ -220,5 +215,3 @@ class Payments(models.Model):
 	paymentId = models.CharField(max_length = 150)
 	paymentRequestId = models.CharField(max_length = 150)
 	paymentStatus = models.CharField(max_length = 20)
-
-
