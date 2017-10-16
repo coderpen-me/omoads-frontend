@@ -45,8 +45,21 @@
     box-shadow: 0 0 5px black;
 
   }
-  
-
+  .navbar{
+    margin-bottom: 0px;
+    border-radius: 0px;
+    border-width: 0px;
+  }
+  .phoneNo{
+      width: 170px;
+      height: 30px;
+      background-color: #fff;
+      padding: 5px 0px 5px 0px; 
+      margin: 10px 20px 10px 15px;
+      border-radius: 5px;
+      color: #ff6c00;
+      font-weight: ;
+    }
 
 </style>
 </head>
@@ -62,7 +75,8 @@
 {% endfor %}
     </div>
 {% endif %}
-
+<section>
+{% include 'navbar1.html' %}
 <div class="container-fluid abc">
     <div class="col-sm-4"></div>
     <div class="signup-box col-sm-4" >
@@ -88,5 +102,6 @@
     </div>
     <div class="col-sm-4"></div>
 </div>
+</section>
 </body>
 </html>
