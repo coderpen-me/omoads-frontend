@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block head_title %} {% endblock %} OMOADS</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-105587377-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    {% block specific_cdns %}
+    {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/baseOwnerInterface.css' %}">
+
+    {% block specific_css %}
+    {% endblock %}
+    
+
+
+</head>
+<style type="text/css">
+  @keyframes fadeout {
+    0%{opacity:0;top:50%}
+    20%{opacity:1;}
+    80%{opacity:1;top:50%;}
+    100%{opacity:0;
+      top:-50%;
+    }
+
+  }
+  #message {
+    position: absolute;
+    z-index: 9999;
+    top: -50%;
+    left: 25%;
+    right: 25%;
+    background: #fde073;
+    text-align: center;
+    animation-name: fadeout;
+    animation-duration: 2s;
+    overflow: hidden;
+    opacity:0;
+    box-shadow: 0 0 5px black;
+
+  }
+</style>
+<body>
+{% if messages %}
+    <div id="message">
+{% for message in messages %}
+
+ <h3> {{ message }}</h3>
+
+{% endfor %}
+    </div>
+{% endif %}
+
+{% include 'navbar1.html'%}
+<div class="container-fluid">
+	<div class="col-sm-3 side-bar">
+		<h2 style="padding-bottom: 15px; padding-left: 30px;">Dashboard</h2>
+		<div class="list-group">
+             <a href="{% url 'owner_interface' %}" style="text-decoration: none;"><li class="list-group-item overview"><span class="glyphicon glyphicon-blackboard"></span>  Overview</li></a>
+            <a href="{% url 'owner_interface_price' %}" style="text-decoration: none;"><li class="list-group-item change-price"><span class="glyphicon glyphicon-wrench"></span>  Change Price</li></a>
+            <a href="{% url 'owner_interface_book' %}" style="text-decoration: none;"><li class="list-group-item book-hoarding"><span class="glyphicon glyphicon-shopping-cart"></span>  Book Hoarding</li></a>
+            <a href="{% url 'owner_interface_status' %}" style="text-decoration: none;"><li class="list-group-item status"><span class="glyphicon glyphicon-shopping-cart"></span>  Status</li></a>  
+            <a href="{% url 'owner_interface_cancel' %}" style="text-decoration: none;"><li class="list-group-item cancel-booking"><span class="glyphicon glyphicon-shopping-cart"></span>  Cancel Booking</li></a>
+         </div>
+	</div>
+
+{% block main_area %}
+
+
+{% endblock %}
+</div>
+</body>
+</html>

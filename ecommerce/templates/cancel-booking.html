@@ -1,0 +1,131 @@
+{% extends 'base1.html' %}
+
+{% block specific_css %}
+<style type="text/css">
+  .cancel-booking{
+    background-color: #000;
+    color: #fff;
+  }
+</style>
+{% endblock %}
+
+
+
+{% block main_area %}
+	<div class="col-sm-9 main-area">
+		<div class="top-filters">
+			<h3 class="filter-heading">Filters :</h3>
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<form class="zone-form">
+							{% for zone in zones %}
+           <div class="checkbox">
+            <label><input name = "zoneList" type="checkbox" value = "{{zone.zone_name}}" onclick = "myFilter(this)">{{zone.zone_name}}</label>
+          </div>
+          {% endfor %}
+						</form>
+					</ul>
+			</div>
+		</div>
+
+	   <div class="booking-history">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Facing</th>
+            <th>Pole ID</th>
+            <th>Date Of Booking</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in details %}
+          <tr id = "row{{item.bdID}}" class = "cardRowsJS">
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_landmark}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.banner_facing}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.banner.id}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.bookingDate}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.startDate}}</td>
+          <td style="padding-top: 15px; padding-bottom: 15px;">{{item.endDate}}</td>
+          <td style="padding-top: 10px; padding-bottom: 5px;">
+          <button type="button" class="btn btn-danger" id = "button{{item.bdID}}" style="margin: ;">Cancel</button></td>
+          </tr>
+          <script type="text/javascript">
+
+            var item = document.getElementById("button{{item.bdID}}")
+            item.bdID = "{{item.bdID}}"
+            item.boardID = "{{item.banner.id}}"
+            console.log("id:"+item.id)
+            console.log("bdid:"+item.bdID)
+           item.onclick = function(){
+              $.ajax({
+                  type: "POST",
+                  url: "{% url 'owner_interface_cancel_board' %}",
+                  data: {
+                  "csrfmiddlewaretoken": "{{ csrf_token }}",
+                  "boardID":this.boardID,
+                  "bdID":this.bdID
+                  },
+                  success: function(data){
+                    var tr = document.getElementById("row{{item.bdID}}")
+                    tr.parentNode.removeChild(tr)
+
+                  },
+                  error: function(){
+                  alert("Error! Something wrong. Please try again later")
+                  },
+              });
+            }
+          </script>
+        <script type="text/javascript">
+        var card = document.getElementById("row{{item.bdID}}")
+        card.zone = "{{item.banner.zone}}"
+        </script>
+        {% endfor %}
+
+          
+        </tbody>
+      </table>
+    </div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+  function myFilter() {
+  // Declare variables 
+  var cards = document.getElementsByClassName("cardRowsJS")
+  var zones = document.getElementsByName("zoneList")
+for(var i =0; i<cards.length;i++)
+    console.log(cards[i].zone)
+  var checkedZones = []
+  for(var i = 0; i < zones.length; i++)
+    if(zones[i].checked)
+    {
+      checkedZones.push(zones[i].value)
+    }
+  console.log(checkedZones)
+  
+    for(var i = 0; i<cards.length; i++)
+  {
+    if(checkedZones.length != 0)
+    {
+      if(checkedZones.indexOf(cards[i].zone.toUpperCase()) > -1)
+        cards[i].style.display = "";
+      else
+        cards[i].style.display = "none";
+    }
+    else
+      cards[i].style.display = "";
+  }
+ 
+}
+</script>
+{% endblock %}

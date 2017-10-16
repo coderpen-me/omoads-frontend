@@ -1,0 +1,363 @@
+{% extends 'base1.html' %}
+
+
+{% block head_title %}
+Book Hoarding || 
+{% endblock %}
+
+{% block specific_cdns %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+{% endblock %}
+
+{% block specific_css %}
+<style type="text/css">
+  .book-hoarding{
+    background-color: #000;
+    color: #fff;
+  }
+</style>
+{% endblock %}
+
+{% block main_area %}
+
+  <div class="col-sm-9 main-area">
+    <div class="top-filters">
+     <h3 class="filter-heading">Filters :</h3>
+     <div class="row filter-row">
+       <div class="dropdown col-sm-3">
+        <button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
+         <span class="caret"></span></button>
+         <ul class="dropdown-menu">
+
+
+          {% for zone in zones %}
+           <div class="checkbox">
+            <label><input name = "zoneList" type="checkbox" onclick = "myFilter(this)" value = "{{zone.zone_name}}"> {{zone.zone_name}}</label>
+          </div>
+          {% endfor %}
+
+      </ul>
+    </div>
+
+    <!-- <div class="col-sm-4 date-container">
+      <div class="row">
+        <div class="col-sm-12" style="padding-right: 0px;">
+          <form>
+            <div class="input-group">
+              <input type="text" class="form-control" name="daterange">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+          </form>
+          <script type="text/javascript">
+
+              var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterange"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateForm').val(start.format('YYYY-MM-DD'));
+                    $('#endDateForm').val(end.format('YYYY-MM-DD'));
+                    $('#daysForm').val(diff);
+                    console.log(diff)
+                    $('#bookHoarding').attr("disabled", false)
+                  });
+
+              });
+
+              </script>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-sm-9 book-btn">
+        <button type="button" class="btn btn-primary pull-right" id="bookHoarding" disabled = "true" data-toggle="modal" data-target="#bookingDetails"><span class="glyphicon glyphicon-shopping-cart"></span> Book   <span class="badge" id="badge-count">0</span></button>
+          
+        </div>
+
+      </div>
+    </div>
+
+      
+    <div id="bookingDetails" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Booking Details</h2>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Pole ID</th>
+                  <th>Facing</th>
+                </tr>
+              </thead>
+              <tbody id = "cartBody">
+                
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id = "submitBoards"><span class="glyphicon glyphicon-shopping-cart"></span> Book</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <div class="pole-templates">
+      <form id="bookBoards" method = "POST" action = "{% url 'owner_interface_book_board' %}">
+      {% csrf_token %}
+      {% for item in details %}
+        <div class="checkbox2" id = "card{{item.banner.id}}">
+          <label class="display-checkbox" style="padding-left: 0px; width: 100%;">
+          <input type="checkbox" disabled = "true" name="boards" value = "{{item.banner.id}}" id = "{{item.banner.id}}">
+
+             <div class="display-card">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="{{ MEDIA_URL }}{{ item.banner.bannerimage }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+                </div>
+                <div class="col-sm-5 pole-description">
+                  <p class="card-heading cont">{{item.banner.banner_landmark}}</p>
+                  <div class="card-content">
+                    <p class="cont">Facing: {{item.banner.banner_facing}}</p>
+                    <p class="cont">Pole ID: {{item.banner.id}}</p>
+                    <p class="cont">Type: {{item.banner.banner_type}}</p>
+                    <p class = "cont">Zone: {{item.banner.zone}}</p>
+                    <p class = "cont">Face:{{item.banner.banner_face_side}}</p>
+                  </div>
+                  <p class="pole-price">&#8377 {{item.banner.banner_cost}}</p>
+                  <p id="datemsg{{item.banner.id}}"></p>
+                </div>
+
+                <div class="col-sm-4 date-container">
+                  <div class="row">
+                    <div class="col-sm-12" style="padding-right: 0px;">
+                      
+                        <div class="input-group">
+                          <input type="text" class="form-control" name="daterange{{item.banner.id}}">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                      
+                      <script type="text/javascript">
+
+                              var startDateForm;
+                              var endDateForm;
+                              var invalidDates = [];
+
+                              $(document).ready(function() {
+
+                                  $('input[name="daterange{{item.banner.id}}"]').daterangepicker({
+                                    minDate: moment().add(2, 'days'),
+                                    format: 'DD/MM/YYYY',
+                                    seperator: 'To',
+                                    opens: "left",
+                                    isInvalidDate: function(date)
+                                    {
+                                      var x = 0
+                                      {% for d in item.dates %}
+                                        x=(x||((date.format('YYYY-MM-DD') >= "{{d.startDate|date:'Y-m-d'}}")&&(date.format('YYYY-MM-DD') <= "{{d.endDate|date:'Y-m-d'}}")))
+                                        
+                                      {% endfor %}
+                                      
+
+                                        if (x!=0)
+                                        {
+                                            invalidDates.push(date.format('YYYY-MM-DD'))
+                                            
+
+                                            return true; 
+                                        }
+                                        else
+                                        {
+                                            return false; 
+                                        }
+                                    }
+                                    
+                                  },
+                                  function(start, end){
+                                          console.log("call back");
+                                          startDateForm = start;
+                                          endDateForm = end;
+                                          var diff = end.diff(start, 'days')
+                                          $('#startDateForm{{item.banner.id}}').val(start.format('YYYY-MM-DD'));
+                                          $('#endDateForm{{item.banner.id}}').val(end.format('YYYY-MM-DD'));
+                                          $('#daysForm{{item.banner.id}}').val(diff);
+                                          console.log(diff)
+                                          
+                                          var flag = 0
+                                          for (var i = 0; i<invalidDates.length;i++)
+                                          {
+                                            console.log("fuck")
+                                            if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+                                            {
+                                              flag  = 1;
+                                              console.log("fucker")
+                                              var datemsg = document.getElementById("datemsg{{item.banner.id}}");
+                                              datemsg.innerHTML = "DATE RANGE HAS INVALID DATES";
+                                              datemsg.style.color = "red";
+                                               $('#{{item.banner.id}}').attr("disabled", true)
+                                              break;
+                                            }
+                                          }
+                                          if(flag == 0)
+                                          {
+                                            $('#bookHoarding').attr("disabled", false)
+                                            $('#{{item.banner.id}}').attr("disabled", false)
+                                            var datemsg = document.getElementById("datemsg{{item.banner.id}}");
+                                              datemsg.innerHTML = "DATE RANGE IS AVAILABLE";
+                                              datemsg.style.color = "green";
+
+                                          }
+                                          else
+                                          {
+
+                                          }
+                                          invalidDates = [];
+                                  }
+                                  );
+
+                              });
+
+                          </script>
+                    </div>
+                  </div>
+
+                  
+                </div>
+
+                </div>
+            </div> 
+          </label>
+        </div>
+
+
+          <script>
+
+              var item = document.getElementById("{{item.banner.id}}")
+              console.log("{{item.banner.banner_facing}}");
+              item.face = "{{item.banner.banner_facing}}"
+              item.landmark = "{{item.banner.banner_landmark}}"  
+          </script>
+          <script type="text/javascript">
+        var card = document.getElementById("card{{item.banner.id}}")
+        card.zone = "{{item.banner.zone}}"
+         </script>
+        
+        <input type = "hidden" name = "dateStart{{item.banner.id}}" value = "" id = "startDateForm{{item.banner.id}}">
+        <input type = "hidden" name = "dateEnd{{item.banner.id}}" value = "" id = "endDateForm{{item.banner.id}}">
+        <input type = "hidden" name = "days{{item.banner.id}}" value = "" id = "daysForm{{item.banner.id}}">
+        
+        {% endfor %}
+        
+
+
+      </form>
+    </div>
+
+
+        
+  </div>
+</div>
+<script type="text/javascript">
+  
+  $('#submitBoards').click(function(){
+      $('#bookBoards').submit();
+  });
+
+
+  $('input[name=boards]').click(function(){
+  document.getElementById("badge-count").innerHTML=$('input[name=boards]:checked').length;
+
+  var checkedBoards = [];
+  
+
+  if(this.checked == true)
+  {
+      checkedBoards.push(this.id);
+      var tr = document.createElement("tr");
+
+      var tdLandmark = document.createElement("td");
+      var tdId = document.createElement("td");
+      var tdFace = document.createElement("td");
+      var textNodeId = document.createTextNode(this.id);
+      var textNodeFace = document.createTextNode(this.face);
+      var textNodeLandmark = document.createTextNode(this.landmark);
+
+      tdLandmark.appendChild(textNodeLandmark);
+      tdId.appendChild(textNodeId);
+      tdFace.appendChild(textNodeFace);
+
+      tr.appendChild(tdLandmark);
+      tr.appendChild(tdId);
+      tr.appendChild(tdFace);
+
+      tr.id = "tr" + this.id;
+
+      document.getElementById("cartBody").appendChild(tr);
+      console.log("haaas");
+  }
+  else
+  {
+    console.log("naaa");
+      checkedBoards.splice(checkedBoards.indexOf(this.id),1);
+      document.getElementById("cartBody").removeChild(document.getElementById("tr" + this.id));
+  }
+  console.log(checkedBoards);
+
+});
+
+function myFilter() {
+  // Declare variables 
+  var cards = document.getElementsByClassName("checkbox2")
+  var zones = document.getElementsByName("zoneList")
+
+  console.log(zones)
+  var checkedZones = []
+  for(var i = 0; i < zones.length; i++)
+    if(zones[i].checked)
+    {
+      checkedZones.push(zones[i].value)
+    }
+  console.log(checkedZones)
+  
+    for(var i = 0; i<cards.length; i++)
+  {
+    if(checkedZones.length != 0)
+    {
+      if(checkedZones.indexOf(cards[i].zone.toUpperCase()) > -1)
+        cards[i].style.display = "";
+      else
+        cards[i].style.display = "none";
+    }
+    else
+      cards[i].style.display = "";
+  }
+}
+ 
+</script>
+
+{% endblock %}

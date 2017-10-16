@@ -1,0 +1,306 @@
+{% extends 'base1.html' %}
+
+
+{% block head_title %}
+Change Prices || 
+{% endblock %}
+
+{% block specific_cdns %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+{% endblock %}
+
+{% block specific_css %}
+<style type="text/css">
+  .change-price{
+    background-color: #000;
+    color: #fff;
+  }
+</style>
+{% endblock %}
+
+
+{% block main_area %}
+	<div class="col-sm-9 main-area">
+		<div class="top-filters">
+			<h3 class="filter-heading">Filters :</h3>
+      <div class="row">
+  			<div class="dropdown col-sm-4">
+  				<button class="btn btn-default dropdown-toggle zone-filter" type="button" data-toggle="dropdown">Zones
+  					<span class="caret"></span></button>
+  					<ul class="dropdown-menu">
+  						<form class="zone-form">
+  				{% for zone in zones %}
+           <div class="checkbox">
+            <label><input name = "zoneList" type="checkbox" value = "{{zone.zone_name}}" onclick = "myFilter(this)">{{zone.zone_name}}</label>
+          </div>
+          {% endfor %}
+  						</form>
+  					</ul>
+  			</div>
+
+        <div class="col-sm-8 select-all-button">
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeAllPrice">Change Price of All</button>
+        </div>
+      </div>
+		</div>
+
+    <!--Individual Price Change Modal-->
+
+    <div id="changeIndividualPrice" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Change Price</h2>
+          </div>
+          <div class="modal-body">
+            <form  id = "formIndi" method = post action = "{% url 'owner_interface_add_new_price_indi' %}">
+            {% csrf_token %}
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="daterangeIndi">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="newPrice" placeholder="New Price" name = "price">
+              </div>
+              <input type = "hidden" value="" id = "formIDIndi" name = "boardID">
+              <input type = "hidden" value="" id = "startDateFormIndi"  name = "dateStart">
+              <input type = "hidden" value="" id = "endDateFormIndi"  name = "dateEnd">
+              <input type = "hidden" value="" id = "daysFormIndi"  name = "days" >
+            </form>
+            <script type="text/javascript">
+               var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterangeIndi"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateFormIndi').val(start.format('YYYY-MM-DD'));
+                    $('#endDateFormIndi').val(end.format('YYYY-MM-DD'));
+                    $('#daysFormIndi').val(diff);
+                    console.log(diff)
+                  });
+
+              });
+            </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#confirmation">Change Price</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--All Price Change Modal-->
+
+    <div id="changeAllPrice" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Change Price</h2>
+          </div>
+          <div class="modal-body">
+            <form id = "formAll" method = post action = "#">
+            {% csrf_token %}
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="daterangeAll">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="newPrice" placeholder="New Price">
+              </div>
+              <input type = "hidden" value="" id = "formIDAll"  name = "boardID">
+              <input type = "hidden" value="" id = "startDateFormAll"  name = "dateStart" >
+              <input type = "hidden" value="" id = "endDateFormAll"  name = "dateEnd" >
+              <input type = "hidden" value="" id = "daysFormAll"  name = "days" >
+
+            </form>
+            <script type="text/javascript">
+              var startDateForm;
+              var endDateForm;
+
+              $(document).ready(function() {
+
+                  $('input[name="daterangeAll"]').daterangepicker({
+                    minDate: moment(),
+                    format: 'DD/MM/YYYY',
+                    seperator: 'To',
+                  },
+                  function(start, end){
+                    console.log("call back");
+                    startDateForm = start;
+                    endDateForm = end;
+                    var diff = end.diff(start, 'days')
+                    $('#startDateFormAll').val(start.format('YYYY-MM-DD'));
+                    $('#endDateFormAll').val(end.format('YYYY-MM-DD'));
+                    $('#daysFormAll').val(diff);
+                    console.log(diff)
+                  });
+
+              });
+            </script>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#confirmation">Change Price</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Confirmation Modal-->
+
+    <div id="confirmation" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <p>Confirm change in price?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" id = "priceChangeSubmit">OK</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<script type="text/javascript">
+  $('#priceChangeSubmit').click(function(){
+    $('#formIndi').submit()
+  })
+</script>
+
+
+		<div class="pole-templates">
+          {% for item in details %}
+             <div class="display-card" id = "card{{item.banner.id}}">
+                <div class="row">
+                  <div class="col-sm-3 pole-image">
+                <img src="{{ MEDIA_URL }}{{ item.banner.bannerimage }}" class="img-thumbnail" alt="banner image" width="190" height="180">
+                </div>
+                <div class="col-sm-9 pole-description">
+                  <p class="card-heading cont">{{item.banner.banner_landmark}}</p>
+                  <div class="card-content">
+                    <p class="cont">{{item.banner.banner_facing}}</p>
+                    <p class="cont">{{item.banner.id}}</p>
+                    <p class="cont">{{item.banner.banner_type}}</p>
+                    <p class = "cont">{{item.zone}}</p>
+                    <p class = "cont">{{item.banner_face_side}}</p>
+                 </div>
+                  <p class="pole-price">
+                  <span>
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#changeIndividualPrice" id= "{{item.banner.id}}" style="margin-left: 5px; " >Change Price</button>  
+                   <script type="text/javascript">
+                     $(document).ready(function(){
+
+                        $('#{{item.banner.id}}').click(function(){
+                            $('#formIDIndi').val(this.id)
+                        })
+
+
+                     })
+                   </script>
+                  </span></p>
+                </div>
+                </div>
+                <div class="price-container-table">
+                  <table class="table table-striped price-table">
+                    <thead>
+                      <tr class="text-center">
+                      {% for price in item.price_set %}
+                        <th class="text-center">{{price.startDate}} - {{price.endDate}}</th>
+                       {% endfor %}
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="text-center">
+                      {% for price in item.price_set %}
+                        <td>&#8377 {{price.price}}</td>
+                       {% endfor %}
+                       
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+             </div>
+
+      <script type="text/javascript">
+              var card = document.getElementById("card{{item.banner.id}}")
+              card.zone = "{{item.banner.zone}}"
+          </script>
+
+            {% endfor %}
+              
+
+
+				
+	</div>
+
+
+
+<script type="text/javascript">
+  function myFilter() {
+  // Declare variables 
+  var cards = document.getElementsByClassName("display-card")
+  var zones = document.getElementsByName("zoneList")
+
+  console.log(zones)
+  var checkedZones = []
+  for(var i = 0; i < zones.length; i++)
+    if(zones[i].checked)
+    {
+      checkedZones.push(zones[i].value)
+    }
+  console.log(checkedZones)
+  
+    for(var i = 0; i<cards.length; i++)
+  {
+    if(checkedZones.length != 0)
+    {
+      if(checkedZones.indexOf(cards[i].zone.toUpperCase()) > -1)
+        cards[i].style.display = "";
+      else
+        cards[i].style.display = "none";
+    }
+    else
+      cards[i].style.display = "";
+  }
+
+}
+
+</script>
+
+
+
+{% endblock %}

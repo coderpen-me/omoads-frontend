@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+  <title>Sign Up</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105587377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+</head>
+<body>
+<div class="container-fluid abc">
+    <div class="col-sm-4"></div>
+    <div class="signup-box col-sm-4" >
+        <div class="header">
+            <h2 class="">Welcome to <span style="color: #ff6c00;">OmoAds</span></h2>
+        </div>
+        <form class="frm" method="POST" id = "signupOwner">
+            {% csrf_token %}
+                        <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control" id="phone" placeholder="Contact">-->
+            <!--</div>-->
+            <div class="form-group">
+                {{ form.username }}
+                <p id = "usenamemsg"></p>
+            </div>
+
+            <div class="form-group">
+                {{ form.email }}
+                <p id = "emailmsg"></p>
+            </div>
+            <div class="form-group">
+                <input class = "form-control" type = "text" name = "phone_number" placeholder = "enter phone number..">
+            </div>
+            <div class="form-group">
+                {{ form.password1 }}
+                <p id = "passmsg"></p>
+            </div>
+            <div class="form-group">
+                {{ agency.agency_name }}
+                <p id = "agencymsg"></p>
+            </div>
+
+            <div class="form-group">
+                {{ agency.agency_city }}
+                <p id = "citymsg"></p>
+            </div>
+            <div class="form-group">
+                {{ agency.agency_state }}
+                <p id = "statemsg"></p>
+            </div>
+
+
+        
+
+
+           
+
+            <div class="checkbox">
+                <label><input type="checkbox"> Remember me</label>
+            </div>
+            <div class="row">
+
+                <input type='submit' value='submit' class='btn btn-default' id = "sub"/>
+                <button type="submit" class="btn btnLogin" style="border-radius: 4px;">Login</button>
+
+            </div>
+        </form>
+
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+  function checkEmail(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("emailmsg");
+
+  if(validateEmail(ele.value) == true)
+  {
+    msg.innerHTML = "VALID EMAIL";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID EMAIL ID";
+    msg.style.color = "red";
+    sub.disabled = true;
+    
+
+  }
+}
+function checkUserName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("usenamemsg");
+
+
+  if(validateUserName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID USERNAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID USERNAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function agencyName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("agencymsg");
+
+
+  if(validateAgencyName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID AGENCY NAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID AGENCY NAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function cityName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("citymsg");
+
+
+  if(validateCityName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID CITY NAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID CITY NAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function stateName(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("statemsg");
+
+
+  if(validateStateName(ele.value) == true)
+  {
+    msg.innerHTML = "VALID STATE NAME";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "INVALID STATE NAME";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+function password(ele)
+{ 
+  var sub = document.getElementById("sub");
+  var msg = document.getElementById("passmsg");
+
+  console.log(ele.value)
+  if(validatePassword(ele.value) == true)
+  {
+    msg.innerHTML = "password accepted";
+    msg.style.color = "green";
+    if(validateAll())
+      sub.disabled = false;
+    else
+      sub.disabled = true;
+  }
+  else
+  {
+    msg.innerHTML = "atleast one number one capital and atleast 6 length";
+    msg.style.color = "red";
+    sub.disabled = true;
+  }
+}
+
+
+
+
+function validateEmail(elementValue){        
+   var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
+   return emailPattern.test(elementValue);   
+ }   
+function validateUserName(elementValue){
+   
+     var UserNamePattern = /^[a-zA-Z0-9._-]{3,15}$/;  
+     return UserNamePattern.test(elementValue); 
+     
+ }
+ function validateAgencyName(elementValue){
+   
+     var agentPattern = /^[a-zA-Z_ '!?-]{3,15}$/;  
+     return agentPattern.test(elementValue); 
+     
+ }
+ function validateCityName(elementValue){
+   
+     var cityPattern = /^[a-zA-Z]{3,15}$/;  
+     return cityPattern.test(elementValue); 
+     
+ }
+ function validateStateName(elementValue){
+   
+     var statePattern = /^[a-zA-Z ]{2,15}$/;  
+     return statePattern.test(elementValue); 
+     
+ }
+ function validatePassword(elementValue){
+   
+     var passPattern = /^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9!?@_-]{6,25}$/;  
+     return passPattern.test(elementValue); 
+     
+ }
+
+function validateAll()
+{
+    var username = document.getElementById("id_username");
+    var email = document.getElementById("id_email");
+    var agency = document.getElementById("name");
+    var city = document.getElementById("city");
+    var state = document.getElementById("state");
+    var pass = document.getElementById("id_password1");
+    console.log(validateUserName(username.value))
+    console.log(validateEmail(email.value))
+    console.log(validateAgencyName(agency.value))
+    console.log(validateCityName(city.value))
+    console.log(validateStateName(state.value))
+    console.log(validatePassword(pass.value))
+
+    if(validateUserName(username.value)&&validateEmail(email.value)&&validateAgencyName(agency.value)
+        &&validateCityName(city.value)&&validateStateName(state.value)&&validatePassword(pass.value))
+    {
+        return true;
+    }
+    else
+        return false;
+}
+
+
+ var sub = document.getElementById("sub");
+
+ sub.disabled = true;
+
+  
+
+</script>
+
+</html>
