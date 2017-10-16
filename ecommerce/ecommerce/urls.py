@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),
-    url(r'^register/$', 'products.views.signup', name='auth_register2'),
+    # url(r'^register/$', 'products.views.signup', name='auth_register2'),
     url(r'^registerowner/$', productsViews.SignupOwner.as_view(), name='auth_register_owner'),
     url(r'^logout/$', 'products.views.logoutUser', name='auth_logout'),
     url(r'^login/$', productsViews.LoginUsers.as_view(), name='auth_login'),

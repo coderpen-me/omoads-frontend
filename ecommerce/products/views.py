@@ -455,11 +455,11 @@ def onclickMapPoints(request):
 		context = {"bookdates":bookDates}
 		data = {
 		"id" : str(b.id),
-		# "landmark": str(b.banner_landmark),
 		"url": str(b.bannerimage),
 		"type": str(type_choices[str(b.banner_type)]),
 		"lighted": str(light_choices[str(b.banner_lighted)]),
-		# "cost" : str(b.banner_cost),
+		"zone" : str(b.zone),
+		"landmark" : str(b.banner_landmark),
 		"lat" : str(b.banner_lattitude),
 		"long" : str(b.banner_longitude),
 		"dim" : str(dimension_choices[str(b.banner_dimensions)]),
@@ -563,42 +563,42 @@ class Signup(generic.edit.FormView):
 
 
 
-def signup(request):
-	form = UserForm.form_class(request.POST)
-	if form.is_valid():
-		pass
-	else:
-		messages.error(request,"Enter Correct Values In All The Fields")
-		return HttpResponseRedirect("/")
-	new_user = form.save(commit=False)
-	password = request.POST['password1']
-	new_user.set_password(password)
-	try:
-		quer = User.objects.get(email=new_user.email)
-	except User.DoesNotExist:
-		try:
-			quer=User.objects.get(username=new_user.username)
-		except User.DoesNotExist:
-			try:
-				quer=ExtendedUser.objects.get(phone_number=new_user.phoneNumber)
-			except ExtendedUser.DoesNotExist:
-				new_user.save()
-				ExtendedUser(user = new_user, phone_number = request.POST['phone_number']).save()
-				c = Cart(user = new_user)
-				c.save()
-				return HttpResponseRedirect("/")
-			else:
-				messages.error(request, "The phone already exists.")
-				print("invalid phone already")
-				return HttpResponseRedirect(reverse('auth_register'))
-		else:
-			messages.error(request, "The username already exists.")
-			print("invalid username already")
-			return HttpResponseRedirect(reverse('auth_register'))
-	else:
-		messages.error(request, "The email already exists.")
-		print("invalid email already")
-		return HttpResponseRedirect(reverse('auth_register'))
+# def signup(request):
+# 	form = UserForm.form_class(request.POST)
+# 	if form.is_valid():
+# 		pass
+# 	else:
+# 		messages.error(request,"Enter Correct Values In All The Fields")
+# 		return HttpResponseRedirect("/")
+# 	new_user = form.save(commit=False)
+# 	password = request.POST['password1']
+# 	new_user.set_password(password)
+# 	try:
+# 		quer = User.objects.get(email=new_user.email)
+# 	except User.DoesNotExist:
+# 		try:
+# 			quer=User.objects.get(username=new_user.username)
+# 		except User.DoesNotExist:
+# 			try:
+# 				quer=ExtendedUser.objects.get(phone_number=new_user.phoneNumber)
+# 			except ExtendedUser.DoesNotExist:
+# 				new_user.save()
+# 				ExtendedUser(user = new_user, phone_number = request.POST['phone_number']).save()
+# 				c = Cart(user = new_user)
+# 				c.save()
+# 				return HttpResponseRedirect("/")
+# 			else:
+# 				messages.error(request, "The phone already exists.")
+# 				print("invalid phone already")
+# 				return HttpResponseRedirect(reverse('auth_register'))
+# 		else:
+# 			messages.error(request, "The username already exists.")
+# 			print("invalid username already")
+# 			return HttpResponseRedirect(reverse('auth_register'))
+# 	else:
+# 		messages.error(request, "The email already exists.")
+# 		print("invalid email already")
+# 		return HttpResponseRedirect(reverse('auth_register'))
 
 
 ######
