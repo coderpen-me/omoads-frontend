@@ -580,6 +580,7 @@ class Signup(generic.edit.FormView):
 			print("invalid")
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		new_user = form.save(commit=False)
+		new_user.username = new_user.email
 		password = request.POST['password1']
 		new_user.set_password(password)
 		try:

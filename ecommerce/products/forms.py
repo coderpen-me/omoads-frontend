@@ -43,16 +43,17 @@ class filterForm(forms.Form):
 
 
 class UserForm(forms.ModelForm):#user form pre build class
-	username=forms.CharField(label="Username", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...','onkeyup':'checkUserName(this)'}))
+	first_name=forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first Name...'}))
+	last_name=forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last Name...'}))
 	email=forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...','onkeyup':'checkEmail(this)'}))
 	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...','onkeyup':'password(this)'}),min_length=6)
 	class Meta:
 		model = User
-		fields = ['username', 'email', 'password1']
+		fields = [ 'first_name', 'last_name', 'email', 'password1']
 
 class AgencyForm(forms.ModelForm):
 
-	agency_name=forms.CharField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_name...', 'id': 'name','onkeyup':'agencyName(this)'}))
+	agency_name=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_name...', 'id': 'name','onkeyup':'agencyName(this)'}))
 	agency_state=forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_state...', 'id': 'state','onkeyup':'stateName(this)'}))
 	agency_city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter agency_city...', 'id': 'city','onkeyup':'cityName(this)'}),min_length=6)
 
