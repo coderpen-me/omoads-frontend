@@ -564,7 +564,9 @@
                              // 'This Month': [moment().startOf('month'), moment().endOf('month')],
                              // 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                           },
-                  format: 'DD/MM/YYYY',
+                    locale: {
+                    format: 'DD/MM/YYYY'
+                    },
                   seperator: 'To',
                   opens: "right",
                   drops: "up",
