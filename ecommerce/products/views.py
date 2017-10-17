@@ -286,6 +286,8 @@ def check_out(request):
 		return redirect(response['payment_request']['longurl'])
 	else:
 		print("no api working")
+		messages.error(request, "amount too low")
+		return HttpResponseRedirect(reverse('buyer_cart'))
 
 
 	
