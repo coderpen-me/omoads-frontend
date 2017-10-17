@@ -143,7 +143,7 @@ def buyer_cart(request):
 		try:
 			Agency.objects.get(user = request.user)
 			userType = "Agency"
-			messages.error(request, "you can't access this page")
+			messages.error(request, "You can not buy banners because you are Agency owner")
 			return HttpResponseRedirect(reverse('owner_interface'))
 		except Agency.DoesNotExist:
 			userType = "Buyer"
@@ -173,9 +173,9 @@ def processCart(cart):
 	cart.tax = round(cart.totalSumPrice * GST, 2)
 	cart.totalSumPrice = round(cart.totalSumPrice + cart.tax, 2)
 
-	cart.paymentAdvance = round(cart.totalPrice * ADVANCE_PRICE, 2)
-	cart.payment1 = round(cart.totalPrice * PAYMENT_1, 2)
-	cart.payment2 = round(cart.totalPrice * PAYMENT_2, 2)
+	cart.paymentAdvance = round(cart.totalSumPrice * ADVANCE_PRICE, 2)
+	cart.payment1 = round(cart.totalSumPrice * PAYMENT_1, 2)
+	cart.payment2 = round(cart.totalSumPrice * PAYMENT_2, 2)
 	cart.save()
 	
 
@@ -203,6 +203,53 @@ def addToCart(request):
 	print(cart)
 	print(cart.cartitem_set.all())
 	return HttpResponseRedirect(reverse('buyer_cart'))
+
+
+def editCartItemAjax(request):
+	if request.is_ajax():
+		print("222")
+		cartItem = CartItem.objects.get(pk=int(request.POST['idCartItem']))
+		b = cartItem.banner
+		print("444")
+		bookDates = []
+		for detailset in b.bookingdetails_set.filter(active = True):
+			bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate)})
+		try:
+			for item in request.user.cart.cartitem_set.filter(banner = b):
+				if item.id == cartItem.id:
+					continue
+				bookDates.append({'startDate':str(item.startDate), 'endDate': str(item.endDate)})
+		except:
+			print("no user")
+
+		print("here1")
+		context = {"bookdates":bookDates}
+		data = {
+		"id" : str(b.id),
+		# "landmark": str(b.banner_landmark),
+		"url": str(b.bannerimage),
+		"type": str(type_choices[str(b.banner_type)]),
+		"lighted": str(light_choices[str(b.banner_lighted)]),
+		# "cost" : str(b.banner_cost),
+		"lat" : str(b.banner_lattitude),
+		"long" : str(b.banner_longitude),
+		"dim" : str(dimension_choices[str(b.banner_dimensions)]),
+		"bookDates":bookDates,
+		"oldStart": str(cartItem.startDate),
+		"oldEnd":str(cartItem.endDate),
+		}
+		# print(data)
+		
+		json_data = json.dumps(data)
+
+		return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
+
+def editCartItem(request):
+	ci = request.user.cart.cartitem_set.get(pk=int(request.POST['cartItemId']))
+	ci.delete()
+	return addToCart(request)
 	
 @login_required(login_url = "/login/")
 def check_out(request):
@@ -550,6 +597,7 @@ class Signup(generic.edit.FormView):
 			print("invalid")
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		new_user = form.save(commit=False)
+		new_user.username = new_user.email
 		password = request.POST['password1']
 		new_user.set_password(password)
 		try:
