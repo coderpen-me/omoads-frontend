@@ -257,9 +257,11 @@ def check_out(request):
 	for item in request.user.cart.cartitem_set.all():
 		if not checkDateRange(item.startDate, item.endDate, item.banner):
 			print("fault in date")
+			messages.error(request, "check date again for item ID" + item.banner.id + "start date:" + item.startDate + " end date:" + item.endDate)
 			return HttpResponseRedirect(reverse("buyer_cart"))
 	if request.user.cart.cartitem_set.all().count()==0:
 		print("no item in cart")
+		messages.error(request, "empty cart")
 		return HttpResponseRedirect(reverse("buyer_cart"))
 	print("checkOut")
 	print('create request url')
