@@ -32,6 +32,20 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'products.views.logoutUser', name='auth_logout'),
     url(r'^login/$', productsViews.LoginUsers.as_view(), name='auth_login'),
 
+    url(r'^user/password/reset/$', 'django.contrib.auth.views.password_reset', 
+        {'post_reset_redirect' : '/user/password/reset/done/'},
+            name="password_reset"),
+    
+    url(r'^user/password/reset/done/$',
+            'django.contrib.auth.views.password_reset_done'),
+    url(r'^user/password/reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', 
+            'django.contrib.auth.views.password_reset_confirm', 
+            {'post_reset_redirect' : '/user/password/done/'}, name='password_reset_confirm'),
+    url(r'^user/password/done/$', 
+            'django.contrib.auth.views.password_reset_complete'),
+    
+
+
     url(r'^owner/home/$', productsViews.OwnerInterfaceHome.as_view(), name='owner_interface'),
     url(r'^owner/book/$', productsViews.BookHoardings.as_view(), name='owner_interface_book'),
     url(r'^owner/cancel/$', productsViews.CancelBooking.as_view(), name='owner_interface_cancel'),

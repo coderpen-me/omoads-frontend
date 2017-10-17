@@ -37,6 +37,7 @@ try:
     EMAIL_HOST_PASSWORD = 'R@ni43210'
     EMAIL_PORT = 587
 except:
+    print("no email")
     pass
 
 # SITE_URL = "http://omoads.com"
