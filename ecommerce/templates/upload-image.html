@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload Image</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		body{
+			background-color: #f2f2f2;
+		}
+		.navbar{
+		  margin-bottom: 0px;
+		  border-radius: 0px;
+		  border-width: 0px;
+		}
+		.phoneNo{
+		    width: 170px;
+		    height: 30px;
+		    background-color: #fff;
+		    padding: 5px 0px 5px 0px; 
+		    margin: 10px 20px 10px 15px;
+		    border-radius: 5px;
+		    color: #ff6c00;
+		    font-weight: ;
+		  }
+		.upload-panel{
+			margin-top: 60px;
+		}
+		.upl-btn{
+			margin-top: 15px;
+		}
+		.input-file{
+			margin-top: 25px;
+		}
+		.content-header{
+		  padding: 12px;
+		  padding-left: 20px;
+		  font-size: 17px; 
+		}
+	</style>
+</head>
+<body>
+{% include 'navbar1.html' %}
+<section>
+	<div class="container">
+		<div class="panel panel-default upload-panel">
+		  <div class="panel-heading content-header">Upload banner image</div>
+		  <div class="panel-body">
+		  <h3>Instructions</h3>
+		  <ul>
+		  	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		  	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		  	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		  	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		  	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		  </ul>
+		  <form>
+		  	<input type="file" name="bannerImage" class="input-file">
+		  	<button class="btn btn-primary upl-btn">Upload</button>
+		  </form>
+		  </div>
+		</div>
+	</div>
+</section>
+</body>
+</html>
