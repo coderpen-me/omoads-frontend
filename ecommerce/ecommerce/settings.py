@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
-
+LOGIN_URL = '/login'
 
 try:
     # from .email_settings import host, user, password
