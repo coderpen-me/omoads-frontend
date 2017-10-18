@@ -146,42 +146,7 @@
   </style>
 </head>
 <body>
-  <header>
-      <nav class="navbar navbar-inverse navigationBar navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"       
-                 src="{% static 'resources/images/re-logo.png' %}"></a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-                  {% if not loginStatus %}
-                    <li><a href="{% url 'auth_register2' %}" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="{% url 'auth_login' %}" style="cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                  {% endif %}
-                  {% if loginStatus %}
-                    
-                    {% if userType == "Agency" %}
-                      <li><a href="#">{{username}}</a></li>
-                      <li><a href="{% url 'owner_interface' %}">{{userType}}</a></li>
-                    {% elif userType == "Buyer" %}
-                      <li><a href="{% url 'booking_status' %}">{{username}}</a></li>
-                      <li><a href="{% url 'buyer_cart' %}">{{userType}}</a></li>
-                    {% endif %}
-                    <li><a href="{% url 'auth_logout' %}"><span class="glyphicon glyphicon-user-log-in"></span>Logout</a></li>
-                  {% endif %}
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li class="active"><a href="{% url 'aboutus' %}">About Us</a></li>
-            <li><a href="{% url 'directions' %}">Directions</a></li>
-            <li><a href="{% url 'faq' %}">FAQs</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <div class="phoneNo text-center"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;(+91) 99116 39985</div>
-          </ul>
-        </div>
-      </nav>
-  </header>
+  {% include 'navbar1.html' %}
 
   
   <div class="container-fluid jumbo-container">
