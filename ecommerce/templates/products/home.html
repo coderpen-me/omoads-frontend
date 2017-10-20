@@ -372,12 +372,14 @@ $(function() {
         if(list[i]===s)
           break;
       }
-      if(i===0)
-        next10();
-      else if(i===1)
-        next15();
-      else if(i===2)
-        next1month();
+      switch(i){
+        case 0: next10();
+          break;
+        case 1: next15();
+          break;
+        case 2: next1month();
+          break;
+      }
     }
 
     function next10(){
