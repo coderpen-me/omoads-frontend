@@ -279,86 +279,134 @@
   <!-- Modal starts its magic -->
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog banner-modal">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
           <h3 class="modal-title" id="myModalLabel">Hapur Road, Near Hapur Chungi</h3>
-          <h4 id="priceMyModal">SELECT DATE RANGE TO FIND PRICE OF BANNER</h4>
         </div>
+
+        
         <div class="modal-body">
-
-
-
-
           <!-- the content -->
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a href="#facing1" data-toggle="tab">Facing: <span id="BannerFacing">Bus Station</span></a>
-            </li>
-
-          </ul>
-
-          <div class="tab-content">
-            <div class="tab-pane active" id="facing1">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="bannerInfo">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">Banner Details</div>
-                      <div class="panel-body">
-                        <p>Pole ID: <span id="panelID">loading...</span></p>
-                        <p>Dimentions: <span id="dimensions">loading...</span></p>
-                        <p>Type: <span id="type">loading...</span></p>
-                        <p>Lighted: <span id="lighted">loading</span></p>
-                        <!-- <p>Map Coordiantes: <span id="MapLoc">loading</span></p> -->
-                      </div>
-                    </div>
-                  </div>
-
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">Banner Details</div>
+                <div class="panel-body">
+                  <p>Pole ID: 0001-A</p>
+                  <p>Dimentions: 40 x 10 In</p>
+                  <p>Type: Gantry</p>
+                  <p>Lighted: Front-Lit</p>
+                  <p>Location: 77.4587, 48.5697</p>
+                </div>
+              </div>
+              <div class="row date-input">
+                <div class="col-sm-8 date-input-form">
                   <form>
                     <div class="input-group">
-                      <input id="date" type="text" class="form-control" name="daterange">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    </div>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
+                      </div>
                   </form>
-                  
-                  <p id = "msgMyModal"></p>
-                  <!-- <p id = "priceMyModal"></p> -->
                 </div>
-                <div class="col-sm-6">
-
-                  <div class="modal-img banner-modal-image">
-                      <input type="checkbox" id="zoomCheck" />
-                        <label for="zoomCheck">
-                         <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="banner image" width="300" height="250">
-                        </label>
-                  </div>
-
+                <div class="col-sm-4 date-range-button">
+                  <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">Range
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu" id="rangeSelector">
+                    <li><a href="#">Next 10 Days</a></li>
+                    <li><a href="#">Next 15 Days</a></li>
+                    <li><a href="#">Next 1 Month</a></li>
+                  </ul>
                 </div>
-              </div>  
+              </div>
+              <div id="range-output">Select date and range</div>
+              <div class="price-details">
+                  <p>Price:<span class="pull-right">&#8377; 00.00</span></p>
+              </div>
+              <div class="msg">
+                <p><em>*(Select date and range to view price of banner)</em></p>
+              </div>
+            </div>
+            <div class="col-sm-8 right">
+              <div>
+                <img src="resources/images/banner2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100%">
+              </div>
             </div>
           </div>
-
-
         </div>
+
         <div class="modal-footer">
-          
-          <form method = "POST" action = "{% url 'addToCart' %}">
-          {% csrf_token %}
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
-            <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
-            <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
-            <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
-            <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
-          </form>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add To Cart</button>
         </div>
       </div>
     </div>
-
   </div>
 
 </body>
+
+
+<!-- banner modal script start -->
+<script type="text/javascript">
+$(function() {
+
+    var rangeSel = document.getElementById("rangeSelector");
+    var listItems = document.getElementById("rangeSelector").getElementsByTagName("li");
+    var list = ["Next 10 Days","Next 15 Days","Next 1 Month"];
+    var startDate;
+
+    $('#datePicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    },
+    function(start,label) {
+      startDate = start;
+    });
+    
+    rangeSel.addEventListener("click",selectRange);
+    function selectRange(e){
+      var i;
+      var s = e.target.innerHTML;
+      for(i=0;i<list.length;i++){
+        if(list[i]===s)
+          break;
+      }
+      if(i===0)
+        next10();
+      else if(i===1)
+        next15();
+      else if(i===2)
+        next1month();
+    }
+
+    function next10(){
+      end = moment(startDate).add(10, 'days');
+      setDate(startDate,end,10);
+    }
+    function next15(){
+      end = moment(startDate).add(15, 'days');
+      setDate(startDate,end,15);
+    }
+    function next1month(){
+      end = moment(startDate).add(30, 'days');
+      setDate(startDate,end,30);
+    }
+
+    function setDate(start,end,days){
+      $('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+      $('#range-output').css('color','grey');
+      $('.msg p').html('Your Date Range is available but filling fast! Hurry!');
+      $('.msg p').css('color','green');
+      $('.msg p').css('font-size','14px');
+      console.log(days);
+      $('.price-details p span').html('&#8377; '+days*100);
+    }
+
+});
+</script>
+<!-- banner modal script end -->
+
 
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 

@@ -114,41 +114,66 @@ input[type=checkbox]:checked ~ label > img {
   z-index: 3;
 }
 
-.modal-img{
-  margin-top: 15px;
-  margin-bottom: 0px;
-}
-.modal-header{
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #f3f3f3;
-  border-radius: 10px 10px 0px 0px;
+/*banner modal*/
+    #myModal .modal-dialog{
+      width: 70%;
+    }
+    #myModal .modal-header{
+      background-color: #1c1c1c;
+      color: #fff;
+    }
+    #myModal .right{
+      border-left: 1px solid #e0e0e0; 
+    }
+    #myModal .panel-body p{
+      margin-bottom: 3px;
+    }
+    .date-input{
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .date-input-form{
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+    .date-range-button{
+      padding-right: 0px;
+      padding-left: 10px;
+    }
+    #range-output{
+      margin-top: 15px;
+      width: 100%;
+      height: 35px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px; 
+      padding-top: 8px;
+      font-size: 13px;
+      padding-left: 10px;
+      color: #afafaf;
+    }
+    .price-details{
+      margin-top: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 23px;
+      color: grey;
+    }
+    .price-details p{
+      margin-bottom: 0px;
+    }
+    .price-details p span{
+      color: #ff6c00;
+    }
+    #myModal .msg{
+      margin-top: 5px;
+      color: #a0a0a0; 
+      font-size: 12px;
+    }
 
-}
-.modal-header p{
-  margin-bottom: 0px;
-  color: #575757;
-}
-.modal-title{
-  color: #575757;
-}
-.bannerInfo{
-  margin-top: 15px;
-}
-.panel-body p{
-  margin-bottom: 2px;
-  color: #575757;
-}
-.panel-body{
-  padding: 5px;
-  padding-left: 15px;
-}
-.tab-content form{
-  margin-top: 10px;
-}
-.panel-default{
-  margin-bottom: 10px;
-}
+ /*banner modal end*/
+
 .phoneNo{
   width: 170px;
   height: 30px;
@@ -159,9 +184,9 @@ input[type=checkbox]:checked ~ label > img {
   color: #ff6c00;
   font-weight: ;
 }
-.banner-modal{
+/*.banner-modal{
   padding: 10% 0%;
-}
-#priceMyModal{
+}*/
+/*#priceMyModal{
   margin-top: 5px;
-}
+}*/
