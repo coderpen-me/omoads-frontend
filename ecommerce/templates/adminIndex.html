@@ -41,7 +41,7 @@ Admin Interface ||
     <div class="display-card" id = "card{{item.id}}">
         <div class="row">
           <div class="col-sm-3 pole-image">
-        <img src="{{ MEDIA_URL }}{{ item.banner.bannerimage }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
+        <img src="{{ MEDIA_URL }}{{ item.bannerimage }}" class="img-thumbnail" alt="Cinque Terre" width="190" height="180">
         </div>
         <div class="col-sm-9 pole-description">
           <p class="card-heading cont">{{item.banner_landmark}}</p>
@@ -52,7 +52,6 @@ Admin Interface ||
             <p class = "cont">Zone: {{item.zone}}</p>
             <p class = "cont">Face:{{item.banner_face_side}}</p>
           </div>
-          <p class="pole-price">&#8377 {{item.banner_cost}}</p>
         </div>
         </div>
     </div>

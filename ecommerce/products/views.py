@@ -93,6 +93,23 @@ def faq(request):
 				}
 	return render(request, template, context)
 
+def uploadImage(request):
+	template = "upload-image.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
 
 @login_required(login_url = "/login/")
 def booking_status(request):
@@ -243,9 +260,11 @@ def check_out(request):
 	for item in request.user.cart.cartitem_set.all():
 		if not checkDateRange(item.startDate, item.endDate, item.banner):
 			print("fault in date")
+			messages.error(request, "check date again for item ID" + item.banner.id + "start date:" + item.startDate + " end date:" + item.endDate)
 			return HttpResponseRedirect(reverse("buyer_cart"))
 	if request.user.cart.cartitem_set.all().count()==0:
 		print("no item in cart")
+		messages.error(request, "empty cart")
 		return HttpResponseRedirect(reverse("buyer_cart"))
 	print("checkOut")
 	print('create request url')
@@ -272,6 +291,8 @@ def check_out(request):
 		return redirect(response['payment_request']['longurl'])
 	else:
 		print("no api working")
+		messages.error(request, "amount too low")
+		return HttpResponseRedirect(reverse('buyer_cart'))
 
 
 	
