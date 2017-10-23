@@ -23,8 +23,11 @@ from django.core.urlresolvers import reverse, reverse_lazy
 import datetime
 from instamojo_wrapper import Instamojo
 
-API_KEY='41ac278373a4e455997329fc318344d2'
-AUTH_TOKEN='502835a970d07f3f739ef94e9fe1d5d0'
+# API_KEY='41ac278373a4e455997329fc318344d2'
+# AUTH_TOKEN='502835a970d07f3f739ef94e9fe1d5d0'
+
+API_KEY='ea974cdf32f78ca6b3cb05c627d222c0'
+AUTH_TOKEN='711bc96a14396d341627dc761db53d2c'
 
 
 ADVANCE_PRICE = 0.35
