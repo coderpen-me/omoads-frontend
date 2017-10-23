@@ -294,11 +294,11 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Banner Details</div>
                 <div class="panel-body">
-                  <p>Pole ID: 0001-A</p>
-                  <p>Dimentions: 40 x 10 In</p>
-                  <p>Type: Gantry</p>
-                  <p>Lighted: Front-Lit</p>
-                  <p>Location: 77.4587, 48.5697</p>
+                  <p>Pole ID: <span id="panelID">loading...</span></p>
+                  <p>Dimentions: <span id="dimensions">loading...</span></p>
+                  <p>Type: <span id="type">loading...</span></p>
+                  <p>Lighted: <span id="lighted">loading</span></p>
+                  <p>Facing: <span id="BannerFacing">Bus Station</span></p>
                 </div>
               </div>
               <div class="row date-input">
@@ -322,7 +322,7 @@
               </div>
               <div id="range-output">Select date and range</div>
               <div class="price-details">
-                  <p>Price:<span class="pull-right">&#8377; 00.00</span></p>
+                  <p>Price:<span class="pull-right" id="priceMyModal">&#8377; 00.00</span></p>
               </div>
               <div class="msg">
                 <p><em>*(Select date and range to view price of banner)</em></p>
@@ -330,15 +330,21 @@
             </div>
             <div class="col-sm-8 right">
               <div>
-                <img src="resources/images/banner2.jpg" class="img-thumbnail" alt="Cinque Terre" width="100%">
+                <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image" width="100%">
               </div>
             </div>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add To Cart</button>
+          <form method = "POST" action = "{% url 'addToCart' %}">
+                    {% csrf_token %}
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                      <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
+                      <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
+                      <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
+                      <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
+          </form>
         </div>
       </div>
     </div>
