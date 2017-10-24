@@ -277,7 +277,7 @@ def check_out(request):
 		amount=str(request.user.cart.paymentAdvance),
 		email = request.user.email,
 		purpose=str(request.user.get_username()),
-		redirect_url="https://omoads.com/process_payment",
+		redirect_url="https://d748cb80.ngrok.io/process_payment",
 	 	send_email = False,
 		send_sms = False,
 		allow_repeated_payments = False
@@ -287,7 +287,7 @@ def check_out(request):
 	print (response)
 
 	if(response['success'] is True):
-		request.currentPayementRequest = response['payment_request']['id']
+		request.session['currentPayementRequest'] = response['payment_request']['id']
 		return redirect(response['payment_request']['longurl'])
 	else:
 		print("no api working")
@@ -300,53 +300,56 @@ def check_out(request):
 def processPayment(request):
 	paymentID = request.GET['payment_id']
 	paymentRequestID = request.GET['payment_request_id']
+	if request.session['currentPayementRequest'] is not None:
+		if request.session['currentPayementRequest'] == paymentRequestID:
+			request.session['currentPayementRequest'] = None
+			api = Instamojo(api_key=API_KEY,
+						auth_token=AUTH_TOKEN)
 
-	if request.currentPayementRequest == paymentRequestID and request.currentPayementRequest is not None:
-		request.currentPayementRequest = None
-		api = Instamojo(api_key=API_KEY,
-					auth_token=AUTH_TOKEN)
-
-		# Create a new Payment Request
-		try:
-			response = api.payment_request_payment_status(paymentRequestID, paymentID)
-			print(response)
-			print ("test")             # Purpose of Payment Request
-		   # Payment status
-			success = response['success']
-			if success is True:
-				status = response['payment_request']['payment']['status']
-				payment = Payments(user = request.user, paymentId = paymentID, paymentRequestId = paymentRequestID, paymentStatus = status)
-				payment.save()
-				print (status)
-				if (status == "Credit"):
-					order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
-								paymentAdvance =  request.user.cart.paymentAdvance,
-						 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
-						 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
-						 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
-					order.save()
-					payment.order = order
-					
-					
-					for item in request.user.cart.cartitem_set.all():
-						bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
-													startDate = item.startDate, endDate = item.endDate,
-													numberDays = (item.endDate - item.startDate).days, active = True)
-						bd.save()
-						order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
-						
-					clear_cart(request.user.cart)
-					messages.success(request, "payment successful")
+			# Create a new Payment Request
+			try:
+				response = api.payment_request_payment_status(paymentRequestID, paymentID)
+				print(response)
+				print ("test")             # Purpose of Payment Request
+			   # Payment status
+				success = response['success']
+				if success is True:
+					status = response['payment_request']['payment']['status']
+					payment = Payments(user = request.user, paymentId = paymentID, paymentRequestId = paymentRequestID, paymentStatus = status)
 					payment.save()
-					return HttpResponseRedirect(reverse('booking_status'))
-				elif (status == "Failed"):
-					messages.error(request, "payment failed")
-					return HttpResponseRedirect(reverse('buyer_cart'))
-				
-			else:
-				print("something went wrong.payment details couldnt be fetched")
-		except Exception as e:
-			print("something went wrong :" + str(e))
+					print (status)
+					if (status == "Credit"):
+						order = Order(user = request.user,totalPrice = request.user.cart.totalPrice,
+									paymentAdvance =  request.user.cart.paymentAdvance,
+							 		payment1 =  request.user.cart.payment1, payment2 =  request.user.cart.payment2,
+							 		installationPrice =  request.user.cart.installationPrice, tax =  request.user.cart.tax,
+							 		totalSumPrice =  request.user.cart.totalSumPrice, status = 1)
+						order.save()
+						payment.order = order
+						
+						
+						for item in request.user.cart.cartitem_set.all():
+							bd = BookingDetails(banner = item.banner, bookingDate = time.strftime("%Y-%m-%d"),
+														startDate = item.startDate, endDate = item.endDate,
+														numberDays = (item.endDate - item.startDate).days, active = True)
+							bd.save()
+							order.orderitem_set.create(bookingDetails = bd, price = item.price).save()
+							
+						clear_cart(request.user.cart)
+						messages.success(request, "payment successful")
+						payment.save()
+						return HttpResponseRedirect(reverse('booking_status'))
+					elif (status == "Failed"):
+						messages.error(request, "payment failed")
+						return HttpResponseRedirect(reverse('buyer_cart'))
+					
+				else:
+					print("something went wrong.payment details couldnt be fetched")
+			except Exception as e:
+				print("something went wrong :" + str(e))
+		else:
+			messages.error(request, "unauthorised access")
+			return HttpResponseRedirect(reverse('buyer_cart'))
 	else:
 		messages.error(request, "unauthorised access")
 		return HttpResponseRedirect(reverse('buyer_cart'))
