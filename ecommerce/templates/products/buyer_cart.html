@@ -207,12 +207,18 @@
                   <p>Size: {{cartitem.banner.getSize}}</p>
                 </div>
                 <div class="col-sm-3">
-                  <h3 class="pull-right">&#8377 {{cartitem.price|floatformat:2}}</h3>
-                  <div class="pull-right">
-                    <a class = "editCartItem" href = "#" title="Edit" onclick = "edit({{cartitem.id}}, {{cartitem.banner.id}})" ><span class="glyphicon glyphicon-edit edit-button"></span></a>
-                    
-                    <a class = "deleteCartItem" href = "{% url 'cart_deleteItem' cartitem.id %}" data-cartitemid="{{cartitem.id}}" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle remove-button"></span></a>
-                  </div>
+                  <table class="pull-right">
+                    <tr><td>
+                      <h3 class="pull-right">&#8377 {{cartitem.price|floatformat:2}}</h3>
+                    </td></tr>
+                    <tr><td>
+                      <div class="pull-right">
+                        <a class = "editCartItem" href = "#" title="Edit" onclick = "edit({{cartitem.id}}, {{cartitem.banner.id}})" ><span class="glyphicon glyphicon-edit edit-button"></span></a>
+                        
+                        <a class = "deleteCartItem" href = "{% url 'cart_deleteItem' cartitem.id %}" data-cartitemid="{{cartitem.id}}" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle remove-button"></span></a>
+                      </div>
+                    </td></tr>
+                  </table>
                 </div>
               </div>
             </div>
