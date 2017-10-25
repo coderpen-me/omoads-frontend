@@ -362,13 +362,6 @@ $(function() {
     var list = ["Next 10 Days","Next 15 Days","Next 1 Month"];
     var startDate;
 
-    $('#datePicker').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true
-    },
-    function(start,label) {
-      startDate = start;
-    });
     
     rangeSel.addEventListener("click",selectRange);
     function selectRange(e){
@@ -389,27 +382,102 @@ $(function() {
     }
 
     function next10(){
+      startDate = $('#datePicker').data('daterangepicker').startDate
       end = moment(startDate).add(10, 'days');
       setDate(startDate,end,10);
     }
     function next15(){
+      startDate = $('#datePicker').data('daterangepicker').startDate
       end = moment(startDate).add(15, 'days');
       setDate(startDate,end,15);
     }
     function next1month(){
+      startDate = $('#datePicker').data('daterangepicker').startDate
       end = moment(startDate).add(30, 'days');
       setDate(startDate,end,30);
     }
 
     function setDate(start,end,days){
+      $('#datePicker').data('daterangepicker').setEndDate(end);
       $('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
       $('#range-output').css('color','grey');
-      $('.msg p').html('Your Date Range is available but filling fast! Hurry!');
-      $('.msg p').css('color','green');
-      $('.msg p').css('font-size','14px');
-      console.log(days);
-      $('.price-details p span').html('&#8377; '+days*100);
+
+      console.log(invalidDates);
+
+      handleDateInput(start, end)
     }
+
+
+    function handleDateInput(start, end)
+    {
+      console.log("handleDateInput");
+                    var diff = end.diff(start, 'days')
+                    console.log(diff)
+                    
+                    var flag = 0
+                    for (var i = 0; i<invalidDates.length;i++)
+                    {
+
+                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+                      {
+                        flag  = 1;
+
+                      $('.msg p').html('DATE RANGE HAS INVALID DATES');
+                      $('.msg p').css('color','red');
+                      $('.msg p').css('font-size','14px');
+                      $('#MyModalAddCart').attr("disabled", true)
+                        break;
+                      }
+                    }
+                    if(flag == 0)
+                    {
+                      $('#MyModalAddCart').attr("disabled", false)
+                      
+                      $('.msg p').html('Your Date Range is available but filling fast! Hurry!');
+                      $('.msg p').css('color','green');
+                      $('.msg p').css('font-size','14px');
+
+                      // $(this).css("color", "green").fadeIn(500);
+                      
+                    
+                      $.ajax({
+                              type: "POST",
+                              url: "{% url 'AjaxBannerPrice' %}",
+                              beforeSend: function(){
+                                // Handle the beforeSend event
+                                console.log("working")
+                                NProgress.start();
+                               },
+                               complete: function(){
+                                 // Handle the complete event
+                                 NProgress.done();
+                               },
+                              data: {
+                               "csrfmiddlewaretoken": "{{ csrf_token }}",
+                               "id_point":BoardIdForPrice,
+                               "startDate":start.format('YYYY-MM-DD'),
+                               "endDate":end.format('YYYY-MM-DD'),
+
+                              },
+                               success: function(data){
+                                $('.price-details p span').html('&#8377; '+data["total"]);
+                                $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
+                                $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
+                                $("#bannerIDAddCart").val(BoardIdForPrice)
+                               },
+                               error: function(){
+                                alert("Error! Something wrong. Please try again later")
+                                },
+                      });
+
+                    }
+                    else
+                    {
+
+                    }
+                    //invalidDates = [];
+    }
+
 
 });
 </script>
@@ -517,10 +585,11 @@ $(function() {
       $('#dimensions').text("loading...");
       $('#type').text("loading...");
       $('#lighted').text("loading...");
-      $('#priceMyModal').fadeOut(500, function() {
+      $('#priceMyModal').fadeOut(100, function() {
         $(this).text("SELECT DATE RANGE TO FIND PRICE OF BANNER").css('color', 'red').fadeIn(500);
       });
-      $('#msgMyModal').text("");
+      $('.msg p').html("");
+      
     }
 
 
@@ -558,11 +627,7 @@ $(function() {
           // infowindow.setContent(this.content);
           // infowindow.open(map, this);
           $('#MyModalAddCart').attr("disabled", true);
-          var dateMsg = document.getElementById("msgMyModal");
-          dateMsg.innerHTML = "Select Date Range";
-          dateMsg.style.color = "red";
-          var priceMsg = $("#priceMyModal")
-          priceMsg.text("")
+          
           $.ajax({
             type: "POST",
             url: "{% url 'onclickMapPoints' %}",
@@ -600,13 +665,25 @@ $(function() {
               $('#lighted').text(data["lighted"]);
               
               var bookDates = data["bookDates"];
-              var BoardIdForPrice = (data["id"]);
+              BoardIdForPrice = (data["id"]);
               console.log(bookDates);
               invalidDates=[];
+              for(var i = 0; i < bookDates.length; i++)
+              {
+                  var cd = moment(bookDates[i].startDate);
+                  var ed = moment(bookDates[i].endDate);
+                  while(cd.format('YYYY-MM-DD') <= ed.format('YYYY-MM-DD'))
+                  {
+                      invalidDates.push(cd.format('YYYY-MM-DD'))
+                      cd.add(1, 'days')
+                  }
+              }
               // $('#landmark').text(data["landmark"])
               $('#myModal').attr("boardID",this.id_try)
               var ValidStartBooking =  moment().add(2, 'days');
-              $('input[name="daterange"]').daterangepicker({
+              $('#datePicker').daterangepicker({
+                  singleDatePicker: true,
+                  showDropdowns: true,
                   minDate: ValidStartBooking,
                   ranges: {
                              'Next 15 Days': [ ValidStartBooking , moment().add(17, 'days')],
@@ -628,15 +705,10 @@ $(function() {
                   drops: "up",
                   isInvalidDate: function(date)
                   {
-                      x=0
-                      for(i = 0; i < bookDates.length; i++)
-                        x=(x||((date.format('YYYY-MM-DD') >= bookDates[i].startDate)&&(date.format('YYYY-MM-DD') <= bookDates[i].endDate)))
+                      
 
-                      if (x!=0)
+                      if (invalidDates.indexOf(date.format('YYYY-MM-DD'))!==-1)
                       {
-                          invalidDates.push(date.format('YYYY-MM-DD'))
-                          
-
                           return true; 
                       }
                       else
@@ -650,71 +722,7 @@ $(function() {
                     var diff = end.diff(start, 'days')
                     console.log(diff)
                     
-                    var flag = 0
-                    for (var i = 0; i<invalidDates.length;i++)
-                    {
-
-                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
-                      {
-                        flag  = 1;
-
-                        var dateMsg = document.getElementById("msgMyModal");
-                        dateMsg.innerHTML = "DATE RANGE HAS INVALID DATES";
-                        dateMsg.style.color = "red";
-                         $('#MyModalAddCart').attr("disabled", true)
-                        break;
-                      }
-                    }
-                    if(flag == 0)
-                    {
-                      $('#MyModalAddCart').attr("disabled", false)
-                      
-                      $("#msgMyModal").fadeOut(500, function(){
-                          $(this).text(" Congratulations! Your Date Range is available but filling fast! Hurry!").css("color","green").fadeIn(500);
-                        });
-
-                      // $(this).css("color", "green").fadeIn(500);
-                      
                     
-                      $.ajax({
-                              type: "POST",
-                              url: "{% url 'AjaxBannerPrice' %}",
-                              beforeSend: function(){
-                                // Handle the beforeSend event
-                                console.log("working")
-                                NProgress.start();
-                               },
-                               complete: function(){
-                                 // Handle the complete event
-                                 NProgress.done();
-                               },
-                              data: {
-                               "csrfmiddlewaretoken": "{{ csrf_token }}",
-                               "id_point":BoardIdForPrice,
-                               "startDate":start.format('YYYY-MM-DD'),
-                               "endDate":end.format('YYYY-MM-DD'),
-
-                              },
-                               success: function(data){
-                                  priceMsg.fadeOut(500, function(){
-                                  priceMsg.html("&#8377;" + data["total"]).css("color", "green").fadeIn(500)
-                                    });
-                                $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
-                                $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
-                                $("#bannerIDAddCart").val(BoardIdForPrice)
-                               },
-                               error: function(){
-                                alert("Error! Something wrong. Please try again later")
-                                },
-                      });
-
-                    }
-                    else
-                    {
-
-                    }
-                    invalidDates = [];
-
                   },
                );
               },
