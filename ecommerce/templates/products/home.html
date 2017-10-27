@@ -414,10 +414,12 @@ $(function() {
                       if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
                       {
                         flag  = 1;
-
+                      $('.price-details p span').html("Date range has invalid dates.")
                       $('.msg p em').html('Date range has invalid dates.');
                       $('.msg p').css('color','red');
                       $('.msg p').css('font-size','14px');
+                      $('#range-output').removeClass("alert-success");
+                      $('#range-output').addClass("alert-danger");
                       $('#MyModalAddCart').attr("disabled", true)
                         break;
                       }
