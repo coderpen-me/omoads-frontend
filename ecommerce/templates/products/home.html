@@ -307,11 +307,11 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
-                      </div>
+                    </div>
                   </form>
                 </div>
                 <div class="col-sm-4 date-range-button">
-                  <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">Range
+                  <button class="btn btn-primary dropdown-toggle pull-right disabled" type="button" data-toggle="dropdown">Range
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu" id="rangeSelector">
                     <li id="next30"><a href="#">Next 30 Days</a></li>
@@ -324,7 +324,7 @@
                   </ul>
                 </div>
               </div>
-              <div id="range-output">Select date and range</div>
+              <div id="range-output" class="alert alert-danger"><em>Select start date and range</em></div>
               <div class="price-details">
                   <p>Price:<span class="pull-right" id="priceMyModal">&#8377; 00.00</span></p>
               </div>
@@ -394,7 +394,6 @@ $(function() {
     function setDate(start,end,days){
       $('#datePicker').data('daterangepicker').setEndDate(end);
       $('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
-      $('#range-output').css('color','grey');
 
       console.log(invalidDates);
 
@@ -416,7 +415,7 @@ $(function() {
                       {
                         flag  = 1;
 
-                      $('.msg p').html('DATE RANGE HAS INVALID DATES');
+                      $('.msg p em').html('Date range has invalid dates.');
                       $('.msg p').css('color','red');
                       $('.msg p').css('font-size','14px');
                       $('#MyModalAddCart').attr("disabled", true)
@@ -426,8 +425,9 @@ $(function() {
                     if(flag == 0)
                     {
                       $('#MyModalAddCart').attr("disabled", false)
-                      
-                      $('.msg p').html('Your Date Range is available but filling fast! Hurry!');
+                      $('#range-output').removeClass("alert-danger");
+                      $('#range-output').addClass("alert-success");
+                      $('.msg p em').html('Your Date Range is available but filling fast! Hurry!');
                       $('.msg p').css('color','green');
                       $('.msg p').css('font-size','14px');
 
