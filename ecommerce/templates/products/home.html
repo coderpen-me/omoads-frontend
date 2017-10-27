@@ -294,11 +294,11 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Banner Details</div>
                 <div class="panel-body">
-                  <p>Pole ID: <span id="panelID">loading...</span></p>
-                  <p>Dimentions: <span id="dimensions">loading...</span></p>
-                  <p>Type: <span id="type">loading...</span></p>
-                  <p>Lighted: <span id="lighted">loading</span></p>
-                  <p>Facing: <span id="BannerFacing">Bus Station</span></p>
+                  <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
+                  <p><strong>Dimentions:</strong> <span id="dimensions">loading...</span></p>
+                  <p><strong>Type:</strong> <span id="type">loading...</span></p>
+                  <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
+                  <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
                 </div>
               </div>
               <div class="row date-input">
@@ -712,10 +712,10 @@ $(function() {
                   }
                   },
                   function(start, end){
+                    $(".date-range-button button").removeClass("disabled");
                     console.log("call back");
                     var diff = end.diff(start, 'days')
                     console.log(diff)
-                    
                     
                   },
                );
