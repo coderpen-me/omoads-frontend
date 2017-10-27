@@ -314,9 +314,13 @@
                   <button class="btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">Range
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu" id="rangeSelector">
-                    <li><a href="#">Next 10 Days</a></li>
-                    <li><a href="#">Next 15 Days</a></li>
-                    <li><a href="#">Next 1 Month</a></li>
+                    <li id="next30"><a href="#">Next 30 Days</a></li>
+                    <li id="next45"><a href="#">Next 45 Days</a></li>
+                    <li id="next60"><a href="#">Next 60 Days</a></li>
+                    <li id="next90"><a href="#">Next 90 Days</a></li>
+                    <li id="next120"><a href="#">Next 4 Months</a></li>
+                    <li id="next150"><a href="#">Next 5 Months</a></li>
+                    <li id="next180"><a href="#">Next 6 Months</a></li>
                   </ul>
                 </div>
               </div>
@@ -357,44 +361,34 @@
 <script type="text/javascript">
 $(function() {
 
-    var rangeSel = document.getElementById("rangeSelector");
-    var listItems = document.getElementById("rangeSelector").getElementsByTagName("li");
-    var list = ["Next 10 Days","Next 15 Days","Next 1 Month"];
     var startDate;
 
-    
-    rangeSel.addEventListener("click",selectRange);
-    function selectRange(e){
-      var i;
-      var s = e.target.innerHTML;
-      for(i=0;i<list.length;i++){
-        if(list[i]===s)
-          break;
-      }
-      switch(i){
-        case 0: next10();
-          break;
-        case 1: next15();
-          break;
-        case 2: next1month();
-          break;
-      }
-    }
+    $("#next30").on("click",function(){
+      nextDays(30);
+    });
+    $("#next45").on("click",function(){
+      nextDays(45);
+    });
+    $("#next60").on("click",function(){
+      nextDays(60);
+    });
+    $("#next90").on("click",function(){
+      nextDays(90);
+    });
+    $("#next120").on("click",function(){
+      nextDays(120);
+    });
+    $("#next150").on("click",function(){
+      nextDays(150);
+    });
+    $("#next180").on("click",function(){
+      nextDays(180);
+    });
 
-    function next10(){
+    function nextDays(x){
       startDate = $('#datePicker').data('daterangepicker').startDate
-      end = moment(startDate).add(10, 'days');
-      setDate(startDate,end,10);
-    }
-    function next15(){
-      startDate = $('#datePicker').data('daterangepicker').startDate
-      end = moment(startDate).add(15, 'days');
-      setDate(startDate,end,15);
-    }
-    function next1month(){
-      startDate = $('#datePicker').data('daterangepicker').startDate
-      end = moment(startDate).add(30, 'days');
-      setDate(startDate,end,30);
+      end = moment(startDate).add(x-1, 'days');
+      setDate(startDate,end,x-1);
     }
 
     function setDate(start,end,days){
