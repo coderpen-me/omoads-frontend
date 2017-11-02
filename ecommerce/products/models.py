@@ -158,7 +158,7 @@ class PricePeriod(models.Model):
 	price = models.FloatField()
 
 	def __str__(self):
-		return '%s %s %s' % (self.startDate, self.endDate, self.price)
+		return 'period ID: %s Board ID:%s start:%s end:%s price:%s' % (self.id, self.banner.id, self.startDate, self.endDate, self.price)
 
 class Cart(models.Model):
 	user = models.OneToOneField(User, on_delete= models.CASCADE)
