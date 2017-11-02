@@ -571,6 +571,17 @@ $(function() {
     locID.push({{ location.id }});
 
     {% endfor %}
+    function resetPriceInfo()
+    {
+      $('.msg p em').html('*(Select date and range to view price of banner)');
+      $('.msg p').css('color','#a0a0a0');
+      $('.msg p').css('font-size','12px');
+      $('#range-output').html('Select range')
+      $('#range-output .em').removeClass("alert-success");
+      $('#range-output').addClass("alert-danger");
+      $('.price-details p span').html('&#8377; '+0.00);
+      
+    }
     function resetInfo(){
       $('#panelID').text("loading...");
       $('#myModalLabel').text("loading...");
@@ -581,9 +592,8 @@ $(function() {
       $('#dimensions').text("loading...");
       $('#type').text("loading...");
       $('#lighted').text("loading...");
-      $('#priceMyModal').fadeOut(100, function() {
-        // $(this).text("SELECT DATE RANGE TO FIND PRICE OF BANNER").css('color', 'red').fadeIn(500);
-      });
+      resetPriceInfo();
+      $('#range-output').html('Select start date and range')
       // $('.msg p').html("");
       
     }
@@ -623,7 +633,7 @@ $(function() {
           // infowindow.setContent(this.content);
           // infowindow.open(map, this);
           $('#MyModalAddCart').attr("disabled", true);
-          
+          resetInfo();
           $.ajax({
             type: "POST",
             url: "{% url 'onclickMapPoints' %}",
@@ -714,9 +724,11 @@ $(function() {
                   }
                   },
                   function(start, end){
+                    $('#MyModalAddCart').attr("disabled", true);
                     $(".date-range-button button").removeClass("disabled");
+                    resetPriceInfo();
                     console.log("call back");
-                    var diff = end.diff(start, 'days')
+                    var diff = end.diff(start, 'days');
                     console.log(diff)
                     
                   },
