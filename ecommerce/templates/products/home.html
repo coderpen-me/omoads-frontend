@@ -386,7 +386,7 @@ $(function() {
     });
 
     function nextDays(x){
-      startDate = $('#datePicker').data('daterangepicker').startDate
+      startDate = $('#datePicker').data('daterangepicker').startDate;
       end = moment(startDate).add(x-1, 'days');
       setDate(startDate,end,x-1);
     }

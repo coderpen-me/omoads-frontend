@@ -1122,18 +1122,18 @@ def calculatePrice(banner,startDate,endDate):
 
 		if(startDate >= price.startDate and endDate <= price.endDate):
 			delta = endDate - startDate
-			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.4)
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.0)
 			print(total)
 		elif(startDate <= price.endDate and startDate >= price.startDate and endDate > price.endDate):
 			delta = price.endDate - startDate + datetime.timedelta(days=1)
-			total = total + ((Area[str(banner.banner_dimensions)])*price.price*delta.days/30.4)
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*delta.days/30.0)
 			print(total)
 		elif(startDate <= price.startDate and endDate >= price.endDate):
-			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(price.numberDays+1)/30.4)
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(price.numberDays+1)/30.0)
 			print(total)
 		elif(startDate < price.startDate and endDate >= price.startDate and endDate <= price.endDate):
 			delta = endDate - price.startDate
-			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.4)
+			total = total + ((Area[str(banner.banner_dimensions)])*price.price*(delta.days+1)/30.0)
 			print(total)
 	return round(total,2)
 
