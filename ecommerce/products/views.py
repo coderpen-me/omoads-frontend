@@ -39,6 +39,24 @@ PAYMENT_2 = 0.30
 #LANDING PAGE
 ######
 
+def printing_material(request):
+	template = "printingMaterial.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
 def aboutus(request):
 	template = "aboutus.html"
 	username = ""

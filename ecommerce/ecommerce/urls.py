@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', productsViews.Home.as_view(), name='home'),
 
+    url(r'^printing_material/$', 'products.views.printing_material', name='printing_material'),
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
     url(r'^addToCart/$', 'products.views.addToCart', name='addToCart'),
     url(r'^booking_status/$', 'products.views.booking_status', name='booking_status'),
