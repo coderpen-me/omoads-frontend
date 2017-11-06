@@ -114,7 +114,7 @@ class Banner(models.Model):
 	banner_lattitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_longitude = models.DecimalField( max_digits = 12, decimal_places = 9 )
 	banner_landmark = models.CharField( max_length = 200 )
-	banner_face_side = models.CharField( max_length = 10, choices = (('Left', 'Left'), ('Right', 'Right')) )
+	# banner_face_side = models.CharField( max_length = 10, choices = (('Left', 'Left'), ('Right', 'Right')) )
 	banner_status = models.CharField( max_length=100, choices = STATUS_CHOICES, default= 'available')
 	banner_bookingStatus = models.BooleanField(default= False)
 	def __str__(self):
