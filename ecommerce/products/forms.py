@@ -3,7 +3,10 @@ from django.forms import ModelForm
 # from models import Owner
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Agency, Zone
+from .models import *
+from django.contrib.admin.helpers import ActionForm
+from django.forms import extras
+
 # from captcha.fields import CaptchaField
 
 TOPIC_CHOICES = (
@@ -67,3 +70,9 @@ class AgencyForm(forms.ModelForm):
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter username...', 'id': 'email','onkeyup':'checkUserNameLogin(this)'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...', 'id': 'pwd'}))
+
+
+class UpdateActionForm(ActionForm):
+    price = forms.FloatField()
+    startDate = forms.DateField(widget = extras.SelectDateWidget)
+    endDate = forms.DateField(widget = extras.SelectDateWidget)

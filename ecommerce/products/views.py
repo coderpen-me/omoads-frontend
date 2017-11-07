@@ -982,12 +982,20 @@ class PriceBoards(generic.TemplateView):
 				username = request.user.username
 				a = Agency.objects.get(user = request.user)
 
+
+
 				details = []
 				for banner in Banner.objects.filter(agency=a):
+					bookDates = []
 
-					details.append({'banner':banner, 'price_set':banner.priceperiod_set.all().order_by('-startDate')[:4][::-1]})
+					for booked_date in banner.bookingdetails_set.filter(endDate__gte = datetime.datetime.now().strftime("%Y-%m-%d")):
+						bookDates.append({'startDate':str(booked_date.startDate), 'endDate': str(booked_date.endDate)})
 
+					details.append({'banner':banner, 
+						'active_booking_details': bookDates,
+						'price_set':banner.priceperiod_set.all().order_by('-startDate')[:4][::-1]})
 
+				print(details)
 				userType = "Agency"
 				context = {
 					'loginStatus':True,
@@ -1042,7 +1050,7 @@ def addIndiPrice(request):
 		messages.success(request,"price changed", extra_tags = "price_change_success")
 		return HttpResponseRedirect(reverse('owner_interface_price'))
 	else:
-		messages.success(request,"the selected dates have board bookings", extra_tags = "price_change_success")
+		messages.error(request,"the selected dates have board bookings", extra_tags = "price_change_success")
 		return HttpResponseRedirect(reverse('owner_interface_price'))
 	
 

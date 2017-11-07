@@ -83,25 +83,53 @@ Change Prices ||
                var startDateForm;
               var endDateForm;
 
-              $(document).ready(function() {
 
-                  $('input[name="daterangeIndi"]').daterangepicker({
-                    minDate: moment(),
-                    format: 'DD/MM/YYYY',
-                    seperator: 'To',
-                  },
-                  function(start, end){
-                    console.log("call back");
-                    startDateForm = start;
-                    endDateForm = end;
-                    var diff = end.diff(start, 'days')
-                    $('#startDateFormIndi').val(start.format('YYYY-MM-DD'));
-                    $('#endDateFormIndi').val(end.format('YYYY-MM-DD'));
-                    $('#daysFormIndi').val(diff);
-                    console.log(diff)
-                  });
+              var initDateRangePicker = function(invalid_date_set)
+                  {
+                    invalid_dates = []
+                    for(var i = 0; i < invalid_date_set.length; i++)
+                    {
+                        var cd = moment(invalid_date_set[i].startDate);
+                        var ed = moment(invalid_date_set[i].endDate);
+                        while(cd.format('YYYY-MM-DD') <= ed.format('YYYY-MM-DD'))
+                        {
+                            invalid_dates.push(cd.format('YYYY-MM-DD'))
+                            cd.add(1, 'days')
+                        }
+                    }
 
-              });
+                    console.log(invalid_date_set)
+                    $('input[name="daterangeIndi"]').daterangepicker({
+                                            minDate: moment(),
+                                            format: 'DD/MM/YYYY',
+                                            seperator: 'To',
+                                            isInvalidDate: function(date)
+                                            {
+                                                
+
+                                                if (invalid_dates.indexOf(date.format('YYYY-MM-DD'))!==-1)
+                                                {
+                                                    return true; 
+                                                }
+                                                else
+                                                {
+                                                    return false; 
+                                                }
+                                            },
+                                        },
+                                        function(start, end){
+                                            console.log("call back");
+                                            startDateForm = start;
+                                            endDateForm = end;
+                                            var diff = end.diff(start, 'days')
+                                            $('#startDateFormIndi').val(start.format('YYYY-MM-DD'));
+                                            $('#endDateFormIndi').val(end.format('YYYY-MM-DD'));
+                                            $('#daysFormIndi').val(diff);
+                                            console.log(diff)
+                                        });
+                  }
+
+             
             </script>
           </div>
           <div class="modal-footer">
@@ -146,25 +174,24 @@ Change Prices ||
               var startDateForm;
               var endDateForm;
 
-              $(document).ready(function() {
-
+             
                   $('input[name="daterangeAll"]').daterangepicker({
-                    minDate: moment(),
-                    format: 'DD/MM/YYYY',
-                    seperator: 'To',
-                  },
-                  function(start, end){
-                    console.log("call back");
-                    startDateForm = start;
-                    endDateForm = end;
-                    var diff = end.diff(start, 'days')
-                    $('#startDateFormAll').val(start.format('YYYY-MM-DD'));
-                    $('#endDateFormAll').val(end.format('YYYY-MM-DD'));
-                    $('#daysFormAll').val(diff);
-                    console.log(diff)
+                          minDate: moment(),
+                          format: 'DD/MM/YYYY',
+                          seperator: 'To',
+                      },
+                      function(start, end){
+                          console.log("call back");
+                          startDateForm = start;
+                          endDateForm = end;
+                          var diff = end.diff(start, 'days')
+                          $('#startDateFormAll').val(start.format('YYYY-MM-DD'));
+                          $('#endDateFormAll').val(end.format('YYYY-MM-DD'));
+                          $('#daysFormAll').val(diff);
+                          console.log(diff)
                   });
 
-              });
+              
             </script>
           </div>
           <div class="modal-footer">
@@ -225,6 +252,7 @@ Change Prices ||
 
                         $('#{{item.banner.id}}').click(function(){
                             $('#formIDIndi').val(this.id)
+                            initDateRangePicker({{item.active_booking_details|safe}})
                         })
 
 

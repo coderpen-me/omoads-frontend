@@ -2,12 +2,18 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import *
+from .forms import UpdateActionForm
 
 
 class ImageInLine(admin.StackedInline):
 	model = BannerImage
 class BannerAdmin(admin.ModelAdmin):
 	inlines = [ImageInLine, ]
+
+
+
+
+
 
 admin.site.register(Banner, BannerAdmin)
 admin.site.register(Agency)
