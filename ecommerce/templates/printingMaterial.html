@@ -1,0 +1,139 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Order Summary</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		html,body{
+		    background-color: #f1f1f1;
+
+		}
+		.printing-details h3{
+			font-size: 25px;
+			color: #404040;
+			margin-bottom: 15px;
+		}
+		.printing-details form{
+			margin-left: 15px;
+		}
+		.order-details h5{
+			margin-left: 15px;
+			color: grey;
+			font-size: 15px;
+		}
+		.line{
+			border-top: 1px dashed grey; 
+		}
+		.cont{
+			background-color: #fff;
+			margin-bottom: 20px;
+			/*padding: 15px 20px;*/
+		}
+		.content-header{
+		  padding: 10px;
+		  padding-left: 20px;
+		  font-size: 17px; 
+		  color: #666;
+		  font-weight: 500;
+		  border-bottom: 1px solid #dbdbdb;
+		  /*background-color: #e4e4e4;*/
+		}
+		.content-body{
+			padding: 0px 25px 10px 25px;
+		}
+		.shadow{
+		  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+		}
+		.payment-details h4{
+			margin-bottom: 20px;
+			color: grey;
+		}
+		.final-price{
+			color: #ff6c00;
+		}
+		.btn-checkout{
+			width: 100%;
+			height: 45px;
+			background-color: #1c1c1c;
+			color: #fff;
+			border-radius: 0px;
+			border-width: 0px;
+		}
+		.btn-checkout:hover{
+			background-color: #ff6c00;
+			color: #fff;
+		}
+		.radio{
+			margin-bottom: 20px;
+			font-size: 17px;
+		}
+		.print-price{
+			color: #404040;
+			font-size: 20px;
+		}
+		.phoneNo{
+		    width: 170px;
+		    height: 30px;
+		    background-color: #fff;
+		    padding: 5px 0px 5px 0px; 
+		    margin: 10px 20px 10px 15px;
+		    border-radius: 5px;
+		    color: #ff6c00;
+		    font-weight: ;
+		  }
+	</style>
+</head>
+<body>
+	{% include 'navbar1.html' %}
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="printing-details shadow cont">
+				  <div class="content-header">SELECT PRINTING MATERIAL</div>
+				  <div class="content-body">
+				  	<h3>Light Board Flex</h3>
+				  	<form>
+				  		<div class="radio">
+				  		  <label><input type="radio" name="optradio">Back Light Normal</label><span class="pull-right print-price">$5</span>
+				  		</div>
+				  		<div class="radio">
+				  		  <label><input type="radio" name="optradio">Back Light Star</label>
+				  		  <span class="pull-right print-price">$10</span>
+				  		</div>	
+				  	</form>
+				  </div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="order-details shadow cont">
+				  <div class="content-header">ORDER SUMMARY</div>
+				  <div class="content-body">
+				  	<h3>Base Price({{cart.cartitem_set.all.count}} Items):<span class="pull-right">&#8377 {{cart.totalPrice|floatformat:2}}</span></h3>
+				  	<h5>Printing Cost:<span class="pull-right">+ $20</span></h5>
+				  	<h5>Installation Cost:<span class="pull-right">+ &#8377 0</span></h5>
+				  	<h5>GST:<span class="pull-right">+ &#8377 {{cart.tax|floatformat:2}}</span></h5>
+				  	<div class="line"></div>
+				  	<h3>Amount to Pay:<span class="pull-right">&#8377 {{cart.totalSumPrice|floatformat:2}}</span></h3>
+				  </div>
+				</div>
+				<div class="payment-details shadow cont">
+				  <div class="content-header">PAYMENT DETAILS</div>
+				  <div class="content-body">
+				  	<h4>Advance Payment:<span class="pull-right">&#8377 {{cart.paymentAdvance|floatformat:2}}</span></h4>
+				 	<h4>Payment 1:<span class="pull-right">&#8377 {{cart.payment1|floatformat:2}}</span></h4>
+				 	<h4>Payment 2:<span class="pull-right">&#8377 {{cart.payment2|floatformat:2}}</span></h4>
+				  	<div class="line"></div>
+				  	<h3 class="final-price">Total Amount:<span class="pull-right">&#8377 {{cart.totalSumPrice|floatformat:2}}</span></h3>
+				  </div>
+				</div>
+				<button class="btn btn-primary btn-checkout">CHECKOUT</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

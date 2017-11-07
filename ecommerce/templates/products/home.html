@@ -299,6 +299,7 @@
                   <p><strong>Type:</strong> <span id="type">loading...</span></p>
                   <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
                   <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
+                  <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
                 </div>
               </div>
               <div class="row date-input">
@@ -414,7 +415,7 @@ $(function() {
                       if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
                       {
                         flag  = 1;
-                      $('.price-details p span').html("Date range has invalid dates.")
+                      // $('.price-details p span').html("Date range has invalid dates.")
                       $('.msg p em').html('Date range has invalid dates.');
                       $('.msg p').css('color','red');
                       $('.msg p').css('font-size','14px');
@@ -571,9 +572,21 @@ $(function() {
     locID.push({{ location.id }});
 
     {% endfor %}
+    function resetPriceInfo()
+    {
+      $('.msg p em').html('*(Select date and range to view price of banner)');
+      $('.msg p').css('color','#a0a0a0');
+      $('.msg p').css('font-size','12px');
+      $('#range-output').html('Select range')
+      $('#range-output .em').removeClass("alert-success");
+      $('#range-output').addClass("alert-danger");
+      $('.price-details p span').html('&#8377; '+0.00);
+      
+    }
     function resetInfo(){
       $('#panelID').text("loading...");
       $('#myModalLabel').text("loading...");
+      $('#zone').text("loading...");
       $('#BannerFacing').text("loading...");
       $('#bannerImage').attr("src", "{% static 'resources/images/omoloader.gif' %}");
       $('#price').text("loading...");
@@ -581,11 +594,8 @@ $(function() {
       $('#dimensions').text("loading...");
       $('#type').text("loading...");
       $('#lighted').text("loading...");
-      $('#priceMyModal').fadeOut(100, function() {
-        $(this).text("SELECT DATE RANGE TO FIND PRICE OF BANNER").css('color', 'red').fadeIn(500);
-      });
-      $('.msg p').html("");
-      
+      resetPriceInfo();
+      $('#range-output').html('Select start date and range')
     }
 
 
@@ -623,7 +633,7 @@ $(function() {
           // infowindow.setContent(this.content);
           // infowindow.open(map, this);
           $('#MyModalAddCart').attr("disabled", true);
-          
+          resetInfo();
           $.ajax({
             type: "POST",
             url: "{% url 'onclickMapPoints' %}",
@@ -652,7 +662,8 @@ $(function() {
              
               $('#panelID').text(data["id"]);
               $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
-              $('#myModalLabel').text(data["zone"] + ", " + data["landmark"]);
+              $('#myModalLabel').text(data["landmark"]);
+              $('#zone').text(data["zone"]);
               $('#BannerFacing').text(data["facing"]);
               $('#price').text(data["cost"]);
               $('#MapLoc').text(data["lat"] + " / " + data["long"]);
@@ -714,9 +725,11 @@ $(function() {
                   }
                   },
                   function(start, end){
+                    $('#MyModalAddCart').attr("disabled", true);
                     $(".date-range-button button").removeClass("disabled");
+                    resetPriceInfo();
                     console.log("call back");
-                    var diff = end.diff(start, 'days')
+                    var diff = end.diff(start, 'days');
                     console.log(diff)
                     
                   },
