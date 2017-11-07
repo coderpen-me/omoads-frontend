@@ -299,6 +299,7 @@
                   <p><strong>Type:</strong> <span id="type">loading...</span></p>
                   <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
                   <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
+                  <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
                 </div>
               </div>
               <div class="row date-input">
@@ -585,6 +586,7 @@ $(function() {
     function resetInfo(){
       $('#panelID').text("loading...");
       $('#myModalLabel').text("loading...");
+      $('#zone').text("loading...");
       $('#BannerFacing').text("loading...");
       $('#bannerImage').attr("src", "{% static 'resources/images/omoloader.gif' %}");
       $('#price').text("loading...");
@@ -662,7 +664,8 @@ $(function() {
              
               $('#panelID').text(data["id"]);
               $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
-              $('#myModalLabel').text(data["zone"] + ", " + data["landmark"]);
+              $('#myModalLabel').text(data["landmark"]);
+              $('#zone').text(data["zone"]);
               $('#BannerFacing').text(data["facing"]);
               $('#price').text(data["cost"]);
               $('#MapLoc').text(data["lat"] + " / " + data["long"]);
