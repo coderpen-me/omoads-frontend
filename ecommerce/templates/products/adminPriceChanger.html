@@ -1,0 +1,462 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>OmoAds</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105587377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  
+
+  <style type="text/css">
+    html,body{
+      height: 100%;
+      margin: 0px;
+      /*overflow-y: ;*/
+      background-color: #f2f2f2;
+    }
+    .navbar{
+      background-color: #1c1c1c;
+    }
+    .navigationBar{
+      margin: 0px;
+      border-radius: 0px;
+      border-width: 0px;
+      /*height: ;*/
+    }
+    .shadow{
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    }
+    .cart-display{
+      padding-top: 15px;
+    }
+    .cont{
+      /*height: 400px;*/
+      background-color: #fff;
+      padding-bottom: 10px;
+    }
+    .content-header{
+      padding: 12px;
+      padding-left: 20px;
+      font-size: 17px; 
+      color: #666;
+      border-bottom: 1px solid #dbdbdb;
+    }
+    .line{
+      height: 1px;
+      background-color: #c1c1c1;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .cart-item .row{
+      margin: 0px;
+      margin-top: 20px;
+      margin-bottom: 10px; 
+    }
+    .cart-item p{
+      margin-bottom: 0px;
+      color: #737373; 
+    }
+    .cart-item h3{
+      margin-top: 10px;
+    }
+    .priceDetails{
+      padding: 10px 20px;
+    }
+    .priceDetails p{
+      font-size: 17px;
+      font-weight: 500;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      margin-bottom: 0px; 
+    }
+    .priceDetails .finalPrice{
+      color: #ff6c00;
+      font-size: 25px;
+      font-weight: 600;
+      padding-top: 10px;
+    }
+    .edit-button{
+      /*margin-top: 15px;*/
+      font-size: 17px;
+      padding-left: 15px;
+      color: #545454;
+    }
+    .edit-button:hover{
+      color: #337ab7;
+    }
+    .remove-button{
+      /*margin-top: 15px;*/
+      font-size: 17px;
+      padding-left: 15px;
+      color: #545454;
+    }
+    .remove-button:hover{
+      color: #f70000;
+    }
+    @keyframes fadeout {
+    0%{opacity:0;top:50%}
+    20%{opacity:1;}
+    80%{opacity:1;top:50%;}
+    100%{opacity:0;
+      top:-50%;
+    }
+
+    }
+    #message {
+      position: absolute;
+      z-index: 9999;
+      top: -50%;
+      left: 25%;
+      right: 25%;
+      background: #fde073;
+      text-align: center;
+      animation-name: fadeout;
+      animation-duration: 2s;
+      overflow: hidden;
+      opacity:0;
+      box-shadow: 0 0 5px black;
+    }
+
+    .modal-header{
+      padding-top: 20px;
+      padding-bottom: 20px;
+      background-color: #f3f3f3;
+      border-radius: 10px 10px 0px 0px;
+
+    }
+    .modal-header p{
+      margin-bottom: 0px;
+      color: #575757;
+    }
+    .modal-title{
+      color: #575757;
+    }
+    .bannerInfo{
+      margin-top: 15px;
+    }
+    .panel-body p{
+      margin-bottom: 2px;
+      color: #575757;
+    }
+    .panel-body{
+      padding: 5px;
+      padding-left: 15px;
+    }
+    .tab-content form{
+      margin-top: 10px;
+    }
+    .panel-default{
+      margin-bottom: 10px;
+    }
+    .phoneNo{
+        width: 170px;
+        height: 30px;
+        background-color: #fff;
+        padding: 5px 0px 5px 0px; 
+        margin: 10px 20px 10px 15px;
+        border-radius: 5px;
+        color: #ff6c00;
+        font-weight: ;
+      }
+      .shop-button-continue{
+        padding-right: 5px;
+      }
+      .shop-button-place{
+        padding-left: 5px;
+      }
+      .continue{
+        border-radius: 0px;
+        background-color: #1c1c1c;
+        border-width: 0px;
+        margin-top: 10px;
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 12px;
+      }
+      .place-order{
+        border-radius: 0px;
+        background-color: #1c1c1c;
+        border-width: 0px;
+        margin-top: 10px;
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 12px;
+      }
+      .continue:hover{
+        background-color: #337ab7;
+      }
+      .place-order:hover{
+        background-color: #ff6c00;
+      }
+  </style>
+</head>
+<body>
+
+{% if messages %}
+    <div id="message">
+{% for message in messages %}
+
+   <h3> {{ message }}</h3>
+{% endfor %}
+    </div>
+{% endif %}
+
+  <section>
+    {% include 'navbar1.html' %}
+    <div class="container">
+      <div class="row cart-display">
+        <div class="col-sm-8">
+          <div class="cont shadow">
+            <div class="content-header">Admin Price Changer </div>
+            <div class="cart-item">
+              <div class="row">
+                <div class="col-sm-3">
+                  <img src="../../../static/static_files/resources/images/1.png" class="img-thumbnail" alt="Sample image" width="250" height="180">
+                </div>
+                <div class="col-sm-6">
+                  <h4>{{cartitem.banner.banner_landmark}}</h4>
+                  <p>ID: {{cartitem.banner.id}}</p>
+                  <p>Start Date: {{cartitem.startDate}}</p>
+                  <p>End Date: {{cartitem.endDate}}</p>
+                  <p>Type: {{cartitem.banner.banner_type}}</p>
+                  <p>Size: {{cartitem.banner.getSize}}</p>
+                </div>
+                <div class="col-sm-3">
+                  <table class="pull-right">
+                    <tr><td>
+                      <h3 class="pull-right">&#8377 1000</h3>
+                    </td></tr>
+                    <tr><td>
+                      <div class="pull-right">
+                        <a class = "editCartItem" href = "#" title="Edit" onclick = "edit({{cartitem.id}}, {{cartitem.banner.id}})" ><span class="glyphicon glyphicon-edit edit-button"></span></a>
+                        
+                        <a class = "deleteCartItem" href = "#" data-cartitemid="{{cartitem.id}}" data-toggle="tooltip" data-placement="bottom" title="Remove"><span class="glyphicon glyphicon-remove-circle remove-button"></span></a>
+                      </div>
+                    </td></tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Edit modal -->
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="myModalLabel">Hapur Road, Near Hapur Chungi</h3>
+            <h6 id="priceMyModal">SELECT DATE RANGE TO FIND PRICE OF BANNER</h6>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Banner Details</div>
+                  <div class="panel-body">
+                    <p>Pole ID: <span id="panelID">loading...</span></p>
+                    <p>Dimentions: <span id="dimensions">loading...</span></p>
+                    <p>Type: <span id="type">loading...</span></p>
+                    <p>Lighted: <span id="lighted">loading</span></p>
+                    <p>Start Date:<span id="oldStart">loading</span></p>
+                    <p>End Date:<span id="oldEnd">loading</span></p>
+                  </div>
+                </div>
+              </div>
+              <p id = "msgMyModal"></p>
+              <div class="col-sm-6">
+
+                <h4>Change Dates</h4>
+                <form>
+                  <div class="input-group">
+                    <input id="date" type="text" class="form-control" name="daterange">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+
+                    
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <form method = "POST" action = "{% url 'cart_editItemFinal' %}">
+              {% csrf_token %}
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                <input type="hidden" name = "cartItemId" id="cartItemId" value = "">
+                <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
+                <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
+                <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
+                <button type="submit" class="btn btn-primary" id="MyModalAddCart">Apply</button>
+              </form>
+              
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+</body>
+
+<script type="text/javascript">
+
+      function edit(cartItemId, bannerIdCart)
+      {
+          $.ajax({
+                      type: "POST",
+                      url: "{% url 'cart_editItem' %}",
+                      global: true,
+                      data: {
+                       "csrfmiddlewaretoken": "{{ csrf_token }}",
+                       "idCartItem":String(cartItemId)
+
+                      },
+                      success: function(data){
+                                 
+                          $('#panelID').text(data["id"]);
+                          $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
+                          $('#price').text(data["cost"]);
+                          $('#MapLoc').text(data["lat"] + " / " + data["long"]);
+                          $('#dimensions').text(data["dim"]);
+                          $('#type').text(data["type"]);
+                          $('#lighted').text(data["lighted"]);
+                          $('#oldStart').text(data["oldStart"]);
+                          $('#oldEnd').text(data["oldEnd"]);
+
+                          var bookDates = data["bookDates"];
+                          var BoardIdForPrice = (data["id"]);
+                          console.log(bookDates);
+                          invalidDates=[];
+                          
+                          $('#myModal').attr("boardID",this.id_try)
+                          $('input[name="daterange"]').daterangepicker({
+                                  minDate: moment().add(2, 'days'),
+                                  format: 'DD/MM/YYYY',
+                                  seperator: 'To',
+                                  opens: "left",
+                                  drops: "down",
+                                  isInvalidDate: function(date)
+                                  {
+                                      x=0
+                                      for(i = 0; i < bookDates.length; i++)
+                                        x=(x||((date.format('YYYY-MM-DD') >= bookDates[i].startDate)&&(date.format('YYYY-MM-DD') <= bookDates[i].endDate)))
+
+                                    
+
+                                      if (x!=0)
+                                      {
+                                          invalidDates.push(date.format('YYYY-MM-DD'))
+                                          
+
+                                          return true; 
+                                      }
+                                      else
+                                      {
+                                          return false; 
+                                      }
+                                  }
+                              },//begin call back function
+                              function(start, end){
+                                  console.log("call back");
+                                  var diff = end.diff(start, 'days')
+                                  console.log(diff)
+                                  
+                                  var flag = 0
+                                  for (var i = 0; i<invalidDates.length;i++)
+                                  {
+
+                                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+                                      {
+                                          flag  = 1;
+
+                                          var dateMsg = document.getElementById("msgMyModal");
+                                          dateMsg.innerHTML = "DATE RANGE HAS INVALID DATES";
+                                          dateMsg.style.color = "red";
+                                           $('#MyModalAddCart').attr("disabled", true)
+                                          break;
+                                      }
+                                  }
+                                  if(flag == 0)
+                                  {
+                                      $('#MyModalAddCart').attr("disabled", false)
+                                      
+                                      var dateMsg = document.getElementById("msgMyModal");
+                                      dateMsg.innerHTML = "DATE RANGE IS AVAILABLE";
+                                      dateMsg.style.color = "green";
+
+                                      var priceMsg = document.getElementById("priceMyModal");
+                                      priceMsg.style.color = "green";
+
+                                      $.ajax({
+                                          type: "POST",
+                                          url: "{% url 'AjaxBannerPrice' %}",
+                                          data: {
+                                              "csrfmiddlewaretoken": "{{ csrf_token }}",
+                                              "id_point":bannerIdCart,
+                                              "startDate":start.format('YYYY-MM-DD'),
+                                              "endDate":end.format('YYYY-MM-DD'),
+                                          },
+                                          success: function(data){
+                                              priceMsg.innerHTML = data["total"]
+                                              $("#cartItemId").val(cartItemId)
+                                              $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
+                                              $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
+                                              $("#bannerIDAddCart").val(bannerIdCart)
+                                          },
+                                          error: function(){
+                                              alert("Error! Something wrong. Please try again later")
+                                          },
+                                      });
+             
+                                  }
+                                  else
+                                  {
+
+                                  }
+                                  invalidDates = [];
+
+                                  });
+                },
+                error: function(){
+                 alert("Error! Something wrong. Please try again later")
+               },
+          });     
+           $('#editModal').modal('show');         
+      }
+
+    </script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+</html>

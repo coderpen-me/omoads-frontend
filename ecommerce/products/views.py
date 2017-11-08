@@ -129,6 +129,25 @@ def uploadImage(request):
 				}
 	return render(request, template, context)
 
+def adminPriceChanger(request):
+	template = "products/adminPriceChanger.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+
 @login_required(login_url = "/login/")
 def booking_status(request):
 	template = 'products/booking-status.html'	
