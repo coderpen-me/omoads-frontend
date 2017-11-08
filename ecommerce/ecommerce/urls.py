@@ -10,7 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', productsViews.Home.as_view(), name='home'),
-
+    url(r'^adminPriceChanger/$', 'products.views.adminPriceChanger', name='price_change_admin'),
     url(r'^printing_material/$', 'products.views.printing_material', name='printing_material'),
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
     url(r'^addToCart/$', 'products.views.addToCart', name='addToCart'),
@@ -56,7 +56,7 @@ urlpatterns = patterns('',
 
     url(r'^owner/book/confirm$', 'products.views.bookBoards', name='owner_interface_book_board'),
     url(r'^owner/cancel/cancel$', 'products.views.cancelBoard', name='owner_interface_cancel_board'),
-    url(r'^owner/price/add$', 'products.views.addIndiPrice', name='owner_interface_add_new_price_indi'),
+    url(r'^price/add$', 'products.views.addIndiPrice', name='add_new_price_indi'),
 
     url(r'^aboutus/$', 'products.views.aboutus', name='aboutus'),
     url(r'^directions/$', 'products.views.directions', name='directions'),

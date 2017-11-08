@@ -133,19 +133,29 @@ def adminPriceChanger(request):
 	template = "products/adminPriceChanger.html"
 	username = ""
 	userType = ""
-	if request.user.is_authenticated():
-		username = request.user.username
-		try:
-			Agency.objects.get(user = request.user)
-			userType = "Agency"
-		except Agency.DoesNotExist:
-			userType = "Buyer"
-	context = {
+	if request.user.is_authenticated() and request.user.is_superuser:
+		details = []
+		for banner in Banner.objects.all():
+			bookDates = []
+
+			for booked_date in banner.bookingdetails_set.filter(endDate__gte = datetime.datetime.now().strftime("%Y-%m-%d")):
+				bookDates.append({'startDate':str(booked_date.startDate), 'endDate': str(booked_date.endDate)})
+
+			details.append({'banner':banner, 
+				'active_booking_details': bookDates,})
+
+
+
+
+		context = {
 				'loginStatus':request.user.is_authenticated(),
 				'username':username,
-				'userType':userType
+				'userType':userType,
+				'details':details,
 				}
-	return render(request, template, context)
+		return render(request, template, context)
+	else:
+		raise Http404("not admin")
 
 
 @login_required(login_url = "/login/")
@@ -1054,41 +1064,51 @@ class PriceBoards(generic.TemplateView):
 			
 @login_required(login_url = reverse_lazy('auth_login'), redirect_field_name = reverse_lazy('owner_interface_price'))
 def addIndiPrice(request):
-	banner = Banner.objects.get(pk = request.POST['boardID'])
-	startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
-	endDateParsed = datetime.datetime.strptime(request.POST['dateEnd'], "%Y-%m-%d").date()
+	if request.user.is_superuser or (request.session['isAgency'] is not None and request.session['isAgency'] is True):
+		banner = Banner.objects.get(pk = request.POST['boardID'])
+		startDateParsed = datetime.datetime.strptime(request.POST['dateStart'], "%Y-%m-%d").date()
+		endDateParsed = datetime.datetime.strptime(request.POST['dateEnd'], "%Y-%m-%d").date()
 
-	price_set = banner.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
+		price_set = banner.priceperiod_set.filter(endDate__gte = startDateParsed, startDate__lte = endDateParsed)
 
-	book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, startDate__lte = endDateParsed, active = True)
-	book_set_2 = banner.bookingdetails_set.filter(endDate__gte = startDateParsed, endDate__lte = endDateParsed, active = True)
-	book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
-	if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
-		for price in price_set:
-			if (price.startDate < startDateParsed) and (price.endDate > endDateParsed):
-				delta = price.endDate-endDateParsed
-				newPrice1 = banner.priceperiod_set.create(startDate = endDateParsed + datetime.timedelta(days=1), endDate = price.endDate, numberDays = delta.days + 1, price = price.price)
-				newPrice1.save()
-				price.endDate = (startDateParsed - datetime.timedelta(days=1))
-				price.save()
-			elif (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
-				price.endDate = (startDateParsed - datetime.timedelta(days=1))
-				print(startDateParsed)
-				price.save()
-			elif (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
-				price.startDate = (endDateParsed + datetime.timedelta(days=1))
-				price.save()
-			elif (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
-				price.delete()
+		book_set = banner.bookingdetails_set.filter(startDate__gte = startDateParsed, startDate__lte = endDateParsed, active = True)
+		book_set_2 = banner.bookingdetails_set.filter(endDate__gte = startDateParsed, endDate__lte = endDateParsed, active = True)
+		book_set_3 = banner.bookingdetails_set.filter(startDate__lte = startDateParsed, endDate__gte = endDateParsed, active = True)
+		if (len(book_set) == 0) and (len(book_set_2) == 0) and (len(book_set_3) == 0):
+			for price in price_set:
+				if (price.startDate < startDateParsed) and (price.endDate > endDateParsed):
+					delta = price.endDate-endDateParsed
+					newPrice1 = banner.priceperiod_set.create(startDate = endDateParsed + datetime.timedelta(days=1), endDate = price.endDate, numberDays = delta.days + 1, price = price.price)
+					newPrice1.save()
+					price.endDate = (startDateParsed - datetime.timedelta(days=1))
+					price.save()
+				elif (price.endDate >= startDateParsed) and (price.startDate < startDateParsed):
+					price.endDate = (startDateParsed - datetime.timedelta(days=1))
+					print(startDateParsed)
+					price.save()
+				elif (price.startDate <= endDateParsed) and (price.endDate >endDateParsed):
+					price.startDate = (endDateParsed + datetime.timedelta(days=1))
+					price.save()
+				elif (price.startDate >= startDateParsed and price.endDate <= endDateParsed):
+					price.delete()
 
-		newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
-		newPrice.save()
-		banner.save()
-		messages.success(request,"price changed", extra_tags = "price_change_success")
-		return HttpResponseRedirect(reverse('owner_interface_price'))
+			newPrice = banner.priceperiod_set.create(startDate = startDateParsed, endDate = endDateParsed, numberDays = request.POST['days'], price = request.POST['price'])
+			newPrice.save()
+			banner.save()
+			messages.success(request,"price changed", extra_tags = "price_change_success")
+			if not request.user.is_superuser:
+				return HttpResponseRedirect(reverse('owner_interface_price'))
+			else:
+				return HttpResponseRedirect(reverse('price_change_admin'))
+		else:
+			messages.error(request,"the selected dates have board bookings", extra_tags = "price_change_success")
+			if not request.user.is_superuser:
+				return HttpResponseRedirect(reverse('owner_interface_price'))
+			else:
+				return HttpResponseRedirect(reverse('price_change_admin'))
 	else:
-		messages.error(request,"the selected dates have board bookings", extra_tags = "price_change_success")
-		return HttpResponseRedirect(reverse('owner_interface_price'))
+		messages.error(request, "unauthorised")
+		return HttpResponseRedirect("/")
 	
 
 ######
