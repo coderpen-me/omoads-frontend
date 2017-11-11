@@ -126,92 +126,7 @@
 </script>
 {% include 'navbar1.html' %}
   <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: #090909; padding: 30px;">
-          <button type="button" class="close" data-dismiss="modal" style="color: #fff;">&times;</button>
-          <h3 class="modal-title" style="color: #fff;">LOGIN TO <span style="color: #ff6c00; font-weight: 500;">OMOADS</span></h3>
-        </div>
-        <div class="modal-body" style="background-color: #f7f7f7; padding-bottom: 0%;">
-          <form method = "POST">
-          {% csrf_token %}
-            <div class="form-group">
-              <label for="username">Username:</label>
-              {{ login_form.username }}
-              <p id = "msg3"></p>
-            </div>
-            <div class="form-group">
-              <label for="pwd">Password:</label>
-              {{ login_form.password }}
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox"> Remember me</label>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success" id = "subLogin" style="border-radius: 4px;">Login</button>
-              <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#registerModal" style="border-radius: 4px;">Sign Up</button> -->
-
-            </div>
-
-          </form>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <!--Register Modal -->
-  <div class="modal fade" id="registerModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: #090909; padding: 30px;">
-          <button type="button" class="close" data-dismiss="modal" style="color: #fff;">&times;</button>
-          <h3 class="modal-title" style="color: #fff;">REGISTER TO <span style="color: #ff6c00; font-weight: 500;">OMOADS</span></h3>
-        </div>
-        <div class="modal-body" style="background-color: #f7f7f7; padding-bottom: 0%;">
-          <form action = "{% url 'auth_register' %}" method = "post">
-          {% csrf_token %}
-            <div class="form-group">
-              <label for="name">Username:</label>
-              {{signup_form.username}}
-              <p id = "msg2"></p>
-            </div>
-            <div class="form-group">
-              <label for="email">Email address:</label>
-              {{signup_form.email}}
-              <p id = "msg"></p>
-              
-            </div>
-
-            <div class="form-group">
-            <label for="phone">Phone Number:</label>
-                <input class = "form-control" type = "text" name = "phone_number" placeholder = "enter phone number..">
-            </div>
-
-            <div class="form-group">
-              <label for="pwd">Enter Password:</label>
-              {{signup_form.password1}}
-              <p id = "passmsg"></p>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox"> Remember me</label>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" id ="sub" class="btn btn-success" style="border-radius: 4px;">Sign Up</button>
-            </div>
-          </form>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
+ 
 <div class="cont">
     <div class="container-fluid box">
       <div class="secondBox col-sm-10" >
@@ -301,9 +216,12 @@ var submit_filter = function() {
   $.ajax({
            type: "POST",
            url: "{% url 'filter_form' %}",
+           beforeSend: function(){
+                                NProgress.start();
+                               },
            data: {"filter_form": $("#filterForm").serialize(),
                   "csrfmiddlewaretoken": "{{ csrf_token }}",
-                  }, 
+                  },
            success: function(data)
            {
                 for(let marker of markerGroup)
@@ -319,7 +237,7 @@ var submit_filter = function() {
                     
                 }
                 markerCluster.repaint();
-
+                NProgress.done();
                 
            },
            error: function(data)
