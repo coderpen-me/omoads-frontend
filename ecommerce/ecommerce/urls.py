@@ -25,6 +25,7 @@ urlpatterns = patterns('',
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
     url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
+    url(r'^ajax/AjaxFormFilter/$', 'products.views.filterAjax', name='filter_form'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),

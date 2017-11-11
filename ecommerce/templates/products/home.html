@@ -219,11 +219,34 @@
           <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
       </div>
       <div class="col-sm-2 filter">
-      <form id="filterForm" action="." method="GET">
+      <form id="filterForm">
       
           <div class="sort">
            <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
            </div>
+           {% if user.is_authenticated %}
+           <div class="card">
+            <div class="filter-header">
+              <h5>USER</h5>
+            </div>
+            <div class="check">
+              
+              <div class="checkbox">
+                  <label>
+                    <input id="cart" name="user" onchange="submit_filter();" 
+                    type="checkbox" value="0">CART
+                  </label>
+              </div>
+              <div class="checkbox">
+                  <label>
+                    <input id="order" name="user" onchange="submit_filter();" 
+                    type="checkbox" value="0">ORDER
+                  </label>
+              </div>
+              
+            </div>
+            </div>
+            {% endif %}
            <div class="card">
             <div class="filter-header">
               <h5>DIMENSIONS</h5>
@@ -272,6 +295,41 @@
       </div>
     </div>
 </div>
+<script type="text/javascript">
+var submit_filter = function() {
+  
+  $.ajax({
+           type: "POST",
+           url: "{% url 'filter_form' %}",
+           data: {"filter_form": $("#filterForm").serialize(),
+                  "csrfmiddlewaretoken": "{{ csrf_token }}",
+                  }, 
+           success: function(data)
+           {
+                for(let marker of markerGroup)
+                {
+                    if(data["ids"].indexOf(marker.id_try)!==-1)
+                    {
+                        marker.setVisible(true)
+                    }
+                    else
+                    {
+                        marker.setVisible(false)
+                    }
+                    markerCluster.repaint();
+                }
+                markerCluster.repaint();
+
+                
+           },
+           error: function(data)
+           {
+                console.log("some error");
+           },
+         });   
+}
+</script>
+
 <div class="footer"></div>
 </section>
 
@@ -481,12 +539,12 @@ $(function() {
 <!-- banner modal script end -->
 
 
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerclustererplus/src/markerclusterer.js"></script>
 
-<script src = "{% static 'js/markerclusterer.js' %}"></script>
+
 <script>
       var markers_for_bounds
-      var map;
+      
        // var locations =[ {lat: 28.6781518, lng: 77.4796894},
        //  {lat: 28.6769073, lng: 77.4728407},
        //  {lat: 28.6763699, lng: 77.4701333},
@@ -610,7 +668,7 @@ $(function() {
         zoom: 7
       });
 
-      var markerGroup = locations.map(function(location, i) {
+      markerGroup = locations.map(function(location, i) {
         return new google.maps.Marker({
           position: location,
 
@@ -750,8 +808,8 @@ $(function() {
      minClusterZoom = 17;
 
 
-     var markerCluster = new MarkerClusterer(map, markerGroup,
-      {imagePath: "{% static 'js/m' %}"});
+      markerCluster = new MarkerClusterer(map, markerGroup,
+      {imagePath: "{% static 'js/m' %}", ignoreHidden: true});
 
      markerCluster.setMaxZoom(minClusterZoom);
 
