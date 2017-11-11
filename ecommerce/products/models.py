@@ -171,6 +171,8 @@ class Cart(models.Model):
 	totalSumPrice = models.FloatField(default = 0.00)
 	def __str__(self):
 		return '%s %s %s' % (self.id, self.user.username, self.paymentAdvance)
+	def sorted_cartitem_set(self):
+		return self.cartitem_set.order_by('startDate')
 
 
 
