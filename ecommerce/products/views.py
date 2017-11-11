@@ -5,7 +5,7 @@ from django.views import generic
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 
-from urllib.parse import parse_qs
+from urlparse import parse_qs
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
