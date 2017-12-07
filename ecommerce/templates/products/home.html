@@ -87,8 +87,71 @@
     box-shadow: 0 0 5px black;
 
   }
-  
 
+  .view-cart{
+    padding-right: 30px;
+  }
+  .view-cart .row{
+    margin-left: 0px;
+  }
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {display:none;}
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(18px);
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
 
 </style>
 
@@ -144,20 +207,30 @@
             <div class="filter-header">
               <h5>USER</h5>
             </div>
-            <div class="check">
+            <div class="check view-cart">
               
               <div class="checkbox">
-                  <label>
+                <div class="row">
+                  View Campaign
+                  <label class="switch pull-right">
                     <input id="cart" name="user" onchange="submit_filter();" 
-                    type="checkbox" value="0">CART
+                    type="checkbox" value="0">
+                    <span class="slider round"></span>
                   </label>
+                </div>
+                  
+
+                  <!-- <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label> -->
               </div>
-              <div class="checkbox">
+              <!-- <div class="checkbox">
                   <label>
                     <input id="order" name="user" onchange="submit_filter();" 
                     type="checkbox" value="0">ORDER
                   </label>
-              </div>
+              </div> -->
               
             </div>
             </div>
