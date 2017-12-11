@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon/apple-icon-57x57.png' %}">
+  <!-- <link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon/apple-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="60x60" href="{% static 'resources/images/favicon/apple-icon-60x60.png' %}">
   <link rel="apple-touch-icon" sizes="72x72" href="{% static 'resources/images/favicon/apple-icon-72x72.png' %}">
   <link rel="apple-touch-icon" sizes="76x76" href="{% static 'resources/images/favicon/apple-icon-76x76.png' %}">
@@ -29,7 +29,13 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="{% static 'resources/images/favicon/ms-icon-144x144.png' %}">
   <meta name="theme-color" content="#ffffff">
+ -->
 
+ <!-- favicon -->
+ <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
+ 
+ <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
+ <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -1007,4 +1013,7 @@ Pace.on("done", function(){
       }); 
 })
 </script>
+<script type="text/javascript">
+    $(".nav-elements li:nth-child(1)").addClass("active");
+  </script>
 </html>
