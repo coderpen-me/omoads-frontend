@@ -6,7 +6,7 @@
           <a class="navbar-brand" href="{% url 'home' %}" style="padding: 10px; padding-left: 35px;"><img class="img-responsive2"
                src="{% static 'resources/images/re-logo.png' %}"></a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right nav-control">
         {% if not loginStatus %}
           <li><a href="{% url 'auth_register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

@@ -1,0 +1,260 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Profile</title>
+	<meta charset="utf-8">
+	<!-- favicon -->
+	<link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
+	
+	<link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
+	<link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- css -->
+	<style type="text/css">
+	html,body{
+		background-color: #f2f2f2;
+	}
+	.phoneNo{
+	    width: 170px;
+	    height: 30px;
+	    background-color: #fff;
+	    padding: 5px 0px 5px 0px; 
+	    margin: 10px 20px 10px 15px;
+	    border-radius: 5px;
+	    color: #ff6c00;
+	    font-weight: ;
+	  }	
+	  .row{
+	  	/*padding-top: 10px;*/
+	  }
+	  .left{
+	  	padding-top: 10px;
+	  	padding-bottom: 10px;
+	  	/*border: 1px solid grey;*/
+	  	/*height: 300px;*/
+	  	/*margin: 5px;*/
+	  }
+	  .right{
+	  	padding-top: 70px;
+	  	padding-bottom: 25px;
+	  	/*border: 1px solid grey;*/
+	  	/*height: 300px;*/
+	  	/*margin: 10px;*/
+	  }
+	  .left-content{
+	  	width: 270px;
+	  	position: fixed;
+	  	top: 70px;
+	  	background-color: #1c1c1c; 
+	  	border: 1px solid grey;
+	  	/*height: 200px;*/
+	  }
+	  .content{
+	  	/*background-color: #fff;*/
+	  	/*border: 1px solid grey;*/
+	  	/*height: 200px;*/
+	  }
+	  .profile-pic{
+	  	/*background-image: url({% static 'resources/images/customer1.png' %});*/
+	  	border: 2px solid #fff;
+	  	border-radius: 50%;
+	  	height: 150px;
+	  	width: 150px;
+	  	margin: 20px auto;
+	  	overflow: hidden;
+	  }
+	  .profile-pic img{
+	  	margin: 10px 14px;
+	  }
+	  .user-name{
+	  	color: grey;
+	  	font-size: 20px;
+	  	margin-bottom: 15px;
+	  }
+	  .menu-items{
+	  	border-top: 1px solid grey;
+	  	padding-top: 10px; 
+	  }
+	  .menu-items ul li{
+	  	/*list-style-image: none;*/
+	  	/*margin: 20px 40px;*/
+	  	padding: 15px 40px;
+	  	color: #fff;
+	  	font-size: 15px;
+	  }
+	  .menu-active{
+	  	background-color: #000;
+	  	color: #fff;
+	  	margin: 0px;
+	  }
+	  .menu-items ul li:hover{
+	  	background-color: #000;
+	  }
+	  .content{
+	  	padding-top: 15px;
+	  	padding-left: 25px;
+	  	background-color: #fff;
+	  }
+	  .content-head{
+	  	/*padding: 15px 0px;*/
+	  }
+	  .content-head h4{
+	  	margin: 0px;
+	  	padding-top: 10px;
+	  	font-size: 20px;
+	  }
+	  .text-box input{
+	  	margin: 20px 0px;
+	  	padding: 10px 15px;
+	  	font-size: 16px; 
+	  	width: 100%;
+	  }
+	  .text-box button{
+	  	margin: 20px 0px;
+	  	padding: 10px 15px;
+	  	font-size: 16px;
+	  	width: 100px;
+	  }
+	  .gender{
+	  	padding-left: 15px; 
+	  }
+	  .gender h5{
+	  	font-size: 15px;
+	  	margin-top: 5px;
+	  }
+	  .navigationBar{
+	  	z-index: 1;
+	  	width: 100%;
+	  	position: fixed;
+	  	border-radius: 0px;
+	  }
+	</style>
+</head>
+<body>
+	{% if messages %}
+	    <div id="message">
+	{% for message in messages %}
+
+	   <h3> {{ message }}</h3>
+	{% endfor %}
+	    </div>
+	{% endif %}
+
+	  <section>
+	    {% include 'navbar1.html' %}
+
+	    <div class="container">
+	    	<div class="row">
+	    		<div class="col-sm-3 left">
+	    			<div class="left-content">
+	    				<div class="profile-pic">
+	    					<img src="{% static 'resources/images/customer1.png' %}" height="150" width="120">
+	    				</div>
+	    				<div class="user-name text-center">Ankit Gupta</div>
+	    				<div class="menu-items">
+	    					<ul class="list-unstyled">
+	    						<li class="menu-active">Profile Information</li>
+	    						<li>Booked History</li>
+	    						<li>Booking Status</li>
+	    					</ul>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="col-sm-9 right">
+	    			<div class="content">
+	    				<div class="content-head">
+	    					<h4>Personal Information</h4>
+	    				</div>
+    					<form>
+    						<div class="row text-box">
+    							<div class="col-sm-4">
+    								<input type="text" name="firstName" placeholder="Ankit">
+    							</div>
+    							<div class="col-sm-4">
+    								<input type="text" name="firstName" placeholder="Gupta">
+    							</div>
+    							<div class="col-sm-4">
+    								<button class="btn btn-primary">SAVE</button>
+    							</div>	    							
+    						</div>
+    						<div class="row gender">
+    							<h5>Your Gender</h5>
+    							<div class="radio">
+    								<label class="radio-inline"><input type="radio" name="optradio">Male</label>
+    								<label class="radio-inline"><input type="radio" name="optradio">Female</label>
+    							</div>
+    						</div>
+    					</form>
+	    			</div>
+
+	    			<div class="content">
+	    				<div class="content-head">
+	    					<h4>Email Address</h4>
+	    					<form>
+	    						<div class="row text-box">
+	    							<div class="col-sm-5">
+	    								<input type="text" name="mail" placeholder="urankit27@gmail.com">
+	    							</div>
+	    							<div class="col-sm-4">
+	    								<button class="btn btn-primary">SAVE</button>
+	    							</div>
+	    						</div>
+	    					</form>
+	    				</div>
+	    			</div>
+
+	    			<div class="content">
+	    				<div class="content-head">
+	    					<h4>Phone Number</h4>
+	    					<form>
+	    						<div class="row text-box">
+	    							<div class="col-sm-5">
+	    								<input type="text" name="phone" placeholder="7065210516">
+	    							</div>
+	    							<div class="col-sm-4">
+	    								<button class="btn btn-primary">SAVE</button>
+	    							</div>
+	    						</div>
+	    					</form>
+	    				</div>
+	    			</div>
+
+	    			<div class="content">
+	    				<div class="content-head">
+	    					<h4>Company Details</h4>
+	    					<form>
+	    						<div class="row text-box">
+	    							<div class="col-sm-5">
+	    								<input type="text" name="company" placeholder="Google">
+	    							</div>
+	    							<div class="col-sm-4">
+	    								<button class="btn btn-primary">SAVE</button>
+	    							</div>
+	    						</div>
+	    						<div class="row text-box">
+	    							<div class="col-sm-5">
+	    								<input type="text" name="company" placeholder="Ghaziabad">
+	    							</div>
+	    						</div>
+
+	    					</form>
+	    				</div>
+	    			</div>
+
+	    		</div>
+	    	</div>
+	    </div>
+	  </section>
+</body>
+<script type="text/javascript">
+	var winHeight = $(window).height();
+	winHeight = winHeight-85;
+	$(".left-content").css("height",winHeight);
+</script>
+</html>
