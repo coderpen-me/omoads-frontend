@@ -118,7 +118,7 @@ input[type=checkbox]:checked ~ label > img {
     #myModal .modal-dialog{
       width: 70%;
     }
-    #myModal .modal-header{
+    .modal-header{
       background-color: #1c1c1c;
       color: #fff;
     }
@@ -172,6 +172,26 @@ input[type=checkbox]:checked ~ label > img {
       margin-top: 5px;
       color: #a0a0a0; 
       font-size: 12px;
+    }
+    .owner-details{
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 23px;
+    }
+    #ownerModal .modal-dialog{
+      position: absolute;
+      height: fit-content;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto auto;
+    }
+    #ownerModal .msg-custom{
+      color: #888;
+      font-size: 15px;
     }
 
  /*banner modal end*/
