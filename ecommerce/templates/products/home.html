@@ -381,17 +381,25 @@ var submit_filter = function() {
               <div class="msg">
                 <p><em>*(Select date and range to view price of banner)</em></p>
               </div>
-              <div class="owner-details">
+              <!-- <div class="owner-details">
                 <p>Owner Name: <span>Pole Ads</span></p>
                 <p>Contact: <span>0123456789</span></p>
                 <p>Email: <span>asd@qwe.zxc</span></p>
                 <p>Office Add.: <span>Pole Ads</span></p>
-              </div>
+              </div> -->
             </div>
             <div class="col-sm-8 right">
               <div>
-                <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image" width="100%">
+                <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
               </div>
+
+              <!-- The owner button div  -->
+              <div class="owner-details">
+                <button class="btn btn-primary" id="own-det">About Owner</button>
+              </div>
+
+              
+
             </div>
           </div>
         </div>
@@ -405,6 +413,26 @@ var submit_filter = function() {
                       <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
                       <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal omodal fade" id="ownerModal" tabindex="-1" role="dialog" aria-labelledby="Owner Modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="ownerModal-close close" data-dismiss="omodal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title" id="myModalLabel">Owner Details</h3>
+        </div>
+        <div class="modal-body">
+          <p>Owner Name: <span>Pole Ads</span></p>
+          <p>Contact: <span>0123456789</span></p>
+          <p>Email: <span>asd@qwe.zxc</span></p>
+          <p>Office Add.: <span>Pole Ads</span></p>
+          <div class="msg-custom">
+            <p>* Click anywhere outside to close the dialog box</p>
+          </div>
         </div>
       </div>
     </div>
@@ -801,6 +829,13 @@ $(function() {
           });
        oms.addMarker(markerGroup[i]); 
      }
+     $('#own-det').on('click', function(e){
+       $('#ownerModal').modal('show');
+     });
+     $('.ownerModal-close').on('click', function(e){
+      e.preventDefault();
+      $('#ownerModal').modal('hide');
+     })
 
      minClusterZoom = 17;
 
