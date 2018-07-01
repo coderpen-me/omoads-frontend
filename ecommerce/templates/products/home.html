@@ -426,10 +426,10 @@ var submit_filter = function() {
           <h3 class="modal-title" id="myModalLabel">Owner Details</h3>
         </div>
         <div class="modal-body">
-          <p>Owner Name: <span>Pole Ads</span></p>
-          <p>Contact: <span>0123456789</span></p>
-          <p>Email: <span>asd@qwe.zxc</span></p>
-          <p>Office Add.: <span>Pole Ads</span></p>
+          <p class="o_name">Owner Name: <span>Pole Ads</span></p>
+          <p class="o_contact">Contact: <span>0123456789</span></p>
+          <p class="o_email">Email: <span>asd@qwe.zxc</span></p>
+          <p class="o_add">Office Add.: <span>Pole Ads</span></p>
           <div class="msg-custom">
             <p>* Click anywhere outside to close the dialog box</p>
           </div>
@@ -835,7 +835,25 @@ $(function() {
      $('.ownerModal-close').on('click', function(e){
       e.preventDefault();
       $('#ownerModal').modal('hide');
-     })
+     });
+
+     /*
+      OwnerDetails is a JS object of the form:       
+          {
+            "o_name": String,
+            "o_contact": String,
+            "o_email": String,
+            "o_add": String
+          }
+      */
+
+     function setOwnerDetails(ownerDetails){
+       let modalBody = document.querySelector('#ownerModal .modal-body');
+       modalBody.children[0].innerHTML = `Owner Name: <span>${ownerDetails.o_name}</span>`;
+       modalBody.children[1].innerHTML = `Contact: <span>${ownerDetails.o_contact}</span>`;
+       modalBody.children[2].innerHTML = `Email: <span>${ownerDetails.o_email}</span>`;
+       modalBody.children[3].innerHTML = `Office Add.: <span>${ownerDetails.o_add}</span>`;
+     }
 
      minClusterZoom = 17;
 
