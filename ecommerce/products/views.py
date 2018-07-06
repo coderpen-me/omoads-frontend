@@ -5,8 +5,8 @@ from django.views import generic
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 #for python 3 use line 8 instead of 9 
-from urllib.parse import parse_qs
-#from urlparse import parse_qs
+#from urllib.parse import parse_qs
+from urlparse import parse_qs
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
