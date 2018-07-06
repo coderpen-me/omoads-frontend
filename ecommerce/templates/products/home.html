@@ -568,6 +568,17 @@ $(function() {
 
 
 <script>
+
+    function setOwnerDetails(ownerDetails){
+        let modalBody = document.querySelector('#ownerModal .modal-body');
+        modalBody.children[0].innerHTML = `Owner Name: <span>${ownerDetails.o_name}</span>`;
+        modalBody.children[1].innerHTML = `Contact: <span>${ownerDetails.o_contact}</span>`;
+        modalBody.children[2].innerHTML = `Email: <span>${ownerDetails.o_email}</span>`;
+        modalBody.children[3].innerHTML = `Office Add.: <span>${ownerDetails.o_add}</span>`;
+    }
+
+
+
       var markers_for_bounds
       
        // var locations =[ {lat: 28.6781518, lng: 77.4796894},
@@ -753,6 +764,8 @@ $(function() {
               $('#dimensions').text(data["dim"]);
               $('#type').text(data["type"]);
               $('#lighted').text(data["lighted"]);
+              setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
+                          'o_email':data["agency_email"], 'o_add':data["agency_address"]});
               
               var bookDates = data["bookDates"];
               BoardIdForPrice = (data["id"]);
@@ -847,13 +860,6 @@ $(function() {
           }
       */
 
-     function setOwnerDetails(ownerDetails){
-       let modalBody = document.querySelector('#ownerModal .modal-body');
-       modalBody.children[0].innerHTML = `Owner Name: <span>${ownerDetails.o_name}</span>`;
-       modalBody.children[1].innerHTML = `Contact: <span>${ownerDetails.o_contact}</span>`;
-       modalBody.children[2].innerHTML = `Email: <span>${ownerDetails.o_email}</span>`;
-       modalBody.children[3].innerHTML = `Office Add.: <span>${ownerDetails.o_add}</span>`;
-     }
 
      minClusterZoom = 17;
 

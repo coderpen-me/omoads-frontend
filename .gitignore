@@ -53,13 +53,13 @@ coverage.xml
 # Translations
 *.mo
 *.pot
-
+.vscode
 # Django stuff:
 *.log
 
 # database stuff
 ecommerce/db.sqlite3
-
+ecommerce/products/migrations/
 # Sphinx documentation
 docs/_build/
 
