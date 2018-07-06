@@ -86,7 +86,10 @@ class Zone(models.Model):
 
 class ExtendedUser(models.Model):
 	user = models.OneToOneField(User, on_delete = models.CASCADE)
-	phone_number = models.CharField( max_length = 15)
+	phone_number = models.CharField( max_length = 15, default = "0000000000")
+
+	def __str__(self):
+		return '%s %s' % (self.user, self.phone_number)
 
 class Agency(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)

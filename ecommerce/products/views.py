@@ -5,8 +5,8 @@ from django.views import generic
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 #for python 3 use line 8 instead of 9 
-#from urllib.parse import parse_qs
-from urlparse import parse_qs
+from urllib.parse import parse_qs
+#from urlparse import parse_qs
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -594,6 +594,10 @@ def onclickMapPoints(request):
 
 		
 		context = {"bookdates":bookDates}
+		try:
+			contact_number = b.agency.user.extendeduser.phone_number
+		except Exception as e:
+			contact_number = "NONE"
 		data = {
 		"id" : str(b.id),
 		"url": str(b.bannerimage),
@@ -609,7 +613,7 @@ def onclickMapPoints(request):
 		"agency_name":b.agency.agency_name,
 		"agency_address":b.agency.agency_address,
 		"agency_email":b.agency.user.email,
-		"agency_phone":b.agency.user.extendeduser.phone_number,
+		"agency_phone":contact_number,
 		}
 		# print(data)
 		json_data = json.dumps(data)
