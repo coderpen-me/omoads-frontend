@@ -59,7 +59,7 @@ coverage.xml
 
 # database stuff
 ecommerce/db.sqlite3
-ecommerce/products/migrations/
+
 # Sphinx documentation
 docs/_build/
 
