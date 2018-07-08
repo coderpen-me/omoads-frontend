@@ -78,6 +78,70 @@
     }
 
   }
+  /* .cont{
+    position: relative;
+  } */
+  .home-overlay, .blurred{
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 99;
+    /* background-color: rgba(255,102,0,0.5); */
+    background: radial-gradient(rgba(0,0,0,0.55), #000);
+    color: #fff;
+  }
+  .home-hs{
+    text-align: center;
+    letter-spacing: 3px;
+  }
+  .home-hs h1{
+    font-size: 3.7em;
+    letter-spacing: 5px;
+  }
+  .home-features{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+  .home-features .options{
+    padding: 10px 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    width: 190px;
+    text-align: center;
+  }
+  .options h3{
+    font-size: 1.5em;
+    margin: 10px 0 10px 0;
+  }
+  .home-overlay button{
+    padding: 9px 15px;
+    background-color: #ff6c00;
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    /* font-weight: 800; */
+    transition: all 200ms ease;
+  }
+  .home-overlay button:hover{
+    background-color: #fff;
+    color: #ff6c00;
+  }
+  .blurred{
+    background-color: #fff;
+    z-index: 50;
+    filter: blur(5px);
+    background-image: url(https://user-images.githubusercontent.com/24919422/42364187-eec3d946-8117-11e8-9ea1-0f7600cf2970.PNG);
+    background-size: cover;
+    background-position: center;
+  }
   #message {
     position: absolute;
     z-index: 9999;
@@ -197,91 +261,118 @@
   <!-- Login Modal -->
  
 <div class="cont">
-    <div class="container-fluid box">
-      <div class="secondBox col-sm-10" >
-          <input id="pac-input" class="controls" type="text" placeholder="Search Location">
-          <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
+
+  <div class="home-overlay">
+    {% include 'navbar1.html' %}
+  
+    <div class="home-hs">
+      <h1>OOH Media</h1>
+      <h2>Enquiry System</h2>
+    </div>
+
+    <div class="home-features">
+      <div class="options">
+        <h3>0% Commision</h3>
       </div>
-      <div class="col-sm-2 filter">
-      <form id="filterForm">
-      
-          <div class="sort">
-           <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
-           </div>
-           {% if user.is_authenticated %}
-           <div class="card">
+      <div class="options">
+        <h3>Availability</h3>
+      </div>
+      <div class="options">
+        <h3>Geographic Location</h3>
+      </div>
+    </div>
+
+    <button class="home-inventory" value="Browser">Browse Inventory</button>
+  </div>
+  <div class="blurred">
+    <!-- <img src="https://user-images.githubusercontent.com/24919422/42364187-eec3d946-8117-11e8-9ea1-0f7600cf2970.PNG" height="100%" width="100%" alt="background image" /> -->
+  </div>
+
+  <div class="container-fluid box">
+    <div class="secondBox col-sm-10" >
+      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+      <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
+    </div>
+    <div class="col-sm-2 filter">
+    <form id="filterForm">
+    
+      <div class="sort">
+        <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="card">
+        <div class="filter-header">
+          <h5>USER</h5>
+        </div>
+        <div class="check view-cart">
+          
+          <div class="checkbox">
+            <div class="row">
+              View Campaign
+              <label class="switch pull-right">
+                <input id="cart" name="user" onchange="submit_filter();" 
+                type="checkbox" value="0">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <!-- <div class="checkbox">
+              <label>
+                <input id="order" name="user" onchange="submit_filter();" 
+                type="checkbox" value="0">ORDER
+              </label>
+          </div> -->
+          
+        </div>
+      </div>
+          {% endif %}
+          <div class="card">
+          <div class="filter-header">
+            <h5>DIMENSIONS</h5>
+          </div>
+          <div class="check">
+            {% for dimensions_of_banner in form.dimensions_banner %}
+            <div class="checkbox">
+              <label>
+                {{  dimensions_of_banner }}
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+          </div>
+
+          <div class="card">
             <div class="filter-header">
-              <h5>USER</h5>
-            </div>
-            <div class="check view-cart">
-              
-              <div class="checkbox">
-                <div class="row">
-                  View Campaign
-                  <label class="switch pull-right">
-                    <input id="cart" name="user" onchange="submit_filter();" 
-                    type="checkbox" value="0">
-                    <span class="slider round"></span>
-                  </label>
-                </div>
-              </div>
-              <!-- <div class="checkbox">
-                  <label>
-                    <input id="order" name="user" onchange="submit_filter();" 
-                    type="checkbox" value="0">ORDER
-                  </label>
-              </div> -->
-              
-            </div>
-            </div>
-            {% endif %}
-           <div class="card">
-            <div class="filter-header">
-              <h5>DIMENSIONS</h5>
+              <h5>TYPE</h5>
             </div>
             <div class="check">
-              {% for dimensions_of_banner in form.dimensions_banner %}
+              {% for type_of_banners in  form.type_banner %}
               <div class="checkbox">
-                  <label>
-                    {{  dimensions_of_banner }}
-                  </label>
+                <label>
+                  {{ type_of_banners }}
+                </label>
               </div>
               {% endfor %}
             </div>
-            </div>
+          </div>
 
-            <div class="card">
-              <div class="filter-header">
-                <h5>TYPE</h5>
-              </div>
-              <div class="check">
-                {% for type_of_banners in  form.type_banner %}
-                <div class="checkbox">
-                  <label>
-                    {{ type_of_banners }}
-                  </label>
-                </div>
-                {% endfor %}
-              </div>
+          <div class="card">
+            <div class="filter-header">
+              <h5>LIGHTED</h5>
             </div>
-
-            <div class="card">
-              <div class="filter-header">
-                <h5>LIGHTED</h5>
+            <div class="check">
+              {% for lights_of_banners in  form.lighted_banner %}
+              <div class="checkbox">
+                <label>
+                  {{ lights_of_banners }}
+                </label>
               </div>
-              <div class="check">
-                {% for lights_of_banners in  form.lighted_banner %}
-                <div class="checkbox">
-                  <label>
-                    {{ lights_of_banners }}
-                  </label>
-                </div>
-                {% endfor %}
-              </div>
+              {% endfor %}
             </div>
-        </form>
-      </div>
+          </div>
+      </form>
     </div>
+  </div>
 </div>
 <script type="text/javascript">
 var submit_filter = function() {
@@ -297,25 +388,25 @@ var submit_filter = function() {
                   },
            success: function(data)
            {
-                for(let marker of markerGroup)
-                {
-                    if(data["ids"].indexOf(marker.id_try)!==-1)
-                    {
-                        marker.setVisible(true)
-                    }
-                    else
-                    {
-                        marker.setVisible(false)
-                    }
-                    
-                }
-                markerCluster.repaint();
-                NProgress.done();
+            for(let marker of markerGroup)
+            {
+              if(data["ids"].indexOf(marker.id_try)!==-1)
+              {
+                marker.setVisible(true)
+              }
+              else
+              {
+                marker.setVisible(false)
+              }
+                
+            }
+            markerCluster.repaint();
+            NProgress.done();
                 
            },
            error: function(data)
            {
-                console.log("some error");
+              console.log("some error");
            },
          });   
 }
@@ -355,8 +446,8 @@ var submit_filter = function() {
                 <div class="col-sm-8 date-input-form">
                   <form>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                      <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
                     </div>
                   </form>
                 </div>
