@@ -81,7 +81,7 @@
   /* .cont{
     position: relative;
   } */
-  .home-overlay, .blurred{
+  /* .home-overlay, .blurred{
     display: flex;
     position: absolute;
     top: 0;
@@ -92,7 +92,6 @@
     justify-content: space-evenly;
     align-items: center;
     z-index: 99;
-    /* background-color: rgba(255,102,0,0.5); */
     background: radial-gradient(rgba(0,0,0,0.55), #000);
     color: #fff;
   }
@@ -127,7 +126,6 @@
     color: #fff;
     border-radius: 5px;
     border: 0;
-    /* font-weight: 800; */
     transition: all 200ms ease;
   }
   .home-overlay button:hover{
@@ -141,6 +139,18 @@
     background-image: url(https://user-images.githubusercontent.com/24919422/42364187-eec3d946-8117-11e8-9ea1-0f7600cf2970.PNG);
     background-size: cover;
     background-position: center;
+  } */
+  .owner-details{
+    text-align: right;
+    margin-top: 0px;
+    margin-right: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 23px;
+    display: inline-block;
+  }
+  #myModal .modal-footer form{
+    display: inline-block;
   }
   #message {
     position: absolute;
@@ -262,8 +272,7 @@
  
 <div class="cont">
 
-  <div class="home-overlay">
-    {% include 'navbar1.html' %}
+  <!-- <div class="home-overlay">
   
     <div class="home-hs">
       <h1>OOH Media</h1>
@@ -282,11 +291,15 @@
       </div>
     </div>
 
-    <button class="home-inventory" value="Browser">Browse Inventory</button>
+    <button class="home-inventory" value="Browser" onclick="hideHome()">Browse Inventory</button>
   </div>
-  <div class="blurred">
-    <!-- <img src="https://user-images.githubusercontent.com/24919422/42364187-eec3d946-8117-11e8-9ea1-0f7600cf2970.PNG" height="100%" width="100%" alt="background image" /> -->
-  </div>
+  <div class="blurred"></div>
+  <script>
+    function hideHome(){
+      document.querySelector('.home-overlay').style.display = 'none';
+      document.querySelector('.blurred').style.display = 'none';
+    }
+  </script> -->
 
   <div class="container-fluid box">
     <div class="secondBox col-sm-10" >
@@ -485,9 +498,7 @@ var submit_filter = function() {
               </div>
 
               <!-- The owner button div  -->
-              <div class="owner-details">
-                <button class="btn btn-primary" id="own-det">About Owner</button>
-              </div>
+              
 
               
 
@@ -496,6 +507,9 @@ var submit_filter = function() {
         </div>
 
         <div class="modal-footer">
+          <div class="owner-details">
+            <button class="btn btn-primary" id="own-det">About Owner</button>
+          </div>
           <form method = "POST" action = "{% url 'addToCart' %}">
                     {% csrf_token %}
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
