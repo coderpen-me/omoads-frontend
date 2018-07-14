@@ -33,6 +33,7 @@
 
  <!-- favicon -->
  <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
+ <!-- <link href="https://fonts.googleapis.com/css?family=Raleway|Alegreya" rel="stylesheet"> -->
  
  <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
@@ -97,21 +98,23 @@
   }
   .home-hs{
     text-align: center;
-    letter-spacing: 3px;
+    letter-spacing: 1px;
   }
   .home-hs h1{
     font-size: 3.7em;
-    letter-spacing: 5px;
+    letter-spacing: 8px;
+  }
+  .home-hs h1, .home-hs h2{
+    font-family: Raleway;
   }
   .home-features{
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
   }
   .home-features .options{
     padding: 10px 5px;
-    border: 1px solid #aaa;
     border-radius: 4px;
     width: 190px;
     text-align: center;
@@ -119,14 +122,24 @@
   .options h3{
     font-size: 1.5em;
     margin: 10px 0 10px 0;
+    font-family: Alegreya;
+    letter-spacing: 1px;
   }
+  .options img{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: #fff;
+  } */
   .home-overlay button{
-    padding: 9px 15px;
     background-color: #ff6c00;
     color: #fff;
     border-radius: 5px;
     border: 0;
     transition: all 200ms ease;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 1.3em;
   }
   .home-overlay button:hover{
     background-color: #fff;
@@ -139,15 +152,22 @@
     background-image: url(https://user-images.githubusercontent.com/24919422/42364187-eec3d946-8117-11e8-9ea1-0f7600cf2970.PNG);
     background-size: cover;
     background-position: center;
-  } */
+  }
   .owner-details{
     text-align: right;
     margin-top: 0px;
-    margin-right: 20px;
+    margin-right: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
     font-size: 23px;
     display: inline-block;
+  }
+  #myModal .modal-footer .col-sm-8{
+    display: flex;
+    float: right;
+    padding: 0;
+    justify-content: space-between;
+
   }
   #myModal .modal-footer form{
     display: inline-block;
@@ -275,19 +295,22 @@
   <!-- <div class="home-overlay">
   
     <div class="home-hs">
-      <h1>OOH Media</h1>
-      <h2>Enquiry System</h2>
+      <h1>OMOADS</h1>
+      <h2>Search, Connect and Rent</h2>
     </div>
 
     <div class="home-features">
       <div class="options">
+        <img src="https://user-images.githubusercontent.com/30261658/42705332-9989fa94-86f0-11e8-95b1-a00310e93bf1.png" alt="Not Found" style="background-color: transparent;"/>
         <h3>0% Commision</h3>
       </div>
       <div class="options">
-        <h3>Availability</h3>
+        <img src="https://user-images.githubusercontent.com/30261658/42703695-e48d0190-86ea-11e8-9e35-4ef3c206fcb8.png"/>
+        <h3>Check availability</h3>
       </div>
       <div class="options">
-        <h3>Geographic Location</h3>
+        <img src="https://user-images.githubusercontent.com/24919422/42629007-8244064c-85ef-11e8-9597-f7eac559ce2d.png"/>
+        <h3>Get geographic location</h3>
       </div>
     </div>
 
@@ -507,17 +530,19 @@ var submit_filter = function() {
         </div>
 
         <div class="modal-footer">
-          <div class="owner-details">
-            <button class="btn btn-primary" id="own-det">About Owner</button>
+          <div class="col-sm-8">
+            <div class="owner-details">
+              <button class="btn btn-primary" id="own-det">About Owner</button>
+            </div>
+            <form method = "POST" action = "{% url 'addToCart' %}">
+                      {% csrf_token %}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                        <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
+                        <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
+                        <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
+                        <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
+            </form>
           </div>
-          <form method = "POST" action = "{% url 'addToCart' %}">
-                    {% csrf_token %}
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
-                      <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
-                      <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
-                      <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
-                      <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
-          </form>
         </div>
       </div>
     </div>
