@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -87,6 +88,12 @@ if 'RDS_DB_NAME' in os.environ:
             'HOST': os.environ['RDS_HOSTNAME'],
             'PORT': os.environ['RDS_PORT'],
         }
+    }
+elif os.environ.get('HEROKU_BUILD') is not None:
+    DATABASES = {
+        'default': dj_database_url.config(
+        default=str(os.environ.get('DATABASE_URL'))
+        )
     }
 else:
     DATABASES = {
