@@ -530,12 +530,12 @@ class Home(generic.TemplateView):
 def filterAjax(request):
 	if request.is_ajax():
 		
-		pd = parse_qs(request.POST['filter_form'])
+		filter_form = parse_qs(request.POST['filter_form'])
 		banners = Banner.objects.all()
 
 		qc = Q()
 		try:
-			if pd['user'][0] == '0':
+			if filter_form['user'][0] == '0':
 				cart_banner = request.user.cart.cartitem_set.values_list('banner__id', flat = True)
 				qc = Q(id__in = list(cart_banner))
 		except Exception as e:
@@ -543,32 +543,33 @@ def filterAjax(request):
 
 		qo = Q()
 		try:
-			if pd['user'][1] == '0':
+			if filter_form['user'][1] == '0':
 				order_banner = request.user.order_set.values_list('orderitem__bookingDetails__banner__id', flat = True)
 				qo = Q(id__in = list(order_banner))
 		except Exception as e:
 			print(e)
 
-		q1 = Q()
+
+		q_dimension = Q()
 		try:
-			for dim in pd['dimensions_banner']:
+			for dim in filter_form['dimensions_banner']:
 				q1 = q1|Q(banner_dimensions = dim)
 		except Exception as e:
 			pass
-		q2 = Q()
+		q_type = Q()
 		try:
-			for T in pd['type_banner']:
+			for T in filter_form['type_banner']:
 				q2 = q2|Q(banner_type = T)
 		except Exception as e:
 			pass
-		q3 = Q()
+		q_light = Q()
 		try:
-			for L in pd['lighted_banner']:
+			for L in filter_form['lighted_banner']:
 				q3 = q3|Q(banner_lighted = L)
 		except Exception as e:
 			pass
 		banner_ids = []
-		banner_ids = banners.filter((qo|qc)&q1&q2&q3).values_list('id', flat = True)
+		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light).values_list('id', flat = True)
 		print(banner_ids)
 		
 		data = {
@@ -590,7 +591,7 @@ def onclickMapPoints(request):
 			for item in request.user.cart.cartitem_set.filter(banner = b):
 				bookDates.append({'startDate':str(item.startDate), 'endDate': str(item.endDate)})
 		except:
-			print("no user")
+			print("no user cart onclick map points dates")
 
 		
 		context = {"bookdates":bookDates}
