@@ -77,6 +77,8 @@ class Category(models.Model):
 
 	def __unicode__(self):
 		return self.title
+	def __str__(self):
+		return self.title
 
 class Zone(models.Model):
 	zone_name = models.CharField(max_length=30)
