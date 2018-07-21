@@ -1012,7 +1012,7 @@ $(function() {
               console.log(bookDates);
               invalidDates=[];
               for(var i = 0; i < bookDates.length; i++)
-              {
+              {   //cd stands for current
                   var cd = moment(bookDates[i].startDate);
                   var ed = moment(bookDates[i].endDate);
                   while(cd.format('YYYY-MM-DD') <= ed.format('YYYY-MM-DD'))

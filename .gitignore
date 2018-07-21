@@ -59,7 +59,8 @@ coverage.xml
 
 # database stuff
 ecommerce/db.sqlite3
-
+.elasticbeanstalk/app_versions/
+.elasticbeanstalk/
 # Sphinx documentation
 docs/_build/
 
