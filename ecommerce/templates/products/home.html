@@ -1072,6 +1072,10 @@ $(function() {
                 );
 
                 // let json = [{"startDate": "2018/06/23","endDate": "2018/06/30","ppd": 35,"status": "booked"},{"startDate": "2018/08/06","endDate": "2018/08/30","ppd": 40,"status": "booked"},{"startDate": "2018/08/31","endDate": "2018/09/15","ppd": 45,"status": "booked"},{"startDate": "2018/11/16","endDate": "2018/11/28","ppd": 22,"status": "booked"},{"startDate": "2018/11/29","endDate": "2019/01/15","ppd": 20,"status": "booked"},{"startDate": "2019/01/31","endDate": "2019/02/28","ppd": 34,"status": "booked"},{"startDate": "2019/03/01","endDate": "2019/03/10","ppd": 54,"status": "booked"},{"startDate": "2019/04/12","endDate": "2019/04/15","ppd": 37,"status": "booked"},{"startDate": "2019/04/16","endDate": "2019/06/23","ppd": 29,"status": "booked"},{"startDate": "2019/08/01","endDate": "2019/08/23","ppd": 29,"status": "booked"}]
+                let myNode = document.querySelector('.data-strip')
+                while (myNode.firstChild) {
+                  myNode.removeChild(myNode.firstChild);
+                }
                 let json = data['bookDates']
                 let d = new Date()
                 let todayDate = `${d.getFullYear()}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
@@ -1168,20 +1172,26 @@ $(function() {
 
 
 
-          $('#myModal').modal('show').on('transitionend', function(){
-            const hgt = $('#myModal .modal-content').height()
-            $('#myModal .modal-content').css({'height': hgt})
-          });
+          $('#myModal').modal('show')
         });
        oms.addMarker(markerGroup[i]); 
      }
-     $('#avail-but').on('click', function(e){
-       $('#availModal').modal('show');
-     });
-     $('.availModal-close').on('click', function(e){
+     let fl = true
+    $('#myModal .modal-dialog').on('transitionend', function(){
+      if(fl){
+        const hgt = $('#myModal .modal-content').height()
+        console.log('Height is ' + hgt)
+        $('#myModal .modal-content').css({'height': `${hgt}px`})
+        fl = false
+      }
+    })
+    $('#avail-but').on('click', function(e){
+      $('#availModal').modal('show');
+    });
+    $('.availModal-close').on('click', function(e){
       e.preventDefault();
       $('#availModal').modal('hide');
-     });
+    });
 
      /*
       OwnerDetails is a JS object of the form:       
