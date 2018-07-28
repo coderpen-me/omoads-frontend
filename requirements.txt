@@ -37,3 +37,4 @@ termcolor==1.1.0
 wcwidth==0.1.7
 websocket-client==0.44.0
 whitenoise==3.3.0
+collectfast==0.6.2
