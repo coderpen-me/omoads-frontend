@@ -34,7 +34,7 @@
 
  <!-- favicon -->
  <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
- <!-- <link href="https://fonts.googleapis.com/css?family=Raleway|Alegreya" rel="stylesheet"> -->
+ <link href="https://fonts.googleapis.com/css?family=Raleway|Alegreya:400,700" rel="stylesheet">
  
  <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
@@ -201,6 +201,12 @@
     padding-bottom: 0px;
     font-size: 23px;
     display: inline-block;
+  }
+  #myModal h1, #myModal h4, #myModal h2, #myModal h3, .availability button{
+    font-family: Raleway;
+  }
+  #myModal p{
+    font-family: Alegreya;
   }
   #myModal .right{
     border: 0;
@@ -536,7 +542,7 @@ var submit_filter = function() {
           <div class="row">
             <div class="col-sm-4 left">
               <div class="panel panel-default banner-panel open">
-                <div class="panel-heading">Banner Details  <i class="fas fa-sort-down"></i></div>
+                <div class="panel-heading"><h4>Banner Details  <i class="fas fa-sort-down"></i></h4></div>
                 <div class="panel-body">
                   <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
                   <p><strong>Dimensions:</strong> <span id="dimensions">loading...</span></p>
@@ -547,7 +553,7 @@ var submit_filter = function() {
                 </div>
               </div>
               <div class="panel panel-default owner-panel">
-                <div class="panel-heading">Owner Details  <i class="fas fa-sort-down"></i></div>
+                <div class="panel-heading"><h4>Owner Details  <i class="fas fa-sort-down"></i></h4></div>
                 <div class="panel-body">
                   <p class="o_name"><strong>Owner Name:</strong> <span>Pole Ads</span></p>
                   <p class="o_contact"><strong>Contact:</strong> <span>0123456789</span></p>
@@ -557,7 +563,7 @@ var submit_filter = function() {
               </div>
 
               
-              <div class="row date-input">
+              <!-- <div class="row date-input">
                 <div class="col-sm-8 date-input-form">
                   <form>
                     <div class="input-group">
@@ -580,12 +586,12 @@ var submit_filter = function() {
                   </ul>
                 </div>
               </div>
-              <div id="range-output" class="alert alert-danger"><em>Select start date and range</em></div>
+              <div id="range-output" class="alert alert-danger"><em>Select start date and range</em></div> -->
               <div class="price-details">
                   <p>Price:<span class="pull-right" id="priceMyModal">&#8377; 00.00</span></p>
               </div>
               <div class="msg">
-                <p><em>*(Select date and range to view price of banner)</em></p>
+                <p><em>*(Above mentioned price is approximate and subject to bargaining)</em></p>
               </div>
               <div class="availability">
                 <button id="avail-but" class="btn">Check Availability</button>
@@ -910,7 +916,7 @@ $(function() {
     {% endfor %}
     function resetPriceInfo()
     {
-      $('.msg p em').html('*(Select date and range to view price of banner)');
+      $('.msg p em').html('*(Above mentioned price is approximate and subject to bargaining)');
       $('.msg p').css('color','#a0a0a0');
       $('.msg p').css('font-size','12px');
       $('#range-output').html('Select range')
