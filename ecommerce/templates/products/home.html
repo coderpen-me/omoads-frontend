@@ -80,6 +80,32 @@
     }
 
   }
+  .col-control{
+    position: absolute;
+    left: -25px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 3px;
+  }
+  .col-control:focus{
+    outline: none;
+  }
+  #filter-sec #pac-input{
+    margin: 0 3px 4px 3px;
+    border-radius: 5px 5px 4px 4px;
+    height: 45px;
+    border: 0;
+    width: calc(100% - 6px);
+  }
+  #filter-sec{
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    transition: all 100ms ease-out;
+  }
+  #filter-sec.collapse-right, #control-contain.collapse-right{
+    transform: translate3d(100%, 0, 0);
+  }
   /* .cont{
     position: relative;
   } */
@@ -154,26 +180,33 @@
     background-size: cover;
     background-position: center;
   } */
-  .modal-body .panel{
+  .panel{
     margin-bottom: 5px;
   }
-  .modal-body .panel .panel-heading{
+  .panel .panel-heading{
     position: relative;
     background-color: #eee;
     border-bottom: 0;
     z-index: 5;
   }
-  .modal-body .panel .panel-body{
+  .card.panel{
+    border: 0;
+    /* margin-bottom: 0; */
+    padding-bottom: 0;
+  }
+  .panel .panel-heading.filter-header{
+    background-color: #373737;
+  }
+  .panel .panel-body{
     display: none;
-    /* transform: translate3d(0, -100%, 0); */
     transition: all 200ms linear;
     z-index: 1;
     padding: 5px 15px;
   }
-  .modal-body .panel .panel-heading{
+  .panel .panel-heading{
     cursor: pointer;
   }
-  .modal-body .panel.open .panel-body{
+  .panel.open .panel-body{
     display: block;
   }
   #range-output{
@@ -202,10 +235,10 @@
     font-size: 23px;
     display: inline-block;
   }
-  #myModal h1, #myModal h4, #myModal h2, #myModal h3, .availability button{
+  .follow h1, .follow h4, .follow h2, .follow h3, .follow h5, .availability button{
     font-family: Raleway;
   }
-  #myModal p{
+  .follow p{
     font-family: Alegreya;
   }
   #myModal .right{
@@ -398,34 +431,51 @@
     }
   </script> -->
 
-  <div class="container-fluid box">
-    <div class="secondBox col-sm-10" >
-      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+  <div class="container-fluid box" style="position: relative;">
+    <div class="secondBox col-sm-12" >
+      <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Location"> -->
       <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
     </div>
-    <div class="col-sm-2 filter">
-    <form id="filterForm">
+    <div class="col-sm-3" id="control-contain" style="position: absolute; right: 0; transition: all 100ms ease-out;">
+      <button class="col-control"><i class="fas fa-angle-right"></i></button>
+    </div>
+    <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;">
+      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+      <form id="filterForm">
     
-      <div class="sort">
-        <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="card">
-        <div class="filter-header">
-          <h5>USER</h5>
+        <div class="sort">
+          <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
         </div>
-        <div class="check view-cart">
-          
-          <div class="checkbox">
-            <div class="row">
-              View Campaign
-              <label class="switch pull-right">
-                <input id="cart" name="user" onchange="submit_filter();" 
-                type="checkbox" value="0">
-                <span class="slider round"></span>
-              </label>
+        {% if user.is_authenticated %}
+        <!-- <div class="panel panel-default banner-panel open">
+            <div class="panel-heading"><h4>Banner Details  <i class="fas fa-sort-down"></i></h4></div>
+            <div class="panel-body">
+              <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
+              <p><strong>Dimensions:</strong> <span id="dimensions">loading...</span></p>
+              <p><strong>Type:</strong> <span id="type">loading...</span></p>
+              <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
+              <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
+              <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
             </div>
+          </div> -->
+        <div class="card panel panel-default">
+          <div class="filter-header panel-heading">
+            <h5>USER</h5>
           </div>
+          <div class="check view-cart panel-body">
+          
+            <div class="checkbox">
+              <div class="row">
+                <p>
+                View Campaign
+                <label class="switch pull-right">
+                  <input id="cart" name="user" onchange="submit_filter();" 
+                  type="checkbox" value="0">
+                  <span class="slider round"></span>
+                </label>
+                </p>
+              </div>
+            </div>
           <!-- <div class="checkbox">
               <label>
                 <input id="order" name="user" onchange="submit_filter();" 
@@ -433,49 +483,55 @@
               </label>
           </div> -->
           
+          </div>
         </div>
-      </div>
-          {% endif %}
-          <div class="card">
-          <div class="filter-header">
+        {% endif %}
+        <div class="card panel panel-default">
+          <div class="filter-header panel-heading">
             <h5>DIMENSIONS</h5>
           </div>
-          <div class="check">
+          <div class="check panel-body">
             {% for dimensions_of_banner in form.dimensions_banner %}
             <div class="checkbox">
-              <label>
-                {{  dimensions_of_banner }}
-              </label>
+              <p>
+                <label>
+                  {{  dimensions_of_banner }}
+                </label>
+              </p>
             </div>
             {% endfor %}
           </div>
-          </div>
+        </div>
 
-          <div class="card">
-            <div class="filter-header">
-              <h5>TYPE</h5>
-            </div>
-            <div class="check">
-              {% for type_of_banners in  form.type_banner %}
-              <div class="checkbox">
+        <div class="card panel panel-default">
+          <div class="filter-header panel-heading">
+            <h5>TYPE</h5>
+          </div>
+          <div class="check panel-body">
+            {% for type_of_banners in  form.type_banner %}
+            <div class="checkbox">
+              <p>
                 <label>
                   {{ type_of_banners }}
                 </label>
-              </div>
-              {% endfor %}
+              </p>
             </div>
+            {% endfor %}
           </div>
+        </div>
 
-          <div class="card">
-            <div class="filter-header">
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
               <h5>LIGHTED</h5>
             </div>
-            <div class="check">
+            <div class="check panel-body">
               {% for lights_of_banners in  form.lighted_banner %}
               <div class="checkbox">
-                <label>
-                  {{ lights_of_banners }}
-                </label>
+                <p>
+                  <label>
+                    {{ lights_of_banners }}
+                  </label>
+                </p>
               </div>
               {% endfor %}
             </div>
@@ -520,6 +576,16 @@ var submit_filter = function() {
            },
          });   
 }
+$('.col-control').on('click', function(ev){
+  $('#filter-sec, #control-contain').toggleClass('collapse-right')
+  if($('#filter-sec, #control-contain').hasClass('collapse-right')){
+    this.innerHTML = `<i class="fas fa-angle-left"></i>`
+  }
+  else{
+    this.innerHTML = `<i class="fas fa-angle-right"></i>`
+  }
+
+})
 </script>
 
 <div class="footer"></div>
@@ -528,7 +594,7 @@ var submit_filter = function() {
   <!-- Banner model -->
   <!-- Modal starts its magic -->
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade follow" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -681,12 +747,12 @@ var submit_filter = function() {
     console.log(hgt)
   })()
 
-  $('.modal-body .panel .panel-heading').click(function(){
+  $('.panel .panel-heading').click(function(){
     if($(this).parent().hasClass('banner-panel')){
-      $('.modal-body .panel.owner-panel').removeClass('open')
+      $('.panel.owner-panel').removeClass('open')
     }
     else if($(this).parent().hasClass('owner-panel')){
-      $('.modal-body .panel.banner-panel').removeClass('open')
+      $('.panel.banner-panel').removeClass('open')
     }
     $(this).parent().toggleClass('open')
   })
@@ -1084,12 +1150,15 @@ $(function() {
                 while (myNode.firstChild) {
                   myNode.removeChild(myNode.firstChild);
                 }
-                let json = data['bookDates']
+                let json = []
                 let d = new Date()
                 let todayDate = `${d.getFullYear()}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
                 let yrLaterDate = `${d.getFullYear() + 1}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
                 let yrLater = Date.parse(yrLaterDate)
                 let today = Date.parse(todayDate)
+                if(!json.length){
+                  json.push({"startDate": todayDate,"endDate": todayDate,"status": "not-booked"})
+                }
                 let bgn
                 let end = json.length
                 for(let ind = 0; ind < json.length; ind++){
@@ -1105,9 +1174,11 @@ $(function() {
                     break
                   }
                 }
+                console.log(bgn + '    ' + end)
                 let jsonNew = json.slice(bgn, end)
                 console.log(jsonNew)
                 if(Date.parse(jsonNew[0]['startDate']) > today){
+                  console.log('Hereee')
                   makeAvailChild(todayDate, jsonNew[0]['startDate'], 'not-booked')
                 }
                 jsonNew.map((el, ind) => {
@@ -1133,9 +1204,11 @@ $(function() {
                     }
                   }
                   if(Date.parse(el['endDate']) > yrLater){
+                    console.log('here one')
                     makeAvailChild(el['startDate'], yrLaterDate, 'booked')
                   }
                   else{
+                    console.log('Tooooo')
                     makeAvailChild(el['startDate'], el['endDate'], 'booked')
                   }
                   
@@ -1166,6 +1239,7 @@ $(function() {
                 })
                 // console.log(`Last in array ${jsonNew[jsonNew.length - 1]['endDate']}\tyrLater ${yrLater}`)
                 if(Date.parse(jsonNew[jsonNew.length - 1]['endDate']) < yrLater){
+                  console.log('Pool pool')
                   makeAvailChild(jsonNew[jsonNew.length - 1]['endDate'], yrLaterDate, 'not-booked')
                 }
 
