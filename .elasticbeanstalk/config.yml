@@ -1,8 +1,8 @@
 branch-defaults:
   master:
-    environment: Omoads-env-py3
+    environment: omoads-deploy-py3
 environment-defaults:
-  Omoads-env-py3:
+  Omoads-py3-deploy:
     branch: null
     repository: null
 global:
