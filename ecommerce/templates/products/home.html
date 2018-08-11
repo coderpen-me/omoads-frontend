@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pace-theme-center-atom.css' %}" rel="stylesheet" />
-
+  <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 
@@ -42,7 +42,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
-
+  <script src="{% static 'js/nouislider.min.js' %}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
@@ -567,6 +567,63 @@
                   </div>
             </div>
           </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h5>PRICE  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <div class="check panel-body">
+              <div id="slider"></div>
+              <div class="inputs">
+                <div class="inputs-left inps-contain">
+                  <label for="range-left">Min</label>
+                  <input id="range-left" class="inp-left" type="number" />
+                </div>
+                <div class="inputs-right inps-contain">
+                  <label for="range-right">Max</label>
+                  <input id="range-right" class="inp-right" type="number" />
+                </div>
+              </div>
+            </div>
+            <style>
+              .inputs{display: flex; justify-content: space-between; align-items: center;}.inps-contain{width: 45%;}.inps-contain label{display: block; text-align: center;}.inps-contain input{width: 100%;}#slider{height: 10px; margin: 15px 0;}.noUi-connect{background: #ff6c00;}.noUi-horizontal .noUi-handle{ height: 20px; width: 20px; border: none; border-radius: 50%; box-shadow: none; background: #333;}.noUi-handle:before, .noUi-handle:after{ display: none;}
+            </style>
+            <script>
+              let slider = document.getElementById('slider');
+              noUiSlider.create(slider, {
+                start: [0, 100],
+                connect: true,
+                range: {
+                  'min': 0,
+                  'max': 100
+                },
+                step: 1
+              });
+              slider.noUiSlider.on('change', syncInputs)
+              let inps = document.querySelectorAll('.inps-contain input')
+              console.log(inps)
+              inps.forEach(function(el){
+                el.addEventListener('input', function(){syncSlider(el)})
+              })
+              function syncSlider(inpElement){
+                console.log(inpElement)
+                if($(inpElement).hasClass('inp-left')){
+                  slider.noUiSlider.set([inpElement.value / 5000, null])
+                  console.log('left')
+                }
+                else{
+                  slider.noUiSlider.set([null, inpElement.value / 5000])
+                }
+              }
+              function syncInputs(){
+                let st = slider.noUiSlider.get()
+                document.getElementById('range-left').value = parseInt(st[0]) * 5000
+                document.getElementById('range-right').value = parseInt(st[1]) * 5000
+              }
+              slider.noUiSlider.set([0, 100])
+              syncInputs()
+            </script>
+          </div>
       </form>
     </div>
   </div>
@@ -749,7 +806,6 @@ $('.col-control').on('click', function(ev){
             <p><span></span> Booked<br />Hover over it for details</p>
           </header>
           <main style="text-align: center;">
-            <!-- <div class="left-col col">Billboard 1</div> -->
               <div class="right-col col">
                 <div class="data-strip"></div>
             </div>
@@ -1555,6 +1611,6 @@ Pace.on("done", function(){
 })
 </script>
 <script type="text/javascript">
-    $(".nav-elements li:nth-child(1)").addClass("active");
-  </script>
+  $(".nav-elements li:nth-child(1)").addClass("active");
+</script>
 </html>
