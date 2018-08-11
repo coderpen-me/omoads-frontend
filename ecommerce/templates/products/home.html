@@ -678,7 +678,7 @@ $('.col-control').on('click', function(ev){
                   <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
                   <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites"><i class="fas fa-heart"></i></button>
                 </form>
-                <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
+                <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
               </div>
 
               <!-- The owner button div  -->
@@ -996,7 +996,7 @@ $(function() {
       $('#myModalLabel').text("loading...");
       $('#zone').text("loading...");
       $('#BannerFacing').text("loading...");
-      $('#bannerImage').attr("src", "{% static 'resources/images/omoloader.gif' %}");
+      $('#bannerImage').attr("src", "{% static 'resources/gif/page_loading.gif' %}");
       $('#price').text("loading...");
       $('#MapLoc').text("loading...");
       $('#dimensions').text("loading...");
@@ -1071,6 +1071,7 @@ $(function() {
              
               $('#panelID').text(data["id"]);
               $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
+
               $('#myModalLabel').text(data["landmark"]);
               $('#zone').text(data["zone"]);
               $('#BannerFacing').text(data["facing"]);
