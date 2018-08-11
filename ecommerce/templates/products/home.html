@@ -1110,15 +1110,6 @@ $(function() {
               // console.log("working")
               NProgress.start();
              },
-             complete: function(){
-               // Handle the complete event
-               $('#bannerImage').on('load', function(){
-                console.log("stop")
-                NProgress.done();
-               })
-               setTimeout(function(){NProgress.done();}, 6000)
-               
-             },
             global: true,
             data: {
              "csrfmiddlewaretoken": "{{ csrf_token }}",
@@ -1128,8 +1119,13 @@ $(function() {
             success: function(data){
              
               $('#panelID').text(data["id"]);
-              $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
-
+              let di = new Image();
+              di.src = "{{MEDIA_URL}}" + data["url"];
+              di.onload = function()
+              {
+                $('#bannerImage').attr("src", di.src);
+                NProgress.done();
+              }
               $('#myModalLabel').text(data["landmark"]);
               $('#zone').text(data["zone"]);
               $('#BannerFacing').text(data["facing"]);
