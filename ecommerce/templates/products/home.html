@@ -458,9 +458,9 @@
               <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
             </div>
           </div> -->
-        <div class="card panel panel-default">
+        <div class="card panel panel-default open">
           <div class="filter-header panel-heading">
-            <h5>USER</h5>
+            <h5>USER  <i class="fas fa-sort-down"></i></h5>
           </div>
           <div class="check view-cart panel-body">
           
@@ -486,9 +486,9 @@
           </div>
         </div>
         {% endif %}
-        <div class="card panel panel-default">
+        <div class="card panel panel-default open">
           <div class="filter-header panel-heading">
-            <h5>DIMENSIONS</h5>
+            <h5>DIMENSIONS  <i class="fas fa-sort-down"></i></h5>
           </div>
           <div class="check panel-body">
             {% for dimensions_of_banner in form.dimensions_banner %}
@@ -505,7 +505,7 @@
 
         <div class="card panel panel-default">
           <div class="filter-header panel-heading">
-            <h5>TYPE</h5>
+            <h5>TYPE  <i class="fas fa-sort-down"></i></h5>
           </div>
           <div class="check panel-body">
             {% for type_of_banners in  form.type_banner %}
@@ -522,7 +522,7 @@
 
           <div class="card panel panel-default">
             <div class="filter-header panel-heading">
-              <h5>LIGHTED</h5>
+              <h5>LIGHTED  <i class="fas fa-sort-down"></i></h5>
             </div>
             <div class="check panel-body">
               {% for lights_of_banners in  form.lighted_banner %}
@@ -534,6 +534,37 @@
                 </p>
               </div>
               {% endfor %}
+            </div>
+          </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h5>DATE  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <div class="check panel-body">
+                <div class="row date-input">
+                    <div class="col-sm-8 date-input-form">
+                      <form>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-4 date-range-button">
+                      <button class="btn dropdown-toggle pull-right disabled" type="button" data-toggle="dropdown" style="color: #fff; background-color: #ff6c00; border-color: #ff6c00;">Range
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu" id="rangeSelector">
+                        <li id="next30"><a href="#">Next 30 Days</a></li>
+                        <li id="next45"><a href="#">Next 45 Days</a></li>
+                        <li id="next60"><a href="#">Next 60 Days</a></li>
+                        <li id="next90"><a href="#">Next 90 Days</a></li>
+                        <li id="next120"><a href="#">Next 4 Months</a></li>
+                        <li id="next150"><a href="#">Next 5 Months</a></li>
+                        <li id="next180"><a href="#">Next 6 Months</a></li>
+                      </ul>
+                    </div>
+                  </div>
             </div>
           </div>
       </form>
@@ -742,10 +773,11 @@ $('.col-control').on('click', function(ev){
 <!-- banner modal script start -->
 <script type="text/javascript">
 
-  (function(){
-    const hgt = $('#myModal .modal-dialog').height
-    console.log(hgt)
-  })()
+  function setHeightOfModal(){
+    const hgt = $('#myModal .modal-dialog').height()
+    console.log("Height is : " + hgt)
+  }
+  setHeightOfModal()
 
   $('.panel .panel-heading').click(function(){
     if($(this).parent().hasClass('banner-panel')){
@@ -1082,6 +1114,7 @@ $(function() {
               $('#lighted').text(data["lighted"]);
               setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
                           'o_email':data["agency_email"], 'o_add':data["agency_address"]});
+              setHeightOfModal()
               
               var bookDates = data["bookDates"];
               BoardIdForPrice = (data["id"]);
@@ -1263,9 +1296,10 @@ $(function() {
      let fl = true
     $('#myModal .modal-dialog').on('transitionend', function(){
       if(fl){
-        const hgt = $('#myModal .modal-content').height()
-        console.log('Height is ' + hgt)
-        $('#myModal .modal-content').css({'height': `${hgt}px`})
+        setHeightOfModal()
+        // const hgt = $('#myModal .modal-content').height()
+        // console.log('Height is ' + hgt)
+        // $('#myModal .modal-content').css({'height': `${hgt}px`})
         fl = false
       }
     })
