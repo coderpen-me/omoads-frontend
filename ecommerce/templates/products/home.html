@@ -543,15 +543,23 @@
             </div>
             <div class="check panel-body">
                 <div class="row date-input">
-                    <div class="col-sm-8 date-input-form">
+                    <div class="col-sm-6 date-input-form">
                       <form>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
+                          <input id="datePicker-start" type="text" class="form-control" placeholder="Start Date">
                         </div>
                       </form>
                     </div>
-                    <div class="col-sm-4 date-range-button">
+                    <div class="col-sm-6 date-input-form">
+                      <form>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          <input id="datePicker-end" type="text" class="form-control" placeholder="End Date">
+                        </div>
+                      </form>
+                    </div>
+                    <!-- <div class="col-sm-4 date-range-button">
                       <button class="btn dropdown-toggle pull-right disabled" type="button" data-toggle="dropdown" style="color: #fff; background-color: #ff6c00; border-color: #ff6c00;">Range
                       <span class="caret"></span></button>
                       <ul class="dropdown-menu" id="rangeSelector">
@@ -564,7 +572,22 @@
                         <li id="next180"><a href="#">Next 6 Months</a></li>
                       </ul>
                     </div>
-                  </div>
+                  </div> -->
+              </div>
+              <div class="clearDate-div">
+                <button class="btn btn-omo">Clear</button>
+              </div>
+              <style>
+                .clearDate-div{text-align: center; margin: 10px 0;}.btn.btn-omo{color: #fff; background-color: #ff6c00; border-color: #ff6c00;}
+              </style>
+              <script>
+                // $('.clear-div button').click(() => {restDate()})
+                function restDate(){
+                  console.log('Hello')
+                  $('#datePicker-start, #datePicker-end').val('')
+
+                }
+              </script>
             </div>
           </div>
 
@@ -599,6 +622,7 @@
                 },
                 step: 1
               });
+              // Slider change . Suggestion: add your functionality in syncInputs().
               slider.noUiSlider.on('change', syncInputs)
               let inps = document.querySelectorAll('.inps-contain input')
               console.log(inps)
@@ -848,7 +872,9 @@ $('.col-control').on('click', function(ev){
 
 $(".date-range-button button").removeClass("disabled");
 var ValidStartBooking =  moment().add(1, 'days');
-              $('#datePicker').daterangepicker({
+              $('#datePicker-start, #datePicker-end').each(function(i, el){
+                console.log($(this))
+                $(this).daterangepicker({
                   singleDatePicker: true,
                   showDropdowns: true,
                   minDate: ValidStartBooking,
@@ -866,9 +892,9 @@ var ValidStartBooking =  moment().add(1, 'days');
                     console.log(diff)
                     
                   },
-                );
+                )});
 
-$('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+// $('#datePicker').data('daterangepicker').startDate = ValidStartBooking
 
 $(function() {
 
