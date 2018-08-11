@@ -789,6 +789,31 @@ $('.col-control').on('click', function(ev){
     $(this).parent().toggleClass('open')
   })
 
+
+$(".date-range-button button").removeClass("disabled");
+var ValidStartBooking =  moment().add(1, 'days');
+              $('#datePicker').daterangepicker({
+                  singleDatePicker: true,
+                  showDropdowns: true,
+                  minDate: ValidStartBooking,
+                    locale: {
+                    format: 'DD/MM/YYYY'
+                    },
+                  seperator: 'To',
+                  opens: "right",
+                  drops: "up",
+                  },
+                  function(start, end){
+                    $('#MyModalAddCart').attr("disabled", true);
+                    $(".date-range-button button").removeClass("disabled");
+                    var diff = end.diff(start, 'days');
+                    console.log(diff)
+                    
+                  },
+                );
+
+$('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+
 $(function() {
 
     var startDate;
@@ -823,15 +848,16 @@ $(function() {
 
     function setDate(start,end,days){
       $('#datePicker').data('daterangepicker').setEndDate(end);
-      $('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+      submit_filter()
+      //$('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
 
-      console.log(invalidDates);
+      //console.log(invalidDates);
 
-      handleDateInput(start, end)
+      //handleDateInput(start, end)
     }
 
-
-    function handleDateInput(start, end)
+//////////OLD for date range price of modal
+/*    function handleDateInput(start, end)
     {
       console.log("handleDateInput");
                     var diff = end.diff(start, 'days')
@@ -903,7 +929,7 @@ $(function() {
                     }
                     //invalidDates = [];
     }
-
+*/
 
 });
 </script>
@@ -1132,7 +1158,9 @@ $(function() {
               }
               // $('#landmark').text(data["landmark"])
               $('#myModal').attr("boardID",this.id_try)
-              var ValidStartBooking =  moment().add(2, 'days');
+
+              ////OLD DATE RANGE PICKER OF MODAL
+              /*var ValidStartBooking =  moment().add(2, 'days');
               $('#datePicker').daterangepicker({
                   singleDatePicker: true,
                   showDropdowns: true,
@@ -1178,7 +1206,7 @@ $(function() {
                     console.log(diff)
                     
                   },
-                );
+                );*/
 
                 // let json = [{"startDate": "2018/06/23","endDate": "2018/06/30","ppd": 35,"status": "booked"},{"startDate": "2018/08/06","endDate": "2018/08/30","ppd": 40,"status": "booked"},{"startDate": "2018/08/31","endDate": "2018/09/15","ppd": 45,"status": "booked"},{"startDate": "2018/11/16","endDate": "2018/11/28","ppd": 22,"status": "booked"},{"startDate": "2018/11/29","endDate": "2019/01/15","ppd": 20,"status": "booked"},{"startDate": "2019/01/31","endDate": "2019/02/28","ppd": 34,"status": "booked"},{"startDate": "2019/03/01","endDate": "2019/03/10","ppd": 54,"status": "booked"},{"startDate": "2019/04/12","endDate": "2019/04/15","ppd": 37,"status": "booked"},{"startDate": "2019/04/16","endDate": "2019/06/23","ppd": 29,"status": "booked"},{"startDate": "2019/08/01","endDate": "2019/08/23","ppd": 29,"status": "booked"}]
                 let myNode = document.querySelector('.data-strip')
