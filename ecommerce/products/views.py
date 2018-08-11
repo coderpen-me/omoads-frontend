@@ -1,12 +1,15 @@
 from django.shortcuts import render, Http404, HttpResponseRedirect, redirect
 from django.contrib import messages
 from django.views import generic
-
+import six
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 #for python 3 use line 8 instead of 9 
 #from urllib.parse import parse_qs
-from urlparse import parse_qs
+if six.PY3:
+    from urllib.parse import parse_qs
+else:	
+    from urlparse import parse_qs
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -553,19 +556,19 @@ def filterAjax(request):
 		q_dimension = Q()
 		try:
 			for dim in filter_form['dimensions_banner']:
-				q1 = q1|Q(banner_dimensions = dim)
+				q_dimension = q_dimension|Q(banner_dimensions = dim)
 		except Exception as e:
 			pass
 		q_type = Q()
 		try:
 			for T in filter_form['type_banner']:
-				q2 = q2|Q(banner_type = T)
+				q_type = q_type|Q(banner_type = T)
 		except Exception as e:
 			pass
 		q_light = Q()
 		try:
 			for L in filter_form['lighted_banner']:
-				q3 = q3|Q(banner_lighted = L)
+				q_light = q_light|Q(banner_lighted = L)
 		except Exception as e:
 			pass
 		banner_ids = []
