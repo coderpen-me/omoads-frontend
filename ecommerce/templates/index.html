@@ -1,0 +1,155 @@
+
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content %}
+
+    <div class="row" style="box-shadow: 1px 5px 10px #ccc;">
+
+        <div class="col-md-12">
+            <div class="jumbotron" id="panel-1" style="background:#fff url({% static 'img/images/back1.png' %})   no-repeat;"> 
+                <div class="row justify-content-left">
+                    <div class="col-md-6">
+                        <div id="p1-block">
+                            <h1>ONLINE MARKETPLACE FOR
+                                <br>OUTDOOR ADVERTISING</h1>
+                            <p>Search, Connect and Rent</p>
+                            <button class="btn">BROWSE
+                                <br> INVENTORY</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="jumbotron" id="panel-2" style="background:#fff url({% static 'img/images/back2.png' %})   no-repeat;">
+
+                <div class="row" id="p2-block-1">
+                    <div class="col-md-10">
+
+                        <div class="circle-1">
+                            <i class="fas fa-check-square fa fa-4x active" style="margin-left:30%;margin-top:25%;color:#fff;"></i>
+                        </div>
+                        <h2 class="display-4">Check availability of
+                            <br>Hoarding Boards</h2>
+                        <div class="pole"></div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+                <div class="row" id="p2-block-2">
+                    <div class="col-md-10">
+                        <div class="circle-2">
+                            <img src="{% static 'img/images/hand.png' %}" />
+                        </div>
+                        <div class="text-box-1">
+                            <h2 class="display-4">Zero % Commission </h2>
+                            <ul style="width:80%;">
+                                <li>Direct deal between hoarding owner and you.</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row" id="p2-block-3">
+                    <div class="col-md-10">
+                        <div class="" style="float:left;margin-left:10%;margin-top:50px;border-radius:110px;height:150px;width:150px;background:#fd7b26;">
+                            <i class="fas fa-map-marker-alt fa fa-5x" style="color:#fff;margin-left:28%;margin-top:20%;"></i>
+                        </div>
+                        <div class="circle-3">
+                            <h2 class="display-4">Find Hoarding based on
+                                <br>geographic location </h2>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class=" row justify-content-center">
+
+        <div class="col-md-12">
+            <div class="jumbotron" id="panel-3" style="background:#fff url({% static 'img/images/back4.png' %})   no-repeat;">
+
+                <div class="row justify-content-centers">
+                    <div class="col-md-12">
+                        <div id="p3-block-1">
+                            <br>
+                            <br>
+                            <h1>OUR
+                                <br>PARTNERS</h1>
+
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-centers">
+                    <div class="col-md-4">
+                        <img src="{% static 'img/images/poleadslogo.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'img/images/pt2.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'img/images/pt3.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" row justify-content-center">
+
+        <div class="col-md-12">
+            <div class="jumbotron" id="panel-4" style="background:#fff url({% static 'img/images/back3.png' %})   no-repeat;">
+
+                <div class="row  align-items-center">
+                    <div class="col-md-6">
+                        <div id="p4-shape-1"></div>
+
+                        <div id="p4-shape-2"></div>
+
+                        <div id="p4-shape-3"></div>
+
+                        <div id="p4-shape-4">
+                            <i class="fas fa-envelope  fa fa-4x" style="margin-left:30px;margin-top:27px;"></i>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div style="margin-left:-5em;margin-top:10em;">
+                            <h2 style="font-weight:lighter;font-size:30px;text-align:left;">
+                                Subscribe to our newsletter to
+                                <br>receive industry report and our latest
+                                <br>updates...</h2>
+                            <form class="form-inline">
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <input type="email" style="height:50px;border-radius:20px;background:#fd7b26;color:#fff;" class="form-control" id="inputPassword2"
+                                        placeholder="Type your email...">
+                                </div>
+                                <button type="submit" style="height:50px;border-radius:20px;background:#000;" class="btn btn-primary btn-lg mb-2">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% include 'footer.html' %}
+
+{% endblock %}

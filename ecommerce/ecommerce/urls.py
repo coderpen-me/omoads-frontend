@@ -21,7 +21,8 @@ urlpatterns = patterns('',
     url(r'^buyer_cart/editCartItemAjax', 'products.views.editCartItemAjax', name='cart_editItem'),
     url(r'^buyer_cart/editCartItem', 'products.views.editCartItem', name='cart_editItemFinal'),
     url(r'^process_payment/$', 'products.views.processPayment', name='cart_process_payment'),
-    url(r'^user_profile/$', 'products.views.user_profile', name='user_profile'),
+    url(r'^dashboard/$', 'products.views.dashboard', name='dashboard'),
+    url(r'^index/$', 'products.views.index_new_home', name='index_new_home'),
     
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),

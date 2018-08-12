@@ -63,8 +63,26 @@ def printing_material(request):
 				}
 	return render(request, template, context)
 
-def user_profile(request):
-	template = "user-profile.html"
+def dashboard(request):
+	template = "dashboard.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+def index_new_home(request):
+	template = "index.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -82,7 +100,7 @@ def user_profile(request):
 	return render(request, template, context)
 
 def aboutus(request):
-	template = "aboutus.html"
+	template = "about-us.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -827,7 +845,7 @@ class SignupOwner(generic.edit.FormView):
 
 class LoginUsers(generic.edit.FormView):
 	form_class = LoginForm
-	template_name = 'userlogin.html'
+	template_name = 'login.html'
 	def get(self, request, *args, **kwargs):
 		try:
 			form = self.form_class
@@ -841,6 +859,10 @@ class LoginUsers(generic.edit.FormView):
 			return render(request, self.template_name, {'form': form})
 
 	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+				return HttpResponseRedirect(reverse('owner_interface'))
+			return HttpResponseRedirect("/")
 		try:
 			haveNext = False
 			nextPage = ""
@@ -852,7 +874,7 @@ class LoginUsers(generic.edit.FormView):
 
 			
 
-			username = request.POST['username']
+			username = request.POST['email']
 			password = request.POST['password']
 			
 			user = authenticate(username = username, password = password)
