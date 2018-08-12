@@ -1,5 +1,5 @@
+
 {% extends 'base.html'%}
-{% load staticfiles %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
             <div class="container-fluid ">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <img src="{% static 'img/images/1x1_Logo.png' %}" style="margin-left:35%;" height="auto" width="200px"/>
+                        <img src="images/1x1_Logo.png" style="margin-left:35%;" height="auto" width="200px"/>
                         <p class="txt-center" style="font-size:20px;" >Online Marketplace for Outdoor advertising</p>
                     </div>
                 </div>
@@ -31,8 +31,7 @@
             
             <div class="col-md-6">
                     <div class="panel-body ">
-                            <form  method="POST">
-                            {% csrf_token %}
+                            <form  action="#" role="">
                                 Login
                                 <div class="form-group">
                                     <label for="email"></label>
@@ -67,11 +66,3 @@
 
 <!-- footer-->
 {% endblock %}
-
-
-    {% block custom_js %}
-    <script>
-        $('body').css("background", "url('"+ "{% static 'img/images/back-l.jpg' %}" +"') center no-repeat")
-        $('body').css("background-size", "100%")
-    </script>
-    {% endblock %}

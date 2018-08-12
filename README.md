@@ -9,7 +9,7 @@
 * Before starting development, run
 
 ```
-export DJANGO_DEVELOPMENT=true
+export DJANGO_DEVELOPMENT=true 
 ```
 
 or
