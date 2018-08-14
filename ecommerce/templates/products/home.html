@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pace-theme-center-atom.css' %}" rel="stylesheet" />
-
+  <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 
@@ -42,10 +42,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
-
+  <script src="{% static 'js/nouislider.min.js' %}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -190,6 +190,7 @@
     z-index: 5;
   }
   .card.panel{
+    position: relative;
     border: 0;
     /* margin-bottom: 0; */
     padding-bottom: 0;
@@ -541,31 +542,96 @@
             <div class="filter-header panel-heading">
               <h5>DATE  <i class="fas fa-sort-down"></i></h5>
             </div>
+            <a id="clearDate" class="btn btn-link" style="color: #ff6c00;position: absolute;top: 0;right: 0;z-index: 5;">Clear</a>
             <div class="check panel-body">
                 <div class="row date-input">
-                    <div class="col-sm-8 date-input-form">
+                    <div class="col-sm-6 date-input-form">
                       <form>
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
+                          <input id="datePicker-start" type="text" class="form-control" placeholder="Start Date">
                         </div>
                       </form>
                     </div>
-                    <div class="col-sm-4 date-range-button">
-                      <button class="btn dropdown-toggle pull-right disabled" type="button" data-toggle="dropdown" style="color: #fff; background-color: #ff6c00; border-color: #ff6c00;">Range
-                      <span class="caret"></span></button>
-                      <ul class="dropdown-menu" id="rangeSelector">
-                        <li id="next30"><a href="#">Next 30 Days</a></li>
-                        <li id="next45"><a href="#">Next 45 Days</a></li>
-                        <li id="next60"><a href="#">Next 60 Days</a></li>
-                        <li id="next90"><a href="#">Next 90 Days</a></li>
-                        <li id="next120"><a href="#">Next 4 Months</a></li>
-                        <li id="next150"><a href="#">Next 5 Months</a></li>
-                        <li id="next180"><a href="#">Next 6 Months</a></li>
-                      </ul>
+                    <div class="col-sm-6 date-input-form">
+                      <form>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          <input id="datePicker-end" type="text" class="form-control" placeholder="End Date">
+                        </div>
+                      </form>
                     </div>
-                  </div>
+              </div>
+              <style>
+                .clearDate-div{text-align: center; margin: 10px 0;}.btn.btn-omo{color: #fff; background-color: #ff6c00; border-color: #ff6c00;}
+              </style>
+              <script>
+                $('#clearDate').click(() => {restDate()})
+                function restDate(){
+                  console.log('Hello')
+                  $('#datePicker-start, #datePicker-end').val('')
+
+                }
+              </script>
             </div>
+          </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h5>PRICE  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <div class="check panel-body">
+              <div id="slider"></div>
+              <div class="inputs">
+                <div class="inputs-left inps-contain">
+                  <label for="range-left">Min</label>
+                  <input id="range-left" class="inp-left" type="number" />
+                </div>
+                <div class="inputs-right inps-contain">
+                  <label for="range-right">Max</label>
+                  <input id="range-right" class="inp-right" type="number" />
+                </div>
+              </div>
+            </div>
+            <style>
+              .inputs{display: flex; justify-content: space-between; align-items: center;}.inps-contain{width: 45%;}.inps-contain label{display: block; text-align: center;}.inps-contain input{width: 100%;}#slider{height: 10px; margin: 15px 0;}.noUi-connect{background: #ff6c00;}.noUi-horizontal .noUi-handle{ height: 20px; width: 20px; border: none; border-radius: 50%; box-shadow: none; background: #333;}.noUi-handle:before, .noUi-handle:after{ display: none;}
+            </style>
+            <script>
+              let slider = document.getElementById('slider');
+              noUiSlider.create(slider, {
+                start: [0, 100],
+                connect: true,
+                range: {
+                  'min': 0,
+                  'max': 100
+                },
+                step: 1
+              });
+              // Slider change . Suggestion: add your functionality in syncInputs().
+              slider.noUiSlider.on('change', syncInputs)
+              let inps = document.querySelectorAll('.inps-contain input')
+              console.log(inps)
+              inps.forEach(function(el){
+                el.addEventListener('input', function(){syncSlider(el)})
+              })
+              function syncSlider(inpElement){
+                console.log(inpElement)
+                if($(inpElement).hasClass('inp-left')){
+                  slider.noUiSlider.set([inpElement.value / 5000, null])
+                  console.log('left')
+                }
+                else{
+                  slider.noUiSlider.set([null, inpElement.value / 5000])
+                }
+              }
+              function syncInputs(){
+                let st = slider.noUiSlider.get()
+                document.getElementById('range-left').value = parseInt(st[0]) * 5000
+                document.getElementById('range-right').value = parseInt(st[1]) * 5000
+              }
+              slider.noUiSlider.set([0, 100])
+              syncInputs()
+            </script>
           </div>
       </form>
     </div>
@@ -749,7 +815,6 @@ $('.col-control').on('click', function(ev){
             <p><span></span> Booked<br />Hover over it for details</p>
           </header>
           <main style="text-align: center;">
-            <!-- <div class="left-col col">Billboard 1</div> -->
               <div class="right-col col">
                 <div class="data-strip"></div>
             </div>
@@ -790,148 +855,159 @@ $('.col-control').on('click', function(ev){
   })
 
 
-$(".date-range-button button").removeClass("disabled");
 var ValidStartBooking =  moment().add(1, 'days');
-              $('#datePicker').daterangepicker({
-                  singleDatePicker: true,
-                  showDropdowns: true,
-                  minDate: ValidStartBooking,
-                    locale: {
-                    format: 'DD/MM/YYYY'
-                    },
-                  seperator: 'To',
-                  opens: "right",
-                  drops: "up",
-                  },
-                  function(start, end){
-                    $('#MyModalAddCart').attr("disabled", true);
-                    $(".date-range-button button").removeClass("disabled");
-                    var diff = end.diff(start, 'days');
-                    console.log(diff)
+$('#datePicker-start, #datePicker-end').each(function(i, el){
+  console.log($(this))
+  $(this).daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minDate: ValidStartBooking,
+      locale: {
+      format: 'DD/MM/YYYY'
+      },
+    seperator: 'To',
+    opens: "right",
+    drops: "up",
+    },
+    getStartEndDates
+  )
+  $(this).on('apply.daterangepicker', getStartEndDates)
+});
+  function getStartEndDates(){
+    if(($('#datePicker-start').val() && $('#datePicker-start').val() != '') && ($('#datePicker-end').val() && $('#datePicker-end').val() != '')){
+        start = moment($('#datePicker-start').val(), "DD/MM/YYYY")
+        end = moment($('#datePicker-end').val(), "DD/MM/YYYY")
+        console.log(start + "     " + end + "  enddd")
+        var diff = end.diff(start, 'days')
+        console.log(diff)
+      }
+  }
+  $('#datePicker-start, #datePicker-end').each(function(i, el){
+    $(this).val("")
+  })
+  
+
+  
+// $('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+
+// $(function() {
+
+//     var startDate;
+
+//     $("#next30").on("click",function(){
+//       nextDays(30);
+//     });
+//     $("#next45").on("click",function(){
+//       nextDays(45);
+//     });
+//     $("#next60").on("click",function(){
+//       nextDays(60);
+//     });
+//     $("#next90").on("click",function(){
+//       nextDays(90);
+//     });
+//     $("#next120").on("click",function(){
+//       nextDays(120);
+//     });
+//     $("#next150").on("click",function(){
+//       nextDays(150);
+//     });
+//     $("#next180").on("click",function(){
+//       nextDays(180);
+//     });
+
+//     function nextDays(x){
+//       startDate = $('#datePicker').data('daterangepicker').startDate;
+//       end = moment(startDate).add(x-1, 'days');
+//       setDate(startDate,end,x-1);
+//     }
+
+//     function setDate(start,end,days){
+//       $('#datePicker').data('daterangepicker').setEndDate(end);
+//       submit_filter()
+//       //$('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+
+//       //console.log(invalidDates);
+
+//       //handleDateInput(start, end)
+//     }
+
+// //////////OLD for date range price of modal
+// /*    function handleDateInput(start, end)
+//     {
+//       console.log("handleDateInput");
+//                     var diff = end.diff(start, 'days')
+//                     console.log(diff)
                     
-                  },
-                );
+//                     var flag = 0
+//                     for (var i = 0; i<invalidDates.length;i++)
+//                     {
 
-$('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+//                       if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+//                       {
+//                         flag  = 1;
+//                       // $('.price-details p span').html("Date range has invalid dates.")
+//                       $('.msg p em').html('Date range has invalid dates.');
+//                       $('.msg p').css('color','red');
+//                       $('.msg p').css('font-size','14px');
+//                       $('#range-output').removeClass("alert-success");
+//                       $('#range-output').addClass("alert-danger");
+//                       $('#MyModalAddCart').attr("disabled", true)
+//                         break;
+//                       }
+//                     }
+//                     if(flag == 0)
+//                     {
+//                       $('#MyModalAddCart').attr("disabled", false)
+//                       $('#range-output').removeClass("alert-danger");
+//                       $('#range-output').addClass("alert-success");
+//                       $('.msg p em').html('Your Date Range is available but filling fast! Hurry!');
+//                       $('.msg p').css('color','green');
+//                       $('.msg p').css('font-size','14px');
 
-$(function() {
-
-    var startDate;
-
-    $("#next30").on("click",function(){
-      nextDays(30);
-    });
-    $("#next45").on("click",function(){
-      nextDays(45);
-    });
-    $("#next60").on("click",function(){
-      nextDays(60);
-    });
-    $("#next90").on("click",function(){
-      nextDays(90);
-    });
-    $("#next120").on("click",function(){
-      nextDays(120);
-    });
-    $("#next150").on("click",function(){
-      nextDays(150);
-    });
-    $("#next180").on("click",function(){
-      nextDays(180);
-    });
-
-    function nextDays(x){
-      startDate = $('#datePicker').data('daterangepicker').startDate;
-      end = moment(startDate).add(x-1, 'days');
-      setDate(startDate,end,x-1);
-    }
-
-    function setDate(start,end,days){
-      $('#datePicker').data('daterangepicker').setEndDate(end);
-      submit_filter()
-      //$('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
-
-      //console.log(invalidDates);
-
-      //handleDateInput(start, end)
-    }
-
-//////////OLD for date range price of modal
-/*    function handleDateInput(start, end)
-    {
-      console.log("handleDateInput");
-                    var diff = end.diff(start, 'days')
-                    console.log(diff)
-                    
-                    var flag = 0
-                    for (var i = 0; i<invalidDates.length;i++)
-                    {
-
-                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
-                      {
-                        flag  = 1;
-                      // $('.price-details p span').html("Date range has invalid dates.")
-                      $('.msg p em').html('Date range has invalid dates.');
-                      $('.msg p').css('color','red');
-                      $('.msg p').css('font-size','14px');
-                      $('#range-output').removeClass("alert-success");
-                      $('#range-output').addClass("alert-danger");
-                      $('#MyModalAddCart').attr("disabled", true)
-                        break;
-                      }
-                    }
-                    if(flag == 0)
-                    {
-                      $('#MyModalAddCart').attr("disabled", false)
-                      $('#range-output').removeClass("alert-danger");
-                      $('#range-output').addClass("alert-success");
-                      $('.msg p em').html('Your Date Range is available but filling fast! Hurry!');
-                      $('.msg p').css('color','green');
-                      $('.msg p').css('font-size','14px');
-
-                      // $(this).css("color", "green").fadeIn(500);
+//                       // $(this).css("color", "green").fadeIn(500);
                       
                     
-                      $.ajax({
-                              type: "POST",
-                              url: "{% url 'AjaxBannerPrice' %}",
-                              beforeSend: function(){
-                                // Handle the beforeSend event
-                                console.log("working")
-                                NProgress.start();
-                               },
-                               complete: function(){
-                                 // Handle the complete event
-                                 NProgress.done();
-                               },
-                              data: {
-                               "csrfmiddlewaretoken": "{{ csrf_token }}",
-                               "id_point":BoardIdForPrice,
-                               "startDate":start.format('YYYY-MM-DD'),
-                               "endDate":end.format('YYYY-MM-DD'),
+//                       $.ajax({
+//                               type: "POST",
+//                               url: "{% url 'AjaxBannerPrice' %}",
+//                               beforeSend: function(){
+//                                 // Handle the beforeSend event
+//                                 console.log("working")
+//                                 NProgress.start();
+//                                },
+//                                complete: function(){
+//                                  // Handle the complete event
+//                                  NProgress.done();
+//                                },
+//                               data: {
+//                                "csrfmiddlewaretoken": "{{ csrf_token }}",
+//                                "id_point":BoardIdForPrice,
+//                                "startDate":start.format('YYYY-MM-DD'),
+//                                "endDate":end.format('YYYY-MM-DD'),
 
-                              },
-                               success: function(data){
-                                $('.price-details p span').html('&#8377; '+data["total"]);
-                                $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
-                                $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
-                                $("#bannerIDAddCart").val(BoardIdForPrice)
-                               },
-                               error: function(){
-                                alert("Error! Something wrong. Please try again later")
-                                },
-                      });
+//                               },
+//                                success: function(data){
+//                                 $('.price-details p span').html('&#8377; '+data["total"]);
+//                                 $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
+//                                 $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
+//                                 $("#bannerIDAddCart").val(BoardIdForPrice)
+//                                },
+//                                error: function(){
+//                                 alert("Error! Something wrong. Please try again later")
+//                                 },
+//                       });
 
-                    }
-                    else
-                    {
+//                     }
+//                     else
+//                     {
 
-                    }
-                    //invalidDates = [];
-    }
-*/
+//                     }
+//                     //invalidDates = [];
+//     }
+// */
 
-});
+// });
 </script>
 <!-- banner modal script end -->
 
@@ -1581,6 +1657,6 @@ Pace.on("done", function(){
 })
 </script>
 <script type="text/javascript">
-    $(".nav-elements li:nth-child(1)").addClass("active");
-  </script>
+  $(".nav-elements li:nth-child(1)").addClass("active");
+</script>
 </html>
