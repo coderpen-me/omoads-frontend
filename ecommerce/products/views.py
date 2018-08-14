@@ -1,12 +1,15 @@
 from django.shortcuts import render, Http404, HttpResponseRedirect, redirect
 from django.contrib import messages
 from django.views import generic
-
+import six
 from django.shortcuts import render, HttpResponse, Http404
 from django.http import HttpResponseBadRequest
 #for python 3 use line 8 instead of 9 
 #from urllib.parse import parse_qs
-from urlparse import parse_qs
+if six.PY3:
+    from urllib.parse import parse_qs
+else:	
+    from urlparse import parse_qs
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -60,8 +63,26 @@ def printing_material(request):
 				}
 	return render(request, template, context)
 
-def user_profile(request):
-	template = "user-profile.html"
+def dashboard(request):
+	template = "dashboard.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+def index_new_home(request):
+	template = "index.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -79,7 +100,7 @@ def user_profile(request):
 	return render(request, template, context)
 
 def aboutus(request):
-	template = "aboutus.html"
+	template = "about-us.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -530,12 +551,12 @@ class Home(generic.TemplateView):
 def filterAjax(request):
 	if request.is_ajax():
 		
-		pd = parse_qs(request.POST['filter_form'])
+		filter_form = parse_qs(request.POST['filter_form'])
 		banners = Banner.objects.all()
 
 		qc = Q()
 		try:
-			if pd['user'][0] == '0':
+			if filter_form['user'][0] == '0':
 				cart_banner = request.user.cart.cartitem_set.values_list('banner__id', flat = True)
 				qc = Q(id__in = list(cart_banner))
 		except Exception as e:
@@ -543,32 +564,33 @@ def filterAjax(request):
 
 		qo = Q()
 		try:
-			if pd['user'][1] == '0':
+			if filter_form['user'][1] == '0':
 				order_banner = request.user.order_set.values_list('orderitem__bookingDetails__banner__id', flat = True)
 				qo = Q(id__in = list(order_banner))
 		except Exception as e:
 			print(e)
 
-		q1 = Q()
+
+		q_dimension = Q()
 		try:
-			for dim in pd['dimensions_banner']:
-				q1 = q1|Q(banner_dimensions = dim)
+			for dim in filter_form['dimensions_banner']:
+				q_dimension = q_dimension|Q(banner_dimensions = dim)
 		except Exception as e:
 			pass
-		q2 = Q()
+		q_type = Q()
 		try:
-			for T in pd['type_banner']:
-				q2 = q2|Q(banner_type = T)
+			for T in filter_form['type_banner']:
+				q_type = q_type|Q(banner_type = T)
 		except Exception as e:
 			pass
-		q3 = Q()
+		q_light = Q()
 		try:
-			for L in pd['lighted_banner']:
-				q3 = q3|Q(banner_lighted = L)
+			for L in filter_form['lighted_banner']:
+				q_light = q_light|Q(banner_lighted = L)
 		except Exception as e:
 			pass
 		banner_ids = []
-		banner_ids = banners.filter((qo|qc)&q1&q2&q3).values_list('id', flat = True)
+		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light).values_list('id', flat = True)
 		print(banner_ids)
 		
 		data = {
@@ -590,7 +612,7 @@ def onclickMapPoints(request):
 			for item in request.user.cart.cartitem_set.filter(banner = b):
 				bookDates.append({'startDate':str(item.startDate), 'endDate': str(item.endDate)})
 		except:
-			print("no user")
+			print("no user cart onclick map points dates")
 
 		
 		context = {"bookdates":bookDates}
@@ -823,7 +845,7 @@ class SignupOwner(generic.edit.FormView):
 
 class LoginUsers(generic.edit.FormView):
 	form_class = LoginForm
-	template_name = 'userlogin.html'
+	template_name = 'login.html'
 	def get(self, request, *args, **kwargs):
 		try:
 			form = self.form_class
@@ -837,6 +859,10 @@ class LoginUsers(generic.edit.FormView):
 			return render(request, self.template_name, {'form': form})
 
 	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+				return HttpResponseRedirect(reverse('owner_interface'))
+			return HttpResponseRedirect("/")
 		try:
 			haveNext = False
 			nextPage = ""
@@ -848,7 +874,7 @@ class LoginUsers(generic.edit.FormView):
 
 			
 
-			username = request.POST['username']
+			username = request.POST['email']
 			password = request.POST['password']
 			
 			user = authenticate(username = username, password = password)

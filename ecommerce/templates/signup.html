@@ -1,8 +1,14 @@
 
 
 
-{% extends 'base.html'%}
 
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content %}
+    
+    
+
+    
 {% block content %}
     
     
@@ -91,5 +97,16 @@
     
     <!-- footer-->
     
+
+    {% endblock %}
+        
+    
+    
+    
+    {% block custom_js %}
+    <script>
+        $('body').css("background", "url('"+ "{% static 'img/images/back-l.jpg' %}" +"') center no-repeat")
+        $('body').css("background-size", "100%")
+    </script>
 
     {% endblock %}

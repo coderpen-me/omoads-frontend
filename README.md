@@ -1,6 +1,8 @@
 ## Notes to run the code
 
-### The python version being used is Python 2.7.12 
+### The version used by the server is python 2.7.12
+
+*as of now any version of python can be used on local development
 
 * Activate the `virtualenv`.
 
@@ -9,3 +11,8 @@
 ```
 export DJANGO_DEVELOPMENT=true 
 ```
+
+or
+
+set DJANGO_DEVELOPMENT=true
+(for windows)

@@ -11,6 +11,7 @@
   <link href="{% static 'css/pace-theme-center-atom.css' %}" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 
   <!-- <link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon/apple-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="60x60" href="{% static 'resources/images/favicon/apple-icon-60x60.png' %}">
@@ -33,7 +34,7 @@
 
  <!-- favicon -->
  <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
- <!-- <link href="https://fonts.googleapis.com/css?family=Raleway|Alegreya" rel="stylesheet"> -->
+ <link href="https://fonts.googleapis.com/css?family=Raleway|Alegreya:400,700" rel="stylesheet">
  
  <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
@@ -78,6 +79,32 @@
       top:-50%;
     }
 
+  }
+  .col-control{
+    position: absolute;
+    left: -25px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 3px;
+  }
+  .col-control:focus{
+    outline: none;
+  }
+  #filter-sec #pac-input{
+    margin: 0 3px 4px 3px;
+    border-radius: 5px 5px 4px 4px;
+    height: 45px;
+    border: 0;
+    width: calc(100% - 6px);
+  }
+  #filter-sec{
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    transition: all 100ms ease-out;
+  }
+  #filter-sec.collapse-right, #control-contain.collapse-right{
+    transform: translate3d(100%, 0, 0);
   }
   /* .cont{
     position: relative;
@@ -130,7 +157,7 @@
     width: 70px;
     border-radius: 50%;
     background-color: #fff;
-  } */
+  } 
   .home-overlay button{
     background-color: #ff6c00;
     color: #fff;
@@ -152,6 +179,52 @@
     background-image: url(https://user-images.githubusercontent.com/24919422/42364187-eec3d946-8117-11e8-9ea1-0f7600cf2970.PNG);
     background-size: cover;
     background-position: center;
+  } */
+  .panel{
+    margin-bottom: 5px;
+  }
+  .panel .panel-heading{
+    position: relative;
+    background-color: #eee;
+    border-bottom: 0;
+    z-index: 5;
+  }
+  .card.panel{
+    border: 0;
+    /* margin-bottom: 0; */
+    padding-bottom: 0;
+  }
+  .panel .panel-heading.filter-header{
+    background-color: #373737;
+  }
+  .panel .panel-body{
+    display: none;
+    transition: all 200ms linear;
+    z-index: 1;
+    padding: 5px 15px;
+  }
+  .panel .panel-heading{
+    cursor: pointer;
+  }
+  .panel.open .panel-body{
+    display: block;
+  }
+  #range-output{
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .price-details{
+    margin-top: 13px;
+  }
+  .availability{
+    text-align: center;
+    padding: 5px 0;
+  }
+  .availability button{
+    width: 100%;
+    font-size: 18px;
+    background-color: #000;
+    color: #ff6c00;
   }
   .owner-details{
     text-align: right;
@@ -162,6 +235,30 @@
     font-size: 23px;
     display: inline-block;
   }
+  .follow h1, .follow h4, .follow h2, .follow h3, .follow h5, .availability button{
+    font-family: Raleway;
+  }
+  .follow p{
+    font-family: Alegreya;
+  }
+  #myModal .right{
+    border: 0;
+  }
+  #myModal .right form{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  #myModal .right form #MyModalAddCart{
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.5);
+  }
+  #myModal .left{
+    border-right: 1px solid #e0e0e0;
+  }
   #myModal .modal-footer .col-sm-8{
     display: flex;
     float: right;
@@ -171,6 +268,16 @@
   }
   #myModal .modal-footer form{
     display: inline-block;
+  }
+  #availModal .modal-dialog{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 85%;
+    height: fit-content;
+    margin: auto;
   }
   #message {
     position: absolute;
@@ -290,7 +397,7 @@
 {% include 'navbar1.html' %}
   <!-- Login Modal -->
  
-<div class="cont">
+<div class="cont" style="overflow: hidden;">
 
   <!-- <div class="home-overlay">
   
@@ -324,34 +431,51 @@
     }
   </script> -->
 
-  <div class="container-fluid box">
-    <div class="secondBox col-sm-10" >
-      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+  <div class="container-fluid box" style="position: relative;">
+    <div class="secondBox col-sm-12" >
+      <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Location"> -->
       <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
     </div>
-    <div class="col-sm-2 filter">
-    <form id="filterForm">
+    <div class="col-sm-3" id="control-contain" style="position: absolute; right: 0; transition: all 100ms ease-out;">
+      <button class="col-control"><i class="fas fa-angle-right"></i></button>
+    </div>
+    <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;">
+      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+      <form id="filterForm">
     
-      <div class="sort">
-        <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="card">
-        <div class="filter-header">
-          <h5>USER</h5>
+        <div class="sort">
+          <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
         </div>
-        <div class="check view-cart">
-          
-          <div class="checkbox">
-            <div class="row">
-              View Campaign
-              <label class="switch pull-right">
-                <input id="cart" name="user" onchange="submit_filter();" 
-                type="checkbox" value="0">
-                <span class="slider round"></span>
-              </label>
+        {% if user.is_authenticated %}
+        <!-- <div class="panel panel-default banner-panel open">
+            <div class="panel-heading"><h4>Banner Details  <i class="fas fa-sort-down"></i></h4></div>
+            <div class="panel-body">
+              <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
+              <p><strong>Dimensions:</strong> <span id="dimensions">loading...</span></p>
+              <p><strong>Type:</strong> <span id="type">loading...</span></p>
+              <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
+              <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
+              <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
             </div>
+          </div> -->
+        <div class="card panel panel-default open">
+          <div class="filter-header panel-heading">
+            <h5>USER  <i class="fas fa-sort-down"></i></h5>
           </div>
+          <div class="check view-cart panel-body">
+          
+            <div class="checkbox">
+              <div class="row">
+                <p>
+                View Campaign
+                <label class="switch pull-right">
+                  <input id="cart" name="user" onchange="submit_filter();" 
+                  type="checkbox" value="0">
+                  <span class="slider round"></span>
+                </label>
+                </p>
+              </div>
+            </div>
           <!-- <div class="checkbox">
               <label>
                 <input id="order" name="user" onchange="submit_filter();" 
@@ -359,51 +483,88 @@
               </label>
           </div> -->
           
-        </div>
-      </div>
-          {% endif %}
-          <div class="card">
-          <div class="filter-header">
-            <h5>DIMENSIONS</h5>
           </div>
-          <div class="check">
+        </div>
+        {% endif %}
+        <div class="card panel panel-default open">
+          <div class="filter-header panel-heading">
+            <h5>DIMENSIONS  <i class="fas fa-sort-down"></i></h5>
+          </div>
+          <div class="check panel-body">
             {% for dimensions_of_banner in form.dimensions_banner %}
             <div class="checkbox">
-              <label>
-                {{  dimensions_of_banner }}
-              </label>
+              <p>
+                <label>
+                  {{  dimensions_of_banner }}
+                </label>
+              </p>
             </div>
             {% endfor %}
           </div>
-          </div>
+        </div>
 
-          <div class="card">
-            <div class="filter-header">
-              <h5>TYPE</h5>
-            </div>
-            <div class="check">
-              {% for type_of_banners in  form.type_banner %}
-              <div class="checkbox">
+        <div class="card panel panel-default">
+          <div class="filter-header panel-heading">
+            <h5>TYPE  <i class="fas fa-sort-down"></i></h5>
+          </div>
+          <div class="check panel-body">
+            {% for type_of_banners in  form.type_banner %}
+            <div class="checkbox">
+              <p>
                 <label>
                   {{ type_of_banners }}
                 </label>
+              </p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h5>LIGHTED  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <div class="check panel-body">
+              {% for lights_of_banners in  form.lighted_banner %}
+              <div class="checkbox">
+                <p>
+                  <label>
+                    {{ lights_of_banners }}
+                  </label>
+                </p>
               </div>
               {% endfor %}
             </div>
           </div>
 
-          <div class="card">
-            <div class="filter-header">
-              <h5>LIGHTED</h5>
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h5>DATE  <i class="fas fa-sort-down"></i></h5>
             </div>
-            <div class="check">
-              {% for lights_of_banners in  form.lighted_banner %}
-              <div class="checkbox">
-                <label>
-                  {{ lights_of_banners }}
-                </label>
-              </div>
-              {% endfor %}
+            <div class="check panel-body">
+                <div class="row date-input">
+                    <div class="col-sm-8 date-input-form">
+                      <form>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-4 date-range-button">
+                      <button class="btn dropdown-toggle pull-right disabled" type="button" data-toggle="dropdown" style="color: #fff; background-color: #ff6c00; border-color: #ff6c00;">Range
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu" id="rangeSelector">
+                        <li id="next30"><a href="#">Next 30 Days</a></li>
+                        <li id="next45"><a href="#">Next 45 Days</a></li>
+                        <li id="next60"><a href="#">Next 60 Days</a></li>
+                        <li id="next90"><a href="#">Next 90 Days</a></li>
+                        <li id="next120"><a href="#">Next 4 Months</a></li>
+                        <li id="next150"><a href="#">Next 5 Months</a></li>
+                        <li id="next180"><a href="#">Next 6 Months</a></li>
+                      </ul>
+                    </div>
+                  </div>
             </div>
           </div>
       </form>
@@ -446,6 +607,16 @@ var submit_filter = function() {
            },
          });   
 }
+$('.col-control').on('click', function(ev){
+  $('#filter-sec, #control-contain').toggleClass('collapse-right')
+  if($('#filter-sec, #control-contain').hasClass('collapse-right')){
+    this.innerHTML = `<i class="fas fa-angle-left"></i>`
+  }
+  else{
+    this.innerHTML = `<i class="fas fa-angle-right"></i>`
+  }
+
+})
 </script>
 
 <div class="footer"></div>
@@ -454,7 +625,7 @@ var submit_filter = function() {
   <!-- Banner model -->
   <!-- Modal starts its magic -->
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade follow" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -466,9 +637,9 @@ var submit_filter = function() {
         <div class="modal-body">
           <!-- the content -->
           <div class="row">
-            <div class="col-sm-4">
-              <div class="panel panel-default">
-                <div class="panel-heading">Banner Details</div>
+            <div class="col-sm-4 left">
+              <div class="panel panel-default banner-panel open">
+                <div class="panel-heading"><h4>Banner Details  <i class="fas fa-sort-down"></i></h4></div>
                 <div class="panel-body">
                   <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
                   <p><strong>Dimensions:</strong> <span id="dimensions">loading...</span></p>
@@ -478,7 +649,18 @@ var submit_filter = function() {
                   <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
                 </div>
               </div>
-              <div class="row date-input">
+              <div class="panel panel-default owner-panel">
+                <div class="panel-heading"><h4>Owner Details  <i class="fas fa-sort-down"></i></h4></div>
+                <div class="panel-body">
+                  <p class="o_name"><strong>Owner Name:</strong> <span>Pole Ads</span></p>
+                  <p class="o_contact"><strong>Contact:</strong> <span>0123456789</span></p>
+                  <p class="o_email"><strong>Email:</strong> <span>asd@qwe.zxc</span></p>
+                  <p class="o_add"><strong>Office Add.:</strong> <span>Pole Ads</span></p>
+                </div>
+              </div>
+
+              
+              <!-- <div class="row date-input">
                 <div class="col-sm-8 date-input-form">
                   <form>
                     <div class="input-group">
@@ -501,12 +683,15 @@ var submit_filter = function() {
                   </ul>
                 </div>
               </div>
-              <div id="range-output" class="alert alert-danger"><em>Select start date and range</em></div>
+              <div id="range-output" class="alert alert-danger"><em>Select start date and range</em></div> -->
               <div class="price-details">
                   <p>Price:<span class="pull-right" id="priceMyModal">&#8377; 00.00</span></p>
               </div>
               <div class="msg">
-                <p><em>*(Select date and range to view price of banner)</em></p>
+                <p><em>*(Above mentioned price is approximate and subject to bargaining)</em></p>
+              </div>
+              <div class="availability">
+                <button id="avail-but" class="btn">Check Availability</button>
               </div>
               <!-- <div class="owner-details">
                 <p>Owner Name: <span>Pole Ads</span></p>
@@ -516,8 +701,15 @@ var submit_filter = function() {
               </div> -->
             </div>
             <div class="col-sm-8 right">
-              <div>
-                <img src="{% static 'resources/images/omoloader.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
+              <div style="position: relative;">
+                <form method = "POST" action = "{% url 'addToCart' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
+                  <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
+                  <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
+                  <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites"><i class="fas fa-heart"></i></button>
+                </form>
+                <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
               </div>
 
               <!-- The owner button div  -->
@@ -527,52 +719,101 @@ var submit_filter = function() {
 
             </div>
           </div>
+          
         </div>
 
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <div class="col-sm-8">
             <div class="owner-details">
               <button class="btn btn-primary" id="own-det">About Owner</button>
-            </div>
-            <form method = "POST" action = "{% url 'addToCart' %}">
-                      {% csrf_token %}
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
-                        <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
-                        <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
-                        <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
-                        <button type="submit" class="btn btn-primary" id="MyModalAddCart">Add To Cart</button>
-            </form>
-          </div>
-        </div>
+            </div> -->
+          <!-- </div>
+        </div> -->
       </div>
     </div>
   </div>
 
-  <div class="modal omodal fade" id="ownerModal" tabindex="-1" role="dialog" aria-labelledby="Owner Modal" aria-hidden="true">
+  <div class="modal fade" id="availModal" tabindex="-1" role="dialog" aria-labelledby="availModalLabel" aria-hidden="true">
+      <style>
+        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}.child:hover{transform: scale(1.4);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
+      </style>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="ownerModal-close close" data-dismiss="omodal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-          <h3 class="modal-title" id="myModalLabel">Owner Details</h3>
+          <button type="button" class="availModal-close close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title" id="availModalLabel">Availability</h3>
         </div>
+        
         <div class="modal-body">
-          <p class="o_name">Owner Name: <span>Pole Ads</span></p>
-          <p class="o_contact">Contact: <span>0123456789</span></p>
-          <p class="o_email">Email: <span>asd@qwe.zxc</span></p>
-          <p class="o_add">Office Add.: <span>Pole Ads</span></p>
-          <div class="msg-custom">
-            <p>* Click anywhere outside to close the dialog box</p>
-          </div>
+          <header>
+            <p><span></span> Booked<br />Hover over it for details</p>
+          </header>
+          <main style="text-align: center;">
+            <!-- <div class="left-col col">Billboard 1</div> -->
+              <div class="right-col col">
+                <div class="data-strip"></div>
+            </div>
+          </main>
         </div>
       </div>
     </div>
   </div>
+  <script>
+  // let json = [{"startDate": "2018/06/23","endDate": "2018/06/30","ppd": 35,"status": "booked"},{"startDate": "2018/08/06","endDate": "2018/08/30","ppd": 40,"status": "booked"},{"startDate": "2018/08/31","endDate": "2018/09/15","ppd": 45,"status": "booked"},{"startDate": "2018/11/16","endDate": "2018/11/28","ppd": 22,"status": "booked"},{"startDate": "2018/11/29","endDate": "2019/01/15","ppd": 20,"status": "booked"},{"startDate": "2019/01/31","endDate": "2019/02/28","ppd": 34,"status": "booked"},{"startDate": "2019/03/01","endDate": "2019/03/10","ppd": 54,"status": "booked"},{"startDate": "2019/04/12","endDate": "2019/04/15","ppd": 37,"status": "booked"},{"startDate": "2019/04/16","endDate": "2019/06/23","ppd": 29,"status": "booked"}]
+  
+  
+  </script>
+
+
+  
 
 </body>
 
 
 <!-- banner modal script start -->
 <script type="text/javascript">
+
+  function setHeightOfModal(){
+    const hgt = $('#myModal .modal-dialog').height()
+    console.log("Height is : " + hgt)
+  }
+  setHeightOfModal()
+
+  $('.panel .panel-heading').click(function(){
+    if($(this).parent().hasClass('banner-panel')){
+      $('.panel.owner-panel').removeClass('open')
+    }
+    else if($(this).parent().hasClass('owner-panel')){
+      $('.panel.banner-panel').removeClass('open')
+    }
+    $(this).parent().toggleClass('open')
+  })
+
+
+$(".date-range-button button").removeClass("disabled");
+var ValidStartBooking =  moment().add(1, 'days');
+              $('#datePicker').daterangepicker({
+                  singleDatePicker: true,
+                  showDropdowns: true,
+                  minDate: ValidStartBooking,
+                    locale: {
+                    format: 'DD/MM/YYYY'
+                    },
+                  seperator: 'To',
+                  opens: "right",
+                  drops: "up",
+                  },
+                  function(start, end){
+                    $('#MyModalAddCart').attr("disabled", true);
+                    $(".date-range-button button").removeClass("disabled");
+                    var diff = end.diff(start, 'days');
+                    console.log(diff)
+                    
+                  },
+                );
+
+$('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+
 $(function() {
 
     var startDate;
@@ -607,15 +848,16 @@ $(function() {
 
     function setDate(start,end,days){
       $('#datePicker').data('daterangepicker').setEndDate(end);
-      $('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+      submit_filter()
+      //$('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
 
-      console.log(invalidDates);
+      //console.log(invalidDates);
 
-      handleDateInput(start, end)
+      //handleDateInput(start, end)
     }
 
-
-    function handleDateInput(start, end)
+//////////OLD for date range price of modal
+/*    function handleDateInput(start, end)
     {
       console.log("handleDateInput");
                     var diff = end.diff(start, 'days')
@@ -687,7 +929,7 @@ $(function() {
                     }
                     //invalidDates = [];
     }
-
+*/
 
 });
 </script>
@@ -700,11 +942,11 @@ $(function() {
 <script>
 
     function setOwnerDetails(ownerDetails){
-        let modalBody = document.querySelector('#ownerModal .modal-body');
-        modalBody.children[0].innerHTML = `Owner Name: <span>${ownerDetails.o_name}</span>`;
-        modalBody.children[1].innerHTML = `Contact: <span>${ownerDetails.o_contact}</span>`;
-        modalBody.children[2].innerHTML = `Email: <span>${ownerDetails.o_email}</span>`;
-        modalBody.children[3].innerHTML = `Office Add.: <span>${ownerDetails.o_add}</span>`;
+        let panelBody = document.querySelector('#myModal .modal-body .owner-panel .panel-body');
+        panelBody.children[0].innerHTML = `<strong>Owner Name:</strong> <span>${ownerDetails.o_name}</span>`;
+        panelBody.children[1].innerHTML = `<strong>Contact:</strong> <span>${ownerDetails.o_contact}</span>`;
+        panelBody.children[2].innerHTML = `<strong>Email:</strong> <span>${ownerDetails.o_email}</span>`;
+        panelBody.children[3].innerHTML = `<strong>Office Add.:</strong> <span>${ownerDetails.o_add}</span>`;
     }
 
 
@@ -798,7 +1040,7 @@ $(function() {
     {% endfor %}
     function resetPriceInfo()
     {
-      $('.msg p em').html('*(Select date and range to view price of banner)');
+      $('.msg p em').html('*(Above mentioned price is approximate and subject to bargaining)');
       $('.msg p').css('color','#a0a0a0');
       $('.msg p').css('font-size','12px');
       $('#range-output').html('Select range')
@@ -812,7 +1054,7 @@ $(function() {
       $('#myModalLabel').text("loading...");
       $('#zone').text("loading...");
       $('#BannerFacing').text("loading...");
-      $('#bannerImage').attr("src", "{% static 'resources/images/omoloader.gif' %}");
+      $('#bannerImage').attr("src", "{% static 'resources/gif/page_loading.gif' %}");
       $('#price').text("loading...");
       $('#MapLoc').text("loading...");
       $('#dimensions').text("loading...");
@@ -868,14 +1110,6 @@ $(function() {
               // console.log("working")
               NProgress.start();
              },
-             complete: function(){
-               // Handle the complete event
-               $('#bannerImage').on('load', function(){
-                console.log("stop")
-                NProgress.done();
-               })
-               
-             },
             global: true,
             data: {
              "csrfmiddlewaretoken": "{{ csrf_token }}",
@@ -885,7 +1119,13 @@ $(function() {
             success: function(data){
              
               $('#panelID').text(data["id"]);
-              $('#bannerImage').attr("src", "{{MEDIA_URL}}" + data["url"]);
+              let di = new Image();
+              di.src = "{{MEDIA_URL}}" + data["url"];
+              di.onload = function()
+              {
+                $('#bannerImage').attr("src", di.src);
+                NProgress.done();
+              }
               $('#myModalLabel').text(data["landmark"]);
               $('#zone').text(data["zone"]);
               $('#BannerFacing').text(data["facing"]);
@@ -896,13 +1136,14 @@ $(function() {
               $('#lighted').text(data["lighted"]);
               setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
                           'o_email':data["agency_email"], 'o_add':data["agency_address"]});
+              setHeightOfModal()
               
               var bookDates = data["bookDates"];
               BoardIdForPrice = (data["id"]);
               console.log(bookDates);
               invalidDates=[];
               for(var i = 0; i < bookDates.length; i++)
-              {
+              {   //cd stands for current
                   var cd = moment(bookDates[i].startDate);
                   var ed = moment(bookDates[i].endDate);
                   while(cd.format('YYYY-MM-DD') <= ed.format('YYYY-MM-DD'))
@@ -913,7 +1154,9 @@ $(function() {
               }
               // $('#landmark').text(data["landmark"])
               $('#myModal').attr("boardID",this.id_try)
-              var ValidStartBooking =  moment().add(2, 'days');
+
+              ////OLD DATE RANGE PICKER OF MODAL
+              /*var ValidStartBooking =  moment().add(2, 'days');
               $('#datePicker').daterangepicker({
                   singleDatePicker: true,
                   showDropdowns: true,
@@ -959,7 +1202,109 @@ $(function() {
                     console.log(diff)
                     
                   },
-               );
+                );*/
+
+                // let json = [{"startDate": "2018/06/23","endDate": "2018/06/30","ppd": 35,"status": "booked"},{"startDate": "2018/08/06","endDate": "2018/08/30","ppd": 40,"status": "booked"},{"startDate": "2018/08/31","endDate": "2018/09/15","ppd": 45,"status": "booked"},{"startDate": "2018/11/16","endDate": "2018/11/28","ppd": 22,"status": "booked"},{"startDate": "2018/11/29","endDate": "2019/01/15","ppd": 20,"status": "booked"},{"startDate": "2019/01/31","endDate": "2019/02/28","ppd": 34,"status": "booked"},{"startDate": "2019/03/01","endDate": "2019/03/10","ppd": 54,"status": "booked"},{"startDate": "2019/04/12","endDate": "2019/04/15","ppd": 37,"status": "booked"},{"startDate": "2019/04/16","endDate": "2019/06/23","ppd": 29,"status": "booked"},{"startDate": "2019/08/01","endDate": "2019/08/23","ppd": 29,"status": "booked"}]
+                let myNode = document.querySelector('.data-strip')
+                while (myNode.firstChild) {
+                  myNode.removeChild(myNode.firstChild);
+                }
+                let json = []
+                let d = new Date()
+                let todayDate = `${d.getFullYear()}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
+                let yrLaterDate = `${d.getFullYear() + 1}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
+                let yrLater = Date.parse(yrLaterDate)
+                let today = Date.parse(todayDate)
+                if(!json.length){
+                  json.push({"startDate": todayDate,"endDate": todayDate,"status": "not-booked"})
+                }
+                let bgn
+                let end = json.length
+                for(let ind = 0; ind < json.length; ind++){
+                  if((Date.parse(json[ind]['startDate']) < today && Date.parse(json[ind]['endDate']) > today) || (Date.parse(json[ind]['startDate']) >= today && Date.parse(json[ind]['endDate']) > today)){
+                    bgn = ind
+                    break
+                  }
+                }
+                for(let ind = 0; ind < json.length; ind++){
+                  if(Date.parse(json[ind]['startDate']) >= yrLater){
+                  // if((Date.parse(json[ind]['startDate']) < yrLater && Date.parse(json[ind]['endDate']) >= yrLater) || (Date.parse(json[ind]['startDate']) >= yrLater)){
+                    end = ind
+                    break
+                  }
+                }
+                console.log(bgn + '    ' + end)
+                let jsonNew = json.slice(bgn, end)
+                console.log(jsonNew)
+                if(Date.parse(jsonNew[0]['startDate']) > today){
+                  console.log('Hereee')
+                  makeAvailChild(todayDate, jsonNew[0]['startDate'], 'not-booked')
+                }
+                jsonNew.map((el, ind) => {
+
+                  if(ind > 1){
+                    // let prevObj = data['bookDates'][ind - 1]
+                    let prevObj = jsonNew[ind - 1]
+                    // let startDate = prevObj['endDate']
+                    // let endDate = el['startDate']
+                    // let duration = Math.abs((startDate - endDate)) / (1000 * 60 * 60 * 24)
+                    // let percent = (duration / 365) * 100
+                    // let child = document.createElement('a')
+                    // let title = `${new Date().toDateString().substring(4)} - ${new Date(el['end']).toDateString().substring(4)}`
+                    // // child.title = title
+                    // child.href = '#'
+                    // child.classList.add('child')
+                    // child.classList.add('not-booked')
+                    // child.style.width = `calc(${percent}% - 3px)`
+                    // console.log(duration)
+                    // parent.appendChild(child)
+                    if(Date.parse(prevObj['endDate']) != Date.parse(el['startDate'])){
+                      makeAvailChild(prevObj['endDate'], el['startDate'], 'not-booked')
+                    }
+                  }
+                  if(Date.parse(el['endDate']) > yrLater){
+                    console.log('here one')
+                    makeAvailChild(el['startDate'], yrLaterDate, 'booked')
+                  }
+                  else{
+                    console.log('Tooooo')
+                    makeAvailChild(el['startDate'], el['endDate'], 'booked')
+                  }
+                  
+                  // console.log(el)
+                  // console.log('ind' + ind)
+                  // let startDate = Date.parse(el['startDate'])
+                  // if(today >= startDate){
+                  //   startDate = today
+                  //   el['startDate'] = todayDate
+                  // }
+                  // else{
+
+                  // }
+                  // let endDate = Date.parse(el['endDate'])
+                  // console.log(startDate - today)
+                  // let duration = Math.abs((startDate - endDate)) / (1000 * 60 * 60 * 24)
+                  // // let price = duration * el['ppd']
+                  // let percent = (duration / 365) * 100
+                  // let child = document.createElement('a')
+                  // // let title = `Price: ₹${price}\n${new Date(el['start']).toDateString().substring(4)} - ${new Date(el['end']).toDateString().substring(4)}`
+                  // // child.title = title
+                  // child.href = '#'
+                  // child.classList.add('child')
+                  // child.classList.add('booked')
+                  // child.style.width = `calc(${percent}% - 3px)`
+                  // console.log(duration)
+                  // parent.appendChild(child)
+                })
+                // console.log(`Last in array ${jsonNew[jsonNew.length - 1]['endDate']}\tyrLater ${yrLater}`)
+                if(Date.parse(jsonNew[jsonNew.length - 1]['endDate']) < yrLater){
+                  console.log('Pool pool')
+                  makeAvailChild(jsonNew[jsonNew.length - 1]['endDate'], yrLaterDate, 'not-booked')
+                }
+
+
+
+
               },
               error: function(){
                alert("Error! Something wrong. Please try again later")
@@ -968,17 +1313,27 @@ $(function() {
 
 
 
-          $('#myModal').modal('show');
-          });
+          $('#myModal').modal('show')
+        });
        oms.addMarker(markerGroup[i]); 
      }
-     $('#own-det').on('click', function(e){
-       $('#ownerModal').modal('show');
-     });
-     $('.ownerModal-close').on('click', function(e){
+     let fl = true
+    $('#myModal .modal-dialog').on('transitionend', function(){
+      if(fl){
+        setHeightOfModal()
+        // const hgt = $('#myModal .modal-content').height()
+        // console.log('Height is ' + hgt)
+        // $('#myModal .modal-content').css({'height': `${hgt}px`})
+        fl = false
+      }
+    })
+    $('#avail-but').on('click', function(e){
+      $('#availModal').modal('show');
+    });
+    $('.availModal-close').on('click', function(e){
       e.preventDefault();
-      $('#ownerModal').modal('hide');
-     });
+      $('#availModal').modal('hide');
+    });
 
      /*
       OwnerDetails is a JS object of the form:       
@@ -989,7 +1344,24 @@ $(function() {
             "o_add": String
           }
       */
-
+    function makeAvailChild(st, en, av){
+      let parent = document.querySelector('.data-strip')
+      let startDate = Date.parse(st)
+      let endDate = Date.parse(en)
+      let duration = Math.abs((startDate - endDate)) / (1000 * 60 * 60 * 24)
+      if(duration > 1){
+        let percent = (duration / 365) * 100
+        let child = document.createElement('a')
+        let title = `"${av}"\n${new Date(st).toDateString().substring(4)} - ${new Date(en).toDateString().substring(4)}`
+        child.title = title
+        child.href = '#'
+        child.classList.add('child')
+        child.classList.add(av)
+        child.style.width = `calc(${percent}% - 3px)`
+        parent.appendChild(child)
+      }
+      
+    }
 
      minClusterZoom = 17;
 
