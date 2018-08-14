@@ -1,124 +1,95 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Sign Up</title>
-  <meta charset="utf-8">
-  <!-- favicon -->
-  <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
-  
-  <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
-  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-105587377-1', 'auto');
-    ga('send', 'pageview');
 
-  </script>
-  <style type="text/css">
 
-  @keyframes fadeout {
-    0%{opacity:0;top:50%}
-    20%{opacity:1;}
-    80%{opacity:1;top:50%;}
-    100%{opacity:0;
-      top:-50%;
-    }
+{% extends 'base.html'%}
 
-  }
-
-  #message {
-    position: absolute;
-    z-index: 9999;
-    top: -50%;
-    left: 25%;
-    right: 25%;
-    background: #fde073;
-    text-align: center;
-    animation-name: fadeout;
-    animation-duration: 2s;
-    overflow: hidden;
-    opacity:0;
-    box-shadow: 0 0 5px black;
-
-  }
-      .navbar{
-        margin-bottom: 0px;
-        border-radius: 0px;
-        border-width: 0px;
-      }
-      .phoneNo{
-          width: 170px;
-          height: 30px;
-          background-color: #fff;
-          padding: 5px 0px 5px 0px; 
-          margin: 10px 20px 10px 15px;
-          border-radius: 5px;
-          color: #ff6c00;
-          font-weight: ;
-        }
-  </style>
-</head>
-<body>
-{% if messages %}
-    <div id="message">
-{% for message in messages %}
-   <h3> {{ message }}</h3>
-{% endfor %}
-    </div>
-{% endif %}
-<section>
-{% include 'navbar1.html' %}
-<div class="container-fluid abc">
-    <div class="col-sm-4"></div>
-    <div class="signup-box col-sm-4" >
-        <div class="header">
-            <h2 class="">Welcome to <span style="color: #ff6c00;">OmoAds</span></h2>
-        </div>
-        <form class="frm" method="POST">
-            {% csrf_token %}
-                        <!--<div class="form-group">-->
-                <!--<input type="text" class="form-control" id="phone" placeholder="Contact">-->
-            <!--</div>-->
-
-            <div class="form-group">
-                {{ form.first_name }}
-            </div>
-            <div class="form-group">
-                {{ form.last_name }}
-            </div>
-            <div class="form-group">
-                {{ form.email }}
-            </div>
-            <div class="form-group">
-                <input class = "form-control" type = "text" name = "phone_number" placeholder = "enter phone number..">
-            </div>
-            <div class="form-group">
-                {{ form.password1 }}
-            </div>
-
-            <div class="checkbox">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
+{% block content %}
+    
+    
+    
+    <div class="row full-height justify-content-center align-items-center" >
+        <div class="col-md-6 col-md-offset-6 theme-back-primary-dark txt-cennter "style="background:#fff;padding:20px;">
+        
+    
+                
+                <div class="container-fluid ">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <img src="{% static 'img/images/1x1_Logo.png' %}" style="margin-left:35%;" height="auto" width="200px"/>
+                            <p class="txt-center" style="font-size:20px;" >Online Marketplace for Outdoor advertising</p>
+                        </div>
+                    </div>
+                </div>
             <div class="row">
-                <input type='submit' value='Sign Up' class='btn btn-default' />
-                <!-- <button type="submit" class="btn btnLogin" style="border-radius: 4px;">Login</button> -->
+    
+                <div class="col-md-6" style="border-right:1px solid #ccc;">
+                    <div class="panel-body ">
+                        <form  action="#" role="">
+                            SignUp
+                            <div class="form-group">
+                                <label for="name"></label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" style="border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;">
+                            </div>
+                            <div class="form-group">
+                                <label for="email"></label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" style="border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;">
+                            </div>
+                            <div class="form-group">
+                                <label for="password"></label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;">
+                            </div>
+                            <!--
+                            <div class="checkbox">
+                                <label>
+                                <input type="checkbox"> Check me out
+                                </label>
+                            </div>
+                            -->
+                            
+                            <button type="submit" class="btn btn-hover theme-back-acent" style="background: #fd7b26;color:#000;">SignUp</button>
+                            <a href="login.html" >Cancel</a>
+                        
+                        </form>
+                        
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                        <div class="panel-body ">
+                                <form  action="#" role="">
+                                    Login
+                                    <div class="form-group">
+                                        <label for="email"></label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" style="border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password"></label>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;">
+                                    </div>
+                                    <!--
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox"> Check me out
+                                        </label>
+                                    </div>
+                                    -->
+                                    <a href="forgot-pass.html">Forgot password ?</a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <button type="submit" class="btn btn-hover theme-back-acent" style="background: #fd7b26;color:#000;">Login</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                        
+                </div>
             </div>
-        </form>
-
+            
+    
+        </div>
     </div>
-    <div class="col-sm-4"></div>
-</div>
-</section>
-</body>
-</html>
+              
+    <!-- footer-->
+    
+    <!-- footer-->
+    
+
+    {% endblock %}
