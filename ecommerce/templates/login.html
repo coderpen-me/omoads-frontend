@@ -33,8 +33,9 @@
             
             <div class="col-md-6">
                     <div class="panel-body ">
-                            <form  action="#" role="">
+                            <form  method="POST">
                                 Login
+                                {% csrf_token %}
                                 <div class="form-group">
                                     <label for="email"></label>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" style="border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;">

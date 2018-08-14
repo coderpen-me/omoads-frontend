@@ -46,10 +46,10 @@ class filterForm(forms.Form):
 
 
 class UserForm(forms.ModelForm):#user form pre build class
-	first_name=forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first Name...'}))
-	last_name=forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last Name...'}))
-	email=forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter email...','onkeyup':'checkEmail(this)'}))
-	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter password...','onkeyup':'password(this)'}),min_length=6)
+	first_name=forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter first Name...',"style":"border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;"}))
+	last_name=forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter last Name...', "style":"border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;"}))
+	email=forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email', "style":"border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;"}))
+	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', "style":"border:2px solid #d2bd7f;border-radius:0px;background:#cacaca;"}),min_length=6)
 	class Meta:
 		model = User
 		fields = [ 'first_name', 'last_name', 'email', 'password1']
