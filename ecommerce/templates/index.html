@@ -1,12 +1,14 @@
 
 {% extends 'base.html'%}
+
+
 {% load staticfiles %}
 {% block content %}
 
     <div class="row" style="box-shadow: 1px 5px 10px #ccc;">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-1" style="background:#fff url({% static 'img/images/back1.png' %})   no-repeat;"> 
+            <div class="jumbotron" id="panel-1" style="background:#fff url('back1.png')   no-repeat ; ">
                 <div class="row justify-content-left">
                     <div class="col-md-6">
                         <div id="p1-block">
@@ -27,7 +29,7 @@
     <div class="row">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-2" style="background:#fff url({% static 'img/images/back2.png' %})   no-repeat;">
+            <div class="jumbotron" id="panel-2" style="background:#fff url('images/back2.png')   no-repeat;">
 
                 <div class="row" id="p2-block-1">
                     <div class="col-md-10">
@@ -45,7 +47,7 @@
                 <div class="row" id="p2-block-2">
                     <div class="col-md-10">
                         <div class="circle-2">
-                            <img src="{% static 'img/images/hand.png' %}" />
+                            <img src="{% static 'img/images/hand.png;' %}" />
                         </div>
                         <div class="text-box-1">
                             <h2 class="display-4">Zero % Commission </h2>
@@ -77,7 +79,7 @@
     <div class=" row justify-content-center">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-3" style="background:#fff url({% static 'img/images/back4.png' %})   no-repeat;">
+            <div class="jumbotron" id="panel-3" style="background:#fff url('images/back4.png')   no-repeat;">
 
                 <div class="row justify-content-centers">
                     <div class="col-md-12">
@@ -94,13 +96,13 @@
                 <br>
                 <div class="row justify-content-centers">
                     <div class="col-md-4">
-                        <img src="{% static 'img/images/poleadslogo.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                        <img src="{% static 'img/images/poleadslogo.png %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'img/images/pt2.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                        <img src="{% static 'img/images/pt2.png %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'img/images/pt3.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                        <img src="{% static 'img/images/pt3.png %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
                     </div>
                 </div>
             </div>
@@ -111,7 +113,7 @@
     <div class=" row justify-content-center">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-4" style="background:#fff url({% static 'img/images/back3.png' %})   no-repeat;">
+            <div class="jumbotron" id="panel-4" style="background:#fff url('images/back3.png')   no-repeat;">
 
                 <div class="row  align-items-center">
                     <div class="col-md-6">
@@ -147,9 +149,45 @@
         </div>
     </div>
 
+    <div class="row footer">
 
-
-
+        <div class="col-md-8">
+            <p style="margin-left:6em;">Contact us and we will get back you withen 24 hours</p>
+            <br>
+            <ul style="list-style:none;">
+                <Li>
+                    <i class="fas fa-map-marker-alt fa fa-2x" style="margin-right:1em;"></i>H.NO-402 Near DR. Ambedkar Inter Collage Indergrahi,Ghazibad,
+                    <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp India, PIN 201302</Li>
+                <li>
+                    <i class="fab fa-whatsapp fa fa-2x" style="margin-right:1em;"></i> +91 9911-639-985</li>
+                <li>
+                    <i class="fas fa-envelope  fa fa-2x" style="margin-right:1em;"></i>teamomoads@gmal.com</li>
+            </ul>
+            <br>
+            <br>
+            <p style="margin-left:2em;">tearms & conditions</p>
+        </div>
+        <diiv class="col-md-4">
+            <p>Links to other main Pages</p>
+            <br>
+            <br>
+            <br>
+            <img src="{% static 'img/images/1x1_Logo.png' %}" width="250px" height="auto" alt="" />
+            <p>Copyright &copy 2018</p>
+        </diiv>
+    </div>
     {% include 'footer.html' %}
 
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+
+        $("#panel-4").css("background","{% static 'img/images/back3.png' %} no-repeat");
+        $("#panel-3").css("background","{% static 'img/images/back4.png' %} no-repeat");
+        $("#panel-2").css("background","{% static 'img/images/back2.png' %} no-repeat");
+        $("#panel-1").css("background","{% static 'img/images/back1.png' %} no-repeat");
+    });
+</script>
 {% endblock %}

@@ -1,3 +1,5 @@
+
+
 {% extends 'base.html'%}
 {% load staticfiles %}
 
@@ -31,8 +33,7 @@
             
             <div class="col-md-6">
                     <div class="panel-body ">
-                            <form  method="POST">
-                            {% csrf_token %}
+                            <form  action="#" role="">
                                 Login
                                 <div class="form-group">
                                     <label for="email"></label>
@@ -69,9 +70,12 @@
 {% endblock %}
 
 
-    {% block custom_js %}
+
+
+{% block custom_js %}
     <script>
         $('body').css("background", "url('"+ "{% static 'img/images/back-l.jpg' %}" +"') center no-repeat")
         $('body').css("background-size", "100%")
     </script>
-    {% endblock %}
+{% endblock %}
+
