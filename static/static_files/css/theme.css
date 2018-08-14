@@ -240,7 +240,7 @@ body{
 *  panel 4
 */
 #panel-4{
-    height:600px;
+    
     height:600px;
     background-size:80% !important;
     background-position-x:200px !important;
@@ -438,4 +438,11 @@ body{
     transform: rotate(-60deg);
     left: -220;
     top:-100px;
+}
+.panel-abt{
+    height: 600px;
+    background: #fff;
+    background-size:80%;
+    background-position-y:00px;
+    background-position-x:300px !important;
 }
