@@ -6,7 +6,7 @@
     <div class="row" style="box-shadow: 1px 5px 10px #ccc;">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-1" style="background:#fff url('images/back1.png')   no-repeat ; ">
+            <div class="jumbotron" id="panel-1" style="background:#fff url('back1.png')   no-repeat ; ">
                 <div class="row justify-content-left">
                     <div class="col-md-6">
                         <div id="p1-block">
@@ -45,7 +45,7 @@
                 <div class="row" id="p2-block-2">
                     <div class="col-md-10">
                         <div class="circle-2">
-                            <img src="{% static 'img/images/hand.png %}" />
+                            <img src="{% static 'img/images/hand.png;' %}" />
                         </div>
                         <div class="text-box-1">
                             <h2 class="display-4">Zero % Commission </h2>
@@ -170,10 +170,22 @@
             <br>
             <br>
             <br>
-            <img src="{% static 'img/images/1x1_Logo.png %}" width="250px" height="auto" alt="" />
+            <img src="{% static 'img/images/1x1_Logo.png' %}" width="250px" height="auto" alt="" />
             <p>Copyright &copy 2018</p>
         </diiv>
     </div>
     {% include 'footer.html' %}
 
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+
+        $("#panel-4").css("background","{% static 'img/images/back3.png' %} no-repeat");
+        $("#panel-3").css("background","{% static 'img/images/back4.png' %} no-repeat");
+        $("#panel-2").css("background","{% static 'img/images/back2.png' %} no-repeat");
+        $("#panel-1").css("background","{% static 'img/images/back1.png' %} no-repeat");
+    });
+</script>
 {% endblock %}
