@@ -857,23 +857,37 @@ $('.col-control').on('click', function(ev){
 
 var ValidStartBooking =  moment().add(1, 'days');
 $('#datePicker-start, #datePicker-end').each(function(i, el){
-  console.log($(this))
   $(this).daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minDate: ValidStartBooking,
+      singleDatePicker: true,
+      showDropdowns: true,
+      minDate: ValidStartBooking,
       locale: {
-      format: 'DD/MM/YYYY'
+        format: 'DD/MM/YYYY'
       },
-    seperator: 'To',
-    opens: "right",
-    drops: "up",
-    },
-    getStartEndDates
-  )
-  $(this).on('apply.daterangepicker', getStartEndDates)
-});
-  function getStartEndDates(){
+      seperator: 'To',
+      opens: "right",
+      drops: "up",
+    }, getStartEndDates)
+  $(this).on('apply.daterangepicker', function(ev, picker){getStartEndDates(ev, picker)})
+})
+
+  function getStartEndDates(ev, picker){
+    let obj = {
+      singleDatePicker: true,
+      showDropdowns: true,
+      locale: {
+        format: 'DD/MM/YYYY'
+      },
+      seperator: 'To',
+      opens: "right",
+      drops: "up",
+    }
+    if(!ev.hasOwnProperty('_isAMomentObject')){
+      if(ev.target.id == 'datePicker-start'){
+        $('#datePicker-end').data('daterangepicker').minDate = picker.startDate
+      }
+  }
+
     if(($('#datePicker-start').val() && $('#datePicker-start').val() != '') && ($('#datePicker-end').val() && $('#datePicker-end').val() != '')){
         start = moment($('#datePicker-start').val(), "DD/MM/YYYY")
         end = moment($('#datePicker-end').val(), "DD/MM/YYYY")
