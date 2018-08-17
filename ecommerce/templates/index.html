@@ -8,7 +8,7 @@
     <div class="row" style="box-shadow: 1px 5px 10px #ccc;">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-1" style="background:#fff url("{% static 'img/images/back1.png' %}")   no-repeat ; ">
+            <div class="jumbotron" id="panel-1" style="background:#fff url()   no-repeat ; ">
                 <div class="row justify-content-left">
                     <div class="col-md-6">
                         <div id="p1-block">
@@ -29,7 +29,7 @@
     <div class="row">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-2" style="background:#fff url("{% static 'img/images/back2.png' %}")   no-repeat;">
+            <div class="jumbotron" id="panel-2" style="background:#fff url()   no-repeat;">
 
                 <div class="row" id="p2-block-1">
                     <div class="col-md-10">
@@ -79,7 +79,7 @@
     <div class=" row justify-content-center">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-3" style="background:#fff url("{% static 'img/images/back4.png' %}")   no-repeat;">
+            <div class="jumbotron" id="panel-3" style="background:#fff url()   no-repeat;">
 
                 <div class="row justify-content-centers">
                     <div class="col-md-12">
@@ -113,7 +113,7 @@
     <div class=" row justify-content-center">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-4" style="background:#fff url("{% static 'img/images/back3.png' %}")   no-repeat;">
+            <div class="jumbotron" id="panel-4" style="background:#fff url()   no-repeat;">
 
                 <div class="row  align-items-center">
                     <div class="col-md-6">
@@ -158,10 +158,10 @@
 <script>
     $(document).ready(function(){
 
-        $("#panel-4").css("background","{% static 'img/images/back3.png' %} no-repeat");
-        $("#panel-3").css("background","{% static 'img/images/back4.png' %} no-repeat");
-        $("#panel-2").css("background","{% static 'img/images/back2.png' %} no-repeat");
-        $("#panel-1").css("background","{% static 'img/images/back1.png' %} no-repeat");
+        $("#panel-4").css("background","url({% static 'img/images/back3.png' %}) no-repeat");
+        $("#panel-3").css("background","url({% static 'img/images/back4.png' %}) no-repeat");
+        $("#panel-2").css("background","url({% static 'img/images/back2.png' %}) no-repeat");
+        $("#panel-1").css("background","url({% static 'img/images/back1.png' %}) no-repeat");
     });
 </script>
 {% endblock %}
