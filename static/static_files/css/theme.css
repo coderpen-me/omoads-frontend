@@ -43,21 +43,21 @@
 .wrap1{
     background: #4e240a;
     width: 70%;
-    height: 70px;
+    height: 130px;
     box-sizing: border-box;
     margin: 0%;
     padding: 0px;
     float: right;
     position: absolute;
     left: 30%;
-    top:-10px;
-    border-radius: 50%; 
+    top:-37x;
+    border-radius: 60px 0px 0px 60px; 
 
 }
 .wrap2{
     background: #8b4315;
     width: 100%;
-    height: 70px;
+    height: 130px;
     box-sizing: border-box;
     margin: 0%;
     padding: 0px;
@@ -65,12 +65,12 @@
     position: absolute;
     left: 2%;
     top:-0px;
-    border-radius: 35px 0px 0px 35px;
+    border-radius: 60px 0px 0px 60px;
 
 }
 .wrap3{
     width: 100%;
-    height: 70px;
+    height: 130px;
     box-sizing: border-box;
     margin: 0%;
     padding: 0px;
@@ -78,13 +78,13 @@
     position: absolute;
     left: 2%;
     top:-0px;
-    border-radius: 35px 0px 0px 35px;
+    border-radius: 60px 0px 0px 60px;
     background: #c8611e;
 }
 .wrap4{
     background: #fd7b26;
     width: 94%;
-    height: 70px;
+    height: 130px;
     box-sizing: border-box;
     margin: 0% ;
     padding: 0px ;
@@ -92,8 +92,9 @@
     position: absolute;
     left: 2%;
     top:-0px;
-    border-radius: 35px 0px 0px 35px;
+    border-radius: 60px 0px 0px 60px;
 }
+
 .navbar{
     background: #000 !important;
    
