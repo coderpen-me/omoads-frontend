@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-md-4">
                     <h2>Accurate:</h2>
-                    <img src="{% static 'img/images/IMG_4501.PNG '%}" width="200px" height="200px"/>
+                    <img src="{% static 'img/images/IMG_4501.PNG'%}" width="200px" height="200px"/>
                     <p>
                         We provide with an essential information to make things extremely precise and accurate by
                         providing datewise availability of any space on the map upcated on a regular basis.
@@ -207,6 +207,8 @@
     $(document).ready(function(){
 
         $("#abt-contact").css("background","#fff url({% static 'img/images/IMG_4506.PNG' %}) center no-repeat");
+        $("#abt-contact").css("background-size","100%");
+        $("#abt-contact").css("background-position-x","0px !important");
         
     });
 </script>
