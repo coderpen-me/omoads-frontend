@@ -29,8 +29,8 @@
 .btn-search{
    float: right;
    position: absolute;
-   right: -5px;
-   top: 45px;
+   right: 10px;
+   top: 9px;
    background: none;
    color: slategrey;
 }
@@ -45,6 +45,17 @@
     color: #fd7b26;
 
 
+}
+.main-wraer{
+overflow:hidden;
+	height:90px;
+	width:100%;
+	background:#333;
+	float:left;
+	position:absolute;
+	top:-30px;
+	left:100px;
+	z-index:1;
 }
 .wrap1{
     background: #4e240a;
