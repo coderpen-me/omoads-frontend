@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', productsViews.Home.as_view(), name='home'),
+    url(r'^map-view$', productsViews.Home.as_view(), name='map_view'),
     url(r'^adminPriceChanger/$', 'products.views.adminPriceChanger', name='price_change_admin'),
     url(r'^printing_material/$', 'products.views.printing_material', name='printing_material'),
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^buyer_cart/editCartItem', 'products.views.editCartItem', name='cart_editItemFinal'),
     url(r'^process_payment/$', 'products.views.processPayment', name='cart_process_payment'),
     url(r'^dashboard/$', 'products.views.dashboard', name='dashboard'),
-    url(r'^index/$', 'products.views.index_new_home', name='index_new_home'),
+    url(r'^$', 'products.views.index_new_home', name='home'),
     
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
