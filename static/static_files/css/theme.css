@@ -116,6 +116,9 @@ overflow:hidden;
     background: #000 !important;
    
 }
+.navbar-dark{
+ color:#fff;
+}
 body{
     overflow-x:hidden; 
 }
