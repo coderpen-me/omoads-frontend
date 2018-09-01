@@ -779,7 +779,11 @@ $('.col-control').on('click', function(ev){
                   <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
                   <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
                   <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
-                  <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites"><i class="fas fa-heart"></i></button>
+                  {% if user.is_authenticated %}
+                    <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites">
+                         <i class="fas fa-heart"></i>
+                    </button>
+                  {% endif %}
                 </form>
                 <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
               </div>
