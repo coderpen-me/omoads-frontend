@@ -34,13 +34,64 @@
     {% endblock %}
 </head>
 
-<body>
+<body style="background:#ccc;">
 {% include 'nav.html' %}
 
-<!-- main Content-->
-{% block content %}
+    <!-- main Content-->
+    
+    
+    
+    <div class="row full-height justify-content-center " >
+        <div class="col-md-12" style="padding:50px;">
+            
+            <div class="row full-height" >
+                <div class="col-md-3 " style="background:none;">
+                    
+                        <div class="block">
+                            
+                            <img src="#" style="width:50px;height:50px;border-radius:50%;position:relative;top:15px;" alt="name"/>
+                            &nbsp;hello,<br>
+                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  User Name</h5>
+                        </div>
+                        <br>
+                        <div class="accordion block" id="accordionExample" style="height:80%;">
 
-{% endblock %}
+                                <ul class="list-group d-flex" style="margin:0%;padding:0%;">
+                                                       <!-- use the (theme-active) for active menu-->
+                                    <li id="notification" class="hover   list-group-item d-flex justify-content-left align-items-center" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            &nbsp;<i class="fas fa-user icon-color"></i>&nbsp; Profile
+                                        <span class="badge badge-primary badge-pill">2</span>
+                                    </li>
+                                    
+                                    <li id="stuff" class="hover   list-group-item d-flex justify-content-left align-items-center " data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                            &nbsp;<i class="fa fa-paper-plane icon-color" aria-hidden="true"></i>&nbsp; Favorites
+                                        
+                                    </li>
+                                                                        <li class="hover   list-group-item d-flex justify-content-left align-items-center">
+                                            &nbsp;<i class="fa fa-power-off icon-color" aria-hidden="true"></i> &nbsp;Logout
+                               
+                                    </li>
+                                    
+                                            
+                                      
+                                </ul>
+                            </div>
+                </div>
+
+
+                <div class="col-md-9" style="">
+                        <div class="block" style="height:100%;padding:40px;">
+                            {% block content %}
+
+                            {% endblock %}
+                        </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <!-- main Content-->
 </body>
 
