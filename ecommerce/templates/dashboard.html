@@ -36,7 +36,7 @@
                             
                             <img src="#" style="width:50px;height:50px;border-radius:50%;position:relative;top:15px;" alt="name"/>
                             &nbsp;hello,<br>
-                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  User Name</h5>
+                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  {{user.first_name|capfirst}} {{user.last_name|capfirst}}</h5>
                         </div>
                         <br>
                         <div class="accordion block" id="accordionExample" style="height:80%;">
@@ -74,10 +74,10 @@
                                                     Personal information &nbsp;<a href=""> edit</a><br><br>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="First name" style="background:#eee;">
+                                                        <input type="text" class="form-control" value="{{user.first_name}}" placeholder="First name" style="background:#eee;">
                                                     </div>
                                                     <div class="col">
-                                                        <input type="text" class="form-control" placeholder="Last name" style="background:#eee;">
+                                                        <input type="text" class="form-control" value="{{user.last_name}}" placeholder="Last name" style="background:#eee;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,7 +86,7 @@
                                                     Email Address &nbsp;<a href=""> edit</a>&nbsp;<a href=""> change password</a><br><br>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="email" class="form-control" placeholder="Email" style="background:#eee;">
+                                                        <input type="email" value="{{user.email}}" class="form-control" placeholder="Email" style="background:#eee;">
                                                     </div>
                                                     <div class="col">
                                                         </div>
@@ -97,7 +97,7 @@
                                                     Mobile Number &nbsp;<a href=""> edit</a><br><br>
                                                 <div class="row">
                                                     <div class="col">
-                                                        <input type="number" class="form-control" placeholder="91" style="background:#eee;">
+                                                        <input type="number" value="{{user.extendeduser.phone_number}}" class="form-control" placeholder="91" style="background:#eee;">
                                                     </div>
                                                     <div class="col">
                                                     </div>

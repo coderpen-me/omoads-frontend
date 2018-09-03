@@ -27,7 +27,7 @@
                     
                     <button class="btn btn-fb"><i class="fab fa-facebook"></i>&nbsp;&nbsp;Continue with facebook</button>
                     
-                    <p><a href="signup.html" >Continue with email</a>. By signing up you indicate that you have read and agree to Omoads's Terms of Services and Privacy Policy.</p>
+                    <p><a href="{% url 'auth_register' %}" >Continue with email</a>. By signing up you indicate that you have read and agree to Omoads's Terms of Services and Privacy Policy.</p>
                 </div>
             </div>
             
@@ -51,7 +51,7 @@
                                     </label>
                                 </div>
                                 -->
-                                <a href="forgot-pass.html">Forgot password ?</a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <a href="{% url 'password_reset' %}">Forgot password ?</a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <button type="submit" class="btn btn-hover theme-back-acent" style="background: #fd7b26;color:#000;">Login</button>
                             </form>
                             

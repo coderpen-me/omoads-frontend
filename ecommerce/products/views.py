@@ -63,10 +63,12 @@ def printing_material(request):
 				}
 	return render(request, template, context)
 
+@login_required(login_url = "/login/")
 def dashboard(request):
 	template = "dashboard.html"
 	username = ""
 	userType = ""
+	
 	if request.user.is_authenticated():
 		username = request.user.username
 		try:

@@ -63,7 +63,7 @@
                             -->
                             
                             <button type="submit" class="btn btn-hover theme-back-acent" style="background: #fd7b26;color:#000;">SignUp</button>
-                            <a href="login.html" >Cancel</a>
+                            <a href="{% url 'auth_login' %}" >Cancel</a>
                         
                         </form>
                         
@@ -90,7 +90,7 @@
                                         </label>
                                     </div>
                                     -->
-                                    <a href="forgot-pass.html">Forgot password ?</a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <a href="{% url 'password_reset' %}">Forgot password ?</a><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     <button type="submit" class="btn btn-hover theme-back-acent" style="background: #fd7b26;color:#000;">Login</button>
                                 </form>
                                 
