@@ -66,3 +66,29 @@
         </div>
 
 {% endblock %}
+
+{% block custom_js %}
+
+<script>
+        $("#profile").on("click",function(){
+            
+        });
+        $("#favorites").on("click",function(){
+        
+        });
+    
+        $("#logout").on("click",function(){
+            
+            $.post("logout.html",{data:data},function(responce,result){
+            
+                if(result){
+                    window.location("login.html");
+                }
+                else{
+                    alert("Unable to logout !");
+                }
+            });
+        });
+</script>
+
+{% endblock %}
