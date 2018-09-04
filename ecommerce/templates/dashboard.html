@@ -1,12 +1,9 @@
+{% extends 'dash_base.html'%}
+
 
 {% load staticfiles %}
-<html>
-    <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/theme.css' %}"/>
-    
+
+    {% block custom_css %}
     <style>
     .form-control::-webkit-input-placeholder { color: #aaa; }  /* WebKit, Blink, Edge */
     .form-control:-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 4 to 18 */
@@ -14,118 +11,58 @@
     .form-control:-ms-input-placeholder { color: #aaa; }  /* Internet Explorer 10-11 */
     .form-control::-ms-input-placeholder { color: #aaa; }  /* Microsoft Edge */
     </style>
+    {% endblock %}
 
 
-</head>
 
 
-    <body style="background:#ccc;">
-    
-     {% include 'nav.html' %}
-      <!-- main Content-->
     
     
-    
-    <div class="row full-height justify-content-center " >
-        <div class="col-md-12" style="padding:50px;">
-            
-            <div class="row full-height" >
-                <div class="col-md-3 " style="background:none;">
-                    
-                        <div class="block">
-                            
-                            <img src="#" style="width:50px;height:50px;border-radius:50%;position:relative;top:15px;" alt="name"/>
-                            &nbsp;hello,<br>
-                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  {{user.first_name|capfirst}} {{user.last_name|capfirst}}</h5>
+    {% block content %}
+
+
+    <div class="block" style="height:100%;padding:40px;">
+
+
+
+                    <form>
+                        <div style="width:60%;">
+                                Personal information &nbsp;<a href=""> edit</a><br><br>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control" value="{{user.first_name}}" placeholder="First name" style="background:#eee;">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" value="{{user.last_name}}" placeholder="Last name" style="background:#eee;">
+                                </div>
+                            </div>
                         </div>
                         <br>
-                        <div class="accordion block" id="accordionExample" style="height:80%;">
-
-                                <ul class="list-group d-flex" style="margin:0%;padding:0%;">
-                                                       <!-- use the (theme-active) for active menu-->
-                                    <li id="notification" class="hover   list-group-item d-flex justify-content-left align-items-center" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            &nbsp;<i class="fas fa-user icon-color"></i>&nbsp; Profile
-                                        <span class="badge badge-primary badge-pill">2</span>
-                                    </li>
-                                    
-                                    <li id="stuff" class="hover   list-group-item d-flex justify-content-left align-items-center " data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                                            &nbsp;<i class="fa fa-paper-plane icon-color" aria-hidden="true"></i>&nbsp; Favorites
-                                        
-                                    </li>
-                                                                        <li class="hover   list-group-item d-flex justify-content-left align-items-center">
-                                            &nbsp;<i class="fa fa-power-off icon-color" aria-hidden="true"></i> &nbsp;Logout
-                               
-                                    </li>
-                                    
-                                            
-                                      
-                                </ul>
-                            </div>
-                </div>
-
-
-                <div class="col-md-9" style="">
-                        <div class="block" style="height:100%;padding:40px;">
-
-                                        
-
-                                        <form>
-                                            <div style="width:60%;">
-                                                    Personal information &nbsp;<a href=""> edit</a><br><br>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="text" class="form-control" value="{{user.first_name}}" placeholder="First name" style="background:#eee;">
-                                                    </div>
-                                                    <div class="col">
-                                                        <input type="text" class="form-control" value="{{user.last_name}}" placeholder="Last name" style="background:#eee;">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div style="width:60%;">
-                                                    Email Address &nbsp;<a href=""> edit</a>&nbsp;<a href=""> change password</a><br><br>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="email" value="{{user.email}}" class="form-control" placeholder="Email" style="background:#eee;">
-                                                    </div>
-                                                    <div class="col">
-                                                        </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div style="width:60%;">
-                                                    Mobile Number &nbsp;<a href=""> edit</a><br><br>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input type="number" value="{{user.extendeduser.phone_number}}" class="form-control" placeholder="91" style="background:#eee;">
-                                                    </div>
-                                                    <div class="col">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    
-                                     
-                               
+                        <div style="width:60%;">
+                                Email Address &nbsp;<a href=""> edit</a>&nbsp;<a href=""> change password</a><br><br>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="email" value="{{user.email}}" class="form-control" placeholder="Email" style="background:#eee;">
+                                </div>
+                                <div class="col">
+                                    </div>
                             </div>
                         </div>
+                        <br>
+                        <div style="width:60%;">
+                                Mobile Number &nbsp;<a href=""> edit</a><br><br>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="number" value="{{user.extendeduser.phone_number}}" class="form-control" placeholder="91" style="background:#eee;">
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
-                </div>
-            </div>
+
 
         </div>
-    </div>
-              
-    <!-- footer-->
-    
-    <!-- footer-->
-    
-    <!-- main Content-->
-    
-    
-    </body>
-    </html>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-    
+
+{% endblock %}
