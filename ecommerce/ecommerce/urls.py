@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^buyer_cart/editCartItem', 'products.views.editCartItem', name='cart_editItemFinal'),
     url(r'^process_payment/$', 'products.views.processPayment', name='cart_process_payment'),
     url(r'^dashboard/$', 'products.views.dashboard', name='dashboard'),
+    url(r'^favourites/$', 'products.views.favourites', name='favourites'),
+
     url(r'^$', 'products.views.index_new_home', name='home'),
     
 

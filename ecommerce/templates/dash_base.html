@@ -51,7 +51,7 @@
                             
                             <img src="#" style="width:50px;height:50px;border-radius:50%;position:relative;top:15px;" alt="name"/>
                             &nbsp;hello,<br>
-                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  User Name</h5>
+                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  {{user.first_name|capfirst}} {{user.last_name|capfirst}}</h5>
                         </div>
                         <br>
                         <!--left menu-->
@@ -72,10 +72,11 @@
                                             &nbsp;<i class="fa fa-power-off icon-color" aria-hidden="true"></i> &nbsp;Logout
                                
                                     </li>
-                                    
+                                         
                                             
                                       
                                 </ul>
+
                             </div>
                 </div>
 
@@ -104,6 +105,20 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
     crossorigin="anonymous"></script>
 
+<script>
+        $("#profile").on("click",function(){
+            window.location.href = "{% url 'dashboard' %}";
+        });
+        $("#favorites").on("click",function(){
+            window.location.href = "{% url 'favourites' %}";
+        });
+    
+        $("#logout").on("click",function(){
+            window.location.href = "{% url 'auth_logout' %}";
+        });
+</script>
+
 <script src="{% static 'js/theme.js' %}"></script>
 {% block custom_js %}
+
 {% endblock %}
