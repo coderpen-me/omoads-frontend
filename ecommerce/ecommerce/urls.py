@@ -32,6 +32,11 @@ urlpatterns = patterns('',
     url(r'^ajax/AjaxFormFilter/$', 'products.views.filterAjax', name='filter_form'),
     # url(r'^blog/', include('blog.urls')),
 
+
+
+
+
+
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),
     # url(r'^register/$', 'products.views.signup', name='auth_register2'),
     url(r'^registerowner/$', productsViews.SignupOwner.as_view(), name='auth_register_owner'),
@@ -49,7 +54,15 @@ urlpatterns = patterns('',
             {'post_reset_redirect' : '/user/password/done/'}, name='password_reset_confirm'),
     url(r'^user/password/done/$', 
             'django.contrib.auth.views.password_reset_complete'),
+
     
+    url(r'^auth/', include('social_django.urls', namespace='social')),
+
+
+
+
+
+
 
 
     url(r'^owner/home/$', productsViews.OwnerInterfaceHome.as_view(), name='owner_interface'),

@@ -19,12 +19,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'l8jyt^qbes)16fvzgx=t_kd3=0ch(&^x02x%rp#q71kewuz%%p'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='404494001272-phdnc9ertdmvua6c29g60fa0g7r30ctj.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'HaJUFx3DgbmkhoHE-KPRbCXQ'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "https://www.googleapis.com"]
 
 
 LOGIN_URL = '/login'
@@ -54,6 +57,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'collectfast',
     'django.contrib.staticfiles',
+    'social_django',
     'storages',
     'products',
 
@@ -70,6 +74,30 @@ MIDDLEWARE_CLASSES = (
     
     #
 )
+
+AUTHENTICATION_BACKENDS = (
+ #'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+ #'social_core.backends.google.GoogleOpenId',  # for Google authentication
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ #'social_core.backends.github.GithubOAuth2',  # for Github authentication
+ #'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+ 
+ 'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',  # <--- enable this one
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 #AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -138,6 +166,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
+    'social_django.context_processors.backends',  # <- Here
+    'social_django.context_processors.login_redirect',
 )
 
 # Static files (CSS, JavaScript, Images)
@@ -184,6 +214,10 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
 
 # Override production variables if DJANGO_DEVELOPMENT env variable is set
 
