@@ -504,7 +504,7 @@
         {% endif %}
         <div class="card panel panel-default open">
           <div class="filter-header panel-heading">
-            <h5>DIMENSIONS  <i class="fas fa-sort-down"></i></h5>
+            <h6 style="color:#fff;">DIMENSIONS  <i class="fas fa-sort-down"></i></h6>
           </div>
           <div class="check panel-body">
             {% for dimensions_of_banner in form.dimensions_banner %}
@@ -521,7 +521,7 @@
 
         <div class="card panel panel-default">
           <div class="filter-header panel-heading">
-            <h5>TYPE  <i class="fas fa-sort-down"></i></h5>
+            <h6 style="color:#fff;">TYPE  <i class="fas fa-sort-down"></i></h5>
           </div>
           <div class="check panel-body">
             {% for type_of_banners in  form.type_banner %}
@@ -538,7 +538,7 @@
 
           <div class="card panel panel-default">
             <div class="filter-header panel-heading">
-              <h5>LIGHTED  <i class="fas fa-sort-down"></i></h5>
+              <h6 style="color:#fff;">LIGHTED  <i class="fas fa-sort-down"></i></h5>
             </div>
             <div class="check panel-body">
               {% for lights_of_banners in  form.lighted_banner %}
@@ -555,7 +555,7 @@
 
           <div class="card panel panel-default">
             <div class="filter-header panel-heading">
-              <h5>DATE  <i class="fas fa-sort-down"></i></h5>
+              <h6 style="color:#fff;">DATE  <i class="fas fa-sort-down"></i></h5>
             </div>
             <a id="clearDate" class="btn btn-link" style="color: #ff6c00;position: absolute;top: 0;right: 0;z-index: 5;">Clear</a>
             <div class="check panel-body">
@@ -593,7 +593,7 @@
 
           <div class="card panel panel-default">
             <div class="filter-header panel-heading">
-              <h5>PRICE  <i class="fas fa-sort-down"></i></h5>
+              <h6 style="color:#fff;">PRICE  <i class="fas fa-sort-down"></i></h5>
             </div>
             <div class="check panel-body">
               <div id="slider"></div>
@@ -799,6 +799,11 @@ $('.col-control').on('click', function(ev){
                          <i class="fas fa-heart"></i>
                     </button>
                   {% endif %}
+                  {% else %}
+                    <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites">
+                         <i class="fas fa-heart"></i>
+                    </button>
+                  {% endelse%}
                 </form>
                 <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
               </div>
@@ -1199,7 +1204,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
        markerGroup[i].addListener('spider_click', function() {
           // infowindow.setContent(this.content);
           // infowindow.open(map, this);
-          $('#MyModalAddCart').attr("disabled", true);
+          $('#MyModalAddCart').attr("disabled", false);
           resetInfo();
           $.ajax({
             type: "POST",
