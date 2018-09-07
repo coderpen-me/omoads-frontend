@@ -612,8 +612,33 @@ def filterAjax(request):
 				q_light = q_light|Q(banner_lighted = L)
 		except Exception as e:
 			pass
+
+		q_price = Q()
+		try:
+			today_date = datetime.date.today()
+			try:
+				min_price = filter_form['min_price'][0]
+			except Exception as e:
+				min_price = 0
+
+			try:
+				max_price = filter_form['max_price'][0]
+			except Exception as e:
+				max_price = 99999999
+			
+			price_set = PricePeriod.objects.filter(endDate__gte = str(today_date), 
+										startDate__lte = str(today_date), 
+										price__gte=min_price, 
+										price__lte=max_price)
+			q_price = q_price|Q(priceperiod__in=price_set)
+			
+		except Exception as e:
+			print(str(e))
+
+
+
 		banner_ids = []
-		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light).values_list('id', flat = True)
+		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light&q_price).values_list('id', flat = True)
 		print(banner_ids)
 		
 		data = {

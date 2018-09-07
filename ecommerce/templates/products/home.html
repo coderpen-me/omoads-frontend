@@ -456,7 +456,53 @@
       document.querySelector('.blurred').style.display = 'none';
     }
   </script> -->
+<script type="text/javascript">
+var submit_filter = function() {
+  
+  $.ajax({
+           type: "POST",
+           url: "{% url 'filter_form' %}",
+           beforeSend: function(){
+                                NProgress.start();
+                               },
+           data: {"filter_form": $("#filterForm").serialize(),
+                  "csrfmiddlewaretoken": "{{ csrf_token }}",
+                  },
+           success: function(data)
+           {
+            for(let marker of markerGroup)
+            {
+              if(data["ids"].indexOf(marker.id_try)!==-1)
+              {
+                marker.setVisible(true)
+              }
+              else
+              {
+                marker.setVisible(false)
+              }
+                
+            }
+            markerCluster.repaint();
+            NProgress.done();
+                
+           },
+           error: function(data)
+           {
+              console.log("some error");
+           },
+         });   
+}
+$('.col-control').on('click', function(ev){
+  $('#filter-sec, #control-contain').toggleClass('collapse-right')
+  if($('#filter-sec, #control-contain').hasClass('collapse-right')){
+    this.innerHTML = `<i class="fas fa-angle-left"></i>`
+  }
+  else{
+    this.innerHTML = `<i class="fas fa-angle-right"></i>`
+  }
 
+})
+</script>
   <div class="container-fluid box" style="position: relative;">
     <div class="secondBox col-sm-12" >
       <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Location"> -->
@@ -571,20 +617,20 @@
             <div class="check panel-body">
                 <div class="row date-input">
                     <div class="col-sm-6 date-input-form">
-                      <form>
+                      
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                           <input id="datePicker-start" type="text" class="form-control" placeholder="Start Date">
                         </div>
-                      </form>
+                      
                     </div>
                     <div class="col-sm-6 date-input-form">
-                      <form>
+                      
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                           <input id="datePicker-end" type="text" class="form-control" placeholder="End Date">
                         </div>
-                      </form>
+                      
                     </div>
               </div>
               <style>
@@ -610,11 +656,11 @@
               <div class="inputs">
                 <div class="inputs-left inps-contain">
                   <label for="range-left">Min</label>
-                  <input id="range-left" class="inp-left" type="number" />
+                  <input id="range-left" class="inp-left" type="number" name = "min_price"/>
                 </div>
                 <div class="inputs-right inps-contain">
                   <label for="range-right">Max</label>
-                  <input id="range-right" class="inp-right" type="number" />
+                  <input id="range-right" class="inp-right" type="number" name = "max_price"/>
                 </div>
               </div>
             </div>
@@ -622,6 +668,8 @@
               .inputs{display: flex; justify-content: space-between; align-items: center;}.inps-contain{width: 45%;}.inps-contain label{display: block; text-align: center;}.inps-contain input{width: 100%;}#slider{height: 10px; margin: 15px 0;}.noUi-connect{background: #ff6c00;}.noUi-horizontal .noUi-handle{ height: 20px; width: 20px; border: none; border-radius: 50%; box-shadow: none; background: #333;}.noUi-handle:before, .noUi-handle:after{ display: none;}
             </style>
             <script>
+              let filter_timeout_track = null
+              let page_first_load = true
               let slider = document.getElementById('slider');
               noUiSlider.create(slider, {
                 start: [0, 100],
@@ -635,7 +683,7 @@
               // Slider change . Suggestion: add your functionality in syncInputs().
               slider.noUiSlider.on('change', syncInputs)
               let inps = document.querySelectorAll('.inps-contain input')
-              console.log(inps)
+              
               inps.forEach(function(el){
                 el.addEventListener('input', function(){syncSlider(el)})
               })
@@ -643,72 +691,43 @@
                 console.log(inpElement)
                 if($(inpElement).hasClass('inp-left')){
                   slider.noUiSlider.set([inpElement.value / 5000, null])
-                  console.log('left')
+                  console.log(inpElement.value)
                 }
                 else{
                   slider.noUiSlider.set([null, inpElement.value / 5000])
+                }
+                if(!page_first_load)
+                { 
+                    if(filter_timeout_track!=null)
+                    {
+                        clearTimeout(filter_timeout_track);
+                    }
+                    filter_timeout_track = setTimeout(submit_filter,1000);
                 }
               }
               function syncInputs(){
                 let st = slider.noUiSlider.get()
                 document.getElementById('range-left').value = parseInt(st[0]) * 5000
                 document.getElementById('range-right').value = parseInt(st[1]) * 5000
+                if(!page_first_load)
+                { 
+                    if(filter_timeout_track!=null)
+                    {
+                        clearTimeout(filter_timeout_track);
+                    }
+                    filter_timeout_track = setTimeout(submit_filter,1000);
+                }
               }
               slider.noUiSlider.set([0, 100])
               syncInputs()
+              page_first_load = false
             </script>
           </div>
       </form>
     </div>
   </div>
 </div>
-<script type="text/javascript">
-var submit_filter = function() {
-  
-  $.ajax({
-           type: "POST",
-           url: "{% url 'filter_form' %}",
-           beforeSend: function(){
-                                NProgress.start();
-                               },
-           data: {"filter_form": $("#filterForm").serialize(),
-                  "csrfmiddlewaretoken": "{{ csrf_token }}",
-                  },
-           success: function(data)
-           {
-            for(let marker of markerGroup)
-            {
-              if(data["ids"].indexOf(marker.id_try)!==-1)
-              {
-                marker.setVisible(true)
-              }
-              else
-              {
-                marker.setVisible(false)
-              }
-                
-            }
-            markerCluster.repaint();
-            NProgress.done();
-                
-           },
-           error: function(data)
-           {
-              console.log("some error");
-           },
-         });   
-}
-$('.col-control').on('click', function(ev){
-  $('#filter-sec, #control-contain').toggleClass('collapse-right')
-  if($('#filter-sec, #control-contain').hasClass('collapse-right')){
-    this.innerHTML = `<i class="fas fa-angle-left"></i>`
-  }
-  else{
-    this.innerHTML = `<i class="fas fa-angle-right"></i>`
-  }
 
-})
-</script>
 
 <div class="footer"></div>
 </section>
