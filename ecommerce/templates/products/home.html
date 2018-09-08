@@ -529,7 +529,7 @@ $('.col-control').on('click', function(ev){
       }
     </style>
     <div >
-      <button class="col-collapse" style="position:fixed;top:61px;right:340px;z-index:1001;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
+      <button class="col-collapse" style="position:fixed;top:61px;right:340px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
     <div>
       <script>
         var tog = 0;
@@ -537,13 +537,13 @@ $('.col-control').on('click', function(ev){
           if(tog == 0){
             $("#filter-sec").css("right","-340px");
             $("#icon-m").removeClass("fa-angle-right");
-            $("#icon-m").add("fa-angle-left");
+            $("#icon-m").addClass("fa-angle-left");
             tog = 1;
           }
           if(tog == 1){
             $("#filter-sec").css("right","0px");
             $("#icon-m").removeClass("fa-angle-left");
-            $("#icon-m").add("fa-angle-right");
+            $("#icon-m").addClass("fa-angle-right");
             tog = 0;
           }
         });
