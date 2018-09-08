@@ -114,7 +114,10 @@
     transform: translate3d(100%, 0, 0);
   }
   .footer{
-    padding: 0em;
+    padding: .7em;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
   }
   /* .cont{
     position: relative;
@@ -530,7 +533,7 @@ $('.col-control').on('click', function(ev){
     </style>
     <div >
       <button class="col-collapse" style="position:fixed;top:61px;right:340px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
-      <button class="col-collapse1" style="position:fixed;top:61px;right:0px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-left"></i></button>
+      <button class="col-collapse1" style="display:none;position:fixed;top:61px;right:0px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-left"></i></button>
     <div>
       <script>
         var tog = 0;
@@ -890,8 +893,9 @@ $('.col-control').on('click', function(ev){
 
   <div class="modal fade" id="availModal" tabindex="-1" role="dialog" aria-labelledby="availModalLabel" aria-hidden="true">
       <style>
-        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}.child:hover{transform: scaleX(1.5);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
-      </style>
+        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}
+        .child:hover{position:absolute;left:0px;width:100%;margin:auto;transform: scaleX(1.5);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
+     </style>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
