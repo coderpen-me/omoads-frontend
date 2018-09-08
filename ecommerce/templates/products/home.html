@@ -535,21 +535,14 @@ $('.col-control').on('click', function(ev){
       <script>
         var tog = 0;
         $(".col-collapse").on("click",function(){
-          
-            $(this).css("right","0px");
             $("#filter-sec").css("right","-340px");
-            
             $(this).hide();
             $(".col-collapse1").show();
-          
         });
         $(".col-collapse1").on("click",function(){
-            $(this).css("right","340px");
             $("#filter-sec").css("right","0px");
-            
             $(this).hide();
             $(".col-collapse").show();
-          
         });
       </script>
     <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;">
