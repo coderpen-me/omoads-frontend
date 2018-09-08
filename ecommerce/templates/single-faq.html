@@ -1,0 +1,67 @@
+
+{% extends 'base.html'%}
+
+{% load staticfiles %}
+
+{% block custom_css %}
+ <style>
+    .form-control::-webkit-input-placeholder { color: #aaa; }  /* WebKit, Blink, Edge */
+    .form-control:-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 4 to 18 */
+    .form-control::-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 19+ */
+    .form-control:-ms-input-placeholder { color: #aaa; }  /* Internet Explorer 10-11 */
+    .form-control::-ms-input-placeholder { color: #aaa; }  /* Microsoft Edge */
+    </style>
+{% endblock %}
+
+{% block content %}
+<!-- main Content-->
+<div class="row">
+	<div class="col-md-12"style="min-height:600px;padding:20px;">
+	
+		<div class="container">
+		<br>
+			<h2 style="font-weight:lighter;">Question Area</h2>
+			<br>
+			<div class="answer" style="width:100%;min-height:300px;background:#efefef;">
+			
+			</div>
+			<hr width="100%"></hr>
+			<br>
+			<a href="{% url %}#faq" style="margin-left:45%;border:2px solid #ccc;border-radius:30px; 
+										width:150px;height:60px;background:none;
+										color:#000;padding:15px 25px;">FAQ HOME</a> 
+		</div>
+	</div>
+</div>
+<!-- footer-->
+
+<div class="row footer" >
+
+        <div class="col-md-8">
+            <p style="margin-left:6em;">Contact us and we will get back you withen 24 hours</p>
+            <br>
+            <ul style="list-style:none;">
+                <Li><i class="fas fa-map-marker-alt fa fa-2x" style="margin-right:1em;"></i>H.NO-402 Near DR. Ambedkar Inter Collage Indergrahi,Ghazibad,<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp India, PIN 201302</Li>
+                <li><i class="fab fa-whatsapp fa fa-2x" style="margin-right:1em;"></i> +91 9911-639-985</li>
+                <li><i class="fas fa-envelope  fa fa-2x"style="margin-right:1em;"></i>teamomoads@gmal.com</li>
+            </ul>
+            <br><br>
+            <p style="margin-left:2em;">tearms & condition</p>
+        </div>
+        <diiv class="col-md-4">
+            <p>Links to other main Pages</p>
+            <br><br><br>
+            <img src="images/1x1_Logo.png" width="250px" height="auto" alt="" />
+            <p>Copyright &copy 2018</p>
+        </diiv>
+</div>
+<!-- footer-->
+
+<!-- main Content-->
+
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
