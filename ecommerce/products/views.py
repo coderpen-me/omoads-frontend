@@ -159,7 +159,7 @@ def directions(request):
 	return render(request, template, context)
 
 def faq(request):
-	template = "faqs.html"
+	template = "single-faq.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -636,9 +636,20 @@ def filterAjax(request):
 			print(str(e))
 
 
+		q_date = Q()
+		try:
+			startDateParsed = datetime.datetime.strptime(filter_form['start_date'][0], "%d/%m/%Y").date()
+			endDateParsed = datetime.datetime.strptime(filter_form['end_date'][0], "%d/%m/%Y").date()
+			booked_detail_set = BookingDetails.objects.filter(endDate__gte=startDateParsed, startDate__lte=endDateParsed, active=True)
+			q_date = q_date|Q(bookingdetails__in = booked_detail_set)
+		except Exception as e:
+			print(e)
+
+
+
 
 		banner_ids = []
-		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light&q_price).values_list('id', flat = True)
+		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light&q_price).exclude(q_date).values_list('id', flat = True)
 		print(banner_ids)
 		
 		data = {
