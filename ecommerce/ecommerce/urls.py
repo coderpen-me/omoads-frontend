@@ -81,7 +81,7 @@ urlpatterns = patterns('',
     url(r'^faq/$', 'products.views.faq', name='faq'),
   
     url(r'^uploadImage/$', 'products.views.uploadImage', name='uploadImage'),
-    url(r'^singleFaq/$', 'products.views.single-faq', name='faq_new'), #change faq @sidd
+    
     url(r'^admin/', include(admin.site.urls)),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
