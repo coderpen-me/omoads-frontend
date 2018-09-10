@@ -20,10 +20,10 @@
 	
 		<div class="container">
 		<br>
-			<h2 style="font-weight:lighter;">Question Area</h2>
+			<h2 id="q" style="font-weight:lighter;">Question Area</h2>
 			<br>
 			<div class="answer" style="width:100%;min-height:300px;background:#efefef;">
-			
+				<p id="a"></p>
 			</div>
 			<hr width="100%"></hr>
 			<br>
@@ -47,9 +47,9 @@
 
 var cURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
 
-alert(window.location.pathname);
-	
-	
+var data = window.location.pathname;
+var faqid = data.split("/");
+alert(faqid[1]);
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
