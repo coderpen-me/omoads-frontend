@@ -166,25 +166,25 @@
                     
                     <div class="col-md-8">
                         <ol class="faq">
-                            <li><a faq-id ="1" href="#">What is Omoads?</a></li>
-                            <li><a faq-id ="2"href="#">How we can help you?</a></li>
-                            <li><a faq-id ="3"href="#">What are the types of Outdoor Medias that are listed on Omo ads?</a></li>
-                            <li><a faq-id ="4href="#">How can all benefit from it?</a></li>
-                            <li><a faq-id ="5href="#">How to track geograpghic location of any hoarding?</li>
-                            <li><a faq-id ="6href="#">How the availability function helpful?</a></li>
-                            <li><a faq-id ="7href="#">How to use ID's provided in the hoarding details?</a></li>
-                            <li><a faq-id ="8href="#">Do we charge any fee?</a></li>
-                            <li><a faq-id ="9href="#">Do gather data about the deals?</a></li>
-                            <li><a faq-id ="10href="#">How is OMOads different?</a></li>
-                            <li><a faq-id ="11href="#">What is Outdoor Advertising?</a></li>
-                            <li><a faq-id ="12href="#">What are the types of Outdoor Medias that are listed on Omoads?</a></li>
-                            <li><a faq-id ="13href="#">What is Traffic Light Signage?</a></li>
-                            <li><a faq-id ="14href="#">What are Unipoles?</a></li>
-                            <li><a faq-id ="15href="#">What is a Gantry?</a></li>
-                            <li><a faq-id ="16href="#">What are the advantages of Oudoor Advertising?</a></li>
-                            <li><a faq-id ="17href="#">How outdoor advertisement is done?</a></li>
-                            <li><a faq-id ="18href="#">Why zones are created in city?</a></li>
-                            <li><a faq-id ="19href="#">Different types of lighting done?</a></li>
+                            <li><a class="faq-link" faq-id ="1" href="#">What is Omoads?</a></li>
+                            <li><a class="faq-link" faq-id ="2" href="#">How we can help you?</a></li>
+                            <li><a class="faq-link" faq-id ="3" href="#">What are the types of Outdoor Medias that are listed on Omo ads?</a></li>
+                            <li><a class="faq-link" faq-id ="4" href="#">How can all benefit from it?</a></li>
+                            <li><a class="faq-link" faq-id ="5" href="#">How to track geograpghic location of any hoarding?</li>
+                            <li><a class="faq-link" faq-id ="6" href="#">How the availability function helpful?</a></li>
+                            <li><a class="faq-link" faq-id ="7" href="#">How to use ID's provided in the hoarding details?</a></li>
+                            <li><a class="faq-link" faq-id ="8" href="#">Do we charge any fee?</a></li>
+                            <li><a class="faq-link" faq-id ="9" href="#">Do gather data about the deals?</a></li>
+                            <li><a class="faq-link" faq-id ="10" href="#">How is OMOads different?</a></li>
+                            <li><a class="faq-link" faq-id ="11" href="#">What is Outdoor Advertising?</a></li>
+                            <li><a class="faq-link" faq-id ="12" href="#">What are the types of Outdoor Medias that are listed on Omoads?</a></li>
+                            <li><a class="faq-link" faq-id ="13" href="#">What is Traffic Light Signage?</a></li>
+                            <li><a class="faq-link" faq-id ="14" href="#">What are Unipoles?</a></li>
+                            <li><a class="faq-link" faq-id ="15" href="#">What is a Gantry?</a></li>
+                            <li><a class="faq-link" faq-id ="16" href="#">What are the advantages of Oudoor Advertising?</a></li>
+                            <li><a class="faq-link" faq-id ="17" href="#">How outdoor advertisement is done?</a></li>
+                            <li><a class="faq-link" faq-id ="18" href="#">Why zones are created in city?</a></li>
+                            <li><a class="faq-link" faq-id ="19" href="#">Different types of lighting done?</a></li>
                         </ol>
 
                     </div>
@@ -257,11 +257,15 @@
 
 {% block custom_js %}
 <script>
-    $(document).ready(function(){
-
-        $("#abt-contact").css("background","#fff url({% static 'img/images/IMG_4506.PNG' %}) center no-repeat");
-        $("#abt-contact").css("background-size","100%");
-        $("#abt-contact").css("background-position-x","0px !important");
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+    $(".faq-link").on("click",function(){
+	var faqid = $(this).attr("faq-link");
+        setCookie("faqid",faqid.toString() , 365);
         
     });
 </script>
