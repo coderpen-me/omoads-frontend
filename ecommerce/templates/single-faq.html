@@ -49,7 +49,14 @@ var data = window.location.pathname;
 var faqid = data.split("/");
 console.log(faqid[2]);
 	
-$.get("{% static 'resources/faq.json' %}",function(res,result){
+var data = $.ajax({
+  url: "{% static 'resources/faq.json' %}",
+  method: "GET",
+  dataType: "json"
+});
+alert(data);
+$("#a").html(data);
+/*$.get("{% static 'resources/faq.json' %}",function(res,result){
 	alert(result);
 	var obj = JSON.parse(res);
 	console.log(obj);
@@ -57,6 +64,7 @@ $.get("{% static 'resources/faq.json' %}",function(res,result){
 	$("#q").html(obj[faqid].q);
 	$("#a").html(obj[faqid].a);
 });
+*/
 </script>
 
 {% endblock %}
