@@ -42,21 +42,20 @@
 
 
 {% block custom_js %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 var cURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
 var data = window.location.pathname;
 var faqid = data.split("/");
 console.log(faqid[2]);
 	
-var data = $.ajax({
+/*var data = $.ajax({
   url: "{% static 'resources/faq.json' %}",
   method: "GET",
   dataType: "json"
-});
-alert(data);
-$("#a").html(data);
-/*$.get("{% static 'resources/faq.json' %}",function(res,result){
+});*/
+
+$.get("{% static 'resources/faq.json' %}",function(res,result){
 	alert(result);
 	var obj = JSON.parse(res);
 	console.log(obj);
@@ -64,7 +63,7 @@ $("#a").html(data);
 	$("#q").html(obj[faqid].q);
 	$("#a").html(obj[faqid].a);
 });
-*/
+
 </script>
 
 {% endblock %}
