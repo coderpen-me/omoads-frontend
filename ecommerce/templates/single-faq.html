@@ -50,9 +50,12 @@ var faqid = data.split("/");
 console.log(faqid[2]);
 	
 $.get("{% static 'resources/faq.json' %}",function(res,result){
-	
+	alert(result);
 	var obj = JSON.parse(res);
 	console.log(obj);
+	
+	$("#q").html(obj[faqid].q);
+	$("#a").html(obj[faqid].a);
 });
 </script>
 
