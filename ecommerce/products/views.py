@@ -158,7 +158,7 @@ def directions(request):
 				}
 	return render(request, template, context)
 
-def faq(request):
+def faq(request, f_id):
 	template = "single-faq.html"
 	username = ""
 	userType = ""
@@ -172,7 +172,8 @@ def faq(request):
 	context = {
 				'loginStatus':request.user.is_authenticated(),
 				'username':username,
-				'userType':userType
+				'userType':userType,
+				'f_id':f_id,
 				}
 	return render(request, template, context)
 

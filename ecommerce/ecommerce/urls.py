@@ -78,7 +78,7 @@ urlpatterns = patterns('',
 
     url(r'^aboutus/$', 'products.views.aboutus', name='aboutus'),
     url(r'^directions/$', 'products.views.directions', name='directions'),
-    url(r'^faq/$', 'products.views.faq', name='faq'),
+    url(r'^faq/([0-9]+)$', 'products.views.faq', name='faq'),
   
     url(r'^uploadImage/$', 'products.views.uploadImage', name='uploadImage'),
     

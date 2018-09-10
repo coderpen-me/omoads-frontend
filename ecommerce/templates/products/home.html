@@ -105,7 +105,7 @@
   }
   #filter-sec{
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     right: 0;
     transition: all 100ms ease-out;
     top:0px;
@@ -532,13 +532,13 @@ $('.col-control').on('click', function(ev){
       }
     </style>
     <div >
-      <button class="col-collapse" style="position:fixed;top:60px;height:45px;right:340px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
+      <button class="col-collapse" style="position:fixed;top:60px;height:45px;right:calc(100% - 75%);z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
       <button class="col-collapse1" style="display:none;position:fixed;top:60px;height:45px;right:0px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-left"></i></button>
     <div>
       <script>
         var tog = 0;
         $(".col-collapse").on("click",function(){
-            $("#filter-sec").css("right","-340px");
+            $("#filter-sec").css("right","-25%");
             $(this).hide();
             $(".col-collapse1").show();
         });

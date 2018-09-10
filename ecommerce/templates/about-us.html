@@ -166,25 +166,25 @@
                     
                     <div class="col-md-8">
                         <ol class="faq">
-                            <li><a href="{% url 'faq' %}">What is Omoads?</a></li>
-                            <li><a href="{% url 'faq' %}">How we can help you?</a></li>
-                            <li><a href="{% url 'faq' %}">What are the types of Outdoor Medias that are listed on Omo ads?</a></li>
-                            <li><a href="{% url 'faq' %}">How can all benefit from it?</a></li>
-                            <li><a href="{% url 'faq' %}">How to track geograpghic location of any hoarding?</li>
-                            <li><a href="{% url 'faq' %}">How the availability function helpful?</a></li>
-                            <li><a href="{% url 'faq' %}">How to use ID's provided in the hoarding details?</a></li>
-                            <li><a href="{% url 'faq' %}">Do we charge any fee?</a></li>
-                            <li><a href="{% url 'faq' %}">Do gather data about the deals?</a></li>
-                            <li><a href="{% url 'faq' %}">How is OMOads different?</a></li>
-                            <li><a href="{% url 'faq' %}">What is Outdoor Advertising?</a></li>
-                            <li><a href="{% url 'faq' %}">What are the types of Outdoor Medias that are listed on Omoads?</a></li>
-                            <li><a href="{% url 'faq' %}">What is Traffic Light Signage?</a></li>
-                            <li><a href="{% url 'faq' %}">What are Unipoles?</a></li>
-                            <li><a href="{% url 'faq' %}">What is a Gantry?</a></li>
-                            <li><a href="{% url 'faq' %}">What are the advantages of Oudoor Advertising?</a></li>
-                            <li><a href="{% url 'faq' %}">How outdoor advertisement is done?</a></li>
-                            <li><a href="{% url 'faq' %}">Why zones are created in city?</a></li>
-                            <li><a href="{% url 'faq' %}">Different types of lighting done?</a></li>
+                            <li><a class="faq-link" faq-id ="1" href="{% url 'faq' 1 %}">What is Omoads?</a></li>
+                            <li><a class="faq-link" faq-id ="2" href="{% url 'faq' 2 %}">How we can help you?</a></li>
+                            <li><a class="faq-link" faq-id ="3" href="{% url 'faq' 3 %}">What are the types of Outdoor Medias that are listed on Omo ads?</a></li>
+                            <li><a class="faq-link" faq-id ="4" href="{% url 'faq' 4 %}">How can all benefit from it?</a></li>
+                            <li><a class="faq-link" faq-id ="5" href="{% url 'faq' 5 %}">How to track geograpghic location of any hoarding?</li>
+                            <li><a class="faq-link" faq-id ="6" href="{% url 'faq' 6 %}">How the availability function helpful?</a></li>
+                            <li><a class="faq-link" faq-id ="7" href="{% url 'faq' 7 %}">How to use ID's provided in the hoarding details?</a></li>
+                            <li><a class="faq-link" faq-id ="8" href="{% url 'faq' 8 %}">Do we charge any fee?</a></li>
+                            <li><a class="faq-link" faq-id ="9" href="{% url 'faq' 9 %}">Do gather data about the deals?</a></li>
+                            <li><a class="faq-link" faq-id ="10" href="{% url 'faq' 10 %}">How is OMOads different?</a></li>
+                            <li><a class="faq-link" faq-id ="11" href="{% url 'faq' 11 %}">What is Outdoor Advertising?</a></li>
+                            <li><a class="faq-link" faq-id ="12" href="{% url 'faq' 12 %}">What are the types of Outdoor Medias that are listed on Omoads?</a></li>
+                            <li><a class="faq-link" faq-id ="13" href="{% url 'faq' 13 %}">What is Traffic Light Signage?</a></li>
+                            <li><a class="faq-link" faq-id ="14" href="{% url 'faq' 14 %}">What are Unipoles?</a></li>
+                            <li><a class="faq-link" faq-id ="15" href="{% url 'faq' 15 %}">What is a Gantry?</a></li>
+                            <li><a class="faq-link" faq-id ="16" href="{% url 'faq' 16 %}">What are the advantages of Oudoor Advertising?</a></li>
+                            <li><a class="faq-link" faq-id ="17" href="{% url 'faq' 17 %}">How outdoor advertisement is done?</a></li>
+                            <li><a class="faq-link" faq-id ="18" href="{% url 'faq' 18 %}">Why zones are created in city?</a></li>
+                            <li><a class="faq-link" faq-id ="19" href="{% url 'faq' 19 %}">Different types of lighting done?</a></li>
                         </ol>
 
                     </div>
@@ -257,11 +257,15 @@
 
 {% block custom_js %}
 <script>
-    $(document).ready(function(){
-
-        $("#abt-contact").css("background","#fff url({% static 'img/images/IMG_4506.PNG' %}) center no-repeat");
-        $("#abt-contact").css("background-size","100%");
-        $("#abt-contact").css("background-position-x","0px !important");
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+    $(".faq-link").on("click",function(){
+	var faqid = $(this).attr("faq-link");
+        setCookie("faqid",faqid.toString() , 365);
         
     });
 </script>
