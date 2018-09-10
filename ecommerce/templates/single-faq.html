@@ -43,21 +43,16 @@
 
 {% block custom_js %}
 <script>
-
-
 var cURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
-
 var data = window.location.pathname;
 var faqid = data.split("/");
 console.log(faqid[2]);
-
 	
-$.get("https://omos.s3.amazonaws.com/resources/faq.json",function(res,result){
-	console.log(res);
+$.get("{% static 'resources/faq.json' %}",function(res,result){
 	
-	
+	var obj = JSON.parse(res);
+	console.log(obj);
 });
-
 </script>
 
 {% endblock %}
