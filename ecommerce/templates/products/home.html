@@ -105,7 +105,7 @@
   }
   #filter-sec{
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     right: 0;
     transition: all 100ms ease-out;
     top:0px;
@@ -538,7 +538,7 @@ $('.col-control').on('click', function(ev){
       <script>
         var tog = 0;
         $(".col-collapse").on("click",function(){
-            $("#filter-sec").css("right","calc(100% - 75%)");
+            $("#filter-sec").css("right","-25%");
             $(this).hide();
             $(".col-collapse1").show();
         });
