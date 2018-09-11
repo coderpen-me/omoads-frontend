@@ -6,8 +6,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 <link rel="stylesheet" href="assets/css/theme.css"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
 </head>
-<body >
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#"><img class="img" class="img-responsive2"
         src="https://omos.s3.amazonaws.com/resources/images/re-logo.png"></a>
@@ -101,7 +103,8 @@
 	  background:#fff;
 	  box-sizing: border-box;
 	  font-family: Arial, Helvetica, sans-serif;
-	  margin-left:2em;
+	  margin-left:1em;
+	  transition-duration:300ms;
 	  
 	}
 	.box *{
@@ -121,7 +124,7 @@
 	.box-body{
 	  width:100%;
 	  color:#333;
-	  padding: 10px;
+	  padding: 20px;
 	  
 	}
 	.box-body p{
@@ -175,7 +178,7 @@
 				</a>
 			</div>
 			<div class="box-body">
-				<h3>1) All of These Headlines Are Not Exactly The Same</h3>
+				<h3><a href="#">1) All of These Headlines Are Not Exactly The Same</a></h3>
 				<p>In the real world, you don't know how long the content will be. Writers will write what they need. Photos will be cropped to the shape that they should be. That's good. Make a system that allows this. You want it to be flexible and robust.</p>
 			</div>
 		</div>
@@ -186,7 +189,7 @@
 				</a>
 			</div>
 			<div class="box-body">
-				<h3>2) Some Are Short</h3>
+				<h3><a href="#">2) Some Are Short</a></h3>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus.</p> 
 			</div>
 		</div>
@@ -198,7 +201,7 @@
 				</a>
 			</div>
 			<div class="box-body">
-		  <h3>3) Some Headlines Can Sometimes Be Quite Long, Because It Takes Time to Make A Point</h3>
+		  <h3><a href="#">3) Some Headlines Can Sometimes Be Quite Long, Because It Takes Time to Make A Point</a></h3>
 		  <p>Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis.</p> 
 			</div>
 		</div>
@@ -209,14 +212,29 @@
 				</a>
 			</div>
 			<div class="box-body">
-				<h3>4) Also, Why Are We Using Fake Content? Let's Make Some Real-ish Content.</h3>
+				<h3><a href="#">4) Also, Why Are We Using Fake Content? Let's Make Some Real-ish Content.</a></h3>
 				<p>By using real content, we can see the variation inherent in what this site might present. And we can design for those real world needs.
 			</div>
 		</div>
 		
   </main>
 </div>
-    <script src='assets/js/masonry.js'></script>
+		
+<br>
+<div class="row ">
+	<div class="col-md-6" style="margin-left:calc(100% - 65%);">
+			<a style="float:left;background: #ccc;margin-left:1em;color:#fff;color:#ccc;font-weight:bold;"  href="#" class="btn bg-dark">Prev</a>
+			<ul style="list-style: none;display: inline;">
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">1</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">2</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">3</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">.</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">.</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">9</a></li>
+			</ul>
+			<a style="float:left;background: #ccc;margin-left:1em;color:#fff;color:#ccc;font-weight:bold;" href="#" class="btn bg-dark" >Next</a>
+	</div>
+</div>
 <!-- main Content-->
 <!-- footer-->
 <br>
@@ -233,12 +251,12 @@
             <br><br>
             <p style="margin-left:2em;">tearms & condition</p>
         </div>
-        <diiv class="col-md-4">
+        <div class="col-md-4">
             <p>Links to other main Pages</p>
             <br><br><br>
             <img src="images/1x1_Logo.png" width="250px" height="auto" alt="" />
             <p>Copyright &copy 2018</p>
-        </diiv>
+        </div>
 </div>
 <!-- footer-->
 
@@ -246,10 +264,11 @@
 
 </body>
 </html>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-
+<script src='assets/js/masonry.js'></script>
 
 
 <script>
