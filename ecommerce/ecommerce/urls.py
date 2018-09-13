@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^process_payment/$', 'products.views.processPayment', name='cart_process_payment'),
     url(r'^dashboard/$', 'products.views.dashboard', name='dashboard'),
     url(r'^favourites/$', 'products.views.favourites', name='favourites'),
+    url(r'^newsletter/$', 'products.views.blog_page', name='blog_page'),
 
     url(r'^$', 'products.views.index_new_home', name='home'),
     

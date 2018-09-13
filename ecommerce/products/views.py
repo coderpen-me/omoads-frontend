@@ -63,6 +63,28 @@ def printing_material(request):
 				}
 	return render(request, template, context)
 
+
+def blog_page(request):
+	template = "blog.html"
+	username = ""
+	userType = ""
+	
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+
+
 @login_required(login_url = "/login/")
 def dashboard(request):
 	template = "dashboard.html"
@@ -678,28 +700,33 @@ def onclickMapPoints(request):
 		context = {"bookdates":bookDates}
 		try:
 			contact_number = b.agency.user.extendeduser.phone_number
+			
 		except Exception as e:
 			contact_number = "NONE"
-		data = {
-		"id" : str(b.id),
-		"url": str(b.bannerimage),
-		"type": str(type_choices[str(b.banner_type)]),
-		"lighted": str(light_choices[str(b.banner_lighted)]),
-		"facing" : str(b.banner_facing),
-		"landmark" : str(b.banner_landmark),
-		"zone" : str(b.zone),
-		"lat" : str(b.banner_lattitude),
-		"long" : str(b.banner_longitude),
-		"dim" : str(dimension_choices[str(b.banner_dimensions)]),
-		"bookDates":bookDates,
-		"agency_name":b.agency.agency_name,
-		"agency_address":b.agency.agency_address,
-		"agency_email":b.agency.user.email,
-		"agency_phone":contact_number,
-		}
+		try:
+			data = {
+			"id" : str(b.id),
+			"url": str(b.bannerimage),
+			"type": str(type_choices[str(b.banner_type)]),
+			"lighted": str(light_choices[str(b.banner_lighted)]),
+			"facing" : str(b.banner_facing),
+			"landmark" : str(b.banner_landmark),
+			"zone" : str(b.zone),
+			"lat" : str(b.banner_lattitude),
+			"long" : str(b.banner_longitude),
+			"dim" : str(dimension_choices[str(b.banner_dimensions)]),
+			"bookDates":bookDates,
+			"agency_name":b.agency.agency_name,
+			"agency_address":b.agency.agency_address,
+			"agency_email":b.agency.user.email,
+			"agency_phone":contact_number,
+			}
+		except Exception as e:
+			print(e)
 		# print(data)
+		
 		json_data = json.dumps(data)
-
+		
 		return HttpResponse(json_data, content_type='application/json')
 	else:
 		raise Http404
