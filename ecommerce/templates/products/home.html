@@ -863,8 +863,23 @@ $('.col-control').on('click', function(ev){
                     </button>
                   
                   
+                <div id="container-360"></div>
                 
-                <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
+                <script src="{% static 'js/three.min.js' %}"></script>
+                <script src="{% static 'js/photo-sphere-viewer.min.js' %}"></script>
+                <script>
+                    var div = document.getElementById('container-360');
+                    var PSV = new PhotoSphereViewer({
+                        panorama: 'http://tassedecafe.org/wp-content/uploads/2013/01/parc-saint-pierre-amiens.jpg',
+                        container: div,
+                        time_anim: 3000,
+                        navbar: true,
+                        navbar_style: {
+                          backgroundColor: 'rgba(58, 67, 77, 0.7)'
+                        },
+                      });
+                  </script>
+                <!-- <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">-->
               </div>
 
               <!-- The owner button div  -->
@@ -1793,3 +1808,4 @@ Pace.on("done", function(){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
     crossorigin="anonymous"></script>
+
