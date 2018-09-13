@@ -171,7 +171,7 @@ class PricePeriod(models.Model):
 
 
 class Favourite(models.Model):
-	banner = models.OneToOneField(Banner, on_delete = models.CASCADE)
+	banner = models.ForeignKey(Banner, on_delete = models.CASCADE)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	def __str__(self):
 		return "banner ID:%s user:%s"%(self.banner, self.user)
