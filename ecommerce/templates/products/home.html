@@ -1325,6 +1325,9 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                     $.ajax({
                         type:"POST",
                         url: "{% url 'addto_fav' %}",
+                        beforeSend: function(){
+                            NProgress.start();
+                        },
                         global: true,
                         data: {
                          "csrfmiddlewaretoken": "{{ csrf_token }}",
@@ -1332,10 +1335,19 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
                         },
                         success: function(data){
-                            console.log("added. show msg");
+                            NProgress.done();
+                            if(data["success"]=="1")
+                            {
+                                 console.log("added. show msg " + data["msg"]);
+                            }
+                            else
+                            {
+                                 console.log("failed. show msg " + data["msg"]); 
+                            }
                         },
                         error: function()
                         {
+                              NProgress.done();
                               console.log("couldn't add");
                         },
                  

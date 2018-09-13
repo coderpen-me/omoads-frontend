@@ -764,10 +764,19 @@ def AjaxAddToFavourites(request):
 	if request.is_ajax():
 		b = Banner.objects.get(pk=int(request.POST['banner_id']))
 		if request.user.is_authenticated():
-			Favourite(user = request.user, banner = b).save()
-			data = {
-			'msg':"added to favourite"
-			}
+			try:
+				Favourite.objects.get(banner = b, user = request.user)
+			except Favourite.DoesNotExist:
+				Favourite(user = request.user, banner = b).save()
+				data = {
+					"success":"1",
+					'msg':"added to favourite"
+				}
+			else:
+				data = {
+					"success":"0",
+					'msg':"already in favourites"
+				}
 			# print(data)
 			json_data = json.dumps(data)
 
