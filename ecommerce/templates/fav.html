@@ -23,6 +23,7 @@
 
 				
 						<!-- fav block-->
+						{% for fav in user.favourite_set.all %}
                         <div class="block" style="height:30%;padding:20px;">
 
                                         <div class="row">
@@ -30,49 +31,25 @@
 							<img src="" style="width:150px;height:120px;"/>
 						</div>
 						<div class="col-md-8">
-							<h4 style="margin-left:40px;">Hapur chungi</h4>
+							<h4 style="margin-left:40px;">fav.banner.banner_landmark</h4>
 							<ul style="list-style:none;font-size:12px;">
-								<li>items</li>
-								<li>items</li>
-								<li>items</li>
-								<li>items</li>
-								<li>items</li>
+								<li>{{fav.banner.banner_facing}}</li>
+								<li>{{fav.banner.banner_type}}</li>
+								<li>{{fav.banner.banner_lighted}}</li>
+							
 							</ul>
 						</div>
 						<div class="col-md-2">
-						 <h4>Rs 3700.00</h4>
-							<spna class="btn" style="margin-left:90px;" ><i class="far fa-times-circle"></i></spna>
+						 <h4>{{fav.banner.get_current_price}}</h4>
+							<span class="btn" style="margin-left:90px;" ><i class="far fa-times-circle"></i></span>
 						</div>
 					</div>
           
                         </div>
 						<!-- end-->
+						{% endfor %}
 						
-						<!-- fav block-->
-                        <div class="block" style="height:30%;padding:20px;margin-top:10px;">
-
-                                        <div class="row">
-						<div class="col-md-2">
-							<img src="" style="width:150px;height:120px;"/>
-						</div>
-						<div class="col-md-8">
-							<h4 style="margin-left:40px;">Hapur chungi</h4>
-							<ul style="list-style:none;font-size:12px;">
-								<li>items</li>
-								<li>items</li>
-								<li>items</li>
-								<li>items</li>
-								<li>items</li>
-							</ul>
-						</div>
-						<div class="col-md-2">
-						 <h4>Rs 3700.00</h4>
-							<spna class="btn" style="margin-left:90px;" ><i class="far fa-times-circle"></i></spna>
-						</div>
-					</div>
-          
-                        </div>
-						<!-- end-->
+						
 
     
     

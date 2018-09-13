@@ -855,18 +855,15 @@ $('.col-control').on('click', function(ev){
             </div>
             <div class="col-sm-8 right">
               <div style="position: relative;">
-                <form method = "POST" action = "{% url 'addToCart' %}">
-                  {% csrf_token %}
-                  <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
-                  <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
-                  <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
+                
+
                   
-                    <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites">
+                    <button type="button" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites">
                          <i class="fas fa-heart"></i>
                     </button>
                   
                   
-                </form>
+                
                 <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
               </div>
 
@@ -1321,6 +1318,34 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               
               var bookDates = data["bookDates"];
               BoardIdForPrice = (data["id"]);
+              function get_favoutire_callback(){
+                return function() {
+                  console.log("i ran")
+                  {% if user.is_authenticated %}
+                    $.ajax({
+                        type:"POST",
+                        url: "{% url 'addto_fav' %}",
+                        global: true,
+                        data: {
+                         "csrfmiddlewaretoken": "{{ csrf_token }}",
+                         "banner_id":String(BoardIdForPrice)
+
+                        },
+                        success: function(data){
+                            console.log("added. show msg");
+                        },
+                        error: function()
+                        {
+                              console.log("couldn't add");
+                        },
+                 
+                    });
+                  {% else %}
+                    console.log("login")
+                  {% endif %}
+                }
+              }
+              document.getElementById("MyModalAddCart").addEventListener('click', get_favoutire_callback())
               console.log(bookDates);
               invalidDates=[];
               for(var i = 0; i < bookDates.length; i++)

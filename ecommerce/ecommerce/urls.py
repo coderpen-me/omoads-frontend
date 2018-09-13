@@ -30,6 +30,7 @@ urlpatterns = patterns('',
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
     url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
+    url(r'^ajax/addto_fav/$', 'products.views.AjaxAddToFavourites', name='addto_fav'),
     url(r'^ajax/AjaxFormFilter/$', 'products.views.filterAjax', name='filter_form'),
     # url(r'^blog/', include('blog.urls')),
 

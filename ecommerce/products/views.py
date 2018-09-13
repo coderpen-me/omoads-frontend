@@ -760,6 +760,23 @@ def AjaxBannerPrice(request):
 	else:
 		raise Http404
 
+def AjaxAddToFavourites(request):
+	if request.is_ajax():
+		b = Banner.objects.get(pk=int(request.POST['banner_id']))
+		if request.user.is_authenticated():
+			Favourite(user = request.user, banner = b).save()
+			data = {
+			'msg':"added to favourite"
+			}
+			# print(data)
+			json_data = json.dumps(data)
+
+			return HttpResponse(json_data, content_type='application/json')
+		else:
+			raise Http404
+	else:
+		raise Http404
+
 
 ######
 #SIGUNUP PAGE AND SIGNUP FUNCTION FOR HOME PAGE

@@ -135,6 +135,10 @@ class Banner(models.Model):
 	def getSize(self):
 		return str(dimension_choices[str(self.banner_dimensions)])
 
+	def get_current_price(self):
+		today_date = datetime.date.today()
+		return self.priceperiod_set.filter(endDate__gte = str(today_date), startDate__lte = str(today_date))[0].price
+
 
 class BannerImage(models.Model):
 	def __str__(self):
@@ -164,6 +168,13 @@ class PricePeriod(models.Model):
 
 	def __str__(self):
 		return 'Board ID:%s start:%s end:%s price:%s' % (self.banner.id, self.startDate, self.endDate, self.price)
+
+
+class Favourite(models.Model):
+	banner = models.OneToOneField(Banner, on_delete = models.CASCADE)
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	def __str__(self):
+		return "banner ID:%s user:%s"%(self.banner, self.user)
 
 class Cart(models.Model):
 	user = models.OneToOneField(User, on_delete= models.CASCADE)
