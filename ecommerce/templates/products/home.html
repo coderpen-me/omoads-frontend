@@ -863,14 +863,14 @@ $('.col-control').on('click', function(ev){
                     </button>
                   
                   
-                <div id="container-360"></div>
+                <div id="container"></div>
                 
                 <script src="{% static 'js/three.min.js' %}"></script>
                 <script src="{% static 'js/photo-sphere-viewer.min.js' %}"></script>
                 <script>
-                    var div = document.getElementById('container-360');
+                    var div = document.getElementById('container');
                     var PSV = new PhotoSphereViewer({
-                        panorama: "{% ststic 'img/images/parc-saint-pierre-amiens.jpg' %}",
+                        panorama: 'http://tassedecafe.org/wp-content/uploads/2013/01/parc-saint-pierre-amiens.jpg',
                         container: div,
                         time_anim: 3000,
                         navbar: true,
