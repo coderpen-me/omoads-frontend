@@ -1312,6 +1312,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               $('#dimensions').text(data["dim"]);
               $('#type').text(data["type"]);
               $('#lighted').text(data["lighted"]);
+              $('#priceMyModal').text("₹ " + data["current_price"]);
               setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
                           'o_email':data["agency_email"], 'o_add':data["agency_address"]});
               setHeightOfModal()

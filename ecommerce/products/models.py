@@ -138,6 +138,8 @@ class Banner(models.Model):
 	def get_current_price(self):
 		today_date = datetime.date.today()
 		return self.priceperiod_set.filter(endDate__gte = str(today_date), startDate__lte = str(today_date))[0].price
+	def get_banner_dimensions(self):
+		return dimension_choices[self.banner_dimensions]
 
 
 class BannerImage(models.Model):

@@ -720,6 +720,7 @@ def onclickMapPoints(request):
 			"agency_address":b.agency.agency_address,
 			"agency_email":b.agency.user.email,
 			"agency_phone":contact_number,
+			"current_price":b.get_current_price(),
 			}
 		except Exception as e:
 			print(e)
