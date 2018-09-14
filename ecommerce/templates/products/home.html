@@ -866,7 +866,7 @@ $('.col-control').on('click', function(ev){
                          <i class="fas fa-heart"></i>
                     </button>
                   
-                  <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+                <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
                 
                 <div id='vrview'></div>
                 <script>
@@ -876,12 +876,16 @@ $('.col-control').on('click', function(ev){
                       function onVrViewLoad() {
                         // Selector '#vrview' finds element with id 'vrview'.
                         var vrView = new VRView.Player('#vrview', {
-                          image: 'parc-saint-pierre-amiens.jpg',
-                          preview: 'parc-saint-pierre-amiens.jpg'
+                          image: '{% static "img/images/parc-saint-pierre-amiens.jpg" %}',
+                          preview: '{% static "img/images/parc-saint-pierre-amiens.jpg" %}',
+                          is_debug: true,
+                          width: '100%',
+                          height: '400',
+                          is_stereo: true
                         });
                       }	
 
-                  </script>
+                </script>
                 <!--
                 <div id="container" style="width:100%;height:100%;background:#333;"></div>
                 <script src="{% static 'js/three.min.js' %}"></script>
