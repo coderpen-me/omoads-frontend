@@ -866,9 +866,24 @@ $('.col-control').on('click', function(ev){
                          <i class="fas fa-heart"></i>
                     </button>
                   
-                  
-                <div id="container" style="width:100%;height:100%;background:#333;"></div>
+                  <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
                 
+                <div id='vrview'></div>
+                <script>
+
+                      window.addEventListener('load', onVrViewLoad);
+
+                      function onVrViewLoad() {
+                        // Selector '#vrview' finds element with id 'vrview'.
+                        var vrView = new VRView.Player('#vrview', {
+                          image: 'parc-saint-pierre-amiens.jpg',
+                          preview: 'parc-saint-pierre-amiens.jpg'
+                        });
+                      }	
+
+                  </script>
+                <!--
+                <div id="container" style="width:100%;height:100%;background:#333;"></div>
                 <script src="{% static 'js/three.min.js' %}"></script>
                 <script src="{% static 'js/photo-sphere-viewer.min.js' %}"></script>
                 <script>
@@ -882,7 +897,8 @@ $('.col-control').on('click', function(ev){
                           backgroundColor: 'rgba(58, 67, 77, 0.7)'
                         },
                       });
-                  </script>
+                  </script>-->
+                
                 <!-- <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">-->
               </div>
 
