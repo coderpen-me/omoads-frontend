@@ -1467,7 +1467,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                 while (myNode.firstChild) {
                   myNode.removeChild(myNode.firstChild);
                 }
-                let json = []
+                let json = bookDates
                 let d = new Date()
                 let todayDate = `${d.getFullYear()}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
                 let yrLaterDate = `${d.getFullYear() + 1}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
