@@ -15,7 +15,8 @@
     text-align: center;
 }
 .theme-active{
-	
+	color:#fff;
+	background:#fd7b26;
 }
 .icon-color{
 	color: #fd7b26;
