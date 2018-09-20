@@ -696,6 +696,15 @@ def onclickMapPoints(request):
 		except:
 			print("no user cart onclick map points dates")
 
+		is_favourite = False
+		if request.user.is_authenticated():
+			try:
+				Favourite.objects.get(banner = b, user = request.user)
+			except Exception as e:
+				is_favourite=False
+			else:
+				is_favourite = True
+
 		
 		context = {"bookdates":bookDates}
 		try:
@@ -721,6 +730,7 @@ def onclickMapPoints(request):
 			"agency_email":b.agency.user.email,
 			"agency_phone":contact_number,
 			"current_price":b.get_current_price(),
+			"is_favourite": is_favourite,
 			}
 		except Exception as e:
 			print(e)
@@ -773,10 +783,46 @@ def AjaxAddToFavourites(request):
 					"success":"1",
 					'msg':"added to favourite"
 				}
+			except Favourite.MultipleObjectsReturned as e:
+				print(e)
+				for o in Favourite.objects.filter(banner = b, user = request.user):
+					o.delete()
+			else:
+				Favourite.objects.get(banner = b, user = request.user).delete()
+				data = {
+					"success":"2",
+					'msg':"removed from fav"
+				}
+			# print(data)
+			json_data = json.dumps(data)
+
+			return HttpResponse(json_data, content_type='application/json')
+		else:
+			data = {
+					"success":"3",
+					'msg':"login please"
+				}
+			# print(data)
+			json_data = json.dumps(data)
+
+			return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
+
+def AjaxDeleteFavourites(request):
+	if request.is_ajax():
+		if request.user.is_authenticated():
+			try:
+				Favourite.objects.get(pk=int(request.POST['fav_id'])).delete()
+			except Favourite.DoesNotExist:
+				data = {
+					"success":"2",
+					"fav_id":request.POST['fav_id'],
+				}
 			else:
 				data = {
-					"success":"0",
-					'msg':"already in favourites"
+					"success":"1",
+					"fav_id":request.POST['fav_id'],
 				}
 			# print(data)
 			json_data = json.dumps(data)

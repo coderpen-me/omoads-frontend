@@ -24,7 +24,7 @@
 				
 						<!-- fav block-->
 						{% for fav in user.favourite_set.all %}
-                        <div class="block" style="height:30%;padding:20px;">
+                        <div class="block" id=fav{{fav.pk}} style="height:30%;padding:20px;">
 
                                         <div class="row">
 						<div class="col-md-2">
@@ -44,7 +44,7 @@
 						</div>
 						<div class="col-md-2">
 						 <h4>{{fav.banner.get_current_price}}</h4>
-							<span class="btn" style="margin-left:90px;" ><i class="far fa-times-circle"></i></span>
+							<span class="btn" onclick="del_fav({{fav.pk}})" id="" style="margin-left:90px;" ><i class="far fa-times-circle"></i></span>
 						</div>
 					</div>
           
@@ -62,6 +62,42 @@
 
 {% block custom_js %}
 
+<script type="text/javascript">
+	var del_fav = function(fav_id)
+	{
+		$.ajax({
+			type:"POST",
+            url: "{% url 'delete_fav' %}",
+            beforeSend: function(){
+                NProgress.start();
+            },
+            global: true,
+            data: {
+             "csrfmiddlewaretoken": "{{ csrf_token }}",
+             "fav_id":String(fav_id)
+
+            },
+            success: function(data){
+                NProgress.done();
+                if(data["success"]=="1")
+                {
+                     console.log("deleted");
+                }
+                else
+                {
+                	console.log("was already deleted");
+                }
+                $("#fav"+data["fav_id"]).remove()
+               
+            },
+            error: function()
+            {
+                  NProgress.done();
+                  console.log("couldn't delete");
+            },
+		})
+	}
+</script>
 
 {% endblock %}
 

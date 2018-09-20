@@ -867,12 +867,7 @@ $('.col-control').on('click', function(ev){
                     </button>
                   
                 
-                <script>
-                  $("#MyModalAddCart").on("click",function(){
-                      $(this).css("background","#fd7b26");
-                      $(this).css("color","#fff");
-                  });
-                </script>
+                
                 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
                 
                 <div id='vrview'></div>
@@ -1359,6 +1354,17 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               $('#type').text(data["type"]);
               $('#lighted').text(data["lighted"]);
               $('#priceMyModal').text("₹ " + data["current_price"]);
+              let is_fav = data["is_favourite"];
+              if(is_fav)
+              {
+                  $("#MyModalAddCart").css("background","#fd7b26");
+                  $("#MyModalAddCart").css("color","#fff");
+              }
+              else
+              {
+                  $("#MyModalAddCart").css("background","#ccc");
+                  $("#MyModalAddCart").css("color","#000");
+              }
               setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
                           'o_email':data["agency_email"], 'o_add':data["agency_address"]});
               setHeightOfModal()
@@ -1386,10 +1392,19 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                             if(data["success"]=="1")
                             {
                                  console.log("added. show msg " + data["msg"]);
+                                 $("#MyModalAddCart").css("background","#fd7b26");
+                                 $("#MyModalAddCart").css("color","#fff");
                             }
-                            else
+                            else if(data["success"]=="2")
                             {
-                                 console.log("failed. show msg " + data["msg"]); 
+                                 console.log("failed. show msg " + data["msg"]);
+                                 $("#MyModalAddCart").css("background","#ccc");
+                                 $("#MyModalAddCart").css("color","#000");
+                            }
+                            else if(data["success"]=="3")
+                            {
+                                 console.log("failed. show msg " + data["msg"]);
+                                 
                             }
                         },
                         error: function()
@@ -1404,7 +1419,9 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                   {% endif %}
                 }
               }
-              document.getElementById("MyModalAddCart").addEventListener('click', get_favoutire_callback())
+               $("#MyModalAddCart").off()
+              console.log("removed")
+              $("#MyModalAddCart").on('click', get_favoutire_callback())
               console.log(bookDates);
               invalidDates=[];
               for(var i = 0; i < bookDates.length; i++)
