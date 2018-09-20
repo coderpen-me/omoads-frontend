@@ -1369,6 +1369,24 @@ def bookBoards(request):
 
 
 
+def share_app(request, o_id):
+	template = "app.html"
+	username = ""
+	userType = ""
+	
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
 
 
 

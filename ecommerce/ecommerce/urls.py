@@ -72,6 +72,7 @@ urlpatterns = patterns('',
     url(r'^owner/cancel/$', productsViews.CancelBooking.as_view(), name='owner_interface_cancel'),
     url(r'^owner/status/$', productsViews.StatusBoards.as_view(), name='owner_interface_status'),
     url(r'^owner/price/$', productsViews.PriceBoards.as_view(), name='owner_interface_price'),
+    url(r'^owner/shareview/([0-9]+)$', 'products.views.share_app', name='share_app'),
 
 
     url(r'^owner/book/confirm$', 'products.views.bookBoards', name='owner_interface_book_board'),
