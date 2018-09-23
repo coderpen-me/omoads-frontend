@@ -125,24 +125,79 @@
                
 <script>
 	  
-	  window.addEventListener('load', onVrViewLoad);
+//window.addEventListener('load', onVrViewLoad);
 
-	  function onVrViewLoad() {
-		// Selector '#vrview' finds element with id 'vrview'.
-		var vrView = new VRView.Player('#vrview', {
-		  image: 'https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg',
-		  preview: 'https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg',
-		  is_debug: false,
-		  width: '100%',
-		  height: '400',
-		  //is_stereo: true
-		  is_vr_off: false
-		});
-	  }	
+var url = "https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg";
 
-</script>
-<script>
 
+// Selector '#vrview' finds element with id 'vrview'.
+var vrView = new VRView.Player('#vrview', {
+  image: url,
+  preview: 'https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg',
+  is_debug: false,
+  width: '100%',
+  height: '400',
+  //is_stereo: true
+  is_vr_off: false
+});
+	
+function loadScene(id) {
+  console.log('loadScene', id);
+
+  // Set the image
+  vrView.setContent({
+    image: dataObject.view_data[parseInt(id)].url,
+    preview: dataObject.view_data[parseInt(id)].url,
+    is_stereo: false,
+    is_autopan_off: true
+  });
+}
+//onVrViewLoad(url);
+
+var data = `{
+	"view_data":[
+	
+			{"viewId":1,
+			 "url" : "https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg",
+			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
+			
+			},
+			{"viewId":2,
+			 "url" : "https://cdn.eso.org/images/screen/hqe-pano1.jpg",
+			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
+			
+			},
+			{"viewId":3,
+			 "url" : "https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg",
+			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
+			
+			},
+			{"viewId":4,
+			 "url" : "http://www.stockhamster.com/images/26866.jpg",
+			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
+			
+			},
+			{"viewId":5,
+			 "url" : "https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg",
+			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
+			
+			},
+			{"viewId":6,
+			 "url" : "https://img1.cgtrader.com/items/929693/756fdb023a/hdri-industrial-warehouse-interior-8-3d-model-low-poly.jpg",
+			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
+			
+			}
+	
+	
+	]
+
+
+}`;
+
+var dataObject = JSON.parse(data);
+var MAX = dataObject.view_data.length;
+
+console.log(MAX);
 $("[id=open-full]").on("click",function(){
 	var viewId = $(this).attr("view-id"); 
 	//var url = $(this).attr("url"); 
@@ -197,20 +252,48 @@ $(".fa-chevron-left").on("click",function(){
 	else{
 		//alert(viewId);
 		$("#vrview").attr("active-view-id",parseInt(viewId)-1);
+		loadScene(parseInt(viewId)-1);
 	}
 });
 $(".fa-chevron-right").on("click",function(){
 	var viewId = $("#vrview").attr("active-view-id");
 	
-	if(parseInt(viewId) >= 6){ /// here max value should given from backend
+	if(parseInt(viewId) >= MAX){ 
 		alert("This is the last");
 	}
 	else{
 		//alert(viewId);
 		$("#vrview").attr("active-view-id",parseInt(viewId)+1);
+		loadScene(parseInt(viewId)+1);
 	}
+	
 });
+/*
+function mainLoop(){
+	//alert("Hello"); 
+	
+	var viewId = $("#vrview").attr("active-view-id");
+	console.log(dataObject.view_data[parseInt(viewId)].url);
+	// Set the image
+	  vrView.setContent({
+		image: dataObject.view_data[parseInt(viewId)].url,
+		preview: dataObject.view_data[parseInt(viewId)].url,
+		is_stereo: false,
+		is_autopan_off: true
+	  });
+  
+  
+	
+	
+	runner();
+}
+function runner(){
+	setTimeout(function(){ 
+		mainLoop(); 
+	}, 5000);
+}
+runner();
 
-
+*/
 
 </script>
