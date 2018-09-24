@@ -38,6 +38,63 @@
     .dash-block-row{
         width:100% !important;
     }
+    .panel-abt{
+        height: auto !important;
+    }
+    .abt-block-2{
+        height: auto !important;
+    }
+    .abt-block-3-text{
+        margin-top:10% !important;
+        margin-left:0% !important;
+        text-align: center;
+    }
+    .abt-b2-img{
+        left: calc(100% - 80%) !important;
+    }
+    #mark-1{
+        width:30px !important;
+        height: 36px !important;
+        top:-100px !important;
+        left:calc(100% - 30%) !important;
+    }
+    #mark-2{
+        width:30px !important;
+        height: 36px !important;
+        top:-100px !important;
+        left:calc(100% - 90%) !important;
+    }
+    #mark-3{
+        width:30px !important;
+        height: 36px !important;
+        top:-50px !important;
+        left:calc(100% - 30%) !important;
+    }
+    #mark-4{
+        width:30px !important;
+        height: 36px !important;
+        top:-50px !important;
+        left:calc(100% - 125%) !important;
+    }
+    .abt-contact-cnt{
+        margin-left:0em !important;
+    }
+    .contact-circle-1{
+        height: 350px !important;
+        width: 350px !important;
+    }
+    .contact-circle-2{
+        height: 310px !important;
+        width: 310px !important;
+    }
+    .contact-circle-3{
+        height: 270px !important;
+        width: 270px !important;
+    }
+    .abt-contact-form{
+        
+    }
+    
     
        
 }
@@ -557,6 +614,9 @@ body{
     background-position-y:00px;
     background-position-x:300px !important;
 }
+.abt-block-2{
+    height: 660px;
+}
 /**
  * login
  */
@@ -576,4 +636,13 @@ body{
 }
 .dash-block-row{
     width:60% ;
+}
+.abt-block-3-text{
+    margin-top:40%;
+    margin-left:20%;
+    
+    
+}
+.abt-contact-cnt{
+    margin-left:10em ;
 }
