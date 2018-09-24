@@ -7,6 +7,75 @@
 .form-control:-ms-input-placeholder { color: #efefef; }  /* Internet Explorer 10-11 */
 .form-control::-ms-input-placeholder { color: #efefef; }  /* Microsoft Edge */
 
+@media (min-width: 576px){
+    
+}
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {  
+    /*For mobile phones: */
+    .main-image{
+        margin-left:15% !important;
+    }
+    .login-block{
+        padding: 50px;
+        box-sizing: border-box;
+    }
+    .btn-theme{
+        background: #fd7b26;
+        color:#000;
+        margin-top: -2em !important;
+        margin-left:calc(100% - 30%) !important;
+    }
+    .dash-left-bar{
+        margin-bottom: 2em !important;
+        height:auto !important;
+    }
+    .col{
+        flex-basis:200px !important;
+        width: 100% !important;
+        margin-bottom: 1em !important;
+    }
+    .dash-block-row{
+        width:100% !important;
+    }
+    
+       
+}
+   
+   
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    /*For mobile phones: */
+    
+}
+
+/* Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {  
+    For mobile phones: 
+    .col-md-4 {
+        width: 100% !important;
+    } 
+}
+
+/* Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    For mobile phones: 
+    .col-md-4 {
+        width: 100% !important;
+    } 
+}
+
+/* Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+    /* For mobile phones: 
+    [class*="col-"] {
+        width: 100%;
+    }
+}*/
+  
+
+
+
 .body{
     font-family: sans-serif !important;
     font-weight:bold !important;
@@ -21,6 +90,15 @@
 .icon-color{
 	color: #fd7b26;
 }
+/**
+*  btn
+*/
+.btn-theme{
+    background: #fd7b26;
+    color:#000;
+    margin-left:2.5em;
+}
+
 /**
 *  header
 */
@@ -478,4 +556,24 @@ body{
     background-size:80%;
     background-position-y:00px;
     background-position-x:300px !important;
+}
+/**
+ * login
+ */
+.main-image{
+    margin-left:35%;
+}
+/**
+* Dashboard
+*/
+.dash-left-bar{
+   height: 80%;
+    
+}
+.dash-main{
+    height:100%;
+    padding:40px;
+}
+.dash-block-row{
+    width:60% ;
 }
