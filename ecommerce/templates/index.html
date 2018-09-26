@@ -62,10 +62,10 @@
                 </div>
                 <div class="row" id="p2-block-3">
                     <div class="col-md-10">
-                        <div class="" style="float:left;margin-left:10%;margin-top:50px;border-radius:110px;height:150px;width:150px;background:#fd7b26;">
+                        <div class="circle-3" >
                             <i class="fas fa-map-marker-alt fa fa-5x" style="color:#fff;margin-left:28%;margin-top:20%;"></i>
                         </div>
-                        <div class="circle-3">
+                        <div class="text-box-3">
                             <h2 class="display-4">Find Hoarding based on
                                 <br>geographic location </h2>
                         </div>
@@ -97,13 +97,13 @@
                 <br>
                 <div class="row justify-content-centers">
                     <div class="col-md-4">
-                        <img src="{% static 'img/images/poleadslogo.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                        <img src="{% static 'img/images/poleadslogo.png' %}" class="prt-img" alt="" />
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'img/images/pt2.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                        <img src="{% static 'img/images/pt2.png' %}" class="prt-img" alt="" />
                     </div>
                     <div class="col-md-4">
-                        <img src="{% static 'img/images/pt3.png' %}" style="margin-left:3em;height:150px;width:300px;" alt="" />
+                        <img src="{% static 'img/images/pt3.png' %}" class="prt-img" alt="" />
                     </div>
                 </div>
             </div>
@@ -111,44 +111,46 @@
     </div>
 
 
-    <div class=" row justify-content-center">
-
-        <div class="col-md-12">
-            <div class="jumbotron" id="panel-4" style="background:#fff url()   no-repeat;">
-
-                <div class="row  align-items-center">
-                    <div class="col-md-6">
-                        <div id="p4-shape-1"></div>
-
-                        <div id="p4-shape-2"></div>
-
-                        <div id="p4-shape-3"></div>
-
-                        <div id="p4-shape-4">
-                            <i class="fas fa-envelope  fa fa-4x" style="margin-left:30px;margin-top:27px;"></i>
+  
+        <div class=" row justify-content-center">
+    
+            <div class="col-md-12">
+                <div class="jumbotron" id="panel-4" style="background:#fff url()   no-repeat;">
+    
+                    <div class="row  align-items-center">
+                        <div class="col-md-6">
+                            <div id="p4-shape-1"></div>
+    
+                            <div id="p4-shape-2"></div>
+    
+                            <div id="p4-shape-3"></div>
+    
+                            <div id="p4-shape-4">
+                                <i class="fas fa-envelope  fa fa-4x" style="margin-left:30px;margin-top:27px;"></i>
+                            </div>
+    
                         </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div style="margin-left:-5em;margin-top:10em;">
-                            <h2 style="font-weight:lighter;font-size:30px;text-align:left;">
-                                Subscribe to our newsletter to
-                                <br>receive industry report and our latest
-                                <br>updates...</h2>
-                            <form class="form-inline">
-                                <div class="form-group mx-sm-3 mb-2">
-                                    <input type="email" style="height:50px;border-radius:20px;background:#fd7b26;color:#fff;" class="form-control" id="inputPassword2"
-                                        placeholder="Type your email...">
-                                </div>
-                                <button type="submit" style="height:50px;border-radius:20px;background:#000;" class="btn btn-primary btn-lg mb-2">Subscribe</button>
-                            </form>
+                        <div class="col-md-6">
+                            <div class="sub-block">
+                                <h2 class="sub-block-heading">
+                                    Subscribe to our newsletter to
+                                    <br>receive industry report and our latest
+                                    <br>updates...</h2>
+                                <form class="form-inline">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input type="email" style="height:50px;border-radius:20px;background:#fd7b26;color:#fff;" class="form-control" id="inputPassword2"
+                                            placeholder="Type your email...">
+                                    </div>
+                                    <button type="submit" style="height:50px;border-radius:20px;background:#000;" class="btn btn-primary btn-lg mb-2">Subscribe</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+    
                 </div>
-
             </div>
         </div>
-    </div>
+    
 
     
     {% include 'footer.html' %}
