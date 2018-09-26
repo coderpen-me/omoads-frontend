@@ -94,8 +94,78 @@
     .abt-contact-form{
         
     }
-    
-    
+    #p1-block a{
+        margin-left: calc(100% - 75%) !important;
+    }
+    #panel-2{
+        height: auto !important;
+    }
+    .display-4{
+        text-align: center !important;
+        font-size: 30px !important;
+        margin-top:1em;
+    }
+    .pole{
+        margin-left: calc(100% - 107%) !important;
+    }
+    .circle-1{
+        margin-left: calc(100% - 75%) !important;
+    }
+    .text-box-1{
+        width: 100% !important;
+    }
+    .text-box-1 .display-4{
+        text-align: center !important;
+        font-size: 30px !important;
+        margin-top:0em;
+    }
+    .circle-2{
+        margin-left: calc(100% - 75%) !important;
+    }
+    .circle-3{
+        margin-left: calc(100% - 75%) !important;
+    }
+    .text-box-3 {
+        width:100% !important;
+        margin-top:0em !important;
+    }
+    #panel-3{
+        height: auto !important;
+    }
+    #p3-block-1{
+        margin-left: calc(100% - 85%) !important;
+    }
+    .prt-img{
+        margin-left:1em !important;
+    }
+    #panel-4{
+        height: auto !important;
+        background-image: url("") !important;
+    }
+    #p4-shape-1{
+        margin-left:1em !important;
+    }
+    #p4-shape-2{
+        margin-left:4em !important;
+        margin-top:-5em !important;
+
+    }
+    #p4-shape-3{
+        margin-left:4em !important;
+        margin-top:-5em !important;
+    }
+    #p4-shape-4{
+        margin-left:4em !important;
+        margin-top:-5em !important;
+    }
+    .sub-block{
+        margin-left: 0px !important;
+        margin-top: 1em !important;
+    }
+    .sub-block-heading{
+        font-size: 25px !important;
+    }
+
        
 }
    
@@ -327,7 +397,7 @@ body{
 #p2-block-1 h2{
     margin-left:1em;
     float:left;
-    font-size:40px !important;
+    font-size:40px;
 }
 .pole{
     height:50px;
@@ -364,13 +434,22 @@ body{
 }
 .text-box-1 h2{
     margin-left:0%;
-    font-size:40px !important;
+    font-size:40px ;
 }
 
 #p2-block-3{
     margin-top:-50px;
 }
 .circle-3{
+    float:left;
+    margin-left:10%;
+    margin-top:50px;
+    border-radius:50%;
+    height:150px;
+    width:150px;
+    background:#fd7b26;
+}
+.text-box-3{
     padding:10px;
     float:left;
     margin-left:1em;
@@ -379,9 +458,9 @@ body{
     width:45%;
     background:#fff;
 }
-.circle-3 h2{
+.text-box-3 h2{
     margin-left:0%;
-    font-size:40px !important;
+    font-size:40px ;
 }
 /**
 *  panel 3
@@ -403,6 +482,11 @@ body{
 #p3-block-1 h1{
     font-weight:bold;
     text-align:center;
+}
+.prt-img{
+    margin-left:3em;
+    height:150px;
+    width:300px;
 }
 /**
 *  panel 4
@@ -435,6 +519,15 @@ body{
     background:#fff;float:left;box-shadow:1px 1px 2px #efefef;
     width:120px;height:120px;border-radius:50%;
     margin-left:45%;position:absolute;left:15px;top:300px;
+}
+.sub-block{
+    margin-left:-5em;
+    margin-top:10em;
+}
+.sub-block-heading{
+    font-weight:lighter;
+    font-size:30px;
+    text-align:left;
 }
 /**
 * circles
