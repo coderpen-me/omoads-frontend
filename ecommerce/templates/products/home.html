@@ -80,9 +80,25 @@
 .filter-float-btn{
   display :none;
   }
+  
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {  
     /*For mobile phones: */
+  
+  .modal-dialog {
+    max-width: 500px !important;
+      
+  }
+  #availModal .modal-dialog{
+    position: absolute;
+    top: 0;
+    left: auto !important;
+    right:unset !important;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    margin: auto;
+  }
   #filter-sec{
     display:none;
   
