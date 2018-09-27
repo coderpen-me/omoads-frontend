@@ -997,11 +997,18 @@ $('.col-control').on('click', function(ev){
 
 
   
-  <button class="filter-float-btn"></button>
+  <button class="btn filter-float-btn"></button>
   <script>
         
         $(".filter-float-btn").on("click",function(){
             $("#filter-sec").toggle();
+            $(".col-sm-3").toggleWidth();
+            var toggleWidth =  $(".col-sm-3").width() >= 306 ? "min" : "max";
+            if(toggleWidth == "max")
+              $('.col-sm-3').animate({ width: "100%" });
+            else
+              $('.col-sm-3').animate({ width: "306px" });                        
+          
         });
        
       </script>
