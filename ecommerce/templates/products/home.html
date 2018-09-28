@@ -95,7 +95,7 @@
     left: auto !important;
     right:unset !important;
     bottom: 0;
-    width: 100%;
+    width: 80% !important;
     height: fit-content;
     margin: auto;
   }
@@ -601,7 +601,7 @@ $('.col-control').on('click', function(ev){
             $(".col-collapse").show();
         });
       </script>
-    <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;">
+    <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;" data-pos="max">
       <input id="pac-input" class="controls" type="text" placeholder="Search Location">
       <form id="filterForm">
     
@@ -1019,12 +1019,16 @@ $('.col-control').on('click', function(ev){
         
         $(".filter-float-btn").on("click",function(){
             $("#filter-sec").toggle();
-            $(".col-sm-3").toggleWidth();
-            var toggleWidth =  $(".col-sm-3").width() >= 306 ? "min" : "max";
-            if(toggleWidth == "max")
-              $('.col-sm-3').animate({ width: "100%" });
-            else
-              $('.col-sm-3').animate({ width: "306px" });                        
+            var data = $("#filter-sec").attr("data-pos");
+            if(data == "max"){
+              $(".col-sm-3").css("width" , "85% ");
+              $("#filter-sec").attr("data-pos","min");
+            }
+            if(data == "min"){
+              $(".col-sm-3").css("width" , "100%");
+              $("#filter-sec").attr("data-pos","max");
+            }
+                                   
           
         });
        
