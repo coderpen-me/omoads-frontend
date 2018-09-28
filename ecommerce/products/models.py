@@ -101,6 +101,10 @@ class Agency(models.Model):
 	agency_address = models.CharField(max_length=200, default = "NONE")
 	def __str__(self):
 		return '%s %s %s %s' % (self.id, self.agency_name, self.agency_state, self.agency_city)
+	def user_name(self):
+		return '%s %s' % (self.user.first_name, self.user.last_name)
+	def user_email(self):
+		return self.user.email
 
 
 def content_file_name(instance, filename):
@@ -140,6 +144,13 @@ class Banner(models.Model):
 		return self.priceperiod_set.filter(endDate__gte = str(today_date), startDate__lte = str(today_date))[0].price
 	def get_banner_dimensions(self):
 		return dimension_choices[self.banner_dimensions]
+
+	def admin_edit_link(self):
+		if self.id:
+			change_url = reverse('admin:products_banner_change', args=(self.id,))
+			return u'<a href="%s" target="_blank">Bookings</a>'%change_url
+		return u''
+	admin_edit_link.allow_tags=True
 
 
 class BannerImage(models.Model):
