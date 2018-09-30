@@ -165,6 +165,13 @@
     .sub-block-heading{
         font-size: 25px !important;
     }
+    .main-wraper{
+	overflow:hidden;
+	
+	width:80% !important;
+	
+     }
+	
 
        
 }
