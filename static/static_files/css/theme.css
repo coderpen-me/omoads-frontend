@@ -13,6 +13,17 @@
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {  
     /*For mobile phones: */
+    .search-bar{
+        padding-left:60px;
+    }
+    .btn-search{
+        float: right;
+        position: relative !important;
+        left: 10px !important;
+        top: -50px !important;
+        background: none;
+        color: slategrey;
+     }
     .main-image{
         margin-left:15% !important;
     }
