@@ -1,11 +1,11 @@
 
-{% load staticfiles %}
+
 <html>
 <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'css/app.css' %}"/>
+<link rel="stylesheet" href="assets/css/app.css"/>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
 </head>
@@ -18,13 +18,14 @@
 
             <div class="paper nav-fixed" >
                 OmoAds
+                <button class="btn btn-share"><i class="fas fa-share-alt"></i></button>
             </div>
             <br><br>
             
-            <div class="img-block-container">
+            <div class="img-block-container" style="display:none;">
 
                     
-                    <a href="#" id="open-full"  view-id="1" >
+                    <a href="#" id="open-full"  view-id="1" url="https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg" >
                        <div class="img-block">
                             <img src="https://images.unsplash.com/photo-1508873881324-c92a3fc536ba?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4dd64b8d9512bfc407a50e74baab0e48&auto=format&fit=crop&w=750&q=80" />
                             <div >
@@ -33,7 +34,7 @@
                    
                         </div> 
                     </a>
-                    <a href="#" id="open-full"  view-id="1" >
+                    <a href="#" id="open-full"  view-id="2" url="https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg">
                         <div class="img-block">
                             <img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf17d34d12c2261adb22b8b76e2177bf&auto=format&fit=crop&w=500&q=600" />
                             <div >
@@ -42,7 +43,16 @@
                         
                         </div> 
                      </a>
-                     <a href="#" id="open-full"  view-id="1" >
+                     <a href="#" id="open-full"  view-id="3" url="https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg">
+                        <div class="img-block">
+                            <img src="https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg" />
+                            <div >
+                                <h5>Lorem ipsum dolor sit amet.</h5>
+                            </div>
+                        
+                        </div> 
+                    </a>
+                    <a href="#" id="open-full"  view-id="4" url="https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg">
                         <div class="img-block">
                             <img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf17d34d12c2261adb22b8b76e2177bf&auto=format&fit=crop&w=500&q=600" />
                             <div >
@@ -51,16 +61,7 @@
                         
                         </div> 
                     </a>
-                    <a href="#" id="open-full"  view-id="1" >
-                        <div class="img-block">
-                            <img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf17d34d12c2261adb22b8b76e2177bf&auto=format&fit=crop&w=500&q=600" />
-                            <div >
-                                <h5>Lorem ipsum dolor sit amet.</h5>
-                            </div>
-                        
-                        </div> 
-                    </a>
-                    <a href="#" id="open-full"  view-id="1" >
+                    <a href="#" id="open-full"  view-id="5" url="https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg">
                         <div class="img-block">
                             <img src="https://images.unsplash.com/photo-1504567961542-e24d9439a724?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cf17d34d12c2261adb22b8b76e2177bf&auto=format&fit=crop&w=500&q=600" />
                             <div >
@@ -79,18 +80,21 @@
                 <div class="info-bar-small">
                     <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times" ></i>
                     <p style="float:left;margin-left:1em;">Name of the 360 View.</p>
+                    <i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>
                     <br>
                     <hr width="100%" />
-                    <i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>
-
                     <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;"class="fas fa-chevron-left"></i>
                     <i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-chevron-right"></i>
                 </div>
-                
-                <div class="vr-container" id='vrview' active-view-id="0" ></div>
+                <div class="vr-container">
+                    <div class="vr-paper-1" id='vrview' active-view-id="0" ></div>
+                    <div class="vr-paper-2"></div>
+                </div><div>
+				
                 <div class="info-block" state="close">
                     <h5>Lorem ipsum dolor sit amet.</h5>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem.</p>
+                    <button class="btn btn-avail">Check Availibilty</button>
                 </div>
                 <div class="gallay-wrapper" style="display:none;">
                     <button class="btn btn-more">
@@ -108,11 +112,16 @@
 </div>
  
 	
-
-
-<!-- main Content-->
-<!-- footer-->
-
+<!--
+<div id="viewport">
+    <ul class="stack">
+        <li class="clubs">♣</li>
+        <li class="diamonds">♦</li>
+        <li class="hearts">♥</li>
+        <li class="spades">♠</li>
+    </ul>
+</div>
+-->
 
 </body>
 </html>
@@ -121,19 +130,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
-                
-               
+<script src="assets/js/swip.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swing/3.0.2/swing.js"></script>
+
 <script>
-	  
+      
+// https://github.com/gajus/swing
+document.addEventListener('DOMContentLoaded', function () {
+    var stack;
+
+    stack = window.swing.Stack();
+
+    [].forEach.call(document.querySelectorAll('.stack li'), function (targetElement) {
+        stack.createCard(targetElement);
+
+        targetElement.classList.add('in-deck');
+    });
+
+    stack.on('throwout', function (e) {
+        console.log(e.target.innerText || e.target.textContent, 'has been thrown out of the stack to the', e.throwDirection, 'direction.');
+
+        e.target.classList.remove('in-deck');
+    });
+
+    stack.on('throwin', function (e) {
+        console.log(e.target.innerText || e.target.textContent, 'has been thrown into the stack from the', e.throwDirection, 'direction.');
+
+        e.target.classList.add('in-deck');
+    });
+});
+
+
 //window.addEventListener('load', onVrViewLoad);
 
-var url = "https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg";
+var url = "https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg";
 
-
+/*
 // Selector '#vrview' finds element with id 'vrview'.
 var vrView = new VRView.Player('#vrview', {
   image: url,
-  preview: 'https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg',
+  preview: 'https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg',
   is_debug: false,
   width: '100%',
   height: '500',
@@ -152,13 +188,14 @@ function loadScene(id) {
     is_autopan_off: true
   });
 }
+*/
 //onVrViewLoad(url);
 
 var data = `{
 	"view_data":[
 	
 			{"viewId":1,
-			 "url" : "https://omos.s3.amazonaws.com/img/images/Glen-Beach-Panorama-Google-4096x2048.jpg",
+			 "url" : "https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg",
 			 "info":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem."
 			
 			},
@@ -203,7 +240,8 @@ $("[id=open-full]").on("click",function(){
 	//var url = $(this).attr("url"); 
     $(".img-block-container").hide(0);
     $("#app-view").show(100);
-	$("#vrview").attr("active-view-id",viewId);
+    $("#vrview").attr("active-view-id",viewId);
+    //console.log(viewId);
 });
 
 $(".btn-more").on("click",function(){
@@ -295,5 +333,8 @@ function runner(){
 runner();
 
 */
-
 </script>
+
+
+
+
