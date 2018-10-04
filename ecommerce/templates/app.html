@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 <link rel="stylesheet" href="assets/css/app.css"/>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
 </head>
 <body>
@@ -87,41 +86,32 @@
                     <i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-chevron-right"></i>
                 </div>
                 <div class="vr-container">
-                    <div class="vr-paper-1" id='vrview' active-view-id="0" ></div>
-                    <div class="vr-paper-2"></div>
+                    
+                    <div class="vr-paper-1" id='swip-card' active-view-id="0" >
+                        <div class="vr" id='vrview' active-view-id="0" ></div>
+                        <div class="info-block" state="close">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem.</p>
+                            <button class="btn btn-avail">Check Availibilty</button>
+                        </div>
+                    </div>
+                    <div class="vr-paper-2" id='swip-card-2'></div>
                 </div><div>
 				
-                <div class="info-block" state="close">
-                    <h5>Lorem ipsum dolor sit amet.</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti eveniet rem totam asperiores molestiae, magnam minus tempore veniam voluptas autem.</p>
-                    <button class="btn btn-avail">Check Availibilty</button>
-                </div>
+                
                 <div class="gallay-wrapper" style="display:none;">
                     <button class="btn btn-more">
                             <i state="up" class="fas fa-chevron-up" id="btn-more-icon"></i>
                     </button> 
-                    
-
-
-
-
                 </div>
+
             </div>
 
     </div>
 </div>
  
 	
-<!--
-<div id="viewport">
-    <ul class="stack">
-        <li class="clubs">♣</li>
-        <li class="diamonds">♦</li>
-        <li class="hearts">♥</li>
-        <li class="spades">♠</li>
-    </ul>
-</div>
--->
+
 
 </body>
 </html>
@@ -130,37 +120,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
-<script src="assets/js/swip.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swing/3.0.2/swing.js"></script>
-
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
 <script>
       
 // https://github.com/gajus/swing
-document.addEventListener('DOMContentLoaded', function () {
-    var stack;
+var myElement = document.getElementById('swip-card');
 
-    stack = window.swing.Stack();
+// create a simple instance
+// by default, it only adds horizontal recognizers
+var mc = new Hammer(myElement);
 
-    [].forEach.call(document.querySelectorAll('.stack li'), function (targetElement) {
-        stack.createCard(targetElement);
+// listen to events...
+//panleft panright tap press
+mc.on("panleft panright tap press swip", function(ev) {
+    //var direction = e.gesture.direction;
 
-        targetElement.classList.add('in-deck');
-    });
+    //myElement.textContent = ev.type;
 
-    stack.on('throwout', function (e) {
-        console.log(e.target.innerText || e.target.textContent, 'has been thrown out of the stack to the', e.throwDirection, 'direction.');
+    if(ev.type == 'tap'){
+        $("#swip-card").css("background","#ff0000");
+        $("#swip-card").toggleClass("animated bounce");
+        $('.info-block').toggle();
 
-        e.target.classList.remove('in-deck');
-    });
-
-    stack.on('throwin', function (e) {
-        console.log(e.target.innerText || e.target.textContent, 'has been thrown into the stack from the', e.throwDirection, 'direction.');
-
-        e.target.classList.add('in-deck');
-    });
+    }
+    if(ev.type == 'panleft'){
+        $("#swip-card").css("background","#00ff00");
+        $("#swip-card").toggleClass("animated zoomOutLeft");
+        //$('.info-block').hide();
+    }
+    if(ev.type == 'panright'){
+        $("#swip-card").css("background","#0000ff");
+        $("#swip-card").toggleClass("animated zoomOutRight");
+        //$('.info-block').hide();    
+    }
+    
 });
-
-
 //window.addEventListener('load', onVrViewLoad);
 
 var url = "https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg";
