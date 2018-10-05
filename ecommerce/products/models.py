@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
+from django.core.exceptions import ValidationError
 # Create your models here.
 from django.contrib.auth.models import User
 import datetime
@@ -169,7 +170,23 @@ class BookingDetails(models.Model):
 	numberDays = models.IntegerField()
 	active = models.BooleanField(default = False)
 	def __str__(self):
-		return '%s %s %s' % (self.id, self.banner.id, self.bookingDate)
+		return 'id : %s     banner-id: %s      banner-facing : %s     booking date : %s' % (self.id, self.banner.id, self.banner.banner_facing, self.bookingDate)
+
+	def save(self, *args, **kwargs):
+		bookings = self.banner.bookingdetails_set.filter(active = True)
+		if self.startDate >= self.endDate:
+			raise ValidationError({'date': 'invalid start end.'})
+		for booking in bookings:
+			if ((booking.startDate <= self.startDate and self.startDate <= booking.endDate) or 
+			(booking.startDate <= self.endDate and self.endDate <= booking.endDate) or (booking.startDate >= self.startDate and booking.endDate <= self.endDate)):
+				raise ValidationError({'date': 'already booked range.'})
+		self.bookingDate = datetime.date.today()
+		delta = self.endDate - self.startDate
+		self.numberDays = delta.days 
+		super(BookingDetails, self).save(*args, **kwargs)
+
+
+
 
 
 class PricePeriod(models.Model):

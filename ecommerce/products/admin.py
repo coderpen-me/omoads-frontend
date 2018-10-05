@@ -17,7 +17,11 @@ class PricePeriodInline(admin.TabularInline):
     can_delete = False
 
 class BookingDetailsInline(admin.TabularInline):
+    readonly_fields = ('bookingDate','numberDays')
     model = BookingDetails
+    def get_extra(self, request, obj=None, **kwargs):
+        extra = 1
+        return extra
 
 class BannerAdmin(admin.ModelAdmin):
     inlines = [ImageInLine, PricePeriodInline, BookingDetailsInline, ]
