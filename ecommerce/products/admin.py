@@ -17,13 +17,25 @@ class PricePeriodInline(admin.TabularInline):
     can_delete = False
 
 class BookingDetailsInline(admin.TabularInline):
+    readonly_fields = ('bookingDate','numberDays')
     model = BookingDetails
-    readonly_fields = ('startDate','endDate', 'bookingDate', 'numberDays')
-    can_delete = False
+    def get_extra(self, request, obj=None, **kwargs):
+        extra = 1
+        return extra
 
 class BannerAdmin(admin.ModelAdmin):
-	inlines = [ImageInLine, PricePeriodInline, BookingDetailsInline, ]
-
+    inlines = [ImageInLine, PricePeriodInline, BookingDetailsInline, ]
+    def get_fieldsets(self, request, obj=None):
+        fields = list()
+        if request.user.is_superuser:
+            fields = ['agency','zone', 'banner_facing', 'banner_type', 'banner_lighted', 'banner_dimensions',
+                     'banner_cost', 'banner_lattitude', 'banner_longitude', 'banner_landmark', 'banner_status', 'banner_bookingStatus']
+            return [(None, {'fields': tuple(fields)})]
+        else:
+            fields = ['agency', 'banner_facing', 'banner_landmark','zone']
+            self.readonly_fields = fields
+            return [(None, {'fields': tuple(fields)})]
+    
 
 
 class ProfileInline(admin.StackedInline):
@@ -40,6 +52,18 @@ class CustomUserAdmin(UserAdmin):
             return list()
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
+class BannerInline(admin.TabularInline):
+    fields = ('banner_facing', 'zone', 'banner_landmark', 'admin_edit_link')
+    readonly_fields = fields
+    model = Banner
+
+
+
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ('user_name', 'user_email')
+    inlines = [BannerInline]
+
+admin.site.register(Agency, BookingAdmin)
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
@@ -47,7 +71,7 @@ admin.site.register(User, CustomUserAdmin)
 
 
 admin.site.register(Banner, BannerAdmin)
-admin.site.register(Agency)
+
 admin.site.register(BookingDetails)
 admin.site.register(PricePeriod)
 admin.site.register(Zone)

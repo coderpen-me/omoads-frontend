@@ -1471,7 +1471,7 @@ def calculatePrice(banner,startDate,endDate):
 def checkDateRange(startDate, endDate, banner):
 	for detailset in banner.bookingdetails_set.filter(active = True):
 		if ((detailset.startDate <= startDate and startDate <= detailset.endDate) or 
-			(detailset.startDate <= endDate and endDate <= detailset.endDate)):
+			(detailset.startDate <= endDate and endDate <= detailset.endDate)  or (booking.startDate >= self.startDate and booking.endDate <= self.endDate)):
 			return False
 	#TO-DO
 	#for cartitem in banner.cartitem_set.filter(cart.user = request.user):
