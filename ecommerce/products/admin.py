@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from django.shortcuts import HttpResponseRedirect
 # Register your models here.
 from .models import *
 from django.contrib.auth.admin import UserAdmin
@@ -16,12 +16,14 @@ class PricePeriodInline(admin.TabularInline):
     readonly_fields = ('startDate','endDate', 'price', 'numberDays')
     can_delete = False
 
+
 class BookingDetailsInline(admin.TabularInline):
     readonly_fields = ('bookingDate','numberDays')
     model = BookingDetails
     def get_extra(self, request, obj=None, **kwargs):
         extra = 1
         return extra
+
 
 class BannerAdmin(admin.ModelAdmin):
     inlines = [ImageInLine, PricePeriodInline, BookingDetailsInline, ]
@@ -35,6 +37,8 @@ class BannerAdmin(admin.ModelAdmin):
             fields = ['agency', 'banner_facing', 'banner_landmark','zone']
             self.readonly_fields = fields
             return [(None, {'fields': tuple(fields)})]
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(reverse('admin:products_banner_change', args=(obj.id,)))
     
 
 

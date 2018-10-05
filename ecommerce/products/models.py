@@ -179,7 +179,8 @@ class BookingDetails(models.Model):
 		for booking in bookings:
 			if ((booking.startDate <= self.startDate and self.startDate <= booking.endDate) or 
 			(booking.startDate <= self.endDate and self.endDate <= booking.endDate) or (booking.startDate >= self.startDate and booking.endDate <= self.endDate)):
-				raise ValidationError({'date': 'already booked range.'})
+				if not self.pk==booking.id:
+					raise ValidationError({'date': 'already booked range.'})
 		self.bookingDate = datetime.date.today()
 		delta = self.endDate - self.startDate
 		self.numberDays = delta.days 
