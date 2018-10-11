@@ -1,0 +1,124 @@
+<html>
+<head>
+    {% load staticfiles %}
+    <title>{% block title %} {% endblock %}| OmoAds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
+    <script src="{% static 'js/nprogress.js' %}"></script>
+    <!--<link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon' %}/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'resources/images/favicon' %}/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'resources/images/favicon' %}/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'resources/images/favicon' %}/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'resources/images/favicon' %}/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'resources/images/favicon' %}/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'resources/images/favicon' %}/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'resources/images/favicon' %}/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'resources/images/favicon' %}/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'resources/images/favicon' %}/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'resources/images/favicon' %}/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'resources/images/favicon' %}/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'resources/images/favicon' %}/favicon-16x16.png">
+    <link rel="manifest" href="{% static 'resources/images/favicon' %}/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'resources/images/favicon' %}/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">-->
+    
+    <link rel="shortcut icon" sizes="16x16" type="image/ico" href="https://omos.s3.amazonaws.com/resources/images/favicon/omo.ico" />
+ <link rel="icon" sizes="16x16" type="image/ico" href="https://omos.s3.amazonaws.com/resources/images/favicon/omo.ico" />
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}" />
+    {% block custom_css %}
+    {% endblock %}
+</head>
+
+<body style="background:#ccc;">
+{% include 'nav.html' %}
+
+    <!-- main Content-->
+    
+    
+    
+    <div class="row justify-content-center " >
+        <div class="col-md-12" style="padding:50px;">
+            
+            <div class="row" >
+                <div class="col-md-3 " style="background:none;">
+                    
+                        <div class="block">
+                            
+                            <img src="#" style="width:50px;height:50px;border-radius:50%;position:relative;top:15px;" alt="name"/>
+                            &nbsp;hello,<br>
+                            <h5 class="" style="margin-left:2.5em;position:relative;top:-15px;">&nbsp;  {{user.first_name|capfirst}} {{user.last_name|capfirst}}</h5>
+                        </div>
+                        <br>
+                        <!--left menu-->
+                        <div class="accordion block dash-left-bar" id="accordionExample" >
+
+                                <ul class="list-group d-flex" style="margin:0%;padding:0%;">
+                                                       <!-- use the (theme-active) for active menu-->
+                                    <li id="profile" class="hover   list-group-item d-flex justify-content-left align-items-center" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            &nbsp;<i class="fas fa-user icon-color"></i>&nbsp; Profile
+                                        <span class="badge badge-primary badge-pill">2</span>
+                                    </li>
+                                    
+                                    <li id="favorites" class="hover   list-group-item d-flex justify-content-left align-items-center " data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                            &nbsp;<i class="fa fa-paper-plane icon-color" aria-hidden="true"></i>&nbsp; Favorites
+                                        
+                                    </li>
+                                    <li id="logout" class="hover   list-group-item d-flex justify-content-left align-items-center">
+                                            &nbsp;<i class="fa fa-power-off icon-color" aria-hidden="true"></i> &nbsp;Logout
+                               
+                                    </li>
+                                         
+                                            
+                                      
+                                </ul>
+
+                            </div>
+                </div>
+
+
+                <div class="col-md-9" style="">
+                        
+                            {% block content %}
+
+                            {% endblock %}
+                        
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- main Content-->
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+    crossorigin="anonymous"></script>
+
+<script>
+        $("#profile").on("click",function(){
+            window.location.href = "{% url 'dashboard' %}";
+        });
+        $("#favorites").on("click",function(){
+            window.location.href = "{% url 'favourites' %}";
+        });
+    
+        $("#logout").on("click",function(){
+            window.location.href = "{% url 'auth_logout' %}";
+        });
+</script>
+
+<script src="{% static 'js/theme.js' %}"></script>
+{% block custom_js %}
+
+{% endblock %}

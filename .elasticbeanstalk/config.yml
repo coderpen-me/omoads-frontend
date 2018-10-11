@@ -1,20 +1,19 @@
 branch-defaults:
   master:
-    environment: omoads-deploy-py3
-environment-defaults:
-  Omoads-py3-deploy:
-    branch: null
-    repository: null
+    environment: null
+  test_branch:
+    environment: omoads-deploy
 global:
   application_name: omoads
-  default_ec2_keyname: null
-  default_platform: arn:aws:elasticbeanstalk:ap-south-1::platform/Python 3.6 running
-    on 64bit Amazon Linux/2.7.1
+  branch: null
+  default_ec2_keyname: tegkhanna
+  default_platform: Python 3.4
   default_region: ap-south-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
   profile: eb-cli
+  repository: null
   sc: git
   workspace_type: Application

@@ -1,0 +1,212 @@
+
+
+{% extends 'base.html'%}
+
+{% load staticfiles %}
+
+{% block custom_css %}
+ <style>
+    .form-control::-webkit-input-placeholder { color: #aaa; }  /* WebKit, Blink, Edge */
+    .form-control:-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 4 to 18 */
+    .form-control::-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 19+ */
+    .form-control:-ms-input-placeholder { color: #aaa; }  /* Internet Explorer 10-11 */
+    .form-control::-ms-input-placeholder { color: #aaa; }  /* Microsoft Edge */
+    </style>
+<style>
+	body{
+		background:#eee;
+	}
+	* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	}
+
+	
+	a:link,
+	a:visited {
+	  color: black;
+	}
+	h1 {
+		margin-top: 0;
+		margin-left: 0.75rem;
+	}
+	main {
+		columns: 300px;
+		column-gap: 20px; 
+	}
+	.box {
+		break-inside: avoid-column;
+		margin-bottom: 2rem; 
+	}
+	.img{width:100%;}
+	.box{
+	  width:300px;
+	  box-shadow: 1px 1px 5px #ccc;
+	  background:#fff;
+	  box-sizing: border-box;
+	  font-family: Arial, Helvetica, sans-serif;
+	  margin-left:1em;
+	  transition-duration:300ms;
+	  
+	}
+	.box *{
+	  box-sizing: border-box;
+	}
+	.box h3{
+	  font-size: 25px;
+	  color:#000;
+	}
+	.box-img{
+	  width:100%;
+	}
+	.box-img img {
+	  width: 100%;
+	  height: auto;
+	} 
+	.box-body{
+	  width:100%;
+	  color:#333;
+	  padding: 20px;
+	  
+	}
+	.box-body p{
+		color:#ccc;
+	}
+	.box-img:hover img{
+	  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+	  filter: grayscale(100%);
+	  transform: scale(1.1);
+	  transition-duration: 400ms;
+	}
+	.box-img:hover a:hover>.overlay{
+	  display: block;
+	  transition-duration: 300ms ;
+	}
+	.overlay{
+	  background: rgba(0, 0, 0, 0.712);
+	  width: 100%;
+	  height: 300px;
+	  text-align: center;
+	  position:absolute;
+	  left: 0;
+	  top: 0;
+	  float:left;
+	  z-index: 1;
+	  
+	  display: none;
+	  font-size: 100px;
+	  color: #ccc;
+	  border-left:10px solid #fff;
+	  border-right:10px solid #fff;
+	  transform: scale(1.11);
+	  transition-duration: 400ms;
+	}
+	
+	.box-catagory{
+	  margin-top: 1em;
+	  font-size: 16px;
+	  font-weight: lighter;
+	  
+	}
+</style>
+
+
+
+{% endblock %}
+
+{% block content %}
+  
+  <br><br>
+  <div class="container">
+    <main>
+		<div class="box" >
+			<div class="box-img">
+				<a href="#">
+					<img class="img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/Paleo_food.jpg" class="image" />
+					
+				</a>
+			</div>
+			<div class="box-body">
+				<h3><a href="#">1) All of These Headlines Are Not Exactly The Same</a></h3>
+				<p>In the real world, you don't know how long the content will be. Writers will write what they need. Photos will be cropped to the shape that they should be. That's good. Make a system that allows this. You want it to be flexible and robust.</p>
+			</div>
+		</div>
+		<div class="box" >    
+			<div class="box-img">
+				<a href="#">
+					<img class="img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/Indian_bengali_food.jpg">
+				</a>
+			</div>
+			<div class="box-body">
+				<h3><a href="#">2) Some Are Short</a></h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus.</p> 
+			</div>
+		</div>
+		
+		<div class="box" >
+			<div class="box-img">
+				<a href="#">
+					<img class="img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/Food_in_Miyajima.jpg">
+				</a>
+			</div>
+			<div class="box-body">
+		  <h3><a href="#">3) Some Headlines Can Sometimes Be Quite Long, Because It Takes Time to Make A Point</a></h3>
+		  <p>Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis.</p> 
+			</div>
+		</div>
+		<div class="box" >
+			<div class="box-img">
+				<a href="#">
+					<img class="img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/10558/P1-Food_with_love.jpg">
+				</a>
+			</div>
+			<div class="box-body">
+				<h3><a href="#">4) Also, Why Are We Using Fake Content? Let's Make Some Real-ish Content.</a></h3>
+				<p>By using real content, we can see the variation inherent in what this site might present. And we can design for those real world needs.
+			</div>
+		</div>
+		
+  </main>
+</div>
+		
+<br>
+<div class="row ">
+	<div class="col-md-6" style="margin-left:calc(100% - 65%);">
+			<a style="float:left;background: #ccc;margin-left:1em;color:#fff;color:#ccc;font-weight:bold;"  href="#" class="btn bg-dark">Prev</a>
+			<ul style="list-style: none;display: inline;">
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">1</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">2</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">3</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">.</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">.</a></li>
+				<li style="float:left;"><a style="background: #ccc;margin-left:1em;color:#000;font-weight:bold;" class="btn" href="#">9</a></li>
+			</ul>
+			<a style="float:left;background: #ccc;margin-left:1em;color:#fff;color:#ccc;font-weight:bold;" href="#" class="btn bg-dark" >Next</a>
+	</div>
+</div>
+<!-- main Content-->
+<!-- footer-->
+<br>
+{% include 'footer.html' %}
+
+
+{% endblock %}
+
+
+{% block custom_js %}
+<script>
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+    $(".faq-link").on("click",function(){
+	var faqid = $(this).attr("faq-link");
+        setCookie("faqid",faqid.toString() , 365);
+        
+    });
+</script>
+
+{% endblock %}

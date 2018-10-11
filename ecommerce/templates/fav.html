@@ -1,0 +1,110 @@
+{% extends 'dash_base.html'%}
+
+
+{% load staticfiles %}
+
+    {% block custom_css %}
+    <style>
+    .form-control::-webkit-input-placeholder { color: #aaa; }  /* WebKit, Blink, Edge */
+    .form-control:-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 4 to 18 */
+    .form-control::-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 19+ */
+    .form-control:-ms-input-placeholder { color: #aaa; }  /* Internet Explorer 10-11 */
+    .form-control::-ms-input-placeholder { color: #aaa; }  /* Microsoft Edge */
+    </style>
+    {% endblock %}
+
+
+
+
+    
+    
+{% block content %}
+
+
+				
+						<!-- fav block-->
+						{% for fav in user.favourite_set.all %}
+                        <div class="block" id=fav{{fav.pk}} style="height:30%;padding:20px;">
+
+                                        <div class="row">
+						<div class="col-md-2">
+							<img src="{{MEDIA_URL}}{{fav.banner.bannerimage}}" style="width:150px;height:120px;"/>
+						</div>
+						<div class="col-md-8">
+							<h4 style="margin-left:40px;">fav.banner.banner_landmark</h4>
+							<ul style="list-style:none;font-size:12px;">
+								<li>{{fav.banner.pk}}</li>
+								<li>{{fav.banner.banner_facing}}</li>
+								<li>{{fav.banner.banner_type}}</li>
+								<li>{{fav.banner.banner_lighted}}</li>
+								<li>{{fav.banner.zone}}</li>
+								<li>{{fav.banner.get_banner_dimensions}}</li>
+							
+							</ul>
+						</div>
+						<div class="col-md-2">
+						 <h4>{{fav.banner.get_current_price}}</h4>
+							<span class="btn" onclick="del_fav({{fav.pk}})" id="" style="margin-left:90px;" ><i class="far fa-times-circle"></i></span>
+						</div>
+					</div>
+          
+                        </div>
+						<!-- end-->
+						{% endfor %}
+						
+						
+
+    
+    
+    
+
+{% endblock %}
+
+{% block custom_js %}
+
+<script type="text/javascript">
+	var del_fav = function(fav_id)
+	{
+		$.ajax({
+			type:"POST",
+            url: "{% url 'delete_fav' %}",
+            beforeSend: function(){
+                NProgress.start();
+            },
+            global: true,
+            data: {
+             "csrfmiddlewaretoken": "{{ csrf_token }}",
+             "fav_id":String(fav_id)
+
+            },
+            success: function(data){
+                NProgress.done();
+                if(data["success"]=="1")
+                {
+                     console.log("deleted");
+                }
+                else
+                {
+                	console.log("was already deleted");
+                }
+                $("#fav"+data["fav_id"]).remove()
+               
+            },
+            error: function()
+            {
+                  NProgress.done();
+                  console.log("couldn't delete");
+            },
+		})
+	}
+</script>
+
+{% endblock %}
+
+    
+    
+    
+    
+
+
+         

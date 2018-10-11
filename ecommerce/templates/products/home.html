@@ -8,15 +8,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/theme.css' %}" rel="stylesheet" />
   <link href="{% static 'css/pace-theme-center-atom.css' %}" rel="stylesheet" />
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+  
+  
 
   <!-- <link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon/apple-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="60x60" href="{% static 'resources/images/favicon/apple-icon-60x60.png' %}">
   <link rel="apple-touch-icon" sizes="72x72" href="{% static 'resources/images/favicon/apple-icon-72x72.png' %}">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'resources/images/favicon/apple-icon-76x76.png' %}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'resources/images/favicon/apple-icon-76x76.png' %}">var sub = document.getElementById("sub");
+  var msg = document.getElementById("msg");
+  sub.disabled = true;
+  sub = document.getElementById("subLogin");
+ sub.disabled = true;
   <link rel="apple-touch-icon" sizes="114x114" href="{% static 'resources/images/favicon/apple-icon-114x114.png' %}">
   <link rel="apple-touch-icon" sizes="120x120" href="{% static 'resources/images/favicon/apple-icon-120x120.png' %}">
   <link rel="apple-touch-icon" sizes="144x144" href="{% static 'resources/images/favicon/apple-icon-144x144.png' %}">
@@ -27,7 +36,6 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'resources/images/favicon/favicon-96x96.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'resources/images/favicon/favicon-16x16.png' %}">
   <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
-  <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="{% static 'resources/images/favicon/ms-icon-144x144.png' %}">
   <meta name="theme-color" content="#ffffff">
  -->
@@ -40,12 +48,12 @@
  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
-
+  <script src="{% static 'js/nouislider.min.js' %}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -68,6 +76,55 @@
 </head>
 
 <style type="text/css">
+
+.filter-float-btn{
+  display :none;
+  }
+  
+/*Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {  
+    /*For mobile phones: */
+  
+  .modal-dialog {
+    max-width: 500px !important;
+      
+  }
+  #availModal .modal-dialog{
+    position: absolute;
+    top: 0;
+    left: auto !important;
+    right:unset !important;
+    bottom: 0;
+    width: 80% !important;
+    height: fit-content;
+    margin: auto;
+  }
+  #filter-sec{
+    display:none;
+  
+  }
+  .col-collapse{
+    display:none !important;
+  }
+  .col-collapse1{
+    display:none !important;
+  }
+  .filter-float-btn{
+    display:block !important;
+    position:fixed;
+    left 50px;
+    bottom:250px;
+    border-radius:50%;
+    height:50px;
+    width:50px;
+    background: #fd7b26;
+    box-shadow: 1px 1px 3px #ccc;
+    z-index:1100;
+    
+  }
+  
+ }
+    
   .bannerImage {
     background: black;
   }
@@ -86,7 +143,10 @@
     height: 50px;
     background-color: #ddd;
     border-radius: 3px;
-    z-index:1000;
+
+    top:0px;
+    z-index:1080 !important;
+
   }
   .col-control:focus{
     outline: none;
@@ -100,13 +160,20 @@
   }
   #filter-sec{
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     right: 0;
     top:0px;
     transition: all 100ms ease-out;
+    top:0px;
   }
   #filter-sec.collapse-right, #control-contain.collapse-right{
     transform: translate3d(100%, 0, 0);
+  }
+  .footer{
+    padding: .7em;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
   }
   /* .cont{
     position: relative;
@@ -182,6 +249,20 @@
     background-size: cover;
     background-position: center;
   } */
+  .navbar{
+  padding: .66rem 1rem;
+  }
+  .checkbox{
+    margin:0px;
+  }
+  .checkbox p{
+    margin: 0px;
+    padding-left: 20px;
+  }
+  .checkbox p label{
+    margin: 0px;
+    padding: 0px;
+  }
   .panel{
     margin-bottom: 5px;
   }
@@ -192,6 +273,7 @@
     z-index: 5;
   }
   .card.panel{
+    position: relative;
     border: 0;
     /* margin-bottom: 0; */
     padding-bottom: 0;
@@ -267,9 +349,21 @@
     padding: 0;
     justify-content: space-between;
 
+    
   }
   #myModal .modal-footer form{
     display: inline-block;
+  }
+  @media (min-width: 576px){
+    .modal-dialog {
+    max-width: 10000px !important;
+      margin: 1.75rem auto;}
+  }
+  #availModal{
+    position:fixed;
+    margin:auto;
+    width:85%;
+    z-index:1080;
   }
   #availModal .modal-dialog{
     position: absolute;
@@ -277,7 +371,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    width: 85%;
+    width: 100%;
     height: fit-content;
     margin: auto;
   }
@@ -326,7 +420,7 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-
+@media
   .slider:before {
     position: absolute;
     content: "";
@@ -354,6 +448,7 @@
   }
 
   /* Rounded sliders */
+  
   .slider.round {
     border-radius: 34px;
   }
@@ -396,7 +491,7 @@
   $('#sectionTry').hide();
  
 </script>
-{% include 'navbar1.html' %}
+{% include 'nav.html' %}
   <!-- Login Modal -->
  
 <div class="cont" style="overflow: hidden;">
@@ -432,147 +527,6 @@
       document.querySelector('.blurred').style.display = 'none';
     }
   </script> -->
-
-  <div class="container-fluid box" style="position: relative;">
-    <div class="secondBox col-sm-12" >
-      <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Location"> -->
-      <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
-    </div>
-    <div class="col-sm-3" id="control-contain" style="position: absolute; right: 0; transition: all 100ms ease-out;">
-      <button class="col-control"><i class="fas fa-angle-right"></i></button>
-    </div>
-    <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;">
-      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
-      <form id="filterForm">
-    
-        <div class="sort">
-          <h4 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h4>
-        </div>
-        {% if user.is_authenticated %}
-        <!-- <div class="panel panel-default banner-panel open">
-            <div class="panel-heading"><h4>Banner Details  <i class="fas fa-sort-down"></i></h4></div>
-            <div class="panel-body">
-              <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
-              <p><strong>Dimensions:</strong> <span id="dimensions">loading...</span></p>
-              <p><strong>Type:</strong> <span id="type">loading...</span></p>
-              <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
-              <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
-              <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
-            </div>
-          </div> -->
-        <div class="card panel panel-default open">
-          <div class="filter-header panel-heading">
-            <h5>USER  <i class="fas fa-sort-down"></i></h5>
-          </div>
-          <div class="check view-cart panel-body">
-          
-            <div class="checkbox">
-              <div class="row">
-                <p>
-                View Campaign
-                <label class="switch pull-right">
-                  <input id="cart" name="user" onchange="submit_filter();" 
-                  type="checkbox" value="0">
-                  <span class="slider round"></span>
-                </label>
-                </p>
-              </div>
-            </div>
-          <!-- <div class="checkbox">
-              <label>
-                <input id="order" name="user" onchange="submit_filter();" 
-                type="checkbox" value="0">ORDER
-              </label>
-          </div> -->
-          
-          </div>
-        </div>
-        {% endif %}
-        <div class="card panel panel-default open">
-          <div class="filter-header panel-heading">
-            <h5>DIMENSIONS  <i class="fas fa-sort-down"></i></h5>
-          </div>
-          <div class="check panel-body">
-            {% for dimensions_of_banner in form.dimensions_banner %}
-            <div class="checkbox">
-              <p>
-                <label>
-                  {{  dimensions_of_banner }}
-                </label>
-              </p>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        <div class="card panel panel-default">
-          <div class="filter-header panel-heading">
-            <h5>TYPE  <i class="fas fa-sort-down"></i></h5>
-          </div>
-          <div class="check panel-body">
-            {% for type_of_banners in  form.type_banner %}
-            <div class="checkbox">
-              <p>
-                <label>
-                  {{ type_of_banners }}
-                </label>
-              </p>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-          <div class="card panel panel-default">
-            <div class="filter-header panel-heading">
-              <h5>LIGHTED  <i class="fas fa-sort-down"></i></h5>
-            </div>
-            <div class="check panel-body">
-              {% for lights_of_banners in  form.lighted_banner %}
-              <div class="checkbox">
-                <p>
-                  <label>
-                    {{ lights_of_banners }}
-                  </label>
-                </p>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-
-          <div class="card panel panel-default">
-            <div class="filter-header panel-heading">
-              <h5>DATE  <i class="fas fa-sort-down"></i></h5>
-            </div>
-            <div class="check panel-body">
-                <div class="row date-input">
-                    <div class="col-sm-8 date-input-form">
-                      <form>
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                          <input id="datePicker" type="text" class="form-control" placeholder="Start Date">
-                        </div>
-                      </form>
-                    </div>
-                    <div class="col-sm-4 date-range-button">
-                      <button class="btn dropdown-toggle pull-right disabled" type="button" data-toggle="dropdown" style="color: #fff; background-color: #ff6c00; border-color: #ff6c00;">Range
-                      <span class="caret"></span></button>
-                      <ul class="dropdown-menu" id="rangeSelector">
-                        <li id="next30"><a href="#">Next 30 Days</a></li>
-                        <li id="next45"><a href="#">Next 45 Days</a></li>
-                        <li id="next60"><a href="#">Next 60 Days</a></li>
-                        <li id="next90"><a href="#">Next 90 Days</a></li>
-                        <li id="next120"><a href="#">Next 4 Months</a></li>
-                        <li id="next150"><a href="#">Next 5 Months</a></li>
-                        <li id="next180"><a href="#">Next 6 Months</a></li>
-                      </ul>
-                    </div>
-                  </div>
-            </div>
-          </div>
-      </form>
-    </div>
-  </div>
-</div>
 <script type="text/javascript">
 var submit_filter = function() {
   
@@ -620,6 +574,253 @@ $('.col-control').on('click', function(ev){
 
 })
 </script>
+  <div class="hhh"></div>
+  <div class="container-fluid box" style="position: relative;">
+    <div class="secondBox col-sm-12" >
+      <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Location"> -->
+      <div id="map" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
+    </div>
+    <!--<div class="col-sm-3" id="control-contain" style="position: absolute; right: 0; transition: all 100ms ease-out;">
+      <button class="col-control"><i class="fas fa-angle-right"></i></button>
+    </div>-->
+    <style>
+      #filter-sec{
+      }
+    </style>
+    <div >
+      <button class="col-collapse" style="position:fixed;top:60px;height:45px;right:calc(100% - 75%);z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
+      <button class="col-collapse1" style="display:none;position:fixed;top:60px;height:45px;right:0px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-left"></i></button>
+    <div>
+      <script>
+        var tog = 0;
+        $(".col-collapse").on("click",function(){
+            $("#filter-sec").css("right","-25%");
+            $(this).hide();
+            $(".col-collapse1").show();
+        });
+        $(".col-collapse1").on("click",function(){
+            $("#filter-sec").css("right","0px");
+            $(this).hide();
+            $(".col-collapse").show();
+        });
+      </script>
+    <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;" data-pos="max">
+      <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+      <form id="filterForm">
+    
+        <div class="sort">
+          <h5 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h5>
+        </div>
+        {% if user.is_authenticated %}
+        <!-- <div class="panel panel-default banner-panel open">
+            <div class="panel-heading"><h4>Banner Details  <i class="fas fa-sort-down"></i></h4></div>
+            <div class="panel-body">
+              <p><strong>Pole ID:</strong> <span id="panelID">loading...</span></p>
+              <p><strong>Dimensions:</strong> <span id="dimensions">loading...</span></p>
+              <p><strong>Type:</strong> <span id="type">loading...</span></p>
+              <p><strong>Lighted:</strong> <span id="lighted">loading</span></p>
+              <p><strong>Facing:</strong> <span id="BannerFacing">Bus Station</span></p>
+              <p><strong>Zone:</strong> <span id="zone">Hapur Road</span></p>
+            </div>
+          </div> -->
+        <div class="card panel panel-default open">
+          <div class="filter-header panel-heading">
+            <h5>USER  <i class="fas fa-sort-down"></i></h5>
+          </div>
+          <div class="check view-cart panel-body">
+          
+            <div class="checkbox">
+              <div class="row">
+                <p>
+                View Campaign
+                <label class="switch pull-right">
+                  <input id="cart" name="user" onchange="submit_filter();" 
+                  type="checkbox" value="0">
+                  <span class="slider round"></span>
+                </label>
+                </p>
+              </div>
+            </div>
+          <!-- <div class="checkbox">
+              <label>
+                <input id="order" name="user" onchange="submit_filter();" 
+                type="checkbox" value="0">ORDER
+              </label>
+          </div> -->
+          
+          </div>
+        </div>
+        {% endif %}
+        <div class="card panel panel-default open">
+          <div class="filter-header panel-heading">
+            <h6 style="color:#fff;">DIMENSIONS  <i class="fas fa-sort-down"></i></h6>
+          </div>
+          <div class="check panel-body">
+            {% for dimensions_of_banner in form.dimensions_banner %}
+            <div class="checkbox">
+              <p>
+                <label>
+                  {{  dimensions_of_banner }}
+                </label>
+              </p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="card panel panel-default">
+          <div class="filter-header panel-heading">
+            <h6 style="color:#fff;">TYPE  <i class="fas fa-sort-down"></i></h5>
+          </div>
+          <div class="check panel-body">
+            {% for type_of_banners in  form.type_banner %}
+            <div class="checkbox">
+              <p>
+                <label>
+                  {{ type_of_banners }}
+                </label>
+              </p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h6 style="color:#fff;">LIGHTED  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <div class="check panel-body">
+              {% for lights_of_banners in  form.lighted_banner %}
+              <div class="checkbox">
+                <p>
+                  <label>
+                    {{ lights_of_banners }}
+                  </label>
+                </p>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h6 style="color:#fff;">DATE  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <a id="clearDate" class="btn btn-link" style="color: #ff6c00;position: absolute;top: 0;right: 0;z-index: 5;">Clear</a>
+            <div class="check panel-body">
+                <div class="row date-input">
+                    <div class="col-sm-6 date-input-form">
+                      
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          <input id="datePicker-start" type="text" class="form-control" placeholder="Start Date" name="start_date">
+                        </div>
+                      
+                    </div>
+                    <div class="col-sm-6 date-input-form">
+                      
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          <input id="datePicker-end" type="text" class="form-control" placeholder="End Date" name="end_date">
+                        </div>
+                      
+                    </div>
+              </div>
+              <style>
+                .clearDate-div{text-align: center; margin: 10px 0;}.btn.btn-omo{color: #fff; background-color: #ff6c00; border-color: #ff6c00;}
+              </style>
+              <script>
+                $('#clearDate').click(() => {restDate()})
+                function restDate(){
+                  console.log('Hello')
+                  $('#datePicker-start, #datePicker-end').val('')
+
+                }
+              </script>
+            </div>
+          </div>
+
+          <div class="card panel panel-default">
+            <div class="filter-header panel-heading">
+              <h6 style="color:#fff;">PRICE  <i class="fas fa-sort-down"></i></h5>
+            </div>
+            <div class="check panel-body">
+              <div id="slider"></div>
+              <div class="inputs">
+                <div class="inputs-left inps-contain">
+                  <label for="range-left">Min</label>
+                  <input id="range-left" class="inp-left" type="number" name = "min_price"/>
+                </div>
+                <div class="inputs-right inps-contain">
+                  <label for="range-right">Max</label>
+                  <input id="range-right" class="inp-right" type="number" name = "max_price"/>
+                </div>
+              </div>
+            </div>
+            <style>
+              .inputs{display: flex; justify-content: space-between; align-items: center;}.inps-contain{width: 45%;}.inps-contain label{display: block; text-align: center;}.inps-contain input{width: 100%;}#slider{height: 10px; margin: 15px 0;}.noUi-connect{background: #ff6c00;}.noUi-horizontal .noUi-handle{ height: 20px; width: 20px; border: none; border-radius: 50%; box-shadow: none; background: #333;}.noUi-handle:before, .noUi-handle:after{ display: none;}
+            </style>
+            <script>
+              let filter_timeout_track = null
+              let page_first_load = true
+              let slider = document.getElementById('slider');
+              noUiSlider.create(slider, {
+                start: [0, 100],
+                connect: true,
+                range: {
+                  'min': 0,
+                  'max': 100
+                },
+                step: 1
+              });
+              // Slider change . Suggestion: add your functionality in syncInputs().
+              slider.noUiSlider.on('change', syncInputs)
+              let inps = document.querySelectorAll('.inps-contain input')
+              
+              inps.forEach(function(el){
+                el.addEventListener('input', function(){syncSlider(el)})
+              })
+              function syncSlider(inpElement){
+                console.log(inpElement)
+                if($(inpElement).hasClass('inp-left')){
+                  slider.noUiSlider.set([inpElement.value / 5000, null])
+                  console.log(inpElement.value)
+                }
+                else{
+                  slider.noUiSlider.set([null, inpElement.value / 5000])
+                }
+                if(!page_first_load)
+                { 
+                    if(filter_timeout_track!=null)
+                    {
+                        clearTimeout(filter_timeout_track);
+                    }
+                    filter_timeout_track = setTimeout(submit_filter,1000);
+                }
+              }
+              function syncInputs(){
+                let st = slider.noUiSlider.get()
+                document.getElementById('range-left').value = parseInt(st[0]) * 5000
+                document.getElementById('range-right').value = parseInt(st[1]) * 5000
+                if(!page_first_load)
+                { 
+                    if(filter_timeout_track!=null)
+                    {
+                        clearTimeout(filter_timeout_track);
+                    }
+                    filter_timeout_track = setTimeout(submit_filter,1000);
+                }
+              }
+              slider.noUiSlider.set([0, 100])
+              syncInputs()
+              page_first_load = false
+            </script>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <div class="footer"></div>
 </section>
@@ -631,9 +832,15 @@ $('.col-control').on('click', function(ev){
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel" >Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <!--<div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
           <h3 class="modal-title" id="myModalLabel">Hapur Road, Near Hapur Chungi</h3>
-        </div>
+        </div>-->
 
         
         <div class="modal-body">
@@ -704,14 +911,53 @@ $('.col-control').on('click', function(ev){
             </div>
             <div class="col-sm-8 right">
               <div style="position: relative;">
-                <form method = "POST" action = "{% url 'addToCart' %}">
-                  {% csrf_token %}
-                  <input type="hidden" name = "startDateAddCart" id="startDateAddCart" value = "">
-                  <input type="hidden" name = "endDateAddCart" id="endDateAddCart" value = "">
-                  <input type="hidden" name = "bannerIDAddCart" id="bannerIDAddCart" value = "">
-                  <button type="submit" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites"><i class="fas fa-heart"></i></button>
-                </form>
-                <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">
+                
+
+                  
+                    <button type="button" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites" style="position:absolute;right:0;float:right;border-radius:50%;box-shadow : 1px 1px 5px #ccc;">
+                         <i class="fas fa-heart"></i>
+                    </button>
+                  
+                
+                
+                <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
+                
+                <div id='vrview'></div>
+                <script>
+                      
+                      window.addEventListener('load', onVrViewLoad);
+
+                      function onVrViewLoad() {
+                        // Selector '#vrview' finds element with id 'vrview'.
+                        var vrView = new VRView.Player('#vrview', {
+                          image: '{% static "img/images/Glen-Beach-Panorama-Google-4096x2048.jpg" %}',
+                          preview: '{% static "img/images/Glen-Beach-Panorama-Google-4096x2048.jpg" %}',
+                          is_debug: true,
+                          width: '100%',
+                          height: '400',
+                          is_stereo: true
+                        });
+                      }	
+
+                </script>
+                <!--
+                <div id="container" style="width:100%;height:100%;background:#333;"></div>
+                <script src="{% static 'js/three.min.js' %}"></script>
+                <script src="{% static 'js/photo-sphere-viewer.min.js' %}"></script>
+                <script>
+                    var div = document.getElementById('container');
+                    var PSV = new PhotoSphereViewer({
+                        panorama: '{% static "img/images/parc-saint-pierre-amiens.jpg" %}',
+                        container: div,
+                        time_anim: 3000,
+                        navbar: true,
+                        navbar_style: {
+                          backgroundColor: 'rgba(58, 67, 77, 0.7)'
+                        },
+                      });
+                  </script>-->
+                
+                <!-- <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">-->
               </div>
 
               <!-- The owner button div  -->
@@ -737,21 +983,24 @@ $('.col-control').on('click', function(ev){
 
   <div class="modal fade" id="availModal" tabindex="-1" role="dialog" aria-labelledby="availModalLabel" aria-hidden="true">
       <style>
-        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}.child:hover{transform: scale(1.4);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
-      </style>
+        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}
+        .child:hover{position:absolute;left:0px;width:100%;margin:auto;transform: scaleX(1.5);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
+     </style>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="availModal-close close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-          <h3 class="modal-title" id="availModalLabel">Availability</h3>
-        </div>
+        <h5 class="modal-title" id="availModalLabel" >Availability</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       
         
         <div class="modal-body">
           <header>
             <p><span></span> Booked<br />Hover over it for details</p>
           </header>
           <main style="text-align: center;">
-            <!-- <div class="left-col col">Billboard 1</div> -->
               <div class="right-col col">
                 <div class="data-strip"></div>
             </div>
@@ -768,7 +1017,25 @@ $('.col-control').on('click', function(ev){
 
 
   
-
+  <button class="btn filter-float-btn"></button>
+  <script>
+        
+        $(".filter-float-btn").on("click",function(){
+            $("#filter-sec").toggle();
+            var data = $("#filter-sec").attr("data-pos");
+            if(data == "max"){
+              $(".col-sm-3").css("width" , "85% ");
+              $("#filter-sec").attr("data-pos","min");
+            }
+            if(data == "min"){
+              $(".col-sm-3").css("width" , "100%");
+              $("#filter-sec").attr("data-pos","max");
+            }
+                                   
+          
+        });
+       
+      </script>
 </body>
 
 
@@ -792,148 +1059,168 @@ $('.col-control').on('click', function(ev){
   })
 
 
-$(".date-range-button button").removeClass("disabled");
 var ValidStartBooking =  moment().add(1, 'days');
-              $('#datePicker').daterangepicker({
-                  singleDatePicker: true,
-                  showDropdowns: true,
-                  minDate: ValidStartBooking,
-                    locale: {
-                    format: 'DD/MM/YYYY'
-                    },
-                  seperator: 'To',
-                  opens: "right",
-                  drops: "up",
-                  },
-                  function(start, end){
-                    $('#MyModalAddCart').attr("disabled", true);
-                    $(".date-range-button button").removeClass("disabled");
-                    var diff = end.diff(start, 'days');
-                    console.log(diff)
+$('#datePicker-start, #datePicker-end').each(function(i, el){
+  console.log($(this))
+  $(this).daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minDate: ValidStartBooking,
+      locale: {
+      format: 'DD/MM/YYYY'
+      },
+    seperator: 'To',
+    opens: "right",
+    drops: "up",
+    },
+    getStartEndDates
+  )
+  $(this).on('apply.daterangepicker', getStartEndDates)
+});
+  function getStartEndDates(){
+    if(($('#datePicker-start').val() && $('#datePicker-start').val() != '') && ($('#datePicker-end').val() && $('#datePicker-end').val() != '') ){
+        start = moment($('#datePicker-start').val(), "DD/MM/YYYY")
+        end = moment($('#datePicker-end').val(), "DD/MM/YYYY")
+        console.log(start + "     " + end + "  enddd")
+        let diff = end.diff(start, 'days')
+        console.log(diff)
+        if(diff>0)
+        {
+            submit_filter();
+        }
+        else
+        {
+            //HERE SIDDHANT POPULATER THE ERRRRORRRRR MSG
+            console.log("galat hai re")
+        }
+      }
+  }
+  $('#datePicker-start, #datePicker-end').each(function(i, el){
+    $(this).val("")
+  })
+  
+
+  
+// $('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+
+// $(function() {
+
+//     var startDate;
+
+//     $("#next30").on("click",function(){
+//       nextDays(30);
+//     });
+//     $("#next45").on("click",function(){
+//       nextDays(45);
+//     });
+//     $("#next60").on("click",function(){
+//       nextDays(60);
+//     });
+//     $("#next90").on("click",function(){
+//       nextDays(90);
+//     });
+//     $("#next120").on("click",function(){
+//       nextDays(120);
+//     });
+//     $("#next150").on("click",function(){
+//       nextDays(150);
+//     });
+//     $("#next180").on("click",function(){
+//       nextDays(180);
+//     });
+
+//     function nextDays(x){
+//       startDate = $('#datePicker').data('daterangepicker').startDate;
+//       end = moment(startDate).add(x-1, 'days');
+//       setDate(startDate,end,x-1);
+//     }
+
+//     function setDate(start,end,days){
+//       $('#datePicker').data('daterangepicker').setEndDate(end);
+//       submit_filter()
+//       //$('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+
+//       //console.log(invalidDates);
+
+//       //handleDateInput(start, end)
+//     }
+
+// //////////OLD for date range price of modal
+// /*    function handleDateInput(start, end)
+//     {
+//       console.log("handleDateInput");
+//                     var diff = end.diff(start, 'days')
+//                     console.log(diff)
                     
-                  },
-                );
+//                     var flag = 0
+//                     for (var i = 0; i<invalidDates.length;i++)
+//                     {
 
-$('#datePicker').data('daterangepicker').startDate = ValidStartBooking
+//                       if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
+//                       {
+//                         flag  = 1;
+//                       // $('.price-details p span').html("Date range has invalid dates.")
+//                       $('.msg p em').html('Date range has invalid dates.');
+//                       $('.msg p').css('color','red');
+//                       $('.msg p').css('font-size','14px');
+//                       $('#range-output').removeClass("alert-success");
+//                       $('#range-output').addClass("alert-danger");
+//                       $('#MyModalAddCart').attr("disabled", true)
+//                         break;
+//                       }
+//                     }
+//                     if(flag == 0)
+//                     {
+//                       $('#MyModalAddCart').attr("disabled", false)
+//                       $('#range-output').removeClass("alert-danger");
+//                       $('#range-output').addClass("alert-success");
+//                       $('.msg p em').html('Your Date Range is available but filling fast! Hurry!');
+//                       $('.msg p').css('color','green');
+//                       $('.msg p').css('font-size','14px');
 
-$(function() {
-
-    var startDate;
-
-    $("#next30").on("click",function(){
-      nextDays(30);
-    });
-    $("#next45").on("click",function(){
-      nextDays(45);
-    });
-    $("#next60").on("click",function(){
-      nextDays(60);
-    });
-    $("#next90").on("click",function(){
-      nextDays(90);
-    });
-    $("#next120").on("click",function(){
-      nextDays(120);
-    });
-    $("#next150").on("click",function(){
-      nextDays(150);
-    });
-    $("#next180").on("click",function(){
-      nextDays(180);
-    });
-
-    function nextDays(x){
-      startDate = $('#datePicker').data('daterangepicker').startDate;
-      end = moment(startDate).add(x-1, 'days');
-      setDate(startDate,end,x-1);
-    }
-
-    function setDate(start,end,days){
-      $('#datePicker').data('daterangepicker').setEndDate(end);
-      submit_filter()
-      //$('#range-output').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
-
-      //console.log(invalidDates);
-
-      //handleDateInput(start, end)
-    }
-
-//////////OLD for date range price of modal
-/*    function handleDateInput(start, end)
-    {
-      console.log("handleDateInput");
-                    var diff = end.diff(start, 'days')
-                    console.log(diff)
-                    
-                    var flag = 0
-                    for (var i = 0; i<invalidDates.length;i++)
-                    {
-
-                      if(invalidDates[i] >= start.format('YYYY-MM-DD') && invalidDates[i] <= end.format('YYYY-MM-DD'))
-                      {
-                        flag  = 1;
-                      // $('.price-details p span').html("Date range has invalid dates.")
-                      $('.msg p em').html('Date range has invalid dates.');
-                      $('.msg p').css('color','red');
-                      $('.msg p').css('font-size','14px');
-                      $('#range-output').removeClass("alert-success");
-                      $('#range-output').addClass("alert-danger");
-                      $('#MyModalAddCart').attr("disabled", true)
-                        break;
-                      }
-                    }
-                    if(flag == 0)
-                    {
-                      $('#MyModalAddCart').attr("disabled", false)
-                      $('#range-output').removeClass("alert-danger");
-                      $('#range-output').addClass("alert-success");
-                      $('.msg p em').html('Your Date Range is available but filling fast! Hurry!');
-                      $('.msg p').css('color','green');
-                      $('.msg p').css('font-size','14px');
-
-                      // $(this).css("color", "green").fadeIn(500);
+//                       // $(this).css("color", "green").fadeIn(500);
                       
                     
-                      $.ajax({
-                              type: "POST",
-                              url: "{% url 'AjaxBannerPrice' %}",
-                              beforeSend: function(){
-                                // Handle the beforeSend event
-                                console.log("working")
-                                NProgress.start();
-                               },
-                               complete: function(){
-                                 // Handle the complete event
-                                 NProgress.done();
-                               },
-                              data: {
-                               "csrfmiddlewaretoken": "{{ csrf_token }}",
-                               "id_point":BoardIdForPrice,
-                               "startDate":start.format('YYYY-MM-DD'),
-                               "endDate":end.format('YYYY-MM-DD'),
+//                       $.ajax({
+//                               type: "POST",
+//                               url: "{% url 'AjaxBannerPrice' %}",
+//                               beforeSend: function(){
+//                                 // Handle the beforeSend event
+//                                 console.log("working")
+//                                 NProgress.start();
+//                                },
+//                                complete: function(){
+//                                  // Handle the complete event
+//                                  NProgress.done();
+//                                },
+//                               data: {
+//                                "csrfmiddlewaretoken": "{{ csrf_token }}",
+//                                "id_point":BoardIdForPrice,
+//                                "startDate":start.format('YYYY-MM-DD'),
+//                                "endDate":end.format('YYYY-MM-DD'),
 
-                              },
-                               success: function(data){
-                                $('.price-details p span').html('&#8377; '+data["total"]);
-                                $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
-                                $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
-                                $("#bannerIDAddCart").val(BoardIdForPrice)
-                               },
-                               error: function(){
-                                alert("Error! Something wrong. Please try again later")
-                                },
-                      });
+//                               },
+//                                success: function(data){
+//                                 $('.price-details p span').html('&#8377; '+data["total"]);
+//                                 $("#startDateAddCart").val(start.format('YYYY-MM-DD'))
+//                                 $("#endDateAddCart").val(end.format('YYYY-MM-DD'))
+//                                 $("#bannerIDAddCart").val(BoardIdForPrice)
+//                                },
+//                                error: function(){
+//                                 alert("Error! Something wrong. Please try again later")
+//                                 },
+//                       });
 
-                    }
-                    else
-                    {
+//                     }
+//                     else
+//                     {
 
-                    }
-                    //invalidDates = [];
-    }
-*/
+//                     }
+//                     //invalidDates = [];
+//     }
+// */
 
-});
+// });
 </script>
 <!-- banner modal script end -->
 
@@ -1100,7 +1387,7 @@ $(function() {
        markerGroup[i].addListener('spider_click', function() {
           // infowindow.setContent(this.content);
           // infowindow.open(map, this);
-          $('#MyModalAddCart').attr("disabled", true);
+          $('#MyModalAddCart').attr("disabled", false);
           resetInfo();
           $.ajax({
             type: "POST",
@@ -1136,12 +1423,75 @@ $(function() {
               $('#dimensions').text(data["dim"]);
               $('#type').text(data["type"]);
               $('#lighted').text(data["lighted"]);
+              $('#priceMyModal').text("₹ " + data["current_price"]);
+              let is_fav = data["is_favourite"];
+              if(is_fav)
+              {
+                  $("#MyModalAddCart").css("background","#fd7b26");
+                  $("#MyModalAddCart").css("color","#fff");
+              }
+              else
+              {
+                  $("#MyModalAddCart").css("background","#ccc");
+                  $("#MyModalAddCart").css("color","#000");
+              }
               setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
                           'o_email':data["agency_email"], 'o_add':data["agency_address"]});
               setHeightOfModal()
               
               var bookDates = data["bookDates"];
               BoardIdForPrice = (data["id"]);
+              function get_favoutire_callback(){
+                return function() {
+                  console.log("i ran")
+                  {% if user.is_authenticated %}
+                    $.ajax({
+                        type:"POST",
+                        url: "{% url 'addto_fav' %}",
+                        beforeSend: function(){
+                            NProgress.start();
+                        },
+                        global: true,
+                        data: {
+                         "csrfmiddlewaretoken": "{{ csrf_token }}",
+                         "banner_id":String(BoardIdForPrice)
+
+                        },
+                        success: function(data){
+                            NProgress.done();
+                            if(data["success"]=="1")
+                            {
+                                 console.log("added. show msg " + data["msg"]);
+                                 $("#MyModalAddCart").css("background","#fd7b26");
+                                 $("#MyModalAddCart").css("color","#fff");
+                            }
+                            else if(data["success"]=="2")
+                            {
+                                 console.log("failed. show msg " + data["msg"]);
+                                 $("#MyModalAddCart").css("background","#ccc");
+                                 $("#MyModalAddCart").css("color","#000");
+                            }
+                            else if(data["success"]=="3")
+                            {
+                                 console.log("failed. show msg " + data["msg"]);
+                                 
+                            }
+                        },
+                        error: function()
+                        {
+                              NProgress.done();
+                              console.log("couldn't add");
+                        },
+                 
+                    });
+                  {% else %}
+                    console.log("login")
+                  {% endif %}
+                }
+              }
+               $("#MyModalAddCart").off()
+              console.log("removed")
+              $("#MyModalAddCart").on('click', get_favoutire_callback())
               console.log(bookDates);
               invalidDates=[];
               for(var i = 0; i < bookDates.length; i++)
@@ -1211,7 +1561,7 @@ $(function() {
                 while (myNode.firstChild) {
                   myNode.removeChild(myNode.firstChild);
                 }
-                let json = []
+                let json = bookDates
                 let d = new Date()
                 let todayDate = `${d.getFullYear()}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
                 let yrLaterDate = `${d.getFullYear() + 1}/${parseInt(d.getMonth())+1 < 10 ? '0' + (parseInt(d.getMonth())+1) : parseInt(d.getMonth())+1 }/${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()}`
@@ -1583,6 +1933,12 @@ Pace.on("done", function(){
 })
 </script>
 <script type="text/javascript">
-    $(".nav-elements li:nth-child(1)").addClass("active");
-  </script>
+
+  $(".nav-elements li:nth-child(1)").addClass("active");
+</script>
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+    crossorigin="anonymous"></script>
+
+

@@ -1,0 +1,77 @@
+{% extends 'dash_base.html'%}
+
+
+{% load staticfiles %}
+
+    {% block custom_css %}
+    <style>
+    .form-control::-webkit-input-placeholder { color: #aaa; }  /* WebKit, Blink, Edge */
+    .form-control:-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 4 to 18 */
+    .form-control::-moz-placeholder { color: #aaa; }  /* Mozilla Firefox 19+ */
+    .form-control:-ms-input-placeholder { color: #aaa; }  /* Internet Explorer 10-11 */
+    .form-control::-ms-input-placeholder { color: #aaa; }  /* Microsoft Edge */
+    </style>
+    {% endblock %}
+
+
+
+
+    
+    
+    {% block content %}
+
+
+    <div class="block dash-main" >
+
+                                        
+
+                                        <form>
+                                            <div class="dash-block-row">
+                                                    Personal information &nbsp;<a href=""> edit</a><br><br>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" class="form-control" placeholder="First name" style="background:#eee;">
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="text" class="form-control" placeholder="Last name" style="background:#eee;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="dash-block-row">
+                                                    Email Address &nbsp;<a href=""> edit</a>&nbsp;<a href=""> change password</a><br><br>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="email" class="form-control" placeholder="Email" style="background:#eee;">
+                                                    </div>
+                                                    <div class="col">
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="dash-block-row">
+                                                    Mobile Number &nbsp;<a href=""> edit</a><br><br>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="number" class="form-control" placeholder="91" style="background:#eee;">
+                                                    </div>
+                                                    <div class="col">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    
+                                     
+                               
+                            </div>
+
+
+        </div>
+
+{% endblock %}
+
+{% block custom_js %}
+
+
+
+{% endblock %}

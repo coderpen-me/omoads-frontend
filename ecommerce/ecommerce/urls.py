@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', productsViews.Home.as_view(), name='home'),
+    url(r'^map-view$', productsViews.Home.as_view(), name='map_view'),
     url(r'^adminPriceChanger/$', 'products.views.adminPriceChanger', name='price_change_admin'),
     url(r'^printing_material/$', 'products.views.printing_material', name='printing_material'),
     url(r'^buyer_cart/$', 'products.views.buyer_cart', name='buyer_cart'),
@@ -21,13 +21,24 @@ urlpatterns = patterns('',
     url(r'^buyer_cart/editCartItemAjax', 'products.views.editCartItemAjax', name='cart_editItem'),
     url(r'^buyer_cart/editCartItem', 'products.views.editCartItem', name='cart_editItemFinal'),
     url(r'^process_payment/$', 'products.views.processPayment', name='cart_process_payment'),
-    url(r'^user_profile/$', 'products.views.user_profile', name='user_profile'),
+    url(r'^dashboard/$', 'products.views.dashboard', name='dashboard'),
+    url(r'^favourites/$', 'products.views.favourites', name='favourites'),
+    url(r'^newsletter/$', 'products.views.blog_page', name='blog_page'),
+
+    url(r'^$', 'products.views.index_new_home', name='home'),
     
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
     url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
+    url(r'^ajax/addto_fav/$', 'products.views.AjaxAddToFavourites', name='addto_fav'),
     url(r'^ajax/AjaxFormFilter/$', 'products.views.filterAjax', name='filter_form'),
+    url(r'^ajax/delete_fav/$', 'products.views.AjaxDeleteFavourites', name='delete_fav'),
     # url(r'^blog/', include('blog.urls')),
+
+
+
+
+
 
     url(r'^register/$', productsViews.Signup.as_view(), name='auth_register'),
     # url(r'^register/$', 'products.views.signup', name='auth_register2'),
@@ -46,7 +57,15 @@ urlpatterns = patterns('',
             {'post_reset_redirect' : '/user/password/done/'}, name='password_reset_confirm'),
     url(r'^user/password/done/$', 
             'django.contrib.auth.views.password_reset_complete'),
+
     
+    url(r'^auth/', include('social_django.urls', namespace='social')),
+
+
+
+
+
+
 
 
     url(r'^owner/home/$', productsViews.OwnerInterfaceHome.as_view(), name='owner_interface'),
@@ -54,6 +73,7 @@ urlpatterns = patterns('',
     url(r'^owner/cancel/$', productsViews.CancelBooking.as_view(), name='owner_interface_cancel'),
     url(r'^owner/status/$', productsViews.StatusBoards.as_view(), name='owner_interface_status'),
     url(r'^owner/price/$', productsViews.PriceBoards.as_view(), name='owner_interface_price'),
+    url(r'^owner/shareview/([0-9]+)$', 'products.views.share_app', name='share_app'),
 
 
     url(r'^owner/book/confirm$', 'products.views.bookBoards', name='owner_interface_book_board'),
@@ -62,9 +82,10 @@ urlpatterns = patterns('',
 
     url(r'^aboutus/$', 'products.views.aboutus', name='aboutus'),
     url(r'^directions/$', 'products.views.directions', name='directions'),
-    url(r'^faq/$', 'products.views.faq', name='faq'),
+    url(r'^faq/([0-9]+)$', 'products.views.faq', name='faq'),
+  
     url(r'^uploadImage/$', 'products.views.uploadImage', name='uploadImage'),
-
+    
     url(r'^admin/', include(admin.site.urls)),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

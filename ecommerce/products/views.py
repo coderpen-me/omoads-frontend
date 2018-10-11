@@ -63,8 +63,71 @@ def printing_material(request):
 				}
 	return render(request, template, context)
 
-def user_profile(request):
-	template = "user-profile.html"
+
+def blog_page(request):
+	template = "blog.html"
+	username = ""
+	userType = ""
+	
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+
+
+@login_required(login_url = "/login/")
+def dashboard(request):
+	template = "dashboard.html"
+	username = ""
+	userType = ""
+	
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+
+@login_required(login_url = "/login/")
+def favourites(request):
+	template = "fav.html"
+	username = ""
+	userType = ""
+	
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+def index_new_home(request):
+	template = "index.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -82,7 +145,7 @@ def user_profile(request):
 	return render(request, template, context)
 
 def aboutus(request):
-	template = "aboutus.html"
+	template = "about-us.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -117,8 +180,8 @@ def directions(request):
 				}
 	return render(request, template, context)
 
-def faq(request):
-	template = "faqs.html"
+def faq(request, f_id):
+	template = "single-faq.html"
 	username = ""
 	userType = ""
 	if request.user.is_authenticated():
@@ -131,7 +194,8 @@ def faq(request):
 	context = {
 				'loginStatus':request.user.is_authenticated(),
 				'username':username,
-				'userType':userType
+				'userType':userType,
+				'f_id':f_id,
 				}
 	return render(request, template, context)
 
@@ -571,8 +635,44 @@ def filterAjax(request):
 				q_light = q_light|Q(banner_lighted = L)
 		except Exception as e:
 			pass
+
+		q_price = Q()
+		try:
+			today_date = datetime.date.today()
+			try:
+				min_price = filter_form['min_price'][0]
+			except Exception as e:
+				min_price = 0
+
+			try:
+				max_price = filter_form['max_price'][0]
+			except Exception as e:
+				max_price = 99999999
+			
+			price_set = PricePeriod.objects.filter(endDate__gte = str(today_date), 
+										startDate__lte = str(today_date), 
+										price__gte=min_price, 
+										price__lte=max_price)
+			q_price = q_price|Q(priceperiod__in=price_set)
+			
+		except Exception as e:
+			print(str(e))
+
+
+		q_date = Q()
+		try:
+			startDateParsed = datetime.datetime.strptime(filter_form['start_date'][0], "%d/%m/%Y").date()
+			endDateParsed = datetime.datetime.strptime(filter_form['end_date'][0], "%d/%m/%Y").date()
+			booked_detail_set = BookingDetails.objects.filter(endDate__gte=startDateParsed, startDate__lte=endDateParsed, active=True)
+			q_date = q_date|Q(bookingdetails__in = booked_detail_set)
+		except Exception as e:
+			print(e)
+
+
+
+
 		banner_ids = []
-		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light).values_list('id', flat = True)
+		banner_ids = banners.filter((qo|qc)&q_dimension&q_type&q_light&q_price).exclude(q_date).values_list('id', flat = True)
 		print(banner_ids)
 		
 		data = {
@@ -596,32 +696,48 @@ def onclickMapPoints(request):
 		except:
 			print("no user cart onclick map points dates")
 
+		is_favourite = False
+		if request.user.is_authenticated():
+			try:
+				Favourite.objects.get(banner = b, user = request.user)
+			except Exception as e:
+				is_favourite=False
+			else:
+				is_favourite = True
+
 		
 		context = {"bookdates":bookDates}
 		try:
 			contact_number = b.agency.user.extendeduser.phone_number
+			
 		except Exception as e:
 			contact_number = "NONE"
-		data = {
-		"id" : str(b.id),
-		"url": str(b.bannerimage),
-		"type": str(type_choices[str(b.banner_type)]),
-		"lighted": str(light_choices[str(b.banner_lighted)]),
-		"facing" : str(b.banner_facing),
-		"landmark" : str(b.banner_landmark),
-		"zone" : str(b.zone),
-		"lat" : str(b.banner_lattitude),
-		"long" : str(b.banner_longitude),
-		"dim" : str(dimension_choices[str(b.banner_dimensions)]),
-		"bookDates":bookDates,
-		"agency_name":b.agency.agency_name,
-		"agency_address":b.agency.agency_address,
-		"agency_email":b.agency.user.email,
-		"agency_phone":contact_number,
-		}
+		try:
+			data = {
+			"id" : str(b.id),
+			"url": str(b.bannerimage),
+			"type": str(type_choices[str(b.banner_type)]),
+			"lighted": str(light_choices[str(b.banner_lighted)]),
+			"facing" : str(b.banner_facing),
+			"landmark" : str(b.banner_landmark),
+			"zone" : str(b.zone),
+			"lat" : str(b.banner_lattitude),
+			"long" : str(b.banner_longitude),
+			"dim" : str(dimension_choices[str(b.banner_dimensions)]),
+			"bookDates":bookDates,
+			"agency_name":b.agency.agency_name,
+			"agency_address":b.agency.agency_address,
+			"agency_email":b.agency.user.email,
+			"agency_phone":contact_number,
+			"current_price":b.get_current_price(),
+			"is_favourite": is_favourite,
+			}
+		except Exception as e:
+			print(e)
 		# print(data)
+		
 		json_data = json.dumps(data)
-
+		
 		return HttpResponse(json_data, content_type='application/json')
 	else:
 		raise Http404
@@ -652,6 +768,68 @@ def AjaxBannerPrice(request):
 		json_data = json.dumps(data)
 
 		return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
+
+def AjaxAddToFavourites(request):
+	if request.is_ajax():
+		b = Banner.objects.get(pk=int(request.POST['banner_id']))
+		if request.user.is_authenticated():
+			try:
+				Favourite.objects.get(banner = b, user = request.user)
+			except Favourite.DoesNotExist:
+				Favourite(user = request.user, banner = b).save()
+				data = {
+					"success":"1",
+					'msg':"added to favourite"
+				}
+			except Favourite.MultipleObjectsReturned as e:
+				print(e)
+				for o in Favourite.objects.filter(banner = b, user = request.user):
+					o.delete()
+			else:
+				Favourite.objects.get(banner = b, user = request.user).delete()
+				data = {
+					"success":"2",
+					'msg':"removed from fav"
+				}
+			# print(data)
+			json_data = json.dumps(data)
+
+			return HttpResponse(json_data, content_type='application/json')
+		else:
+			data = {
+					"success":"3",
+					'msg':"login please"
+				}
+			# print(data)
+			json_data = json.dumps(data)
+
+			return HttpResponse(json_data, content_type='application/json')
+	else:
+		raise Http404
+
+def AjaxDeleteFavourites(request):
+	if request.is_ajax():
+		if request.user.is_authenticated():
+			try:
+				Favourite.objects.get(pk=int(request.POST['fav_id'])).delete()
+			except Favourite.DoesNotExist:
+				data = {
+					"success":"2",
+					"fav_id":request.POST['fav_id'],
+				}
+			else:
+				data = {
+					"success":"1",
+					"fav_id":request.POST['fav_id'],
+				}
+			# print(data)
+			json_data = json.dumps(data)
+
+			return HttpResponse(json_data, content_type='application/json')
+		else:
+			raise Http404
 	else:
 		raise Http404
 
@@ -827,7 +1005,7 @@ class SignupOwner(generic.edit.FormView):
 
 class LoginUsers(generic.edit.FormView):
 	form_class = LoginForm
-	template_name = 'userlogin.html'
+	template_name = 'login.html'
 	def get(self, request, *args, **kwargs):
 		try:
 			form = self.form_class
@@ -841,6 +1019,13 @@ class LoginUsers(generic.edit.FormView):
 			return render(request, self.template_name, {'form': form})
 
 	def post(self, request, *args, **kwargs):
+		if request.user.is_authenticated():
+			try:
+				if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+					return HttpResponseRedirect(reverse('owner_interface'))
+			except KeyError:
+				return HttpResponseRedirect("/")	
+			return HttpResponseRedirect("/")
 		try:
 			haveNext = False
 			nextPage = ""
@@ -852,7 +1037,7 @@ class LoginUsers(generic.edit.FormView):
 
 			
 
-			username = request.POST['username']
+			username = request.POST['email']
 			password = request.POST['password']
 			
 			user = authenticate(username = username, password = password)
@@ -931,21 +1116,27 @@ class OwnerInterfaceHome(generic.TemplateView):
 
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
-			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+			try:
+				if request.session['isAgency'] is not None and request.session['isAgency'] is True:
 
-				username = request.user.username
-				a = Agency.objects.get(user = request.user)
-				userType = "Agency"
-				context = {
-					'loginStatus':True,
-					'username':username,
-					'userType':userType,
-					'details': Banner.objects.filter(agency=a),
-					'zones':Zone.objects.filter(banner__agency=a).distinct()
-				}
+					username = request.user.username
+					a = Agency.objects.get(user = request.user)
+					userType = "Agency"
+					context = {
+						'loginStatus':True,
+						'username':username,
+						'userType':userType,
+						'details': Banner.objects.filter(agency=a),
+						'zones':Zone.objects.filter(banner__agency=a).distinct()
+					}
 
-				return render(request, self.template_name, context)
-			else:
+					return render(request, self.template_name, context)
+				else:
+					print("u r not an agency")
+					#To-Do: Generate a msg
+					messages.error(request, "you are not authorised to access this page")
+					return HttpResponseRedirect("/")
+			except KeyError:
 				
 				print("u r not an agency")
 				#To-Do: Generate a msg
@@ -966,28 +1157,34 @@ class CancelBooking(generic.TemplateView):
 	template_name = "cancel-booking.html"
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
-			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+			try:
+				if request.session['isAgency'] is not None and request.session['isAgency'] is True:
 
-				username = request.user.username
-				a = Agency.objects.get(user = request.user)
-				userType = "Agency"
-				details = []
-				for banner in Banner.objects.filter(agency=a, banner_bookingStatus = True):
-					bannerDetails = banner.bookingdetails_set.filter(active = True)
-					for detail in bannerDetails:
-						details.append({'banner':banner, 'bookingDate':detail.bookingDate, 'startDate':detail.startDate,
-								 	'endDate':detail.endDate, 'bdID':detail.id})
+					username = request.user.username
+					a = Agency.objects.get(user = request.user)
+					userType = "Agency"
+					details = []
+					for banner in Banner.objects.filter(agency=a, banner_bookingStatus = True):
+						bannerDetails = banner.bookingdetails_set.filter(active = True)
+						for detail in bannerDetails:
+							details.append({'banner':banner, 'bookingDate':detail.bookingDate, 'startDate':detail.startDate,
+									 	'endDate':detail.endDate, 'bdID':detail.id})
 
-				context = {
-					'loginStatus':True,
-					'username':username,
-					'userType':userType,
-					'details':details,
-					'zones':Zone.objects.filter(banner__agency=a).distinct()
-				}
+					context = {
+						'loginStatus':True,
+						'username':username,
+						'userType':userType,
+						'details':details,
+						'zones':Zone.objects.filter(banner__agency=a).distinct()
+					}
 
-				return render(request, self.template_name, context)
-			else:
+					return render(request, self.template_name, context)
+				else:
+					context = {}
+					print("u r not an agency")
+					messages.error(request, "you are not authorised to access this page")
+					return HttpResponseRedirect("/")
+			except KeyError:
 				context = {}
 				print("u r not an agency")
 				messages.error(request, "you are not authorised to access this page")
@@ -1025,19 +1222,25 @@ class StatusBoards(generic.TemplateView):
 	template_name = "status.html"
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
-			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
-				username = request.user.username
-				userType = "Agency"
-				a = Agency.objects.get(user = request.user)
-				context = {
-					'loginStatus':True,
-					'username':username,
-					'userType':userType,
-					'zones':Zone.objects.filter(banner__agency=a).distinct()
-				}
+			try:
+				if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+					username = request.user.username
+					userType = "Agency"
+					a = Agency.objects.get(user = request.user)
+					context = {
+						'loginStatus':True,
+						'username':username,
+						'userType':userType,
+						'zones':Zone.objects.filter(banner__agency=a).distinct()
+					}
 
-				return render(request, self.template_name, context)
-			else:
+					return render(request, self.template_name, context)
+				else:
+					context = {}
+					print("u r not an agency")
+					messages.error(request, "you are not authorised to access this page")
+					return HttpResponseRedirect("/")
+			except KeyError:
 				context = {}
 				print("u r not an agency")
 				messages.error(request, "you are not authorised to access this page")
@@ -1056,38 +1259,44 @@ class PriceBoards(generic.TemplateView):
 	template_name = "change-price.html"
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
-			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+			try:
+				if request.session['isAgency'] is not None and request.session['isAgency'] is True:
 
-				username = request.user.username
-				a = Agency.objects.get(user = request.user)
+					username = request.user.username
+					a = Agency.objects.get(user = request.user)
 
 
 
-				details = []
-				for banner in Banner.objects.filter(agency=a):
-					bookDates = []
+					details = []
+					for banner in Banner.objects.filter(agency=a):
+						bookDates = []
 
-					for booked_date in banner.bookingdetails_set.filter(endDate__gte = datetime.datetime.now().strftime("%Y-%m-%d")):
-						bookDates.append({'startDate':str(booked_date.startDate), 'endDate': str(booked_date.endDate)})
+						for booked_date in banner.bookingdetails_set.filter(endDate__gte = datetime.datetime.now().strftime("%Y-%m-%d")):
+							bookDates.append({'startDate':str(booked_date.startDate), 'endDate': str(booked_date.endDate)})
 
-					details.append({'banner':banner, 
-						'active_booking_details': bookDates,
-						'price_set':banner.priceperiod_set.all().order_by('-startDate')[:4][::-1]})
+						details.append({'banner':banner, 
+							'active_booking_details': bookDates,
+							'price_set':banner.priceperiod_set.all().order_by('-startDate')[:4][::-1]})
 
-				print(details)
-				userType = "Agency"
-				context = {
-					'loginStatus':True,
-					'username':username,
-					'userType':userType,
-					'details':details,
-					'zones':Zone.objects.filter(banner__agency=a).distinct()
-				}
+					print(details)
+					userType = "Agency"
+					context = {
+						'loginStatus':True,
+						'username':username,
+						'userType':userType,
+						'details':details,
+						'zones':Zone.objects.filter(banner__agency=a).distinct()
+					}
 
-				return render(request, self.template_name, context)
-			else:
-				messages.error(request, "you are not authorised to access this page")
+					return render(request, self.template_name, context)
+				else:
+					messages.error(request, "you are not authorised to access this page")
+					print("u r not an agency")
+					return HttpResponseRedirect("/")
+			except KeyError:
+				context = {}
 				print("u r not an agency")
+				messages.error(request, "you are not authorised to access this page")
 				return HttpResponseRedirect("/")
 		else:
 			print("u need to login")
@@ -1151,28 +1360,34 @@ class BookHoardings(generic.TemplateView):
 	template_name = "book-hoarding.html"
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
-			if request.session['isAgency'] is not None and request.session['isAgency'] is True:
+			try:
+				if request.session['isAgency'] is not None and request.session['isAgency'] is True:
 
-				username = request.user.username
-				a = Agency.objects.get(user = request.user)
-				details = []
-				for banner in Banner.objects.filter(agency=a):
-					bookDates = []
-					for detailset in banner.bookingdetails_set.filter(active = True):
-						bookDates.append({'startDate':detailset.startDate, 'endDate': detailset.endDate})
-					details.append({'banner':banner, 'dates':bookDates})
-					
-				userType = "Agency"
-				context = {
-					'loginStatus':True,
-					'username':username,
-					'userType':userType,
-					'details': details,
-					'zones':Zone.objects.filter(banner__agency=a).distinct()
-				}
+					username = request.user.username
+					a = Agency.objects.get(user = request.user)
+					details = []
+					for banner in Banner.objects.filter(agency=a):
+						bookDates = []
+						for detailset in banner.bookingdetails_set.filter(active = True):
+							bookDates.append({'startDate':detailset.startDate, 'endDate': detailset.endDate})
+						details.append({'banner':banner, 'dates':bookDates})
+						
+					userType = "Agency"
+					context = {
+						'loginStatus':True,
+						'username':username,
+						'userType':userType,
+						'details': details,
+						'zones':Zone.objects.filter(banner__agency=a).distinct()
+					}
 
-				return render(request, self.template_name, context)
-			else:
+					return render(request, self.template_name, context)
+				else:
+					context = {}
+					print("u r not an agency")
+					messages.error(request, "you are not authorised to access this page")
+					return HttpResponseRedirect("/")
+			except KeyError:
 				context = {}
 				print("u r not an agency")
 				messages.error(request, "you are not authorised to access this page")
@@ -1200,6 +1415,24 @@ def bookBoards(request):
 
 
 
+def share_app(request, o_id):
+	template = "app.html"
+	username = ""
+	userType = ""
+	
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
 
 
 
@@ -1238,7 +1471,7 @@ def calculatePrice(banner,startDate,endDate):
 def checkDateRange(startDate, endDate, banner):
 	for detailset in banner.bookingdetails_set.filter(active = True):
 		if ((detailset.startDate <= startDate and startDate <= detailset.endDate) or 
-			(detailset.startDate <= endDate and endDate <= detailset.endDate)):
+			(detailset.startDate <= endDate and endDate <= detailset.endDate)  or (booking.startDate >= self.startDate and booking.endDate <= self.endDate)):
 			return False
 	#TO-DO
 	#for cartitem in banner.cartitem_set.filter(cart.user = request.user):
