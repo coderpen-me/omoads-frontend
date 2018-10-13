@@ -491,8 +491,21 @@
 {% include 'nav.html' %}
   <!-- Login Modal -->
  
-<div class="cont" style="overflow: hidden;">
-
+<div class="cont" h="f"style="overflow: hidden;">
+<script>
+  $(".navbar-toggler").on("click",function(){
+    var h = $(".cont").attr("h");
+    if(h == 'f') {
+      $(".cont").css("height","30%");
+      h.attr("k");
+    }
+    else{
+      $(".cont").css("height","100%");
+      h.attr("f");
+    }
+  });
+  
+</script>
   <!-- <div class="home-overlay">
   
     <div class="home-hs">
