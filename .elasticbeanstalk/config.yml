@@ -1,8 +1,12 @@
 branch-defaults:
   master:
-    environment: null
+    environment: Omoads-env
   test_branch:
     environment: omoads-deploy
+environment-defaults:
+  omoads-deploy:
+    branch: null
+    repository: null
 global:
   application_name: omoads
   branch: null
