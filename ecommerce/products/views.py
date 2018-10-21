@@ -144,6 +144,45 @@ def index_new_home(request):
 				}
 	return render(request, template, context)
 
+def landing(request):
+	template = "landing.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+
+def landing_1(request):
+	template = "landing1.html"
+	username = ""
+	userType = ""
+	if request.user.is_authenticated():
+		username = request.user.username
+		try:
+			Agency.objects.get(user = request.user)
+			userType = "Agency"
+		except Agency.DoesNotExist:
+			userType = "Buyer"
+	context = {
+				'loginStatus':request.user.is_authenticated(),
+				'username':username,
+				'userType':userType
+				}
+	return render(request, template, context)
+
+
+
 def aboutus(request):
 	template = "about-us.html"
 	username = ""

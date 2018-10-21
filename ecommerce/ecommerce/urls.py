@@ -27,6 +27,9 @@ urlpatterns = patterns('',
 
     url(r'^$', 'products.views.index_new_home', name='home'),
     
+    url(r'^landingpage/$', 'products.views.landing', name='landing'),
+    url(r'^landingpage1/$', 'products.views.landing_1', name='landing1'),
+
 
     url(r'^ajax/onclickMapPoints/$', 'products.views.onclickMapPoints', name='onclickMapPoints'),
     url(r'^ajax/AjaxBannerPrice/$', 'products.views.AjaxBannerPrice', name='AjaxBannerPrice'),
