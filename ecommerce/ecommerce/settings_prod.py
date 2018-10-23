@@ -34,8 +34,8 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 # AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
 
-AWS_ACCESS_KEY_ID = 'AKIAJWP3G3WZEEQFEJMQ'
-AWS_SECRET_ACCESS_KEY = 'z+oN9/U3FkKRN/A3CVEgjHyM03zIaPHloW4A5BUe/sZL+p'
+AWS_ACCESS_KEY_ID = 'AKIAJEJKDNGL6KOCFGGA'
+AWS_SECRET_ACCESS_KEY = '37ZWKud0H3h1oDWxhlg8ctFwJlZnEAe3TFBp/pWn'
 AWS_STORAGE_BUCKET_NAME = 'omodeploy'
 
 # This will make sure that the file URL does not have unnecessary parameters like your access key.
