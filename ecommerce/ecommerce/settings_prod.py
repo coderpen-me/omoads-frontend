@@ -36,7 +36,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = 'AKIAJEJKDNGL6KOCFGGA'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'omodeploy'
+AWS_STORAGE_BUCKET_NAME = 'omodep'
 
 # This will make sure that the file URL does not have unnecessary parameters like your access key.
 AWS_QUERYSTRING_AUTH = False 
