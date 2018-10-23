@@ -938,18 +938,19 @@ $('.col-control').on('click', function(ev){
                 <div id='vrview'></div>
                 <script>
                       
-                      window.addEventListener('load', onVrViewLoad);
+                      
 
-                      function onVrViewLoad() {
+                      function vrViewLoad(img_url) {
                         // Selector '#vrview' finds element with id 'vrview'.
-                        var vrView = new VRView.Player('#vrview', {
-                          image: '{% static "img/images/Glen-Beach-Panorama-Google-4096x2048.jpg" %}',
-                          preview: '{% static "img/images/Glen-Beach-Panorama-Google-4096x2048.jpg" %}',
+                        return new VRView.Player('#vrview', {
+                          image: img_url,
+                          preview: img_url,
                           is_debug: true,
                           width: '100%',
                           height: '400',
-                          is_stereo: true
+                          is_stereo: false
                         });
+                        
                       }	
 
                 </script>
@@ -1340,6 +1341,8 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
     locID.push({{ location.id }});
 
     {% endfor %}
+    var set_vr = false;
+    var vr_view;
     function resetPriceInfo()
     {
       $('.msg p em').html('*(Above mentioned price is approximate and subject to bargaining)');
@@ -1363,6 +1366,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
       $('#type').text("loading...");
       $('#lighted').text("loading...");
       resetPriceInfo();
+
       $('#range-output').html('Select start date and range')
     }
 
@@ -1421,13 +1425,22 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
             success: function(data){
              
               $('#panelID').text(data["id"]);
-              let di = new Image();
-              di.src = "{{MEDIA_URL}}" + data["url"];
-              di.onload = function()
+              if(!set_vr)
               {
-                $('#bannerImage').attr("src", di.src);
-                NProgress.done();
+                set_vr=true
+                vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
+                
               }
+              else
+              {
+                  vr_view.setContent({
+                      image:"{{MEDIA_URL}}" + data["url"],
+                      preview:"{{MEDIA_URL}}" + data["url"],
+                      is_stereo: false
+                  });
+
+              }
+               NProgress.done();
               $('#myModalLabel').text(data["landmark"]);
               $('#zone').text(data["zone"]);
               $('#BannerFacing').text(data["facing"]);
