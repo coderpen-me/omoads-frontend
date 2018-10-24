@@ -177,6 +177,37 @@
         font-size: 30px !important;
         margin-left:1em;
     }
+    .ln1-img{
+       margin-left:4em;
+    }
+    .ln1-heading{
+        text-align: center;
+    }
+    .ln1-heading-span{
+        margin-left:4em;
+    }
+    .ln1-heading1{
+        text-align: center;
+        margin-left: 0px !important;
+    }
+    .ln1-img1{
+        width:100% !important;
+        height:auto !important;
+    }
+    .ln1-para{
+        margin-top: 0px !important;
+        margin-left:5em !important;
+        text-align: center;
+    }
+    .ln1-banner{
+        top:-130px !important;
+        left:150px !important;
+        width:180px !important;
+        height:60px !important;
+        padding :5px !important;
+        font-size: 10px !important;
+
+    }
        
 }
    
@@ -764,5 +795,28 @@ body{
     height:auto;
 }
 .ln1-img{
-    
+    width:150px;
+    height:auto;
+}
+.ln1-heading{
+    font-weight: lighter;
+    margin-top:2em;
+}
+.ln1-heading1{
+    font-weight: bolder;
+    margin-left:4em;
+}
+.ln1-banner{
+    background: rgb(199, 31, 31);
+    position: relative;
+    width:500px;
+    height:150px;
+    padding :20px;
+    color:#fff;
+    font-size:25px;
+    float: left;
+    border:5px solid #000;
+    text-decoration: none;
+    top:-430px;
+    left:650px;
 }
