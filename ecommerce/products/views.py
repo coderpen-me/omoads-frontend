@@ -1466,12 +1466,21 @@ def share_app(request, o_id):
 			userType = "Agency"
 		except Agency.DoesNotExist:
 			userType = "Buyer"
-	context = {
-				'loginStatus':request.user.is_authenticated(),
-				'username':username,
-				'userType':userType
-				}
-	return render(request, template, context)
+	try:	
+		banners = Banner.objects.filter(agency__id = int(o_id))
+		banner_details = list()
+		
+		for banner in banners:
+			banner_details.append({
+				"id" : str(banner.id),
+				"url": str(banner.bannerimage),
+			})
+		context = {'banner_details':banner_details}
+		return render(request, template, context)
+	except Exception as e:
+		print(e)
+
+	return render(request, template, {})
 
 
 
