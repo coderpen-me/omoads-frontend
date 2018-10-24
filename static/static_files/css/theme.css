@@ -13,17 +13,6 @@
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {  
     /*For mobile phones: */
-    .search-bar{
-        padding-left:60px;
-    }
-    .btn-search{
-        float: right;
-        position: relative !important;
-        left: 10px !important;
-        top: -50px !important;
-        background: none;
-        color: slategrey;
-     }
     .main-image{
         margin-left:15% !important;
     }
@@ -176,14 +165,18 @@
     .sub-block-heading{
         font-size: 25px !important;
     }
-    .main-wraper{
-	overflow:hidden;
-	
-	width:80% !important;
-	
-     }
-	
-
+    .ln2-img{
+        width:100% !important;
+        height: auto !important;
+    }
+    .ln2-img2{
+        width:100% !important;
+        height:auto !important;
+    }
+    .ln2-heading{
+        font-size: 30px !important;
+        margin-left:1em;
+    }
        
 }
    
@@ -238,6 +231,10 @@
 /**
 *  btn
 */
+.btn-theme1{
+    background: #fd7b26;
+    color:#000;
+}
 .btn-theme{
     background: #fd7b26;
     color:#000;
@@ -751,9 +748,21 @@ body{
 .abt-block-3-text{
     margin-top:40%;
     margin-left:20%;
-    
-    
 }
 .abt-contact-cnt{
     margin-left:10em ;
+}
+/*
+* Landing page 1
+*/
+.ln2-img{
+    width:auto;
+    height:300px;
+}
+.ln2-img2{
+    width:200px;
+    height:auto;
+}
+.ln1-img{
+    
 }
