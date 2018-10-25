@@ -10,7 +10,6 @@
 </head>
 <body>
   
- 
 <div class="row">
 
     <div class="col-md-12" style="margin:0;padding:0px;border:0px;">
@@ -26,7 +25,7 @@
                 <div class="info-bar-small">
                     <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times" ></i>
                     <p style="float:left;margin-left:1em;">Name of the 360 View.</p>
-                    <i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>
+                    <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
                     <br>
                     <hr width="100%" />
                     <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;"class="fas fa-chevron-left"></i>
@@ -35,8 +34,8 @@
                 <div class="vr-container">
                     
                     <div class="swip__card" id='swip-card'>
-                        <div class="vr" id='vrview' active-view-id="0" ></div>
-                        <div class="info-block" state="close">
+                        <div class="vr" id='vrview' active-view-id="0" style="background:#ccc;"></div>
+                        <div class="info-block" state="open">
                             <h5>Lorem ipsum dolor sit amet.</h5>
                             <ul style="list-style: none;text-align: left;font-size: 12px;">
                                 <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
@@ -47,16 +46,16 @@
                                 <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
                                 <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
                             </ul>
-                            
-                            <button class="btn btn-avail">Check Availibilty</button>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" >Check Availibilty</button>
                         </div>
                         <div class="swip__card__choice m--reject"></div>
                         <div class="swip__card__choice m--like"></div>
                         <div class="swip__card__drag"></div>
                     </div>
                     <div class="swip__card" id='swip-card1'>
-                        <div class="vr" id='vrview' active-view-id="0" ></div>
-                        <div class="info-block" state="close">
+                        <div class="vr" id='vrview' active-view-id="0" style="background:#34f678;"></div>
+                        <div class="info-block" state="open">
                             <h5>Lorem ipsum dolor sit amet.</h5>
                             <ul style="list-style: none;text-align: left;font-size: 12px;">
                                 <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
@@ -67,8 +66,71 @@
                                 <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
                                 <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
                             </ul>
-                            
-                            <button class="btn btn-avail">Check Availibilty</button>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" data-toggle="modal" data-target="#exampleModal">Check Availibilty</button>
+                        </div>
+                        <div class="swip__card__choice m--reject"></div>
+                        <div class="swip__card__choice m--like"></div>
+                        <div class="swip__card__drag"></div>
+                    </div>
+			
+		    <div class="swip__card" id='swip-card'>
+                        <div class="vr" id='vrview' active-view-id="0" style="background:#67a899;"></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" >Check Availibilty</button>
+                        </div>
+                        <div class="swip__card__choice m--reject"></div>
+                        <div class="swip__card__choice m--like"></div>
+                        <div class="swip__card__drag"></div>
+                    </div>
+		
+	     	    <div class="swip__card" id='swip-card'>
+                        <div class="vr" id='vrview' active-view-id="0" style="background:#784567;"></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" >Check Availibilty</button>
+                        </div>
+                        <div class="swip__card__choice m--reject"></div>
+                        <div class="swip__card__choice m--like"></div>
+                        <div class="swip__card__drag"></div>
+                    </div>
+			
+		    <div class="swip__card" id='swip-card'>
+                        <div class="vr" id='vrview' active-view-id="0" style="background:#9810f1;" ></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" >Check Availibilty</button>
                         </div>
                         <div class="swip__card__choice m--reject"></div>
                         <div class="swip__card__choice m--like"></div>
@@ -89,9 +151,33 @@
 
     </div>
 </div>
- 
-	
 
+<div class="kw-model" id="share" >
+
+    <div class="kw-model-dialog">
+
+        <p class="btn kw-model-close">x<p>
+        
+        <div class="kw-model-body">
+            <div class="row">   
+                <div class="col-md-12">
+                    <button class="btn btn-primary">Publish</button>
+                    <h6 class="text-info text-center" >Share Your Wish on</h6><br>
+                    <a class="btn btn-success animated pulse l" id="what" href="whatsapp://send?text= From **&#10; Hi%20Open%20This%20Link%20I%20Sent%20You%20Something%20*Very%20Special* <?php echo $config['url'];?>/klickwish/publish.php?wishid=1" target="_blank" title="Share this post on Whatsapp"><i class="fab fa-whatsapp-square"></i>&nbsp;&nbsp; Whatsapp</a>
+                    <a class="btn btn-primary animated pulse l"   id="fb" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1" target="_blank" title="Share this post on Facebook"><i class="fab fa-facebook"></i>&nbsp;&nbsp; Facebook</a>
+                    <a class="btn btn-danger animated pulse l"  id="google" href="https://plus.google.com/share?url=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1" target="_blank" title="Share this post on Google"><i class="fab fa-google-plus-square"></i>&nbsp;&nbsp; Google</a>
+                    <a class="btn btn-info animated pulse l"  id="tweet" href="http://twitter.com/share?text=Hi%20Open%20This%20Link%20I%20Sent%20You%20Something%20*Very%20Special*&url=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1&hashtags=<?php echo $config['sitename'];?>" target="_blank" title="Share this post on Twitter"><i class="fab fa-twitter-square"></i>&nbsp;&nbsp; Twitter</a>
+                    <a class="btn btn-dark animated pulse l" id="clink" href="#"  data-clipboard-text="Hi Open This Link I Sent You Something *Very Special*&url=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1"> Copy Link</a>
+                    <a class="btn btn-default animated pulse l" id="clink" target="_blank"href="<?php echo $config['url'];?>/klickwish/publish.php?wishid=1">Preview</a>
+                    
+                                       
+                </div>
+            </div>
+            
+        </div><!--body-->
+    </div>
+
+</div>
 
 </body>
 </html>
@@ -281,6 +367,16 @@ $(".fa-chevron-right").on("click",function(){
 		loadScene(parseInt(viewId)+1);
 	}
 	
+});
+$(".kw-model-close").on("click",function(){
+        $("#edit-text").hide(100);
+        $("#share").hide(100);
+    });
+$(".kw-model").on("click",function(){
+    //$("#edit-text").hide(100);
+});
+$(".btn-avail").on("click",function(){
+        $("#share").show(100);
 });
 
 
