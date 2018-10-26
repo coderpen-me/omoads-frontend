@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
 </head>
 <body>
-  <div class="row">
+  
+<div class="row">
 
     <div class="col-md-12" style="margin:0;padding:0px;border:0px;">
 
@@ -19,193 +20,229 @@
             <br><br>
             
 
-        <div id="app-view">
-            <div class="info-bar-small">
-                <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
-                <p style="float:left;margin-left:1em;">Name of the 360 View.</p>
-                <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
-                <br>
-                <hr width="100%"/>
-                <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;" class="fas fa-chevron-left"></i>
-                <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-chevron-right"></i>
-            </div>
-            <div class="vr-container">
-
-                <div class="swip__card" id='swip-card2'>
-                    <div class="vr" id='vrview-2' active-view-id="0" style="background:#57da92;"></div>
-                    <div class="info-block" state="open">
-                        <h5>Lorem ipsum dolor sit amet. 2</h5>
-                        <ul style="list-style: none;text-align: left;font-size: 12px;">
-                            <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-2"></span>
-                            </li>
-                            <li style="display:inline;margin-left:2em;"><b>Dimensions :</b><span
-                                    id="dimension-2"></span></li>
-                            <li style="display:inline;margin-left:2em;"><b>Type :</b><span id="type-2"></span></li>
-                            <br>
-                            <li style="display:inline;margin-left:2em;"><b>Lighted :</b><span id="lighted-2"></span>
-                            </li>
-                            <li style="display:inline;margin-left:2em;"><b>Facing :</b><span id="facing-2"></span></li>
-                            <li style="display:inline;margin-left:2em;"><b>Zone:</b><span id="zone-2"></span></li>
-                        </ul>
-                        <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
-                        <button class="btn btn-avail" data-toggle="modal" data-target="#exampleModal">Check
-                            Availibilty
-                        </button>
-                    </div>
-                    <!--<div class="swip__card__choice m&#45;&#45;reject"></div>-->
-                    <!--<div class="swip__card__choice m&#45;&#45;like"></div>-->
-                    <!--<div class="swip__card__drag"></div>-->
+            <div id="app-view">
+                <div class="info-bar-small">
+                    <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times" ></i>
+                    <p style="float:left;margin-left:1em;">Name of the 360 View.</p>
+                    <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
+                    <br>
+                    <hr width="100%" />
+                    <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;"class="fas fa-chevron-left"></i>
+                    <i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-chevron-right"></i>
                 </div>
-
-                <div class="swip__card" id='swip-card1'>
-                    <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;"></div>
-                    <div class="info-block" state="open">
-                        <h5>Lorem ipsum dolor sit amet. 1</h5>
-                        <ul style="list-style: none;text-align: left;font-size: 12px;">
-                            <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-1"></span>
-                            </li>
-                            <li style="display:inline;margin-left:2em;"><b>Dimensions :</b><span
-                                    id="dimension-1"></span></li>
-                            <li style="display:inline;margin-left:2em;"><b>Type :</b><span id="type-1"></span></li>
-                            <br>
-                            <li style="display:inline;margin-left:2em;"><b>Lighted :</b><span id="lighted-1"></span>
-                            </li>
-                            <li style="display:inline;margin-left:2em;"><b>Facing :</b><span id="facing-1"></span></li>
-                            <li style="display:inline;margin-left:2em;"><b>Zone:</b><span id="zone-1"></span></li>
-                        </ul>
-                        <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
-                        <button class="btn btn-avail">Check Availibilty</button>
+                <div class="vr-container">
+                    
+                    <div class="swip__card" id='swip-card'>
+                        <div class="vr" id='vrview' active-view-id="0" ></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" id="avail" >Check Availibilty</button>
+                        </div>
+                        
                     </div>
-                    <!--<div class="swip__card__choice m&#45;&#45;reject"></div>-->
-                    <!--<div class="swip__card__choice m&#45;&#45;like"></div>-->
-                    <!--<div class="swip__card__drag"></div>-->
+                    <div class="swip__card" id='swip-card1'>
+                        <div class="vr" id='vrview' active-view-id="1" ></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" id="avail"  >Check Availibilty</button>
+                        </div>
+                        
+                    </div>
+                    <div class="swip__card" id='swip-card'>
+                        <div class="vr" id='vrview' active-view-id="2" ></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" id="avail" >Check Availibilty</button>
+                        </div>
+                        
+                    </div>
+                    <div class="swip__card" id='swip-card1'>
+                        <div class="vr" id='vrview1' active-view-id="0" ></div>
+                        <div class="info-block" state="open">
+                            <h5>Lorem ipsum dolor sit amet.</h5>
+                            <ul style="list-style: none;text-align: left;font-size: 12px;">
+                                <li style="display:inline;margin-left:2em;"><b>Pole ID :</b> 23</li>
+                                <li style="display:inline;margin-left:2em;"><b>Dimensions :</b>300x400</li>
+                                <li style="display:inline;margin-left:2em;"><b>Type :</b>abc</li>
+                                <br>
+                                <li style="display:inline;margin-left:2em;"><b>Lighted :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Facing :</b> Lorem</li>
+                                <li style="display:inline;margin-left:2em;"><b>Zone:</b>anc</li>
+                            </ul>
+                            <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
+                            <button class="btn btn-avail" id="avail"  >Check Availibilty</button>
+                        </div>
+                        
+                        
+                    </div>
+                    
                 </div>
-
-            </div>
             <div><!-- app view-->
-
-
+				
+                
                 <!-- gallary deprecated-->
                 <div class="gallay-wrapper" style="display:none;">
                     <button class="btn btn-more">
-                        <i state="up" class="fas fa-chevron-up" id="btn-more-icon"></i>
-                    </button>
+                            <i state="up" class="fas fa-chevron-up" id="btn-more-icon"></i>
+                    </button> 
                 </div>
+           
 
+    </div>
+</div>
 
+<div class="kw-model" id="share" >
+
+    <div class="kw-model-dialog">
+
+        <p class="btn kw-model-close">x<p>
+        
+        <div class="kw-model-body">
+            <div class="row justify-content-center">   
+                <div class="col-md-12">
+                    <h3>Availibilty</h3>
+                                       
+                </div>
             </div>
-        </div>
+            <ul class="list-group">
+                <li class="list-group-item">BillBoard 1
+                  <div class="progress">
+                      <!-- use loop here to genrate-->
+                      <div id="period1" booking-start="s-date" booking-end="e-date" price="2000" status="true" class="progress-bar bg-success" role="progressbar" style="width: 2.19%" aria-valuenow="2.19" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period2" booking-start="s-date" booking-end="e-date" price="4000" status="false"class="progress-bar bg-light" role="progressbar" style="width: 9.86%" aria-valuenow="9.86" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period3" booking-start="s-date" booking-end="e-date" price="500" status="true" class="progress-bar bg-success" role="progressbar" style="width: 6.84%" aria-valuenow="6.84" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period4" booking-start="s-date" booking-end="e-date" price="600" status="true" class="progress-bar bg-info" role="progressbar" style="width: 4.38%" aria-valuenow="4.38" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period5" booking-start="s-date" booking-end="e-date" price="4000" status="false" class="progress-bar bg-light" role="progressbar" style="width: 16.71%" aria-valuenow="16.71" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period6" booking-start="s-date" booking-end="e-date" price="239" status="true" class="progress-bar bg-success" role="progressbar" style="width: 3.56%" aria-valuenow="3.56" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period7" booking-start="s-date" booking-end="e-date" price="483" status="true" class="progress-bar bg-info" role="progressbar" style="width: 13.14%" aria-valuenow="13.14" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period8" booking-start="s-date" booking-end="e-date" price="453" status="false" class="progress-bar bg-light" role="progressbar" style="width: 4.1%" aria-valuenow="4.1" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period9" booking-start="s-date" booking-end="e-date" price="4353" status="true" class="progress-bar bg-success" role="progressbar" style="width: 7.9%" aria-valuenow="7.9" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period10" booking-start="s-date" booking-end="e-date" price="342" status="true" class="progress-bar bg-info" role="progressbar" style="width: 2.7%" aria-valuenow="2.7" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period11" booking-start="s-date" booking-end="e-date" price="3242" status="false" class="progress-bar bg-light" role="progressbar" style="width: 8.75%" aria-valuenow="8.75" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period12" booking-start="s-date" booking-end="e-date" price="2342" status="true" class="progress-bar bg-success" role="progressbar" style="width: 1.09%" aria-valuenow="1.09" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div id="period13" booking-start="s-date" booking-end="e-date" price="234" status="true" class="progress-bar bg-info" role="progressbar" style="width: 18.89%" aria-valuenow="18.89" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </li>
+                
+              </ul>
+              <br>
+                <div class="kw-popOver">
+                    <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br> Price <span id="price"></span> Rs | <span id="status"></span> </p>
+                </div>
+              <br>
 
-        <div class="kw-model" id="share">
+              
+            
+        </div><!--body-->
+    </div>
 
-            <div class="kw-model-dialog">
-
-                <p class="btn kw-model-close">x
-                <p>
-
-                <div class="kw-model-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-primary">Publish</button>
-                            <h6 class="text-info text-center">Share Your Wish on</h6><br>
-                            <a class="btn btn-success animated pulse l" id="what"
-                               href="whatsapp://send?text= From **&#10; Hi%20Open%20This%20Link%20I%20Sent%20You%20Something%20*Very%20Special* <?php echo $config['url'];?>/klickwish/publish.php?wishid=1"
-                               target="_blank" title="Share this post on Whatsapp"><i
-                                    class="fab fa-whatsapp-square"></i>&nbsp;&nbsp; Whatsapp</a>
-                            <a class="btn btn-primary animated pulse l" id="fb"
-                               href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1"
-                               target="_blank" title="Share this post on Facebook"><i class="fab fa-facebook"></i>&nbsp;&nbsp;
-                                Facebook</a>
-                            <a class="btn btn-danger animated pulse l" id="google"
-                               href="https://plus.google.com/share?url=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1"
-                               target="_blank" title="Share this post on Google"><i
-                                    class="fab fa-google-plus-square"></i>&nbsp;&nbsp; Google</a>
-                            <a class="btn btn-info animated pulse l" id="tweet"
-                               href="http://twitter.com/share?text=Hi%20Open%20This%20Link%20I%20Sent%20You%20Something%20*Very%20Special*&url=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1&hashtags=<?php echo $config['sitename'];?>"
-                               target="_blank" title="Share this post on Twitter"><i class="fab fa-twitter-square"></i>&nbsp;&nbsp;
-                                Twitter</a>
-                            <a class="btn btn-dark animated pulse l" id="clink" href="#"
-                               data-clipboard-text="Hi Open This Link I Sent You Something *Very Special*&url=<?php echo $config['url'];?>/klickwish/publish.php?wishid=1">
-                                Copy Link</a>
-                            <a class="btn btn-default animated pulse l" id="clink" target="_blank"
-                               href="<?php echo $config['url'];?>/klickwish/publish.php?wishid=1">Preview</a>
-
-
-                        </div>
-                    </div>
-
-                </div><!--body-->
-            </div>
-
-        </div>
+</div>
 
 </body>
 </html>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
-        integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swing/3.0.2/swing.js"></script>
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 <script>
-    /*
-    // https://github.com/gajus/swing
-    var myElement = document.getElementById('swip-card');
+/*
+// https://github.com/gajus/swing
+var myElement = document.getElementById('swip-card');
 
-    // create a simple instance
-    // by default, it only adds horizontal recognizers
-    var mc = new Hammer(myElement);
+// create a simple instance
+// by default, it only adds horizontal recognizers
+var mc = new Hammer(myElement);
 
-    // listen to events...
-    //panleft panright tap press
-    mc.on("panleft panright tap press swip", function(ev) {
-        //var direction = e.gesture.direction;
+// listen to events...
+//panleft panright tap press
+mc.on("panleft panright tap press swip", function(ev) {
+    //var direction = e.gesture.direction;
 
-        //myElement.textContent = ev.type;
+    //myElement.textContent = ev.type;
 
-        if(ev.type == 'tap'){
-            $("#swip-card").css("background","#ff0000");
-            $("#swip-card").addClass("animated bounce");
-            $('.info-block').toggle();
+    if(ev.type == 'tap'){
+        $("#swip-card").css("background","#ff0000");
+        $("#swip-card").addClass("animated bounce");
+        $('.info-block').toggle();
 
-        }
-        if(ev.type == 'panleft'){
-            $("#swip-card").css("background","#00ff00");
-            $("#swip-card").addClass("to-left");
-            //$('.info-block').hide();
-        }
-        if(ev.type == 'panright'){
-            $("#swip-card").css("background","#0000ff");
-            $("#swip-card").addClass("to-right");
-            //$('.info-block').hide();
-        }
-
-    });
-    */
-    //window.addEventListener('load', onVrViewLoad);
-
-    function loadScene(id) {
-        console.log('loadScene', id);
-
-        // Set the image
-        vrView.setContent({
-            image: dataObject.view_data[parseInt(id)].url,
-            preview: dataObject.view_data[parseInt(id)].url,
-            is_stereo: false,
-            is_autopan_off: true
-        });
     }
+    if(ev.type == 'panleft'){
+        $("#swip-card").css("background","#00ff00");
+        $("#swip-card").addClass("to-left");
+        //$('.info-block').hide();
+    }
+    if(ev.type == 'panright'){
+        $("#swip-card").css("background","#0000ff");
+        $("#swip-card").addClass("to-right");
+        //$('.info-block').hide();    
+    }
+    
+});
+*/
+//window.addEventListener('load', onVrViewLoad);
 
-    //onVrViewLoad(url);
+var url = "https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg";
 
-    var data = `{
+
+// Selector '#vrview' finds element with id 'vrview'.
+var vrView = new VRView.Player('#vrview1', {
+  image: url,
+  preview: 'https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg',
+  is_debug: false,
+  width: '100%',
+  height: '350',
+  //is_stereo: true
+  is_vr_off: false
+});
+	
+function loadScene(id) {
+  console.log('loadScene', id);
+
+  // Set the image
+  vrView.setContent({
+    image: dataObject.view_data[parseInt(id)].url,
+    preview: dataObject.view_data[parseInt(id)].url,
+    is_stereo: false,
+    is_autopan_off: true
+  });
+}
+
+//onVrViewLoad(url);
+
+var data = `{
 	"view_data":[
 	
 			{"viewId":1,
@@ -245,231 +282,199 @@
 
 }`;
 
-    var dataObject = JSON.parse(data);
-    var MAX = dataObject.view_data.length;
+var dataObject = JSON.parse(data);
+var MAX = dataObject.view_data.length;
 
-    console.log(MAX);
-    $("[id=open-full]").on("click", function () {
-        var viewId = $(this).attr("view-id");
-        //var url = $(this).attr("url");
-        $(".img-block-container").hide(0);
-        $("#app-view").show(100);
-        $("#vrview1").attr("active-view-id", viewId);
-        //console.log(viewId);
-    });
+console.log(MAX);
+$("[id=open-full]").on("click",function(){
+	var viewId = $(this).attr("view-id"); 
+	//var url = $(this).attr("url"); 
+    $(".img-block-container").hide(0);
+    $("#app-view").show(100);
+    $("#vrview1").attr("active-view-id",viewId);
+    //console.log(viewId);
+});
 
-    $(".btn-more").on("click", function () {
+$(".btn-more").on("click",function(){
 
-        var state = $("#btn-more-icon").attr("state");
-        if (state == "up") {
-            $("#btn-more-icon").removeClass("fa-chevron-up");
-            $("#btn-more-icon").addClass("fa-chevron-down");
-            $("#btn-more-icon").attr("state", "down");
-            $(".gallay-wrapper").css("top", "100px");
-            $(".gallay-wrapper").css("height", "700px");
+    var state = $("#btn-more-icon").attr("state");
+    if(state == "up"){
+        $("#btn-more-icon").removeClass("fa-chevron-up");
+        $("#btn-more-icon").addClass("fa-chevron-down");
+        $("#btn-more-icon").attr("state","down");
+        $(".gallay-wrapper").css("top","100px");
+        $(".gallay-wrapper").css("height","700px");
+    }
+    else{
+        $("#btn-more-icon").removeClass("fa-chevron-down");
+        $("#btn-more-icon").addClass("fa-chevron-up");
+        $("#btn-more-icon").attr("state","up");
+        $(".gallay-wrapper").css("top","550px");
+        $(".gallay-wrapper").css("height","160px");
+    }
+    
+
+});
+$(".fa-info-circle").on("click",function(){
+
+    var state = $(".info-block").attr("state");
+    if(state == "open"){
+        $(".info-block").hide(100);
+        $(".info-block").attr("state","close");
+    }
+    else{
+        $(".info-block").show(100);
+        $(".info-block").attr("state","open");
+    }
+    
+});
+$(".fa-times").on("click",function(){
+	$(".img-block-container").show(100);
+    $("#app-view").hide(0);
+});
+$(".fa-chevron-left").on("click",function(){
+	var viewId = $("#vrview").attr("active-view-id");
+	
+	if(parseInt(viewId) <= 1){ 
+		alert("This is the last");
+	}
+	else{
+		//alert(viewId);
+		$("#vrview").attr("active-view-id",parseInt(viewId)-1);
+		loadScene(parseInt(viewId)-1);
+	}
+});
+$(".fa-chevron-right").on("click",function(){
+	var viewId = $("#vrview").attr("active-view-id");
+	
+	if(parseInt(viewId) >= MAX){ 
+		alert("This is the last");
+	}
+	else{
+		//alert(viewId);
+		$("#vrview").attr("active-view-id",parseInt(viewId)+1);
+		loadScene(parseInt(viewId)+1);
+	}
+	
+});
+$(".kw-model-close").on("click",function(){
+        
+    $("#share").hide(100);
+});
+$(".kw-model").on("click",function(){
+    //$("#share").hide(100);
+});
+$("[id=avail]").on("click",function(){
+    $("#share").show(100);
+});
+$(".progress-bar").hover(function(){
+    
+    var s_date = $(this).attr("booking-date");
+    var e_date = $(this).attr("booking-date");
+    var price = $(this).attr("price");
+    var status = $(this).attr("status");
+    $(".kw-popOver").show(100);
+    $("#s-date").html(s_date);
+    $("#e-date").html(e_date);
+    $("#price").html(price);
+    if(status == 'true')
+        $("#status").html("Booked");
+    else 
+        $("#status").html("Not Booked");
+
+});
+
+$(document).ready(function() {
+
+    var animating = false;
+    var cardsCounter = 0;
+    var numOfCards = 6;
+    var decisionVal = 80;
+    var pullDeltaX = 0;
+    var deg = 0;
+    var $card, $cardReject, $cardLike;
+
+    function pullChange() {
+    animating = true;
+    deg = pullDeltaX / 10;
+    $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
+
+    var opacity = pullDeltaX / 100;
+    var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
+    var likeOpacity = (opacity <= 0) ? 0 : opacity;
+    $cardReject.css("opacity", rejectOpacity);
+    $cardLike.css("opacity", likeOpacity);
+    };
+
+    function release() {
+
+        if (pullDeltaX >= decisionVal) {
+            $card.addClass("to-right");
+        } else if (pullDeltaX <= -decisionVal) {
+            $card.addClass("to-left");
         }
-        else {
-            $("#btn-more-icon").removeClass("fa-chevron-down");
-            $("#btn-more-icon").addClass("fa-chevron-up");
-            $("#btn-more-icon").attr("state", "up");
-            $(".gallay-wrapper").css("top", "550px");
-            $(".gallay-wrapper").css("height", "160px");
-        }
 
+        if (Math.abs(pullDeltaX) >= decisionVal) {
+            $card.addClass("inactive");
 
-    });
-    $(".fa-info-circle").on("click", function () {
-
-        var state = $(".info-block").attr("state");
-        if (state == "open") {
-            $(".info-block").hide(100);
-            $(".info-block").attr("state", "close");
-        }
-        else {
-            $(".info-block").show(100);
-            $(".info-block").attr("state", "open");
-        }
-
-    });
-    $(".fa-times").on("click", function () {
-        $(".img-block-container").show(100);
-        $("#app-view").hide(0);
-    });
-    $(".fa-chevron-left").on("click", function () {
-        var viewId = $("#vrview").attr("active-view-id");
-
-        if (parseInt(viewId) <= 1) {
-            alert("This is the last");
-        }
-        else {
-            //alert(viewId);
-            $("#vrview").attr("active-view-id", parseInt(viewId) - 1);
-            loadScene(parseInt(viewId) - 1);
-        }
-    });
-    $(".fa-chevron-right").on("click", function () {
-        var viewId = $("#vrview").attr("active-view-id");
-
-        if (parseInt(viewId) >= MAX) {
-            alert("This is the last");
-        }
-        else {
-            //alert(viewId);
-            $("#vrview").attr("active-view-id", parseInt(viewId) + 1);
-            loadScene(parseInt(viewId) + 1);
-        }
-
-    });
-    $(".kw-model-close").on("click", function () {
-        $("#edit-text").hide(100);
-        $("#share").hide(100);
-    });
-    $(".kw-model").on("click", function () {
-        //$("#edit-text").hide(100);
-    });
-    $(".btn-avail").on("click", function () {
-        $("#share").show(100);
-    });
-
-
-    $(document).ready(function () {
-
-        var jsonData = "{{banner_details}}";
-        jsonData = jsonData.replace(/&#39;/g, '"');
-        jsonData = JSON.parse(jsonData);
-        var animating = false;
-        var cardsCounter = 0;
-        var anotherCardsCounter = 0;
-        var numOfCards = jsonData.length;
-        var decisionVal = 80;
-        var pullDeltaX = 0;
-        var deg = 0;
-        var $card, $cardReject, $cardLike;
-
-        loadNextData();
-        loadNextData();
-
-        function loadNextData() {
-            var currentId = (cardsCounter % 2) + 1;
-            if (cardsCounter < jsonData.length) {
-                console.log(cardsCounter, jsonData.length);
-                document.getElementById('pole-id-' + currentId).innerHTML = jsonData[cardsCounter].id;
-                document.getElementById('dimension-' + currentId).innerHTML = jsonData[cardsCounter].dimension;
-                document.getElementById('type-' + currentId).innerHTML = jsonData[cardsCounter].type;
-                document.getElementById('lighted-' + currentId).innerHTML = jsonData[cardsCounter].lighted;
-                document.getElementById('facing-' + currentId).innerHTML = jsonData[cardsCounter].facing;
-                document.getElementById('zone-' + currentId).innerHTML = jsonData[cardsCounter].zone;
-                loadNextVRView(currentId);
-                cardsCounter++;
-            } else if (anotherCardsCounter+2 === jsonData.length) {
-                $('#swip-card' + currentId).remove();
-            } else {
-                $('#swip-card1').remove();
-                $('#swip-card2').remove();
+        setTimeout(function() {
+            $card.addClass("below").removeClass("inactive to-left to-right");
+            cardsCounter++;
+            if (cardsCounter === numOfCards) {
+            cardsCounter = 0;
+            $(".swip__card").removeClass("below");
             }
+        }, 300);
         }
 
-
-        function loadNextVRView(currentId) {
-            if (cardsCounter > 1) {
-                console.log(jsonData[cardsCounter].url);
-                var vrView = new VRView.Player('#vrview-' + currentId, {
-                    image: jsonData[cardsCounter].url
-                });
-            } else {
-                var vrView = new VRView.Player('#vrview-' + currentId, {
-                    image: jsonData[cardsCounter].url,
-                    is_debug: false,
-                    width: '100%',
-                    height: '350',
-                    //is_stereo: true
-                    is_vr_off: false
-                });
-            }
+        if (Math.abs(pullDeltaX) < decisionVal) {
+            $card.addClass("reset");
         }
 
-        function pullChange() {
-            animating = true;
-            deg = pullDeltaX / 10;
-            $card.css("transform", "translateX(" + pullDeltaX + "px) rotate(" + deg + "deg)");
+        setTimeout(function() {
+            $card.attr("style", "").removeClass("reset")
+            .find(".swip__card__choice").attr("style", "");
 
-            var opacity = pullDeltaX / 100;
-            var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
-            var likeOpacity = (opacity <= 0) ? 0 : opacity;
-            $cardReject.css("opacity", rejectOpacity);
-            $cardLike.css("opacity", likeOpacity);
-        }
+            pullDeltaX = 0;
+            animating = false;
+        }, 300);
+    };
 
-        function release() {
+    $(document).on("mousedown touchstart",".swip__card:not(.inactive)", function(e) {
+    
+        var startY =  e.pageY || e.originalEvent.touches[0].pageY;
+        console.log(startY);
+        if(startY >460){
+            //if (animating) return;
 
-            if (pullDeltaX >= decisionVal) {
-                $card.addClass("to-right");
-            } else if (pullDeltaX <= -decisionVal) {
-                $card.addClass("to-left");
-            }
-
-            if (Math.abs(pullDeltaX) >= decisionVal) {
-                $card.addClass("inactive");
-
-                setTimeout(function () {
-                    $card.addClass("below").removeClass("inactive to-left to-right");
-                    loadNextData();
-                    anotherCardsCounter++;
-                    if (anotherCardsCounter  % 2 === 0) {
-                        console.log('Putting Card 2 below');
-                        $("#swip-card1").removeClass("below");
-                        $("#swip-card2").addClass("below");
-                    } else {
-                        console.log('Putting Card 1 below');
-                        $("#swip-card2").removeClass("below");
-                        $("#swip-card1").addClass("below");
-                    }
-                }, 300);
-            }
-
-            if (Math.abs(pullDeltaX) < decisionVal) {
-                $card.addClass("reset");
-            }
-
-            setTimeout(function () {
-                $card.attr("style", "").removeClass("reset")
-                    .find(".swip__card__choice").attr("style", "");
-
-                pullDeltaX = 0;
-                animating = false;
-            }, 300);
-        };
-
-        $(document).on("mousedown touchstart", ".swip__card:not(.inactive)", function (e) {
-
-            var startY = e.pageY || e.originalEvent.touches[0].pageY;
-            console.log(startY);
-            if (startY > 460) {
-                //if (animating) return;
-
-                $card = $(this);
-                $cardReject = $(".swip__card__choice.m--reject", $card);
-                $cardLike = $(".swip__card__choice.m--like", $card);
-                var startX = e.pageX || e.originalEvent.touches[0].pageX;
-
-
+            $card = $(this);
+            $cardReject = $(".swip__card__choice.m--reject", $card);
+            $cardLike = $(".swip__card__choice.m--like", $card);
+            var startX =  e.pageX || e.originalEvent.touches[0].pageX;
+            
+            
+            
                 // card swip 
-                $(document).on("mousemove touchmove", function (e) {
+                $(document).on("mousemove touchmove", function(e) {
                     var x = e.pageX || e.originalEvent.touches[0].pageX;
                     pullDeltaX = (x - startX);
                     if (!pullDeltaX) return;
                     pullChange();
                 });
 
-                $(document).on("mouseup touchend", function () {
+                $(document).on("mouseup touchend", function() {
                     $(document).off("mousemove touchmove mouseup touchend");
                     if (!pullDeltaX) return; // prevents from rapid click events
                     release();
                 });
-            }
-
-        });
-
+        }
+    
     });
 
+});
+
 </script>
+
+
+
+
