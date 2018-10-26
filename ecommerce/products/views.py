@@ -1473,6 +1473,13 @@ def share_app(request, o_id):
 		for banner in banners:
 			banner_details.append({
 				"id" : str(banner.id),
+				"zone": str(banner.zone),
+				"facing": str(banner.banner_facing),
+				"banner": str(banner.banner_dimensions),
+				"type": str(banner.banner_type),
+				"lighted": str(banner.banner_lighted),
+				"dimension": str(banner.banner_dimensions),
+
 				"url": str(banner.bannerimage),
 			})
 		context = {'banner_details':banner_details}
