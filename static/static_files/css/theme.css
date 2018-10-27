@@ -810,10 +810,10 @@ body{
 * Landing page 1
 */
 .ln2-img{
-    width:auto;
-    height:300px;
+    width:100%;
+    height:auto;
 }
-.ln1-img1{
+.ln2-img1{
     width:150px;
     height:auto;
 }
