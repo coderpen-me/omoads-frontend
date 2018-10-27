@@ -1480,7 +1480,7 @@ def share_app(request, o_id):
 				"lighted": str(banner.banner_lighted),
 				"dimension": str(banner.banner_dimensions),
 
-				"url": str(banner.bannerimage),
+				"url": str(banner.bannerimage.image.url),
 			})
 		context = {'banner_details':banner_details}
 		return render(request, template, context)
