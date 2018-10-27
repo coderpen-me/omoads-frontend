@@ -169,6 +169,10 @@
         width:100% !important;
         height: auto !important;
     }
+    .ln2-img1{
+        width:100% !important;
+        height: auto !important;
+    }
     .ln2-img2{
         width:100% !important;
         height:auto !important;
@@ -809,8 +813,12 @@ body{
     width:auto;
     height:300px;
 }
+.ln1-img1{
+    width:150px;
+    height:auto;
+}
 .ln2-img2{
-    width:200px;
+    width:250px;
     height:auto;
 }
 .ln1-img{
