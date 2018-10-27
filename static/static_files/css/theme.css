@@ -284,6 +284,13 @@
     text-decoration: none;
     color:#000;
 }
+.btn-theme:hover{
+    background: rgb(238, 139, 73);
+    border: #000 2px solid;
+    border-radius: 10px;
+    text-decoration: none;
+    color:#000;
+}
 /**
 *  header
 */
