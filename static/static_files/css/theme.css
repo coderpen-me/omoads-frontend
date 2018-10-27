@@ -194,6 +194,10 @@
         width:100% !important;
         height:auto !important;
     }
+    .ln1-img2{
+        width:100% !important;
+        height:auto !important;
+    }
     .ln1-para{
         margin-top: 0px !important;
         margin-left:5em !important;
@@ -265,13 +269,21 @@
 .btn-theme1{
     background: #fd7b26;
     color:#000;
+    text-decoration: none;
 }
 .btn-theme{
     background: #fd7b26;
     color:#000;
     margin-left:2.5em;
+    text-decoration: none;
 }
-
+.btn-theme1:hover{
+    background: rgb(238, 139, 73);
+    border: #000 2px solid;
+    border-radius: 10px;
+    text-decoration: none;
+    color:#000;
+}
 /**
 *  header
 */
@@ -796,6 +808,14 @@ body{
 }
 .ln1-img{
     width:150px;
+    height:auto;
+}
+.ln1-img1{
+    width:150px;
+    height:auto;
+}
+.ln1-img2{
+    width:100%;
     height:auto;
 }
 .ln1-heading{
