@@ -77,6 +77,94 @@
 
 <style type="text/css">
 
+/*
+  * model
+  */
+  .kw-model{
+    z-index: 1002;
+    position:fixed;
+    left: 0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.274);
+    display:none;   
+}
+.kw-model-dialog{
+    z-index: 1003;
+    width:40%;
+    background: #fff;
+    border-radius: 5px;
+    margin:auto;
+    margin-top: 10%;
+    padding:15px;
+}
+.kw-model-close{
+    color:#000;
+    border:1px solid #000;
+    position: relative;
+    background: none;
+    width:25px;
+    border-radius: 50%;
+    padding: 0px;
+    text-align: center;
+    height:25px;
+    top:10px; 
+    left:calc(100% - 40px);
+}
+.kw-model-body{
+    width:100%;
+    margin-top:10px;
+    background: rgb(255, 255, 255);
+    padding: 10px;
+}
+
+
+
+.kw-popOver{
+    background:rgba(0,0,0,0.5);
+    color:#fff;
+    border-radius:5px;
+    padding:5px;
+    width:100%;
+    
+    display: none;
+   
+  }
+  .progress-bar{
+      border :1px solid #333;
+  }
+  #period1:hover {width:10% !important;}
+  #period2:hover  {width:10% !important;}
+  #period3:hover  {width:10% !important;}
+  #period4:hover  {width:10% !important;}
+  #period5:hover  {width:10% !important;}
+  #period6:hover  {width:10% !important;}
+  #period7:hover  {width:10% !important;}
+  #period8:hover  {width:10% !important;}
+  #period9:hover  {width:10% !important;}
+  #period10:hover  {width:10% !important;}
+  #period11:hover  {width:10% !important;}
+  #period12:hover  {width:10% !important;}
+  #period13:hover  {width:10% !important;}
+    
+    
+  #period1:hover  #pop1{display:block;}
+  #period2:hover  #pop2{display:block;}
+  #period3:hover  #pop3{display:block;}
+  #period4:hover  #pop4{display:block;}
+  #period5:hover  #pop5{display:block;}
+  #period6:hover  #pop6{display:block;}
+  #period7:hover  #pop7{display:block;}
+  #period8:hover  #pop8{display:block;}
+  #period9:hover  #pop9{display:block;}
+  #period10:hover  #pop10{display:block;}
+  #period11:hover  #pop11{display:block;}
+  #period12:hover  #pop12{display:block;}
+  #period13:hover  #pop13{display:block;}
+ 
+
+
 .filter-float-btn{
   display :none;
   }
@@ -112,7 +200,7 @@
   .filter-float-btn{
     display:block !important;
     position:fixed;
-    left 50px;
+    left :50px;
     bottom:250px;
     border-radius:50%;
     height:50px;
@@ -420,7 +508,6 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-@media
   .slider:before {
     position: absolute;
     content: "";
@@ -596,10 +683,7 @@ $('.col-control').on('click', function(ev){
     <!--<div class="col-sm-3" id="control-contain" style="position: absolute; right: 0; transition: all 100ms ease-out;">
       <button class="col-control"><i class="fas fa-angle-right"></i></button>
     </div>-->
-    <style>
-      #filter-sec{
-      }
-    </style>
+    
     <div >
       <button class="col-collapse" style="position:fixed;top:60px;height:45px;right:calc(100% - 75%);z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
       <button class="col-collapse1" style="display:none;position:fixed;top:60px;height:45px;right:0px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-left"></i></button>
@@ -997,7 +1081,17 @@ $('.col-control').on('click', function(ev){
 
   <div class="modal fade" id="availModal" tabindex="-1" role="dialog" aria-labelledby="availModalLabel" aria-hidden="true">
       <style>
-        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}
+        #availModal *{box-sizing: border-box;}
+        header{position: relative;width: 100%;}
+        header h1{text-align: center;padding-top: 0.01em;}
+        header p{text-align: center;}
+        header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}
+        main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}
+        .col{margin: 10px 0;line-height: 2;text-align: center;}
+        .data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}
+        .child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}
+        .child.booked{background-color: #0f0;}
+        .child.not-booked{background-color: #888;}
         .child:hover{position:absolute;left:0px;width:100%;margin:auto;transform: scaleX(1.5);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
      </style>
     <div class="modal-dialog">
@@ -1019,6 +1113,27 @@ $('.col-control').on('click', function(ev){
                 <div class="data-strip"></div>
             </div>
           </main>
+          <ul class="list-group">
+            <li class="list-group-item">BillBoard 1
+              <div class="progress">
+                  <!-- use loop here to genrate-->
+                  <div id="period1" booking-start="s-date" booking-end="e-date" price="2000" status="true" class="progress-bar bg-success" role="progressbar" style="width: 2.19%" aria-valuenow="2.19" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period2" booking-start="s-date" booking-end="e-date" price="4000" status="false"class="progress-bar bg-light" role="progressbar" style="width: 9.86%" aria-valuenow="9.86" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period3" booking-start="s-date" booking-end="e-date" price="500" status="true" class="progress-bar bg-success" role="progressbar" style="width: 6.84%" aria-valuenow="6.84" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period4" booking-start="s-date" booking-end="e-date" price="600" status="true" class="progress-bar bg-info" role="progressbar" style="width: 4.38%" aria-valuenow="4.38" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period5" booking-start="s-date" booking-end="e-date" price="4000" status="false" class="progress-bar bg-light" role="progressbar" style="width: 16.71%" aria-valuenow="16.71" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period6" booking-start="s-date" booking-end="e-date" price="239" status="true" class="progress-bar bg-success" role="progressbar" style="width: 3.56%" aria-valuenow="3.56" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period7" booking-start="s-date" booking-end="e-date" price="483" status="true" class="progress-bar bg-info" role="progressbar" style="width: 13.14%" aria-valuenow="13.14" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period8" booking-start="s-date" booking-end="e-date" price="453" status="false" class="progress-bar bg-light" role="progressbar" style="width: 4.1%" aria-valuenow="4.1" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period9" booking-start="s-date" booking-end="e-date" price="4353" status="true" class="progress-bar bg-success" role="progressbar" style="width: 7.9%" aria-valuenow="7.9" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period10" booking-start="s-date" booking-end="e-date" price="342" status="true" class="progress-bar bg-info" role="progressbar" style="width: 2.7%" aria-valuenow="2.7" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period11" booking-start="s-date" booking-end="e-date" price="3242" status="false" class="progress-bar bg-light" role="progressbar" style="width: 8.75%" aria-valuenow="8.75" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period12" booking-start="s-date" booking-end="e-date" price="2342" status="true" class="progress-bar bg-success" role="progressbar" style="width: 1.09%" aria-valuenow="1.09" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period13" booking-start="s-date" booking-end="e-date" price="234" status="true" class="progress-bar bg-info" role="progressbar" style="width: 18.89%" aria-valuenow="18.89" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </li>
+            
+          </ul>
         </div>
       </div>
     </div>
