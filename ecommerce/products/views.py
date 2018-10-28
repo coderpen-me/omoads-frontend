@@ -723,6 +723,22 @@ def filterAjax(request):
 			print(e)
 		return HttpResponse(json_data, content_type='application/json')
 
+
+def onclickCardStatus(request):
+    if request.is_ajax():
+        print(request.POST['id_point'])
+        b = Banner.objects.get(pk=int(request.POST['id_point']))
+        bookDates = []
+        for detailset in b.bookingdetails_set.filter(active = True):
+            bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate)})
+        data = {'booking_dates': bookDates}
+        json_data = json.dumps(data)
+        return HttpResponse(json_data, content_type='application/json')
+    else:
+        raise Http404
+
+
+
 def onclickMapPoints(request):
 	if request.is_ajax():
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
