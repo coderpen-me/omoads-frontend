@@ -1494,7 +1494,7 @@ def share_app(request, o_id):
 				"banner": str(banner.banner_dimensions),
 				"type": str(banner.banner_type),
 				"lighted": str(banner.banner_lighted),
-				"dimension": str(banner.banner_dimensions),
+				"dimension": str(banner.get_banner_dimensions_display()),
 
 				"url": str(banner.bannerimage.image.url),
 			})

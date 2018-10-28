@@ -125,7 +125,7 @@
                             <br>
                             <div class="kw-popOver">
                     <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
-                <span id="status"></span></p>
+                        <span id="status"></span></p>
                 </div>
                 <br>
 
@@ -467,11 +467,15 @@
 
         $('#share-button').click(function () {
             console.log('YES');
-            navigator.share({
-                title: document.title,
-                text: 'Check out this',
-                url: window.location.href
-            })
+            if (navigator.share) {
+                navigator.share({
+                    title: 'OMOAds',
+                    text: 'Check out this',
+                    url: window.location.href
+                })
+            } else {
+                console.log('PC');
+            }
         });
 
         function pullChange() {
