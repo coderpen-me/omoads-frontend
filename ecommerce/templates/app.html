@@ -465,15 +465,11 @@
 
         $('#share-button').click(function () {
             console.log('YES');
-            if (navigator.share) {
                 navigator.share({
                     title: 'Share this',
                     text: 'Check out this',
                     url: 'https://google.com'
                 })
-            } else {
-                console.log('PC');
-            }
         });
 
         function pullChange() {
