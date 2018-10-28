@@ -8,7 +8,9 @@
 .form-control::-ms-input-placeholder { color: #efefef; }  /* Microsoft Edge */
 
 @media (min-width: 576px){
-    
+    .jumbotron {
+        padding: 2rem 2rem;
+    }
 }
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {  
@@ -226,12 +228,61 @@
     
 }
 
-/* Medium devices (tablets, 768px and up)
+ /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991.98px) {  
-    For mobile phones: 
-    .col-md-4 {
-        width: 100% !important;
-    } 
+ /*For mobile phones: */
+     .ln2-img{
+        width:100% !important;
+        height: auto !important;
+    }
+    .ln2-img1{
+        width:100% !important;
+        height: auto !important;
+    }
+    .ln2-img2{
+        width:100% !important;
+        height:auto !important;
+    }
+    .ln2-heading{
+        font-size: 30px !important;
+        margin-left:1em;
+    }
+    .ln1-img{
+       
+    }
+    .ln1-heading{
+        text-align: center;
+    }
+    .ln1-heading-span{
+        margin-left:4em;
+    }
+    .ln1-heading1{
+        text-align: center;
+        margin-left: 0px !important;
+    }
+    .ln1-img1{
+        width:100% !important;
+        height:auto !important;
+    }
+    .ln1-img2{
+        width:100% !important;
+        height:auto !important;
+        margin-top:6em;
+    }
+    .ln1-para{
+        margin-top: 0px !important;
+        margin-left:0em !important;
+        text-align: center;
+    }
+    .ln1-banner{
+        top:-310px !important;
+        left:450px !important;
+        width:400px !important;
+        height:110px !important;
+        padding :15px !important;
+        font-size: 18px !important;
+
+    }
 }
 
 /* Large devices (desktops, 992px and up)
@@ -854,4 +905,10 @@ body{
     text-decoration: none;
     top:-430px;
     left:650px;
+}
+.jumbotron {
+    padding: 1rem 1rem;
+    margin-bottom: 0rem;
+    background-color: #e9ecef;
+    border-radius: .3rem;
 }
