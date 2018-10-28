@@ -606,7 +606,7 @@ body{
 .prt-img{
     margin-left:3em;
     height:150px;
-    width:300px;
+    width:auto;
 }
 /**
 *  panel 4
