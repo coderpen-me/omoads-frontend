@@ -5,7 +5,7 @@
   
      .kw-model-dialog{
         
-        width:60% !important;
+        width:90% !important;
         margin: 10px !important;
         
     }
@@ -288,10 +288,10 @@
   }
 
   /*
-  *
+  * model
   */
   .kw-model{
-    z-index: 2;
+    z-index: 1002;
     position:fixed;
     left: 0px;
     top:0px;
@@ -301,13 +301,13 @@
     display:none;   
 }
 .kw-model-dialog{
-    z-index: 3;
+    z-index: 1003;
     width:40%;
     background: #fff;
     border-radius: 5px;
     margin:auto;
-    margin-top: 5%;
-    padding:20px;
+    margin-top: 10%;
+    padding:15px;
 }
 .kw-model-close{
     color:#000;
@@ -321,19 +321,57 @@
     height:25px;
     top:10px; 
     left:calc(100% - 40px);
-
 }
 .kw-model-body{
     width:100%;
     margin-top:10px;
     background: rgb(255, 255, 255);
-    
     padding: 10px;
 }
 
 
 
-
+.kw-popOver{
+    background:rgba(0,0,0,0.5);
+    color:#fff;
+    border-radius:5px;
+    padding:5px;
+    width:100%;
+    
+    display: none;
+   
+  }
+  .progress-bar{
+      border :1px solid #333;
+  }
+  #period1:hover {width:10% !important;}
+  #period2:hover  {width:10% !important;}
+  #period3:hover  {width:10% !important;}
+  #period4:hover  {width:10% !important;}
+  #period5:hover  {width:10% !important;}
+  #period6:hover  {width:10% !important;}
+  #period7:hover  {width:10% !important;}
+  #period8:hover  {width:10% !important;}
+  #period9:hover  {width:10% !important;}
+  #period10:hover  {width:10% !important;}
+  #period11:hover  {width:10% !important;}
+  #period12:hover  {width:10% !important;}
+  #period13:hover  {width:10% !important;}
+    
+  #period1:hover  #pop1{display:block;}
+  #period2:hover  #pop2{display:block;}
+  #period3:hover  #pop3{display:block;}
+  #period4:hover  #pop4{display:block;}
+  #period5:hover  #pop5{display:block;}
+  #period6:hover  #pop6{display:block;}
+  #period7:hover  #pop7{display:block;}
+  #period8:hover  #pop8{display:block;}
+  #period9:hover  #pop9{display:block;}
+  #period10:hover  #pop10{display:block;}
+  #period11:hover  #pop11{display:block;}
+  #period12:hover  #pop12{display:block;}
+  #period13:hover  #pop13{display:block;}
+ 
 
 
 

@@ -905,10 +905,12 @@ body{
     text-decoration: none;
     top:-430px;
     left:650px;
+
 }
 .jumbotron {
     padding: 1rem 1rem;
     margin-bottom: 0rem;
     background-color: #e9ecef;
     border-radius: .3rem;
+
 }
