@@ -1433,7 +1433,11 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               }
               else
               {
-                  vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
+                  vr_view.setContent({
+                      image:"{{MEDIA_URL}}" + data["url"],
+                      preview:"{{MEDIA_URL}}" + data["url"],
+                      is_stereo: false
+                  });
 
               }
                NProgress.done();
