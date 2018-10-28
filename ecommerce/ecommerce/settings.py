@@ -77,7 +77,17 @@ MIDDLEWARE_CLASSES = (
     #
 )
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1',
+    'www.omoads.com',
+    'www.google.com',
+    'google.com',
+    'omoads.com',
+    'www.omoads.com',
+
+    )
 
 AUTHENTICATION_BACKENDS = (
  #'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
