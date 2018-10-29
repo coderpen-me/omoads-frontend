@@ -898,14 +898,15 @@ body{
     width:500px;
     height:150px;
     padding :20px;
-    color:#fff;
+    color:#fd7b26;
     font-size:25px;
-    float: left;
-    
-    text-decoration: none;
+    float: left; 
     top:-430px;
     left:650px;
 
+}
+.ln1-banner:hover{
+	text-decoration: none;
 }
 .jumbotron {
     padding: 1rem 1rem;
