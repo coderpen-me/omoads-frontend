@@ -749,6 +749,7 @@ def onclickMapPoints(request):
 			bookingDetails_set = b.bookingdetails_set.filter(Q(active = True)&Q(endDate__gte = datetime.date.today())&Q(startDate__lte = (datetime.date.today() + relativedelta(years=1)))).order_by("startDate")
 			i = 0
 			total_delta = 0
+			lastDate=datetime.date.today()
 			for detailset in bookingDetails_set:
 				try:
 					if i > 0:
@@ -769,12 +770,13 @@ def onclickMapPoints(request):
 					total_delta+=delta.days
 					bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate), 'dayPer365':delta.days*100/365, 'status':"true"})
 					i+=1
+					lastDate = detailset.endDate
 
 				except Exception as e:
 					print(e)
 			try:
 				if total_delta < 365:
-					bookDates.append({'startDate':str(bookDates[-1]["endDate"]), 'endDate': str(datetime.date.today() + relativedelta(years=1)), 'dayPer365':(365-total_delta)*100/365, 'status':"false"})
+					bookDates.append({'startDate':str(lastDate + relativedelta(days=1)), 'endDate': str(datetime.date.today() + relativedelta(years=1)), 'dayPer365':(365-total_delta)*100/365, 'status':"false"})
 				else:
 					bookDates[-1]["dayPer365"] = bookDates[-1]["dayPer365"] - (total_delta-365)*100/365
 			except Exception as e:
