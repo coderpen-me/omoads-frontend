@@ -57,7 +57,7 @@
                 
                 <img src="{% static 'img/images' %}/IMG_7598.jpg" style="width:100%;height:auto;"/>
                 
-                <a href="https://omoads.com/about#contact"class="text-center ad-block ln1-banner" >
+                <a href="{% url 'aboutus' %}#contact" class="text-center ad-block ln1-banner" >
                     HAVE AN ADVERTISMENT?<br>
                     CONTACT US
                 </a>
@@ -238,7 +238,7 @@
                     <br>
                     <div class="row justify-content-center">
                         <div class="col-md-3">
-                                <a href="http://omoads.com/map-view" class="btn btn-theme1 btn-lg" style="border-radius:60px;width:300px;">Find Hoardings</a>
+                                <a href="{% url 'map_view' %}" class="btn btn-theme1 btn-lg" style="border-radius:60px;width:300px;">Find Hoardings</a>
                         </div>
                     </div>
                     
