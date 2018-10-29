@@ -15,8 +15,8 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
-  
-  
+
+
 
   <!-- <link rel="apple-touch-icon" sizes="57x57" href="{% static 'resources/images/favicon/apple-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="60x60" href="{% static 'resources/images/favicon/apple-icon-60x60.png' %}">
@@ -43,12 +43,12 @@
  <!-- favicon -->
  <link rel="manifest" href="{% static 'resources/images/favicon/manifest.json' %}">
  <link href="https://fonts.googleapis.com/css?family=Raleway|Alegreya:400,700" rel="stylesheet">
- 
+
  <link rel="shortcut icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
  <link rel="icon" sizes="16x16" type="image/ico" href="{% static 'resources/images/favicon/omo.ico' %}" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
   <script src="{% static 'js/nouislider.min.js' %}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -66,13 +66,13 @@
   </script>
 
   <!-- <script src="{% static 'js/landingPage.js' %}"></script> -->
-  
+
 
 
   <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
   <script src="{% static 'js/nprogress.js' %}"></script>
   <script data-pace-options='{ "ajax": false }' src="{% static 'js/pace.js' %}"></script>
-  
+
 </head>
 
 <style type="text/css">
@@ -168,14 +168,14 @@
 .filter-float-btn{
   display :none;
   }
-  
+
 /*Extra small devices (portrait phones, less than 576px)*/
-@media (max-width: 575.98px) {  
+@media (max-width: 575.98px) {
     /*For mobile phones: */
-  
+
   .modal-dialog {
     max-width: 500px !important;
-      
+
   }
   #availModal .modal-dialog{
     position: absolute;
@@ -189,7 +189,7 @@
   }
   #filter-sec{
     display:none;
-  
+
   }
   .col-collapse{
     display:none !important;
@@ -208,11 +208,11 @@
     background: #fd7b26;
     box-shadow: 1px 1px 3px #ccc;
     z-index:1100;
-    
+
   }
-  
+
  }
-    
+
   .bannerImage {
     background: black;
   }
@@ -314,7 +314,7 @@
     width: 70px;
     border-radius: 50%;
     background-color: #fff;
-  } 
+  }
   .home-overlay button{
     background-color: #ff6c00;
     color: #fff;
@@ -437,7 +437,7 @@
     padding: 0;
     justify-content: space-between;
 
-    
+
   }
   #myModal .modal-footer form{
     display: inline-block;
@@ -535,7 +535,7 @@
   }
 
   /* Rounded sliders */
-  
+
   .slider.round {
     border-radius: 34px;
   }
@@ -557,10 +557,10 @@
 {% if messages %}
     <div id="message">
 {% for message in messages %}
-   
+
 <script type="text/javascript">
   if("{{message.extra_tags}}" == "wrong_credentials"){
-    
+
     $(document).ready(function(){
       $('#loginModal').modal();
     });
@@ -574,13 +574,13 @@
 
 <section id = "sectionTry">
 <script>
- 
+
   $('#sectionTry').hide();
- 
+
 </script>
 {% include 'nav.html' %}
   <!-- Login Modal -->
- 
+
 <div class="cont" h="f"style="overflow: hidden;">
 <script>
   $(".navbar-toggler").on("click",function(){
@@ -594,10 +594,10 @@
       h.attr("f");
     }
   });
-  
+
 </script>
   <!-- <div class="home-overlay">
-  
+
     <div class="home-hs">
       <h1>OMOADS</h1>
       <h2>Search, Connect and Rent</h2>
@@ -629,7 +629,7 @@
   </script> -->
 <script type="text/javascript">
 var submit_filter = function() {
-  
+
   $.ajax({
            type: "POST",
            url: "{% url 'filter_form' %}",
@@ -651,17 +651,17 @@ var submit_filter = function() {
               {
                 marker.setVisible(false)
               }
-                
+
             }
             markerCluster.repaint();
             NProgress.done();
-                
+
            },
            error: function(data)
            {
               console.log("some error");
            },
-         });   
+         });
 }
 $('.col-control').on('click', function(ev){
   $('#filter-sec, #control-contain').toggleClass('collapse-right')
@@ -704,7 +704,7 @@ $('.col-control').on('click', function(ev){
     <div class="col-sm-3 filter follow" id="filter-sec" style="overflow-y: scroll;" data-pos="max">
       <input id="pac-input" class="controls" type="text" placeholder="Search Location">
       <form id="filterForm">
-    
+
         <div class="sort">
           <h5 style="padding: 8px; margin: 0px;"><span class="glyphicon glyphicon-sort-by-attributes-alt" style="font-size: 14px;"></span>  Sort By</h5>
         </div>
@@ -725,13 +725,13 @@ $('.col-control').on('click', function(ev){
             <h5>USER  <i class="fas fa-sort-down"></i></h5>
           </div>
           <div class="check view-cart panel-body">
-          
+
             <div class="checkbox">
               <div class="row">
                 <p>
                 View Campaign
                 <label class="switch pull-right">
-                  <input id="cart" name="user" onchange="submit_filter();" 
+                  <input id="cart" name="user" onchange="submit_filter();"
                   type="checkbox" value="0">
                   <span class="slider round"></span>
                 </label>
@@ -740,11 +740,11 @@ $('.col-control').on('click', function(ev){
             </div>
           <!-- <div class="checkbox">
               <label>
-                <input id="order" name="user" onchange="submit_filter();" 
+                <input id="order" name="user" onchange="submit_filter();"
                 type="checkbox" value="0">ORDER
               </label>
           </div> -->
-          
+
           </div>
         </div>
         {% endif %}
@@ -807,20 +807,20 @@ $('.col-control').on('click', function(ev){
             <div class="check panel-body">
                 <div class="row date-input">
                     <div class="col-sm-6 date-input-form">
-                      
+
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                           <input id="datePicker-start" type="text" class="form-control" placeholder="Start Date" name="start_date">
                         </div>
-                      
+
                     </div>
                     <div class="col-sm-6 date-input-form">
-                      
+
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                           <input id="datePicker-end" type="text" class="form-control" placeholder="End Date" name="end_date">
                         </div>
-                      
+
                     </div>
               </div>
               <style>
@@ -873,7 +873,7 @@ $('.col-control').on('click', function(ev){
               // Slider change . Suggestion: add your functionality in syncInputs().
               slider.noUiSlider.on('change', syncInputs)
               let inps = document.querySelectorAll('.inps-contain input')
-              
+
               inps.forEach(function(el){
                 el.addEventListener('input', function(){syncSlider(el)})
               })
@@ -887,7 +887,7 @@ $('.col-control').on('click', function(ev){
                   slider.noUiSlider.set([null, inpElement.value / 5000])
                 }
                 if(!page_first_load)
-                { 
+                {
                     if(filter_timeout_track!=null)
                     {
                         clearTimeout(filter_timeout_track);
@@ -900,7 +900,7 @@ $('.col-control').on('click', function(ev){
                 document.getElementById('range-left').value = parseInt(st[0]) * 5000
                 document.getElementById('range-right').value = parseInt(st[1]) * 5000
                 if(!page_first_load)
-                { 
+                {
                     if(filter_timeout_track!=null)
                     {
                         clearTimeout(filter_timeout_track);
@@ -939,7 +939,7 @@ $('.col-control').on('click', function(ev){
           <h3 class="modal-title" id="myModalLabel">Hapur Road, Near Hapur Chungi</h3>
         </div>-->
 
-        
+
         <div class="modal-body">
           <!-- the content -->
           <div class="row">
@@ -965,7 +965,7 @@ $('.col-control').on('click', function(ev){
                 </div>
               </div>
 
-              
+
               <!-- <div class="row date-input">
                 <div class="col-sm-8 date-input-form">
                   <form>
@@ -1008,21 +1008,21 @@ $('.col-control').on('click', function(ev){
             </div>
             <div class="col-sm-8 right">
               <div style="position: relative;">
-                
 
-                  
+
+
                     <button type="button" class="btn" id="MyModalAddCart" value="Add To Cart" name="Add to favourites" style="position:absolute;right:0;float:right;border-radius:50%;box-shadow : 1px 1px 5px #ccc;">
                          <i class="fas fa-heart"></i>
                     </button>
-                  
-                
-                
+
+
+
                 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
-                
+
                 <div id='vrview'></div>
                 <script>
-                      
-                      
+
+
 
                       function vrViewLoad(img_url) {
                         // Selector '#vrview' finds element with id 'vrview'.
@@ -1034,8 +1034,8 @@ $('.col-control').on('click', function(ev){
                           height: '400',
                           is_stereo: false
                         });
-                        
-                      }	
+
+                      }
 
                 </script>
                 <!--
@@ -1054,18 +1054,18 @@ $('.col-control').on('click', function(ev){
                         },
                       });
                   </script>-->
-                
+
                 <!-- <img src="{% static 'resources/gif/page_loading.gif' %}" id="bannerImage" class="img-thumbnail" alt="Banner Image">-->
               </div>
 
               <!-- The owner button div  -->
-              
 
-              
+
+
 
             </div>
           </div>
-          
+
         </div>
 
         <!-- <div class="modal-footer">
@@ -1102,8 +1102,8 @@ $('.col-control').on('click', function(ev){
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-       
-        
+
+
         <div class="modal-body">
           <header>
             <p><span></span> Booked<br />Hover over it for details</p>
@@ -1173,15 +1173,15 @@ $('.col-control').on('click', function(ev){
     
 
   // let json = [{"startDate": "2018/06/23","endDate": "2018/06/30","ppd": 35,"status": "booked"},{"startDate": "2018/08/06","endDate": "2018/08/30","ppd": 40,"status": "booked"},{"startDate": "2018/08/31","endDate": "2018/09/15","ppd": 45,"status": "booked"},{"startDate": "2018/11/16","endDate": "2018/11/28","ppd": 22,"status": "booked"},{"startDate": "2018/11/29","endDate": "2019/01/15","ppd": 20,"status": "booked"},{"startDate": "2019/01/31","endDate": "2019/02/28","ppd": 34,"status": "booked"},{"startDate": "2019/03/01","endDate": "2019/03/10","ppd": 54,"status": "booked"},{"startDate": "2019/04/12","endDate": "2019/04/15","ppd": 37,"status": "booked"},{"startDate": "2019/04/16","endDate": "2019/06/23","ppd": 29,"status": "booked"}]
-  
-  
+
+
   </script>
 
 
-  
+
   <button class="btn filter-float-btn"></button>
   <script>
-        
+
         $(".filter-float-btn").on("click",function(){
             $("#filter-sec").toggle();
             var data = $("#filter-sec").attr("data-pos");
@@ -1193,10 +1193,10 @@ $('.col-control').on('click', function(ev){
               $(".col-sm-3").css("width" , "100%");
               $("#filter-sec").attr("data-pos","max");
             }
-                                   
-          
+
+
         });
-       
+
       </script>
 </body>
 
@@ -1260,9 +1260,9 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
   $('#datePicker-start, #datePicker-end').each(function(i, el){
     $(this).val("")
   })
-  
 
-  
+
+
 // $('#datePicker').data('daterangepicker').startDate = ValidStartBooking
 
 // $(function() {
@@ -1313,7 +1313,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 //       console.log("handleDateInput");
 //                     var diff = end.diff(start, 'days')
 //                     console.log(diff)
-                    
+
 //                     var flag = 0
 //                     for (var i = 0; i<invalidDates.length;i++)
 //                     {
@@ -1341,8 +1341,8 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 //                       $('.msg p').css('font-size','14px');
 
 //                       // $(this).css("color", "green").fadeIn(500);
-                      
-                    
+
+
 //                       $.ajax({
 //                               type: "POST",
 //                               url: "{% url 'AjaxBannerPrice' %}",
@@ -1403,7 +1403,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
 
       var markers_for_bounds
-      
+
        // var locations =[ {lat: 28.6781518, lng: 77.4796894},
        //  {lat: 28.6769073, lng: 77.4728407},
        //  {lat: 28.6763699, lng: 77.4701333},
@@ -1476,7 +1476,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
        //  {lat: 28.6808859, lng: 77.4252781},
        //  {lat: 28.683349, lng: 77.428079}
        //  ];
-        
+
         var locations = [];
         var locID = [];
     //the above var location is javascript var and the below one comes from djago code.bad names. confusing. gotta change
@@ -1500,7 +1500,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
       $('#range-output .em').removeClass("alert-success");
       $('#range-output').addClass("alert-danger");
       $('.price-details p span').html('&#8377; '+0.00);
-      
+
     }
     function resetInfo(){
       $('#panelID').text("loading...");
@@ -1520,7 +1520,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
 
     function initMap() {
-      
+
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 28.683349, lng: 77.428079 },
         scrollwheel: true,
@@ -1539,8 +1539,8 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
         });
       });
-      var oms = new OverlappingMarkerSpiderfier(map, { 
-        markersWontMove: true, 
+      var oms = new OverlappingMarkerSpiderfier(map, {
+        markersWontMove: true,
         markersWontHide: true,
         keepSpiderfied: true,
         basicFormatEvents: true
@@ -1557,7 +1557,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
           $.ajax({
             type: "POST",
             url: "{% url 'onclickMapPoints' %}",
-            
+
              beforeSend: function(){
               // Handle the beforeSend event
               resetInfo();
@@ -1571,13 +1571,13 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
            },
             success: function(data){
-             
+
               $('#panelID').text(data["id"]);
               if(!set_vr)
               {
                 set_vr=true
                 vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
-                
+
               }
               else
               {
@@ -1613,7 +1613,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               setOwnerDetails({'o_name':data["agency_name"], 'o_contact':data["agency_phone"],
                           'o_email':data["agency_email"], 'o_add':data["agency_address"]});
               setHeightOfModal()
-              
+
               var bookDates = data["bookDates"];
               BoardIdForPrice = (data["id"]);
               function get_favoutire_callback(){
@@ -1649,7 +1649,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                             else if(data["success"]=="3")
                             {
                                  console.log("failed. show msg " + data["msg"]);
-                                 
+
                             }
                         },
                         error: function()
@@ -1657,7 +1657,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                               NProgress.done();
                               console.log("couldn't add");
                         },
-                 
+
                     });
                   {% else %}
                     console.log("login")
@@ -1708,15 +1708,15 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                   drops: "up",
                   isInvalidDate: function(date)
                   {
-                      
+
 
                       if (invalidDates.indexOf(date.format('YYYY-MM-DD'))!==-1)
                       {
-                          return true; 
+                          return true;
                       }
                       else
                       {
-                          return false; 
+                          return false;
                       }
                   }
                   },
@@ -1727,7 +1727,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                     console.log("call back");
                     var diff = end.diff(start, 'days');
                     console.log(diff)
-                    
+
                   },
                 );*/
 
@@ -1797,7 +1797,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                     console.log('Tooooo')
                     makeAvailChild(el['startDate'], el['endDate'], 'booked')
                   }
-                  
+
                   // console.log(el)
                   // console.log('ind' + ind)
                   // let startDate = Date.parse(el['startDate'])
@@ -1842,7 +1842,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
           $('#myModal').modal('show')
         });
-       oms.addMarker(markerGroup[i]); 
+       oms.addMarker(markerGroup[i]);
      }
      let fl = true
     $('#myModal .modal-dialog').on('transitionend', function(){
