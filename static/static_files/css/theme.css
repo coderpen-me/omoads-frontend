@@ -893,7 +893,7 @@ body{
     margin-left:4em;
 }
 .ln1-banner{
-    background: rgb(199, 31, 31);
+    background: none;
     position: relative;
     width:500px;
     height:150px;
@@ -901,7 +901,7 @@ body{
     color:#fff;
     font-size:25px;
     float: left;
-    border:5px solid #000;
+    
     text-decoration: none;
     top:-430px;
     left:650px;
