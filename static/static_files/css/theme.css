@@ -210,10 +210,11 @@
         text-align: center;
     }
     .ln1-banner{
-        top:-130px !important;
-        left:150px !important;
+        top: -119px !important;
+		left: 115px !important;
         width:180px !important;
         height:60px !important;
+		line-height: 20px !important;
         padding :5px !important;
         font-size: 10px !important;
 
@@ -275,9 +276,9 @@
         text-align: center;
     }
     .ln1-banner{
-        top:-310px !important;
-        left:450px !important;
-        width:400px !important;
+            top: -340px !important;
+    left: 380px !important;
+    width: 400px !important;
         height:110px !important;
         padding :15px !important;
         font-size: 18px !important;
@@ -901,8 +902,9 @@ body{
     color:#fd7b26;
     font-size:25px;
     float: left; 
-    top:-430px;
-    left:650px;
+    top: -425px;
+    left: 550px;
+    line-height: 60px;
 
 }
 .ln1-banner:hover{
