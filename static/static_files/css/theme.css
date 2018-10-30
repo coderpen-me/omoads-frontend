@@ -309,6 +309,14 @@
     font-family: sans-serif !important;
     font-weight:bold !important;
 }
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; 
+    /* margin-right: -15px; */
+    /* margin-left: -15px; */
+}
 .txt-center{
     text-align: center;
 }
@@ -441,6 +449,7 @@ overflow:hidden;
 
 .navbar{
     background: #000 !important;
+	overflow-x: hidden;
    
 }
 .navbar-dark .navbar-nav .nav-link {
