@@ -378,7 +378,8 @@
         var deg = 0;
         var $card, $cardReject, $cardLike;
         var jsonDates = '';
-        var flag = 0;
+        var flag_vr1 = 0;
+        var flag_vr2 = 0;
 
         $(document).on("mouseenter", ".progress-bar", function () {
             var s_date = $(this).attr("booking-start");
@@ -422,7 +423,7 @@
             loadNextData();
 
             if (jsonData[0].url) {
-                flag = 1;
+                flag_vr1 = 1;
                 $('#vrview-1').show();
                 var vrView1 = new VRView.Player('#vrview-1', {
                     image: jsonData[0].url,
@@ -439,7 +440,7 @@
             }
 
             if (jsonData[1].url) {
-                flag = 1;
+                flag_vr2 = 1;
                 $('#vrview-2').show()
                 var vrView2 = new VRView.Player('#vrview-2', {
                     image: jsonData[1].url,
@@ -482,11 +483,11 @@
                 console.log('Changing ...');
                 if (currentId % 2 === 1) {
                     if (jsonData[cardsCounter].url) {
-                        flag = 1;
                         $('#image-1').hide();
                         $('#vrview-1').show();
                         console.log('Changed VR1: ', jsonData[cardsCounter].url);
-                        if (flag === 0) {
+                        if (flag_vr1 === 0) {
+                            flag_vr1 = 1;
                             var vrView1 = new VRView.Player('#vrview-1', {
                                 image: jsonData[cardsCounter].url,
                                 preview: jsonData[cardsCounter].url,
@@ -511,11 +512,11 @@
                     }
                 } else {
                     if (jsonData[cardsCounter].url) {
-                        flag = 1;
                         $('#vrview-2').show();
                         $('#image-2').hide();
                         console.log('Changed VR2: ', jsonData[cardsCounter].url);
-                        if (flag === 0) {
+                        if (flag_vr2 === 0) {
+                            flag_vr2 = 1;
                             var vrView2 = new VRView.Player('#vrview-2', {
                                 image: jsonData[cardsCounter].url,
                                 preview: jsonData[cardsCounter].url,
