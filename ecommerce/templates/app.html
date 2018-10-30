@@ -378,6 +378,7 @@
         var deg = 0;
         var $card, $cardReject, $cardLike;
         var jsonDates = '';
+        var flag = 0;
 
         $(document).on("mouseenter", ".progress-bar", function () {
             var s_date = $(this).attr("booking-start");
@@ -399,17 +400,17 @@
 
         if (jsonData.length === 1) {
             loadNextData();
-            var vrView1 = new VRView.Player('#vrview-1', {
-                image: jsonData[0].url,
-                preview: jsonData[0].url,
-                is_debug: false,
-                width: '100%',
-                height: '350',
-                //is_stereo: true
-                is_vr_off: false
-            });
             if (jsonData[0].url) {
                 $('#vrview-1').show();
+                var vrView1 = new VRView.Player('#vrview-1', {
+                    image: jsonData[0].url,
+                    preview: jsonData[0].url,
+                    is_debug: false,
+                    width: '100%',
+                    height: '350',
+                    //is_stereo: true
+                    is_vr_off: false
+                });
             } else {
                 $('#image-1').show();
                 $('#image-1').attr('href', jsonData[0].normal_url)
@@ -419,34 +420,36 @@
         if (jsonData.length >= 2) {
             loadNextData();
             loadNextData();
-            var vrView1 = new VRView.Player('#vrview-1', {
-                image: jsonData[0].url,
-                preview: jsonData[0].url,
-                is_debug: false,
-                width: '100%',
-                height: '350',
-                //is_stereo: true
-                is_vr_off: false
-            });
-            var vrView2 = new VRView.Player('#vrview-2', {
-                image: jsonData[1].url,
-                preview: jsonData[1].url,
-                is_debug: false,
-                width: '100%',
-                height: '350',
-                //is_stereo: true
-                is_vr_off: false
-            });
 
             if (jsonData[0].url) {
+                flag = 1;
                 $('#vrview-1').show();
+                var vrView1 = new VRView.Player('#vrview-1', {
+                    image: jsonData[0].url,
+                    preview: jsonData[0].url,
+                    is_debug: false,
+                    width: '100%',
+                    height: '350',
+                    //is_stereo: true
+                    is_vr_off: false
+                });
             } else {
                 $('#image-1').show();
                 $('#image-1').attr('href', jsonData[0].normal_url);
             }
 
             if (jsonData[1].url) {
+                flag = 1;
                 $('#vrview-2').show()
+                var vrView2 = new VRView.Player('#vrview-2', {
+                    image: jsonData[1].url,
+                    preview: jsonData[1].url,
+                    is_debug: false,
+                    width: '100%',
+                    height: '350',
+                    //is_stereo: true
+                    is_vr_off: false
+                });
             } else {
                 $('#image-2').show();
                 $('#image-2').attr('href', jsonData[1].normal_url);
@@ -479,15 +482,28 @@
                 console.log('Changing ...');
                 if (currentId % 2 === 1) {
                     if (jsonData[cardsCounter].url) {
+                        flag = 1;
                         $('#image-1').hide();
                         $('#vrview-1').show();
                         console.log('Changed VR1: ', jsonData[cardsCounter].url);
-                        vrView1.setContent({
-                            image: jsonData[cardsCounter].url,
-                            preview: jsonData[cardsCounter].url,
-                            is_stereo: false,
-                            is_autopan_off: true
-                        });
+                        if (flag === 0) {
+                            var vrView1 = new VRView.Player('#vrview-1', {
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_debug: false,
+                                width: '100%',
+                                height: '350',
+                                //is_stereo: true
+                                is_vr_off: false
+                            });
+                        } else {
+                            vrView1.setContent({
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_stereo: false,
+                                is_autopan_off: true
+                            });
+                        }
                     } else {
                         $('#vrview-1').hide();
                         $('#image-1').show();
@@ -495,15 +511,28 @@
                     }
                 } else {
                     if (jsonData[cardsCounter].url) {
+                        flag = 1;
                         $('#vrview-2').show();
                         $('#image-2').hide();
                         console.log('Changed VR2: ', jsonData[cardsCounter].url);
-                        vrView2.setContent({
-                            image: jsonData[cardsCounter].url,
-                            preview: jsonData[cardsCounter].url,
-                            is_stereo: false,
-                            is_autopan_off: true
-                        });
+                        if (flag === 0) {
+                            var vrView2 = new VRView.Player('#vrview-2', {
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_debug: false,
+                                width: '100%',
+                                height: '350',
+                                //is_stereo: true
+                                is_vr_off: false
+                            });
+                        } else {
+                            vrView2.setContent({
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_stereo: false,
+                                is_autopan_off: true
+                            });
+                        }
                     } else {
                         $('#vrview-2').hide();
                         $('#image-2').show();
