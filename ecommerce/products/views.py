@@ -1496,8 +1496,10 @@ def share_app(request, o_id):
 				"lighted": str(banner.banner_lighted),
 				"dimension": str(banner.get_banner_dimensions_display()),
 
-				"url": str(banner.bannerimage.image.url),
+				"url": str(banner.bannerimage.image.url) or '',
+				"normal_url": str(banner.bannerimage.normal_image.url) or ''
 			})
+		print(banner_details)
 		context = {'banner_details':banner_details}
 		return render(request, template, context)
 	except Exception as e:
