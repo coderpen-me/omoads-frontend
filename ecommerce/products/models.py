@@ -176,8 +176,8 @@ class BannerImage(models.Model):
         return str(self.image)
 
     banner = models.OneToOneField(Banner, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=content_file_name, null=True)
-    normal_image = models.ImageField(upload_to=content_file_name, default='boardimages/' + str(id) + '.jpg')
+    image = models.ImageField(upload_to=content_file_name, blank=True, null=True)
+    normal_image = models.ImageField(upload_to=content_file_name, blank=True, null=True)
 
 
 # maybe rename to orderDetails

@@ -25,7 +25,7 @@
         <div id="app-view">
             <div class="info-bar-small">
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
-                <p style="float:left;margin-left:1em;">Name of the 360 View.</p>
+                <p style="float:left;margin-left:1em;">{{agency_name}}</p>
                 <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
                 <br>
                 <hr width="100%"/>
@@ -40,7 +40,7 @@
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:100%;display:block;"
                          src="">
                     <div class="info-block" state="open">
-                        <h5>Lorem ipsum dolor sit amet.</h5>
+                        <h5><span id="landmark-2"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-2"></span>
                             </li>
@@ -66,7 +66,7 @@
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:100%;display:block;"
                          src="">
                     <div class="info-block" state="open">
-                        <h5>Lorem ipsum dolor sit amet. 1</h5>
+                        <h5><span id="landmark-1"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-1"></span>
                             </li>
@@ -461,6 +461,7 @@
                 document.getElementById('lighted-' + currentId).innerHTML = jsonData[cardsCounter].lighted;
                 document.getElementById('facing-' + currentId).innerHTML = jsonData[cardsCounter].facing;
                 document.getElementById('zone-' + currentId).innerHTML = jsonData[cardsCounter].zone;
+                document.getElementById('landmark-' + currentId).innerHTML = jsonData[cardsCounter].landmark;
                 loadNextVRView(currentId);
                 cardsCounter++;
             } else if (anotherCardsCounter + 2 === jsonData.length) {
