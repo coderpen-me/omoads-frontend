@@ -723,6 +723,22 @@ def filterAjax(request):
 			print(e)
 		return HttpResponse(json_data, content_type='application/json')
 
+
+def onclickCardStatus(request):
+    if request.is_ajax():
+        print(request.POST['id_point'])
+        b = Banner.objects.get(pk=int(request.POST['id_point']))
+        bookDates = []
+        for detailset in b.bookingdetails_set.filter(active = True):
+            bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate)})
+        data = {'booking_dates': bookDates}
+        json_data = json.dumps(data)
+        return HttpResponse(json_data, content_type='application/json')
+    else:
+        raise Http404
+
+
+
 def onclickMapPoints(request):
 	if request.is_ajax():
 		b = Banner.objects.get(pk=int(request.POST['id_point']))
@@ -1466,10 +1482,9 @@ def share_app(request, o_id):
 			userType = "Agency"
 		except Agency.DoesNotExist:
 			userType = "Buyer"
-	try:	
+	try:
 		banners = Banner.objects.filter(agency__id = int(o_id))
 		banner_details = list()
-		
 		for banner in banners:
 			banner_details.append({
 				"id" : str(banner.id),
@@ -1478,11 +1493,16 @@ def share_app(request, o_id):
 				"banner": str(banner.banner_dimensions),
 				"type": str(banner.banner_type),
 				"lighted": str(banner.banner_lighted),
-				"dimension": str(banner.banner_dimensions),
+				"dimension": str(banner.get_banner_dimensions_display()),
+				'landmark': banner.banner_landmark,
 
-				"url": str(banner.bannerimage),
+				"url": str(banner.bannerimage.image.url) if banner.bannerimage.image else '',
+				"normal_url": str(banner.bannerimage.normal_image.url) if banner.bannerimage.normal_image else ''
 			})
-		context = {'banner_details':banner_details}
+		print(banner_details)
+		context = {'banner_details':banner_details,
+				   'agency_name': banner.agency.agency_name or '',
+				   }
 		return render(request, template, context)
 	except Exception as e:
 		print(e)
