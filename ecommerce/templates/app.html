@@ -25,7 +25,7 @@
         <div id="app-view">
             <div class="info-bar-small">
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
-                <p style="float:left;margin-left:1em;">Name of the 360 View.</p>
+                <p style="float:left;margin-left:1em;">{{agency_name}}</p>
                 <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
                 <br>
                 <hr width="100%"/>
@@ -36,8 +36,11 @@
 
                 <div class="swip__card" id='swip-card2'>
                     <div class="vr" id='vrview-2' active-view-id="0"></div>
+                    <img id="image-2"
+                         style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
+                         src="">
                     <div class="info-block" state="open">
-                        <h5>Lorem ipsum dolor sit amet.</h5>
+                        <h5><span id="landmark-2"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-2"></span>
                             </li>
@@ -57,9 +60,13 @@
                 </div>
 
                 <div class="swip__card" id='swip-card1'>
-                    <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;"></div>
+                    <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;" style="display: none;">
+                    </div>
+                    <img id="image-1"
+                         style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
+                         src="https://omodep.s3.amazonaws.com/static/boardimages/5.jpg">
                     <div class="info-block" state="open">
-                        <h5>Lorem ipsum dolor sit amet. 1</h5>
+                        <h5><span id="landmark-1"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-1"></span>
                             </li>
@@ -354,6 +361,11 @@
     // 5678-910711557
 
     $(document).ready(function () {
+        $('#vrview-1').hide();
+        $('#vrview-2').hide();
+        $('#image-1').hide();
+        $('#image-2').hide();
+
         var jsonData = "{{banner_details}}";
         jsonData = jsonData.replace(/&#39;/g, '"');
         jsonData = JSON.parse(jsonData);
@@ -366,6 +378,10 @@
         var deg = 0;
         var $card, $cardReject, $cardLike;
         var jsonDates = '';
+        var flag_vr1 = 0;
+        var flag_vr2 = 0;
+        var vrView1 = '';
+        var vrView2 = '';
 
         $(document).on("mouseenter", ".progress-bar", function () {
             var s_date = $(this).attr("booking-start");
@@ -381,44 +397,66 @@
                 $("#status").html("Not Booked");
         });
 
-         $(document).on("mouseout", ".progress-bar", function () {
-             $(".kw-popOver").hide(100);
-         });
+        $(document).on("mouseout", ".progress-bar", function () {
+            $(".kw-popOver").hide(100);
+        });
 
         if (jsonData.length === 1) {
             loadNextData();
-            var vrView1 = new VRView.Player('#vrview-1', {
-                image: jsonData[0].url,
-                preview: jsonData[0].url,
-                is_debug: false,
-                width: '100%',
-                height: '350',
-                //is_stereo: true
-                is_vr_off: false
-            });
+            if (jsonData[0].url) {
+                $('#vrview-1').show();
+                vrView1 = new VRView.Player('#vrview-1', {
+                    image: jsonData[0].url,
+                    preview: jsonData[0].url,
+                    is_debug: false,
+                    width: '100%',
+                    height: '350',
+                    //is_stereo: true
+                    is_vr_off: false
+                });
+            } else {
+                $('#image-1').show();
+                $('#image-1').attr('href', jsonData[0].normal_url)
+            }
             $('#swip-card2').remove();
         }
         if (jsonData.length >= 2) {
             loadNextData();
             loadNextData();
-            var vrView1 = new VRView.Player('#vrview-1', {
-                image: jsonData[0].url,
-                preview: jsonData[0].url,
-                is_debug: false,
-                width: '100%',
-                height: '350',
-                //is_stereo: true
-                is_vr_off: false
-            });
-            var vrView2 = new VRView.Player('#vrview-2', {
-                image: jsonData[1].url,
-                preview: jsonData[1].url,
-                is_debug: false,
-                width: '100%',
-                height: '350',
-                //is_stereo: true
-                is_vr_off: false
-            });
+
+            if (jsonData[0].url) {
+                flag_vr1 = 1;
+                $('#vrview-1').show();
+                vrView1 = new VRView.Player('#vrview-1', {
+                    image: jsonData[0].url,
+                    preview: jsonData[0].url,
+                    is_debug: false,
+                    width: '100%',
+                    height: '350',
+                    //is_stereo: true
+                    is_vr_off: false
+                });
+            } else {
+                $('#image-1').show();
+                $('#image-1').attr('href', jsonData[0].normal_url);
+            }
+
+            if (jsonData[1].url) {
+                flag_vr2 = 1;
+                $('#vrview-2').show()
+                vrView2 = new VRView.Player('#vrview-2', {
+                    image: jsonData[1].url,
+                    preview: jsonData[1].url,
+                    is_debug: false,
+                    width: '100%',
+                    height: '350',
+                    //is_stereo: true
+                    is_vr_off: false
+                });
+            } else {
+                $('#image-2').show();
+                $('#image-2').attr('href', jsonData[1].normal_url);
+            }
         }
 
         function loadNextData() {
@@ -430,6 +468,7 @@
                 document.getElementById('lighted-' + currentId).innerHTML = jsonData[cardsCounter].lighted;
                 document.getElementById('facing-' + currentId).innerHTML = jsonData[cardsCounter].facing;
                 document.getElementById('zone-' + currentId).innerHTML = jsonData[cardsCounter].zone;
+                document.getElementById('landmark-' + currentId).innerHTML = jsonData[cardsCounter].landmark;
                 loadNextVRView(currentId);
                 cardsCounter++;
             } else if (anotherCardsCounter + 2 === jsonData.length) {
@@ -445,21 +484,63 @@
             if (cardsCounter > 1) {
                 console.log('Changing ...');
                 if (currentId % 2 === 1) {
-                    console.log('Changed VR1: ', jsonData[cardsCounter].url);
-                    vrView1.setContent({
-                        image: jsonData[cardsCounter].url,
-                        preview: jsonData[cardsCounter].url,
-                        is_stereo: false,
-                        is_autopan_off: true
-                    });
+                    if (jsonData[cardsCounter].url) {
+                        $('#image-1').hide();
+                        $('#vrview-1').show();
+                        console.log('Changed VR1: ', jsonData[cardsCounter].url);
+                        if (flag_vr1 === 0) {
+                            flag_vr1 = 1;
+                            vrView1 = new VRView.Player('#vrview-1', {
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_debug: false,
+                                width: '100%',
+                                height: '350',
+                                //is_stereo: true
+                                is_vr_off: false
+                            });
+                        } else {
+                            vrView1.setContent({
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_stereo: false,
+                                is_autopan_off: true
+                            });
+                        }
+                    } else {
+                        $('#vrview-1').hide();
+                        $('#image-1').show();
+                        $('#image-1').attr('href', jsonData[cardsCounter].normal_url)
+                    }
                 } else {
-                    console.log('Changed VR2: ', jsonData[cardsCounter].url);
-                    vrView2.setContent({
-                        image: jsonData[cardsCounter].url,
-                        preview: jsonData[cardsCounter].url,
-                        is_stereo: false,
-                        is_autopan_off: true
-                    });
+                    if (jsonData[cardsCounter].url) {
+                        $('#vrview-2').show();
+                        $('#image-2').hide();
+                        console.log('Changed VR2: ', jsonData[cardsCounter].url);
+                        if (flag_vr2 === 0) {
+                            flag_vr2 = 1;
+                            vrView2 = new VRView.Player('#vrview-2', {
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_debug: false,
+                                width: '100%',
+                                height: '350',
+                                //is_stereo: true
+                                is_vr_off: false
+                            });
+                        } else {
+                            vrView2.setContent({
+                                image: jsonData[cardsCounter].url,
+                                preview: jsonData[cardsCounter].url,
+                                is_stereo: false,
+                                is_autopan_off: true
+                            });
+                        }
+                    } else {
+                        $('#vrview-2').hide();
+                        $('#image-2').show();
+                        $('#image-2').attr('href', jsonData[cardsCounter].normal_url)
+                    }
 
                 }
             }
@@ -618,9 +699,8 @@
                             bookingStatus = 'false';
                             setTcolor = 'grey';
                             if (i > 0) {
-                                sDate = beautifyDate(new Date(jsonDates[sampleCounter-1]['endDate']));
-                                if (jsonDates.length > sampleCounter)
-                                {
+                                sDate = beautifyDate(new Date(jsonDates[sampleCounter - 1]['endDate']));
+                                if (jsonDates.length > sampleCounter) {
                                     eDate = beautifyDate(new Date(jsonDates[sampleCounter]['startDate']));
                                 } else {
                                     eDate = beautifyDate(new Date((new Date().getFullYear() + 1).toString()));
@@ -630,7 +710,7 @@
                         }
                         console.log('Final date\n', sDate, eDate);
                         $('#progress-date').append('<div booking-start="' + sDate + '" booking-end="' + eDate + '" price="' + price + '"\n' +
-                            'status="'+bookingStatus+'" id = "' + i + '" class="progress-bar bg-info" role="progressbar"\n' +
+                            'status="' + bookingStatus + '" id = "' + i + '" class="progress-bar bg-info" role="progressbar"\n' +
                             'style="width: ' + (finalData[i]['day'] / 365) * 100 + '%;' + 'background-color: ' + setTcolor + '!important' + '" aria-valuenow="18.89" aria-valuemin="0"\n' +
                             'aria-valuemax="100"></div>')
                     }
