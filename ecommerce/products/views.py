@@ -1495,6 +1495,8 @@ def share_app(request, o_id):
 				"lighted": str(banner.banner_lighted),
 				"dimension": str(banner.get_banner_dimensions_display()),
 				'landmark': banner.banner_landmark,
+				"lat": str(banner.banner_lattitude),
+				"lng": str(banner.banner_longitude),
 
 				"url": str(banner.bannerimage.image.url) if banner.bannerimage.image else '',
 				"normal_url": str(banner.bannerimage.normal_image.url) if banner.bannerimage.normal_image else ''

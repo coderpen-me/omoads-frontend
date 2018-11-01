@@ -8,10 +8,12 @@
           integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 </head>
 <body>
 
-<div class="row">
+<div id="parentScr" class="row">
 
     <div class="col-md-12" style="margin:0;padding:0px;border:0px;">
 
@@ -82,8 +84,6 @@
                         <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
                         <button class="btn btn-avail" id="avail">Check Availibilty</button>
                     </div>
-
-
                 </div>
                 <div><!-- app view-->
 
@@ -131,17 +131,18 @@
                             </ul>
                             <br>
                             <div class="kw-popOver">
-                    <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
-                        <span id="status"></span></p>
+                                <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
+                                    <span id="status"></span></p>
+                            </div>
+                            <br>
+                        </div>
                 </div>
-                <br>
-
-
-            </div><!--body-->
+            </div>
         </div>
-
+        
     </div>
-
+</div>
+<div id="fullMap" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
 </body>
 </html>
 
@@ -155,6 +156,8 @@
 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swing/3.0.2/swing.js"></script>
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script>
+
 <script>
     /*
     // https://github.com/gajus/swing
@@ -365,6 +368,7 @@
         $('#vrview-2').hide();
         $('#image-1').hide();
         $('#image-2').hide();
+        $('#fullMap').hide();
 
         var jsonData = "{{banner_details}}";
         jsonData = jsonData.replace(/&#39;/g, '"');
@@ -747,9 +751,83 @@
                 });
             }
         });
+
+        function CenterControl(controlDiv, map) {
+
+            // Set CSS for the control border.
+            var controlUI = document.createElement('div');
+            controlUI.style.backgroundColor = '#fff';
+            controlUI.style.border = '2px solid #fff';
+            controlUI.style.borderRadius = '3px';
+            controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+            controlUI.style.cursor = 'pointer';
+            controlUI.style.marginBottom = '22px';
+            controlUI.style.textAlign = 'center';
+            controlUI.title = 'Click to go back';
+            controlDiv.appendChild(controlUI);
+
+            // Set CSS for the control interior.
+            var controlText = document.createElement('div');
+            controlText.style.color = 'rgb(25,25,25)';
+            controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+            controlText.style.fontSize = '16px';
+            controlText.style.lineHeight = '38px';
+            controlText.style.paddingLeft = '5px';
+            controlText.style.paddingRight = '5px';
+            controlText.innerHTML = 'GO BACK';
+            controlUI.appendChild(controlText);
+
+            // Setup the click event listeners: simply set the map to Chicago.
+            controlUI.addEventListener('click', function() {
+                $('#parentScr').show();
+                $('#fullMap').hide();
+            });
+
+        }
+
+        
+        $('.fa-map-marker-alt').on("click", function(){
+            //hide all divs for content visible
+            $('#parentScr').hide();
+            $('#fullMap').show();
+
+            //initialize the map for the hidden div centered at the marker location
+            var map = new google.maps.Map(document.getElementById('fullMap'), {
+                center: {lat: parseFloat(jsonData[anotherCardsCounter].lat) , lng: parseFloat(jsonData[anotherCardsCounter].lng) },
+                scrollwheel: true,
+                fullscreenControl: false,
+                gestureHandling: "greedy",
+                streetViewControl: false,
+                zoom: 15,
+                mapTypeControl: false
+            });
+
+            //draw marker
+            var marker = new google.maps.Marker({
+                position: {lat: parseFloat(jsonData[anotherCardsCounter].lat) , lng: parseFloat(jsonData[anotherCardsCounter].lng) },
+                icon: "{% static 'resources/images/marker3.png' %}",
+                map: map
+            });
+            var oms = new OverlappingMarkerSpiderfier(map, {
+                markersWontMove: true,
+                markersWontHide: true,
+                keepSpiderfied: true,
+                basicFormatEvents: true
+            });
+            oms.addMarker(marker);
+            
+            // add back button on map
+            var centerControlDiv = document.createElement('div');
+            var centerControl = new CenterControl(centerControlDiv, map);
+            centerControlDiv.index = 1;
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+
+        });
+        
     });
 
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script>
 
 
 
