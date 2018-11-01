@@ -76,3 +76,6 @@ static/media/static
 
 # Elastic Beanstalk Files
 
+
+# Pycharm Settings
+**/idea
