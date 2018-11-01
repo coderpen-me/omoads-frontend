@@ -61,6 +61,9 @@ coverage.xml
 ecommerce/db.sqlite3
 .elasticbeanstalk/app_versions/
 
+# Ignore Pycharm/Webstorm files
+.idea/
+
 # Sphinx documentation
 docs/_build/
 
