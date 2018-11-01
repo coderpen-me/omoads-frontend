@@ -1453,7 +1453,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               } else {
                   $('#vrview').hide();
                   $('#normal-image').show();
-                  $('#normal-image').attr('href', "{{MEDIA_URL}}" + data["normal_url"]);
+                  $('#normal-image').attr('src', "{{MEDIA_URL}}" + data["normal_url"]);
               }
                NProgress.done();
               $('#myModalLabel').text(data["landmark"]);

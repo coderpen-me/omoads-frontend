@@ -420,7 +420,7 @@
                 });
             } else {
                 $('#image-1').show();
-                $('#image-1').attr('href', jsonData[0].normal_url)
+                $('#image-1').attr('src', jsonData[0].normal_url)
             }
             $('#swip-card2').remove();
         }
@@ -442,7 +442,7 @@
                 });
             } else {
                 $('#image-1').show();
-                $('#image-1').attr('href', jsonData[0].normal_url);
+                $('#image-1').attr('src', jsonData[0].normal_url);
             }
 
             if (jsonData[1].url) {
@@ -459,7 +459,7 @@
                 });
             } else {
                 $('#image-2').show();
-                $('#image-2').attr('href', jsonData[1].normal_url);
+                $('#image-2').attr('src', jsonData[1].normal_url);
             }
         }
 
@@ -514,7 +514,7 @@
                     } else {
                         $('#vrview-1').hide();
                         $('#image-1').show();
-                        $('#image-1').attr('href', jsonData[cardsCounter].normal_url)
+                        $('#image-1').attr('src', jsonData[cardsCounter].normal_url)
                     }
                 } else {
                     if (jsonData[cardsCounter].url) {
@@ -543,7 +543,7 @@
                     } else {
                         $('#vrview-2').hide();
                         $('#image-2').show();
-                        $('#image-2').attr('href', jsonData[cardsCounter].normal_url)
+                        $('#image-2').attr('src', jsonData[cardsCounter].normal_url)
                     }
 
                 }
