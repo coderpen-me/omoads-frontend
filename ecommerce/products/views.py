@@ -770,7 +770,8 @@ def onclickMapPoints(request):
 		try:
 			data = {
 			"id" : str(b.id),
-			"url": str(b.bannerimage),
+			"url": str(b.bannerimage.image) if b.bannerimage.image else '',
+			"normal_url": str(b.bannerimage.normal_image) if b.bannerimage.normal_image else '',
 			"type": str(type_choices[str(b.banner_type)]),
 			"lighted": str(light_choices[str(b.banner_lighted)]),
 			"facing" : str(b.banner_facing),
