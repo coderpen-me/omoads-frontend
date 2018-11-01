@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
           integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
@@ -23,7 +24,7 @@
         </div>
         <br><br>
 
-
+        <!-- app view-->
         <div id="app-view">
             <div class="info-bar-small">
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
@@ -58,7 +59,6 @@
                         <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
                         <button class="btn btn-avail" id="avail">Check Availibilty</button>
                     </div>
-
                 </div>
 
                 <div class="swip__card" id='swip-card1'>
@@ -85,26 +85,23 @@
                         <button class="btn btn-avail" id="avail">Check Availibilty</button>
                     </div>
                 </div>
-                <div><!-- app view-->
-
-
-                    <!-- gallary deprecated-->
-                    <div class="gallay-wrapper" style="display:none;">
-                        <button class="btn btn-more">
-                            <i state="up" class="fas fa-chevron-up" id="btn-more-icon"></i>
-                        </button>
-                    </div>
-
-
-                </div>
             </div>
+        </div><!-- app view-->
+        <div class="static-btn">
+            <button class="btn btn-left"><i class="fas fa-chevron-left"></i></button>
+            <button class="btn btn-start"></button>
+            <button class="btn btn-right"><i class="fas fa-chevron-right"></i></button>
+            
+        </div>
+
+    </div>
+</div>
 
             <div class="kw-model" id="share">
 
                 <div class="kw-model-dialog">
 
-                    <p class="btn kw-model-close">x
-                    <p>
+                    <p class="btn kw-model-close">x<p>
 
                         <div class="kw-model-body">
                             <div class="row justify-content-center">
@@ -732,7 +729,7 @@
             var startY = e.pageY || e.originalEvent.touches[0].pageY;
             console.log(startY);
             if (startY > 460) {
-                //if (animating) return;
+                if (animating) return;
                 $card = $(this);
                 $cardReject = $(".swip__card__choice.m--reject", $card);
                 $cardLike = $(".swip__card__choice.m--like", $card);

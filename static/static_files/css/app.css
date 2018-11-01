@@ -372,6 +372,44 @@
   #period12:hover  #pop12{display:block;}
   #period13:hover  #pop13{display:block;}
  
+  .static-btn{
+	 
+    position:fixed;
+    bottom:0;
+    left:0;
+    z-index:1020;
+    background:#efefef;
+    width:100%;
+    height:50px;
+    padding-left:7px;
+}
+.btn-left{
+   border-radius:0px;
+   color:#e95a08;
+   height:inherit;
+   background:#efefef;
+   width:32%;
+   margin:0;
+   
+}
+.btn-start{
+   border-radius:0px;
+   color:#e95a08;
+   height:inherit;
+   width:32%;
+   background:#efefef;
+   margin:0;
+}
+.btn-right{
+   border-radius:0px;
+   color:#e95a08;
+   height:inherit;
+   width:32%;
+   background:#efefef;
+   margin:0;
+}
+
+
 
 
 
