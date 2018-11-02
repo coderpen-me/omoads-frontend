@@ -22,6 +22,8 @@ from django.core import serializers
 from .forms import *
 from .models import *
 
+from dateutil.relativedelta import relativedelta
+
 
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
@@ -740,62 +742,92 @@ def onclickCardStatus(request):
 
 
 def onclickMapPoints(request):
-	if request.is_ajax():
-		b = Banner.objects.get(pk=int(request.POST['id_point']))
-		bookDates = []
-		for detailset in b.bookingdetails_set.filter(active = True):
-			bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate)})
-		try:
-			for item in request.user.cart.cartitem_set.filter(banner = b):
-				bookDates.append({'startDate':str(item.startDate), 'endDate': str(item.endDate)})
-		except:
-			print("no user cart onclick map points dates")
+	try:
+		if request.is_ajax():
+			b = Banner.objects.get(pk=int(request.POST['id_point']))
+			bookDates = list()
+			bookingDetails_set = b.bookingdetails_set.filter(Q(active = True)&Q(endDate__gte = datetime.date.today())&Q(startDate__lte = (datetime.date.today() + relativedelta(years=1)))).order_by("startDate")
+			i = 0
+			total_delta = 0
+			lastDate=datetime.date.today()
+			for detailset in bookingDetails_set:
+				try:
+					if i > 0:
+						lastEndDate = bookingDetails_set[i-1].endDate
+						delta2dates = detailset.startDate - lastEndDate
+						if(delta2dates.days > 0):
+							total_delta+=delta2dates.days
+							bookDates.append({'startDate':str(lastEndDate + relativedelta(days=1)), 'endDate': str(detailset.startDate + relativedelta(days=-1)), 'dayPer365':(delta2dates.days-2)*100/365, 'status':"false"})
+					elif i == 0:
+						if datetime.date.today() < detailset.startDate:
+							deltaLateStart = detailset.startDate - datetime.date.today()
+							total_delta+=deltaLateStart.days
+							bookDates.append({'startDate':str(datetime.date.today()), 'endDate': str(detailset.startDate + relativedelta(days=-1)), 'dayPer365':(deltaLateStart.days)*100/365, 'status':"false"})
+					if i != 0:
+						delta = detailset.endDate - detailset.startDate
+					else:
+						delta = detailset.endDate - datetime.date.today()
+					total_delta+=delta.days
+					bookDates.append({'startDate':str(detailset.startDate), 'endDate': str(detailset.endDate), 'dayPer365':delta.days*100/365, 'status':"true"})
+					i+=1
+					lastDate = detailset.endDate
 
-		is_favourite = False
-		if request.user.is_authenticated():
+				except Exception as e:
+					print(e)
 			try:
-				Favourite.objects.get(banner = b, user = request.user)
+				if total_delta < 365:
+					bookDates.append({'startDate':str(lastDate + relativedelta(days=1)), 'endDate': str(datetime.date.today() + relativedelta(years=1)), 'dayPer365':(365-total_delta)*100/365, 'status':"false"})
+				else:
+					bookDates[-1]["dayPer365"] = bookDates[-1]["dayPer365"] - (total_delta-365)*100/365
 			except Exception as e:
-				is_favourite=False
-			else:
-				is_favourite = True
+				print(e)
 
-		
-		context = {"bookdates":bookDates}
-		try:
-			contact_number = b.agency.user.extendeduser.phone_number
+			is_favourite = False
+			if request.user.is_authenticated():
+				try:
+					Favourite.objects.get(banner = b, user = request.user)
+				except Exception as e:
+					is_favourite=False
+				else:
+					is_favourite = True
+
+			context = {"bookdates":bookDates}
+			try:
+				contact_number = b.agency.user.extendeduser.phone_number
+			except Exception as e:
+				contact_number = "NONE"
+			try:
+				data = {
+				"id" : str(b.id),
+				"url": str(b.bannerimage.image) if b.bannerimage.image else '',
+				"normal_url": str(b.bannerimage.normal_image) if b.bannerimage.normal_image else '',
+				"type": str(type_choices[str(b.banner_type)]),
+				"lighted": str(light_choices[str(b.banner_lighted)]),
+				"facing" : str(b.banner_facing),
+				"landmark" : str(b.banner_landmark),
+				"zone" : str(b.zone),
+				"lat" : str(b.banner_lattitude),
+				"long" : str(b.banner_longitude),
+				"dim" : str(dimension_choices[str(b.banner_dimensions)]),
+				"bookDates":bookDates,
+				"agency_name":b.agency.agency_name,
+				"agency_address":b.agency.agency_address,
+				"agency_email":b.agency.user.email,
+				"agency_phone":contact_number,
+				"current_price":b.get_current_price(),
+				"is_favourite": is_favourite,
+				}
+			except Exception as e:
+				print(e)
+			# print(data)
 			
-		except Exception as e:
-			contact_number = "NONE"
-		try:
-			data = {
-			"id" : str(b.id),
-			"url": str(b.bannerimage),
-			"type": str(type_choices[str(b.banner_type)]),
-			"lighted": str(light_choices[str(b.banner_lighted)]),
-			"facing" : str(b.banner_facing),
-			"landmark" : str(b.banner_landmark),
-			"zone" : str(b.zone),
-			"lat" : str(b.banner_lattitude),
-			"long" : str(b.banner_longitude),
-			"dim" : str(dimension_choices[str(b.banner_dimensions)]),
-			"bookDates":bookDates,
-			"agency_name":b.agency.agency_name,
-			"agency_address":b.agency.agency_address,
-			"agency_email":b.agency.user.email,
-			"agency_phone":contact_number,
-			"current_price":b.get_current_price(),
-			"is_favourite": is_favourite,
-			}
-		except Exception as e:
-			print(e)
-		# print(data)
-		
-		json_data = json.dumps(data)
-		
-		return HttpResponse(json_data, content_type='application/json')
-	else:
-		raise Http404
+			json_data = json.dumps(data)
+			
+			return HttpResponse(json_data, content_type='application/json')
+		else:
+			raise Http404
+	except Exception as e:
+		print(e)
 
 def AjaxBannerPrice(request):
 	if request.is_ajax():
@@ -1495,6 +1527,8 @@ def share_app(request, o_id):
 				"lighted": str(banner.banner_lighted),
 				"dimension": str(banner.get_banner_dimensions_display()),
 				'landmark': banner.banner_landmark,
+				"lat": str(banner.banner_lattitude),
+				"lng": str(banner.banner_longitude),
 
 				"url": str(banner.bannerimage.image.url) if banner.bannerimage.image else '',
 				"normal_url": str(banner.bannerimage.normal_image.url) if banner.bannerimage.normal_image else ''

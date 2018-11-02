@@ -2,27 +2,37 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128295937-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-128295937-1');
+	</script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
           integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
           integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 </head>
 <body>
 
-<div class="row">
+<div id="parentScr" class="row">
 
     <div class="col-md-12" style="margin:0;padding:0px;border:0px;">
 
-        <div class="paper nav-fixed">
+        <div class="paper nav-fixed" style="overflow-x: hidden;">
             OmoAds
             <button class="btn btn-share" id="share-button"><i class="fas fa-share-alt"></i></button>
         </div>
         <br><br>
 
-        <!-- app view-->
+
         <div id="app-view">
             <div class="info-bar-small">
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
@@ -33,9 +43,9 @@
                 <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;" class="fas fa-chevron-left"></i>
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-chevron-right"></i>
             </div>
-            <div class="vr-container">
+            <div class="vr-container" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
 
-                <div class="swip__card" id='swip-card2'>
+                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; " >
                     <div class="vr" id='vrview-2' active-view-id="0"></div>
                     <img id="image-2"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
@@ -57,14 +67,15 @@
                         <a href="#"><i class="fas fa-map-marker-alt fa fa-2x"></i></a>
                         <button class="btn btn-avail" id="avail">Check Availibilty</button>
                     </div>
+
                 </div>
 
-                <div class="swip__card" id='swip-card1'>
+                <div class="swip__card" id='swip-card1' style="border: 2px; border-radius:10px; ">
                     <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;" style="display: none;">
                     </div>
                     <img id="image-1"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
-                         src="https://omodep.s3.amazonaws.com/static/boardimages/5.jpg">
+                         src="">
                     <div class="info-block" state="open">
                         <h5><span id="landmark-1"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
@@ -83,6 +94,7 @@
                         <button class="btn btn-avail" id="avail">Check Availibilty</button>
                     </div>
                 </div>
+<<<<<<< HEAD
             </div>
         </div><!-- app view-->
         <div class="static-btn">
@@ -91,15 +103,28 @@
             <button class="btn btn-right"><i class="fas fa-chevron-right"></i></button>
             
         </div>
+=======
+                <div><!-- app view-->
+>>>>>>> 4c4c655b2594e9722362a68ad83e3d17d77d66e0
 
-    </div>
-</div>
+
+                    <!-- gallary deprecated-->
+                    <div class="gallay-wrapper" style="display:none;">
+                        <button class="btn btn-more">
+                            <i state="up" class="fas fa-chevron-up" id="btn-more-icon"></i>
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
 
             <div class="kw-model" id="share">
 
                 <div class="kw-model-dialog">
 
-                    <p class="btn kw-model-close">x<p>
+                    <p class="btn kw-model-close">x
+                    <p>
 
                         <div class="kw-model-body">
                             <div class="row justify-content-center">
@@ -126,17 +151,18 @@
                             </ul>
                             <br>
                             <div class="kw-popOver">
-                    <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
-                        <span id="status"></span></p>
+                                <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
+                                    <span id="status"></span></p>
+                            </div>
+                            <br>
+                        </div>
                 </div>
-                <br>
-
-
-            </div><!--body-->
+            </div>
         </div>
-
+        
     </div>
-
+</div>
+<div id="fullMap" style="width: 100%; height: 100%; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
 </body>
 </html>
 
@@ -150,6 +176,8 @@
 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swing/3.0.2/swing.js"></script>
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script>
+
 <script>
     /*
     // https://github.com/gajus/swing
@@ -360,6 +388,7 @@
         $('#vrview-2').hide();
         $('#image-1').hide();
         $('#image-2').hide();
+        $('#fullMap').hide();
 
         var jsonData = "{{banner_details}}";
         jsonData = jsonData.replace(/&#39;/g, '"');
@@ -411,7 +440,7 @@
                 });
             } else {
                 $('#image-1').show();
-                $('#image-1').attr('href', jsonData[0].normal_url)
+                $('#image-1').attr('src', jsonData[0].normal_url)
             }
             $('#swip-card2').remove();
         }
@@ -433,7 +462,7 @@
                 });
             } else {
                 $('#image-1').show();
-                $('#image-1').attr('href', jsonData[0].normal_url);
+                $('#image-1').attr('src', jsonData[0].normal_url);
             }
 
             if (jsonData[1].url) {
@@ -450,7 +479,7 @@
                 });
             } else {
                 $('#image-2').show();
-                $('#image-2').attr('href', jsonData[1].normal_url);
+                $('#image-2').attr('src', jsonData[1].normal_url);
             }
         }
 
@@ -505,7 +534,7 @@
                     } else {
                         $('#vrview-1').hide();
                         $('#image-1').show();
-                        $('#image-1').attr('href', jsonData[cardsCounter].normal_url)
+                        $('#image-1').attr('src', jsonData[cardsCounter].normal_url)
                     }
                 } else {
                     if (jsonData[cardsCounter].url) {
@@ -534,7 +563,7 @@
                     } else {
                         $('#vrview-2').hide();
                         $('#image-2').show();
-                        $('#image-2').attr('href', jsonData[cardsCounter].normal_url)
+                        $('#image-2').attr('src', jsonData[cardsCounter].normal_url)
                     }
 
                 }
@@ -755,7 +784,7 @@
             var startY = e.pageY || e.originalEvent.touches[0].pageY;
             console.log(startY);
             if (startY > 460) {
-                if (animating) return;
+                //if (animating) return;
                 $card = $(this);
                 $cardReject = $(".swip__card__choice.m--reject", $card);
                 $cardLike = $(".swip__card__choice.m--like", $card);
@@ -774,9 +803,83 @@
                 });
             }
         });
+
+        function CenterControl(controlDiv, map) {
+
+            // Set CSS for the control border.
+            var controlUI = document.createElement('div');
+            controlUI.style.backgroundColor = '#fff';
+            controlUI.style.border = '2px solid #fff';
+            controlUI.style.borderRadius = '3px';
+            controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+            controlUI.style.cursor = 'pointer';
+            controlUI.style.marginBottom = '22px';
+            controlUI.style.textAlign = 'center';
+            controlUI.title = 'Click to go back';
+            controlDiv.appendChild(controlUI);
+
+            // Set CSS for the control interior.
+            var controlText = document.createElement('div');
+            controlText.style.color = 'rgb(25,25,25)';
+            controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+            controlText.style.fontSize = '16px';
+            controlText.style.lineHeight = '38px';
+            controlText.style.paddingLeft = '5px';
+            controlText.style.paddingRight = '5px';
+            controlText.innerHTML = 'GO BACK';
+            controlUI.appendChild(controlText);
+
+            // Setup the click event listeners: simply set the map to Chicago.
+            controlUI.addEventListener('click', function() {
+                $('#parentScr').show();
+                $('#fullMap').hide();
+            });
+
+        }
+
+        
+        $('.fa-map-marker-alt').on("click", function(){
+            //hide all divs for content visible
+            $('#parentScr').hide();
+            $('#fullMap').show();
+
+            //initialize the map for the hidden div centered at the marker location
+            var map = new google.maps.Map(document.getElementById('fullMap'), {
+                center: {lat: parseFloat(jsonData[anotherCardsCounter].lat) , lng: parseFloat(jsonData[anotherCardsCounter].lng) },
+                scrollwheel: true,
+                fullscreenControl: false,
+                gestureHandling: "greedy",
+                streetViewControl: false,
+                zoom: 15,
+                mapTypeControl: false
+            });
+
+            //draw marker
+            var marker = new google.maps.Marker({
+                position: {lat: parseFloat(jsonData[anotherCardsCounter].lat) , lng: parseFloat(jsonData[anotherCardsCounter].lng) },
+                icon: "{% static 'resources/images/marker3.png' %}",
+                map: map
+            });
+            var oms = new OverlappingMarkerSpiderfier(map, {
+                markersWontMove: true,
+                markersWontHide: true,
+                keepSpiderfied: true,
+                basicFormatEvents: true
+            });
+            oms.addMarker(marker);
+            
+            // add back button on map
+            var centerControlDiv = document.createElement('div');
+            var centerControl = new CenterControl(centerControlDiv, map);
+            centerControlDiv.index = 1;
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+
+        });
+        
     });
 
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script>
 
 
 
