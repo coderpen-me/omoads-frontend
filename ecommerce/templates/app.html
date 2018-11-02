@@ -1,16 +1,7 @@
 {% load staticfiles %}
-<html>
+<html style="overflow-x: hidden; overflow-y: hidden">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128295937-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-128295937-1');
-	</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
           integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
@@ -20,11 +11,11 @@
     <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 </head>
-<body>
+<body style="overflow-x: hidden; overflow-y:hidden;">
 
 <div id="parentScr" class="row">
 
-    <div class="col-md-12" style="margin:0;padding:0px;border:0px;">
+    <div class="col-md-12 col-sm-12 col-xs-12" >
 
         <div class="paper nav-fixed" style="overflow-x: hidden;">
             OmoAds
@@ -34,8 +25,8 @@
 
 
         <div id="app-view">
-            <div class="info-bar-small">
-                <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
+            <div class="info-bar-small" style="margin-right:auto; width:100vh;">
+                <i style="float:left;margin-left:1em;margin-top:5px; " class="fas fa-times"></i>
                 <p style="float:left;margin-left:1em;">{{agency_name}}</p>
                 <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
                 <br>
@@ -43,14 +34,14 @@
                 <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;" class="fas fa-chevron-left"></i>
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-chevron-right"></i>
             </div>
-            <div class="vr-container" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
+            <div class="vr-container justify-content-center" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
 
-                <div class="swip__card" id='swip-card1' card-no="1" style="border: 2px; border-radius:10px; " >
+                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; height: 60vh;" >
                     <div class="vr" id='vrview-2' active-view-id="0"></div>
                     <img id="image-2"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
                          src="">
-                    <div class="info-block" state="open">
+                    <div class="info-block" state="open" style="border: 2px; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
                         <h5><span id="landmark-2"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-2"></span>
@@ -70,13 +61,13 @@
 
                 </div>
 
-                <div class="swip__card" id='swip-card0' card-no="0" style="border: 2px; border-radius:10px; ">
+                <div class="swip__card" id='swip-card1' style="border: 2px; border-radius:10px; height: 60vh;">
                     <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;" style="display: none;">
                     </div>
                     <img id="image-1"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
                          src="">
-                    <div class="info-block" state="open">
+                    <div class="info-block" state="open" style="border: 2px; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
                         <h5><span id="landmark-1"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-1"></span>
@@ -168,8 +159,55 @@
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script>
 
 <script>
-    
+    /*
+    // https://github.com/gajus/swing
+    var myElement = document.getElementById('swip-card');
+
+    // create a simple instance
+    // by default, it only adds horizontal recognizers
+    var mc = new Hammer(myElement);
+
+    // listen to events...
+    //panleft panright tap press
+    mc.on("panleft panright tap press swip", function(ev) {
+        //var direction = e.gesture.direction;
+
+        //myElement.textContent = ev.type;
+
+        if(ev.type == 'tap'){
+            $("#swip-card").css("background","#ff0000");
+            $("#swip-card").addClass("animated bounce");
+            $('.info-block').toggle();
+
+        }
+        if(ev.type == 'panleft'){
+            $("#swip-card").css("background","#00ff00");
+            $("#swip-card").addClass("to-left");
+            //$('.info-block').hide();
+        }
+        if(ev.type == 'panright'){
+            $("#swip-card").css("background","#0000ff");
+            $("#swip-card").addClass("to-right");
+            //$('.info-block').hide();
+        }
+
+    });
+    */
+    //window.addEventListener('load', onVrViewLoad);
+
     var url = "https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg";
+
+
+    // Selector '#vrview' finds element with id 'vrview'.
+    // var vrView = new VRView.Player('#vrview1', {
+    //   image: url,
+    //   preview: 'https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg',
+    //   is_debug: false,
+    //   width: '100%',
+    //   height: '350',
+    //   //is_stereo: true
+    //   is_vr_off: false
+    // });
 
     function loadScene(id) {
         console.log('loadScene', id);
@@ -183,6 +221,7 @@
         });
     }
 
+    //onVrViewLoad(url);
 
     var data = `{
 	"view_data":[
@@ -306,7 +345,22 @@
     $(".kw-model").on("click", function () {
         //$("#share").hide(100);
     });
-    
+    // $(".progress-bar").hover(function () {
+    //
+    //     var s_date = $(this).attr("booking-date");
+    //     var e_date = $(this).attr("booking-date");
+    //     var price = $(this).attr("price");
+    //     var status = $(this).attr("status");
+    //     $(".kw-popOver").show(100);
+    //     $("#s-date").html(s_date);
+    //     $("#e-date").html(e_date);
+    //     $("#price").html(price);
+    //     if (status == 'true')
+    //         $("#status").html("Booked");
+    //     else
+    //         $("#status").html("Not Booked");
+    //
+    // });
     // 5678-910711557
 
     $(document).ready(function () {
@@ -424,8 +478,8 @@
             } else if (anotherCardsCounter + 2 === jsonData.length) {
                 $('#swip-card' + currentId).remove();
             } else {
-                $('#swip-card0').remove();
                 $('#swip-card1').remove();
+                $('#swip-card2').remove();
             }
         }
 
@@ -531,23 +585,15 @@
                 setTimeout(function () {
                     $card.addClass("below").removeClass("inactive to-left to-right");
                     loadNextData();
-                    
-                    $("#swip-card"+cardsCounter).removeClass("top");
-                    cardsCounter++;
-                    $("#swip-card"+cardsCounter).addClass("top");
-                    if (cardsCounter === numOfCards) {
-                        cardsCounter = 0;
-                        $(".swip__card").removeClass("below");
-                    }
                     anotherCardsCounter++;
                     if (anotherCardsCounter % 2 === 0) {
                         console.log('Putting Card 2 below');
-                        $("#swip-card0").removeClass("below");
-                        $("#swip-card1").addClass("below");
+                        $("#swip-card1").removeClass("below");
+                        $("#swip-card2").addClass("below");
                     } else {
                         console.log('Putting Card 1 below');
-                        $("#swip-card1").removeClass("below");
-                        $("#swip-card0").addClass("below");
+                        $("#swip-card2").removeClass("below");
+                        $("#swip-card1").addClass("below");
                     }
                 }, 300);
             }
@@ -681,48 +727,7 @@
             getCardStatus();
         });
 
-        $(".btn-left").on("click",function(){
-				
-                var cd = $(".top");
-                var cd_no= parseFloat(cd.attr("card-no"));
-                console.log(numOfCards ,cd_no);
-                if(numOfCards > cd_no){
-                    
-                    cd.addClass("below");
-                    $("#swip-card"+cd_no).removeClass("top");
-                    $("#swip-card"+(parseFloat(cd_no)+1)).addClass("top");
-                }
-                else{
-                    cd.addClass("below");
-                    $("#swip-card"+cd_no).removeClass("top");
-                    $("#swip-card0").addClass("top");
-                    $(".swip__card:not(.inactive)").removeClass("below");
-                }
-            
-        
-        });
-        $(".btn-right").on("click",function(){
-            
-            var cd = $(".top");
-            var cd_no= parseFloat(cd.attr("card-no"));
-            console.log(numOfCards ,cd_no);
-            if(numOfCards > cd_no && cd_no > -1){
-                
-                //cd.addClass("below");
-                $("#swip-card"+cd_no).removeClass("top");
-                $("#swip-card"+(parseFloat(cd_no)-1)).addClass("top");
-                $("#swip-card"+(parseFloat(cd_no)-1)).removeClass("below");
-            }
-            else{
-                //cd.addClass("below");
-                $("#swip-card"+cd_no).removeClass("top");
-                $(".swip__card:not(.inactive)").addClass("below");
-                $("#swip-card"+(numOfCards-1)).addClass("top");
-                $("#swip-card"+(numOfCards-1)).removeClass("below");
-                
-            }
-        
-        });
+
         $(document).on("mousedown touchstart", ".swip__card:not(.inactive)", function (e) {
             var startY = e.pageY || e.originalEvent.touches[0].pageY;
             console.log(startY);
