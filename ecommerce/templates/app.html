@@ -45,7 +45,7 @@
             </div>
             <div class="vr-container" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
 
-                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; " >
+                <div class="swip__card" id='swip-card1' card-no="1" style="border: 2px; border-radius:10px; " >
                     <div class="vr" id='vrview-2' active-view-id="0"></div>
                     <img id="image-2"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
@@ -70,7 +70,7 @@
 
                 </div>
 
-                <div class="swip__card" id='swip-card1' style="border: 2px; border-radius:10px; ">
+                <div class="swip__card" id='swip-card0' card-no="0" style="border: 2px; border-radius:10px; ">
                     <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;" style="display: none;">
                     </div>
                     <img id="image-1"
@@ -94,18 +94,7 @@
                         <button class="btn btn-avail" id="avail">Check Availibilty</button>
                     </div>
                 </div>
-<<<<<<< HEAD
-            </div>
-        </div><!-- app view-->
-        <div class="static-btn">
-            <button class="btn btn-left"><i class="fas fa-chevron-left"></i></button>
-            <button class="btn btn-start"><i class="fas fa-home"></i></button>
-            <button class="btn btn-right"><i class="fas fa-chevron-right"></i></button>
-            
-        </div>
-=======
                 <div><!-- app view-->
->>>>>>> 4c4c655b2594e9722362a68ad83e3d17d77d66e0
 
 
                     <!-- gallary deprecated-->
@@ -179,55 +168,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script>
 
 <script>
-    /*
-    // https://github.com/gajus/swing
-    var myElement = document.getElementById('swip-card');
-
-    // create a simple instance
-    // by default, it only adds horizontal recognizers
-    var mc = new Hammer(myElement);
-
-    // listen to events...
-    //panleft panright tap press
-    mc.on("panleft panright tap press swip", function(ev) {
-        //var direction = e.gesture.direction;
-
-        //myElement.textContent = ev.type;
-
-        if(ev.type == 'tap'){
-            $("#swip-card").css("background","#ff0000");
-            $("#swip-card").addClass("animated bounce");
-            $('.info-block').toggle();
-
-        }
-        if(ev.type == 'panleft'){
-            $("#swip-card").css("background","#00ff00");
-            $("#swip-card").addClass("to-left");
-            //$('.info-block').hide();
-        }
-        if(ev.type == 'panright'){
-            $("#swip-card").css("background","#0000ff");
-            $("#swip-card").addClass("to-right");
-            //$('.info-block').hide();
-        }
-
-    });
-    */
-    //window.addEventListener('load', onVrViewLoad);
-
+    
     var url = "https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg";
-
-
-    // Selector '#vrview' finds element with id 'vrview'.
-    // var vrView = new VRView.Player('#vrview1', {
-    //   image: url,
-    //   preview: 'https://cdn1.360cities.net/pano/senord/01458239_key_biscayne.jpg/equirect_crop_3_1/6.jpg',
-    //   is_debug: false,
-    //   width: '100%',
-    //   height: '350',
-    //   //is_stereo: true
-    //   is_vr_off: false
-    // });
 
     function loadScene(id) {
         console.log('loadScene', id);
@@ -241,7 +183,6 @@
         });
     }
 
-    //onVrViewLoad(url);
 
     var data = `{
 	"view_data":[
@@ -365,22 +306,7 @@
     $(".kw-model").on("click", function () {
         //$("#share").hide(100);
     });
-    // $(".progress-bar").hover(function () {
-    //
-    //     var s_date = $(this).attr("booking-date");
-    //     var e_date = $(this).attr("booking-date");
-    //     var price = $(this).attr("price");
-    //     var status = $(this).attr("status");
-    //     $(".kw-popOver").show(100);
-    //     $("#s-date").html(s_date);
-    //     $("#e-date").html(e_date);
-    //     $("#price").html(price);
-    //     if (status == 'true')
-    //         $("#status").html("Booked");
-    //     else
-    //         $("#status").html("Not Booked");
-    //
-    // });
+    
     // 5678-910711557
 
     $(document).ready(function () {
@@ -498,8 +424,8 @@
             } else if (anotherCardsCounter + 2 === jsonData.length) {
                 $('#swip-card' + currentId).remove();
             } else {
+                $('#swip-card0').remove();
                 $('#swip-card1').remove();
-                $('#swip-card2').remove();
             }
         }
 
@@ -605,15 +531,23 @@
                 setTimeout(function () {
                     $card.addClass("below").removeClass("inactive to-left to-right");
                     loadNextData();
+                    
+                    $("#swip-card"+cardsCounter).removeClass("top");
+                    cardsCounter++;
+                    $("#swip-card"+cardsCounter).addClass("top");
+                    if (cardsCounter === numOfCards) {
+                        cardsCounter = 0;
+                        $(".swip__card").removeClass("below");
+                    }
                     anotherCardsCounter++;
                     if (anotherCardsCounter % 2 === 0) {
                         console.log('Putting Card 2 below');
-                        $("#swip-card1").removeClass("below");
-                        $("#swip-card2").addClass("below");
+                        $("#swip-card0").removeClass("below");
+                        $("#swip-card1").addClass("below");
                     } else {
                         console.log('Putting Card 1 below');
-                        $("#swip-card2").removeClass("below");
-                        $("#swip-card1").addClass("below");
+                        $("#swip-card1").removeClass("below");
+                        $("#swip-card0").addClass("below");
                     }
                 }, 300);
             }
@@ -748,36 +682,45 @@
         });
 
         $(".btn-left").on("click",function(){
-            pullDeltaX = -200;
-            animating = true;
-            deg = pullDeltaX / 10;
-            $card = $(".swip__card:not(.inactive)");
-            $cardReject = $(".swip__card__choice.m--reject", $card);
-            $cardLike = $(".swip__card__choice.m--like", $card);
-            
-            $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
-            var opacity = pullDeltaX / 100;
-            var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
-            var likeOpacity = (opacity <= 0) ? 0 : opacity;
-            
-            release();
+				
+                var cd = $(".top");
+                var cd_no= parseFloat(cd.attr("card-no"));
+                console.log(numOfCards ,cd_no);
+                if(numOfCards > cd_no){
+                    
+                    cd.addClass("below");
+                    $("#swip-card"+cd_no).removeClass("top");
+                    $("#swip-card"+(parseFloat(cd_no)+1)).addClass("top");
+                }
+                else{
+                    cd.addClass("below");
+                    $("#swip-card"+cd_no).removeClass("top");
+                    $("#swip-card0").addClass("top");
+                    $(".swip__card:not(.inactive)").removeClass("below");
+                }
             
         
         });
         $(".btn-right").on("click",function(){
-            pullDeltaX = 200;
-            animating = true;
-            deg = pullDeltaX / 10;
-            $card = $(".swip__card:not(.inactive)");
-            $cardReject = $(".swip__card__choice.m--reject", $card);
-            $cardLike = $(".swip__card__choice.m--like", $card);
             
-            $card.css("transform", "translateX("+ pullDeltaX +"px) rotate("+ deg +"deg)");
-            var opacity = pullDeltaX / 100;
-            var rejectOpacity = (opacity >= 0) ? 0 : Math.abs(opacity);
-            var likeOpacity = (opacity <= 0) ? 0 : opacity;
-            
-            release();
+            var cd = $(".top");
+            var cd_no= parseFloat(cd.attr("card-no"));
+            console.log(numOfCards ,cd_no);
+            if(numOfCards > cd_no && cd_no > -1){
+                
+                //cd.addClass("below");
+                $("#swip-card"+cd_no).removeClass("top");
+                $("#swip-card"+(parseFloat(cd_no)-1)).addClass("top");
+                $("#swip-card"+(parseFloat(cd_no)-1)).removeClass("below");
+            }
+            else{
+                //cd.addClass("below");
+                $("#swip-card"+cd_no).removeClass("top");
+                $(".swip__card:not(.inactive)").addClass("below");
+                $("#swip-card"+(numOfCards-1)).addClass("top");
+                $("#swip-card"+(numOfCards-1)).removeClass("below");
+                
+            }
         
         });
         $(document).on("mousedown touchstart", ".swip__card:not(.inactive)", function (e) {
