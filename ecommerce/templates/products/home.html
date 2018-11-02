@@ -1,8 +1,8 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x: hidden;" >
 <head>
-  
+
 
   <title>OmoAds</title>
   <meta charset="utf-8">
@@ -62,6 +62,7 @@
 
     ga('create', 'UA-105587377-1', 'auto');
     ga('send', 'pageview');
+
 
   </script>
 
@@ -180,6 +181,7 @@
     max-width: 500px !important;
 
   }
+
   #availModal .modal-dialog{
     position: absolute;
     top: 0;
@@ -192,8 +194,8 @@
   }
   #filter-sec{
     display:none;
-
   }
+
   .col-collapse{
     display:none !important;
   }
@@ -549,7 +551,7 @@
 
 </style>
 
-<body>
+<body style="overflow-x: hidden;">
 <script type="text/javascript">
   Pace.start()
 
@@ -1023,6 +1025,9 @@ $('.col-control').on('click', function(ev){
                 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
 
                 <div id='vrview'></div>
+                                    <img id="normal-image"
+                         style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
+                         src="">
                 <script>
 
 
@@ -1574,12 +1579,17 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
 
            },
             success: function(data){
+                $('#vrview').hide();
+                $('#normal-image').hide();
 
               $('#panelID').text(data["id"]);
-              if(!set_vr)
-              {
-                set_vr=true
-                vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
+              if (data["url"]) {
+                  $('#vrview').show();
+                  $('#normal-image').hide();
+                  if(!set_vr)
+                  {
+                      set_vr=true;
+                      vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
 
               }
               else
@@ -1590,7 +1600,11 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                     viewDiv.removeChild(viewDiv.firstChild);
                   }
                   vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
-
+                  }
+              } else {
+                  $('#vrview').hide();
+                  $('#normal-image').show();
+                  $('#normal-image').attr('src', "{{MEDIA_URL}}" + data["normal_url"]);
               }
                NProgress.done();
               $('#myModalLabel').text(data["landmark"]);
@@ -1914,7 +1928,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
     });
 
      /*
-      OwnerDetails is a JS object of the form:       
+      OwnerDetails is a JS object of the form:
           {
             "o_name": String,
             "o_contact": String,
@@ -1938,7 +1952,7 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
         child.style.width = `calc(${percent}% - 3px)`
         parent.appendChild(child)
       }
-      
+
     }
 
      minClusterZoom = 17;
@@ -2011,18 +2025,18 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
             }
 
 
-            
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script>
 
 <script type="text/javascript">
-  // $('document').ready(initMap());  
+  // $('document').ready(initMap());
 </script>
 
 <script type="text/javascript">
 
   function checkEmail(ele)
-{ 
+{
   var sub = document.getElementById("sub");
   var msg = document.getElementById("msg");
   var pass  =document.getElementById("id_password1")
@@ -2041,12 +2055,12 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
     msg.innerHTML = "INVALID EMAIL ID";
     msg.style.color = "red";
     sub.disabled = true;
-    
+
 
   }
 }
 function checkUserName(ele)
-{ 
+{
   var sub = document.getElementById("sub");
   var msg = document.getElementById("msg2");
   var email = document.getElementById("id_email")
@@ -2069,7 +2083,7 @@ function checkUserName(ele)
 }
 
 function password(ele)
-{ 
+{
   var sub = document.getElementById("sub");
   var msg = document.getElementById("passmsg");
  var username = document.getElementById("id_username")
@@ -2095,7 +2109,7 @@ function password(ele)
 
 
 function checkUserNameLogin(ele)
-{ 
+{
   var sub = document.getElementById("subLogin");
   var msg = document.getElementById("msg3");
 
@@ -2117,28 +2131,28 @@ function checkUserNameLogin(ele)
 
 
 
-function validateEmail(elementValue){        
-   var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
-   return emailPattern.test(elementValue);   
- }   
+function validateEmail(elementValue){
+   var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+   return emailPattern.test(elementValue);
+ }
 function validateUserName(elementValue){
-   
-     var UserNamePattern = /^[a-zA-Z0-9._-]{3,15}$/;  
-     return UserNamePattern.test(elementValue); 
-     
+
+     var UserNamePattern = /^[a-zA-Z0-9._-]{3,15}$/;
+     return UserNamePattern.test(elementValue);
+
  }
  function validatePassword(elementValue){
-   
-     var passPattern = /^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9]{6,25}$/;  
-     return passPattern.test(elementValue); 
-     
+
+     var passPattern = /^(?=.*[0-9])(?=.*[A-Z])[a-zA-Z0-9]{6,25}$/;
+     return passPattern.test(elementValue);
+
  }
  var sub = document.getElementById("sub");
   var msg = document.getElementById("msg");
   sub.disabled = true;
   sub = document.getElementById("subLogin");
  sub.disabled = true;
-  
+
 
 </script>
 <script type="text/javascript">
@@ -2155,7 +2169,7 @@ Pace.on("done", function(){
             bounds.extend(markers_for_bounds[i].getPosition());
           }
           map.fitBounds(bounds);
-      }); 
+      });
 })
 </script>
 <script type="text/javascript">

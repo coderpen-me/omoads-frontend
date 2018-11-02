@@ -9,9 +9,19 @@
         margin: 10px !important;
         
     }
-    
+
+     body{
+         overflow-x: hidden;
+     }
 }
 
+ @media (min-width: 600px) {
+     /* For Desktop */
+    .swip__card{
+        left:-2%;
+    }
+     
+ }
 
 
 
@@ -20,11 +30,15 @@
     padding: 0px;
     box-sizing: border-box;
 }
-.body{
+
+
+body,html {
+    height: 100%;
+    width:100%;
     border: 0;
-    overflow-x:hidden;
     margin: 0px;
     padding: 0px;
+
     max-width:457px;
 }
 .paper{
@@ -92,12 +106,14 @@
     
 }
 .vr-container{
-    width:100%;
+    width:100vw;
+    height: 100vh;
     /*max-height: 420px;*/
     min-height: 570px;
     position: absolute;
     top:100px;
-    background-color:#333;
+
+    /*background-color:#333;*/
     padding:10px;
     box-sizing: border-box;
     justify-content: center;
@@ -200,7 +216,7 @@
     top: 0;
     width: 90%;
     height: 90%;
-    margin-left:calc(100% - 93%);
+    margin-left:calc(100% - 95%);
     margin-top:1em;
     background: #fff;
     box-shadow: 0px 1px 3px rgb(53, 53, 53),
@@ -372,6 +388,44 @@
   #period12:hover  #pop12{display:block;}
   #period13:hover  #pop13{display:block;}
  
+  .static-btn{
+	 
+    position:fixed;
+    bottom:0;
+    left:0;
+    z-index:1020;
+    background:#efefef;
+    width:100%;
+    height:50px;
+    padding-left:7px;
+}
+.btn-left{
+   border-radius:0px;
+   color:#e95a08;
+   height:inherit;
+   background:#efefef;
+   width:32%;
+   margin:0;
+   
+}
+.btn-start{
+   border-radius:0px;
+   color:#e95a08;
+   height:inherit;
+   width:32%;
+   background:#efefef;
+   margin:0;
+}
+.btn-right{
+   border-radius:0px;
+   color:#e95a08;
+   height:inherit;
+   width:32%;
+   background:#efefef;
+   margin:0;
+}
+
+
 
 
 

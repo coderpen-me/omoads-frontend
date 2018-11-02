@@ -791,17 +791,16 @@ def onclickMapPoints(request):
 				else:
 					is_favourite = True
 
-			
 			context = {"bookdates":bookDates}
 			try:
 				contact_number = b.agency.user.extendeduser.phone_number
-				
 			except Exception as e:
 				contact_number = "NONE"
 			try:
 				data = {
 				"id" : str(b.id),
-				"url": str(b.bannerimage),
+				"url": str(b.bannerimage.image) if b.bannerimage.image else '',
+				"normal_url": str(b.bannerimage.normal_image) if b.bannerimage.normal_image else '',
 				"type": str(type_choices[str(b.banner_type)]),
 				"lighted": str(light_choices[str(b.banner_lighted)]),
 				"facing" : str(b.banner_facing),
@@ -1515,10 +1514,9 @@ def share_app(request, o_id):
 			userType = "Agency"
 		except Agency.DoesNotExist:
 			userType = "Buyer"
-	try:	
+	try:
 		banners = Banner.objects.filter(agency__id = int(o_id))
 		banner_details = list()
-		
 		for banner in banners:
 			banner_details.append({
 				"id" : str(banner.id),
@@ -1528,10 +1526,17 @@ def share_app(request, o_id):
 				"type": str(banner.banner_type),
 				"lighted": str(banner.banner_lighted),
 				"dimension": str(banner.get_banner_dimensions_display()),
+				'landmark': banner.banner_landmark,
+				"lat": str(banner.banner_lattitude),
+				"lng": str(banner.banner_longitude),
 
-				"url": str(banner.bannerimage.image.url),
+				"url": str(banner.bannerimage.image.url) if banner.bannerimage.image else '',
+				"normal_url": str(banner.bannerimage.normal_image.url) if banner.bannerimage.normal_image else ''
 			})
-		context = {'banner_details':banner_details}
+		print(banner_details)
+		context = {'banner_details':banner_details,
+				   'agency_name': banner.agency.agency_name or '',
+				   }
 		return render(request, template, context)
 	except Exception as e:
 		print(e)
