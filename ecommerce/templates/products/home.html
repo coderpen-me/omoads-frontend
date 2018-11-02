@@ -73,10 +73,101 @@
   <link rel="stylesheet" href="{% static 'css/landingPage.css' %}">
   <script src="{% static 'js/nprogress.js' %}"></script>
   <script data-pace-options='{ "ajax": false }' src="{% static 'js/pace.js' %}"></script>
+  <script>
+  gtag('event', 'conversion', {'send_to': 'AW-783441254/5zKnCMPzkYwBEOa6yfUC'});
+</script>
 
 </head>
 
 <style type="text/css">
+
+/*
+  * model
+  */
+  .kw-model{
+    z-index: 1002;
+    position:fixed;
+    left: 0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.274);
+    display:none;   
+}
+.kw-model-dialog{
+    z-index: 1003;
+    width:40%;
+    background: #fff;
+    border-radius: 5px;
+    margin:auto;
+    margin-top: 10%;
+    padding:15px;
+}
+.kw-model-close{
+    color:#000;
+    border:1px solid #000;
+    position: relative;
+    background: none;
+    width:25px;
+    border-radius: 50%;
+    padding: 0px;
+    text-align: center;
+    height:25px;
+    top:10px; 
+    left:calc(100% - 40px);
+}
+.kw-model-body{
+    width:100%;
+    margin-top:10px;
+    background: rgb(255, 255, 255);
+    padding: 10px;
+}
+
+
+
+.kw-popOver{
+    background:rgba(0,0,0,0.5);
+    color:#fff;
+    border-radius:5px;
+    padding:5px;
+    width:100%;
+    
+    display: none;
+   
+  }
+  .progress-bar{
+      border :1px solid #333;
+  }
+  #period1:hover {width:10% !important;}
+  #period2:hover  {width:10% !important;}
+  #period3:hover  {width:10% !important;}
+  #period4:hover  {width:10% !important;}
+  #period5:hover  {width:10% !important;}
+  #period6:hover  {width:10% !important;}
+  #period7:hover  {width:10% !important;}
+  #period8:hover  {width:10% !important;}
+  #period9:hover  {width:10% !important;}
+  #period10:hover  {width:10% !important;}
+  #period11:hover  {width:10% !important;}
+  #period12:hover  {width:10% !important;}
+  #period13:hover  {width:10% !important;}
+    
+    
+  #period1:hover  #pop1{display:block;}
+  #period2:hover  #pop2{display:block;}
+  #period3:hover  #pop3{display:block;}
+  #period4:hover  #pop4{display:block;}
+  #period5:hover  #pop5{display:block;}
+  #period6:hover  #pop6{display:block;}
+  #period7:hover  #pop7{display:block;}
+  #period8:hover  #pop8{display:block;}
+  #period9:hover  #pop9{display:block;}
+  #period10:hover  #pop10{display:block;}
+  #period11:hover  #pop11{display:block;}
+  #period12:hover  #pop12{display:block;}
+  #period13:hover  #pop13{display:block;}
+ 
+
 
 .filter-float-btn{
   display :none;
@@ -114,7 +205,7 @@
   .filter-float-btn{
     display:block !important;
     position:fixed;
-    left 50px;
+    left :50px;
     bottom:250px;
     border-radius:50%;
     height:50px;
@@ -422,7 +513,6 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-@media
   .slider:before {
     position: absolute;
     content: "";
@@ -598,10 +688,7 @@ $('.col-control').on('click', function(ev){
     <!--<div class="col-sm-3" id="control-contain" style="position: absolute; right: 0; transition: all 100ms ease-out;">
       <button class="col-control"><i class="fas fa-angle-right"></i></button>
     </div>-->
-    <style>
-      #filter-sec{
-      }
-    </style>
+    
     <div >
       <button class="col-collapse" style="position:fixed;top:60px;height:45px;right:calc(100% - 75%);z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-right"></i></button>
       <button class="col-collapse1" style="display:none;position:fixed;top:60px;height:45px;right:0px;z-index:1001;transition: all 100ms ease-out;"><i id="icon-m" class=" fas fa-angle-left"></i></button>
@@ -1002,7 +1089,17 @@ $('.col-control').on('click', function(ev){
 
   <div class="modal fade" id="availModal" tabindex="-1" role="dialog" aria-labelledby="availModalLabel" aria-hidden="true">
       <style>
-        #availModal *{box-sizing: border-box;}header{position: relative;width: 100%;}header h1{text-align: center;padding-top: 0.01em;}header p{text-align: center;}header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}.col{margin: 10px 0;line-height: 2;text-align: center;}.data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}.child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}.child.booked{background-color: #0f0;}.child.not-booked{background-color: #888;}
+        #availModal *{box-sizing: border-box;}
+        header{position: relative;width: 100%;}
+        header h1{text-align: center;padding-top: 0.01em;}
+        header p{text-align: center;}
+        header p span{display: inline-block;height: 12px;width: 12px;background-color: #0f0;}
+        main{display: grid;/*grid-template-columns: 30% 70%;*/grid-gap: 5px;}
+        .col{margin: 10px 0;line-height: 2;text-align: center;}
+        .data-strip{position: relative;display: inline-block;height: 30px;width: 100%;text-align: left;grid-gap: 0;}
+        .child{display: inline-block;height: 100%;margin-right: 3px;transition: all 200ms ease;}
+        .child.booked{background-color: #0f0;}
+        .child.not-booked{background-color: #888;}
         .child:hover{position:absolute;left:0px;width:100%;margin:auto;transform: scaleX(1.5);box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);transition: all 200ms ease;}
      </style>
     <div class="modal-dialog">
@@ -1019,16 +1116,70 @@ $('.col-control').on('click', function(ev){
           <header>
             <p><span></span> Booked<br />Hover over it for details</p>
           </header>
-          <main style="text-align: center;">
+          <!--<main style="text-align: center;">
               <div class="right-col col">
                 <div class="data-strip"></div>
             </div>
-          </main>
+          </main>-->
+          <ul class="list-group">
+            <li class="list-group-item" id= "progress_list">BillBoard 1
+              <div id="progress_list_inner" class="progress">
+                  <!-- use loop here to genrate-->
+                  <div id="period1" booking-start="s-date" booking-end="20000242" price="2000" status="true" class="progress-bar bg-success" role="progressbar" style="width: 2.19%" aria-valuenow="2.19" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period2" booking-start="s-date" booking-end="e-date" price="4000" status="false"class="progress-bar bg-light" role="progressbar" style="width: 9.86%" aria-valuenow="9.86" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period3" booking-start="s-date" booking-end="e-date" price="500" status="true" class="progress-bar bg-success" role="progressbar" style="width: 6.84%" aria-valuenow="6.84" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period4" booking-start="s-date" booking-end="e-date" price="600" status="true" class="progress-bar bg-success" role="progressbar" style="width: 4.38%" aria-valuenow="4.38" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period5" booking-start="s-date" booking-end="e-date" price="4000" status="false" class="progress-bar bg-light" role="progressbar" style="width: 16.71%" aria-valuenow="16.71" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period6" booking-start="s-date" booking-end="e-date" price="239" status="true" class="progress-bar bg-success" role="progressbar" style="width: 3.56%" aria-valuenow="3.56" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period7" booking-start="s-date" booking-end="e-date" price="483" status="true" class="progress-bar bg-success" role="progressbar" style="width: 13.14%" aria-valuenow="13.14" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period8" booking-start="s-date" booking-end="e-date" price="453" status="false" class="progress-bar bg-light" role="progressbar" style="width: 4.1%" aria-valuenow="4.1" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period9" booking-start="s-date" booking-end="e-date" price="4353" status="true" class="progress-bar bg-success" role="progressbar" style="width: 7.9%" aria-valuenow="7.9" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period10" booking-start="s-date" booking-end="e-date" price="342" status="true" class="progress-bar bg-success" role="progressbar" style="width: 2.7%" aria-valuenow="2.7" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period11" booking-start="s-date" booking-end="e-date" price="3242" status="false" class="progress-bar bg-light" role="progressbar" style="width: 8.75%" aria-valuenow="8.75" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period12" booking-start="s-date" booking-end="e-date" price="2342" status="true" class="progress-bar bg-success" role="progressbar" style="width: 1.09%" aria-valuenow="1.09" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div id="period13" booking-start="s-date" booking-end="e-date" price="234" status="true" class="progress-bar bg-success" role="progressbar" style="width: 18.89%" aria-valuenow="18.89" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </li>
+          </ul>
+          <br>
+            <div class="kw-popOver">
+                <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br> Price <span id="price"></span> Rs | <span id="status"></span> </p>
+            </div>
+          <br>
         </div>
       </div>
     </div>
   </div>
   <script>
+    
+    $(".kw-model-close").on("click",function(){
+        
+        $("#share").hide(100);
+    });
+    $(".kw-model").on("click",function(){
+        //$("#share").hide(100);
+    });
+    $("[id=avail]").on("click",function(){
+        $("#share").show(100);
+    });
+    $(".progress-bar").hover(function(){
+        
+        var s_date = $(this).attr("booking-start");
+        var e_date = $(this).attr("booking-end");
+        var price = $(this).attr("price");
+        var status = $(this).attr("status");
+        $(".kw-popOver").show(100);
+        $("#s-date").html(s_date);
+        $("#e-date").html(e_date);
+        $("#price").html(price);
+        if(status == 'true')
+            $("#status").html("Booked");
+        else 
+            $("#status").html("Not Booked");
+    
+    });
+    
+
   // let json = [{"startDate": "2018/06/23","endDate": "2018/06/30","ppd": 35,"status": "booked"},{"startDate": "2018/08/06","endDate": "2018/08/30","ppd": 40,"status": "booked"},{"startDate": "2018/08/31","endDate": "2018/09/15","ppd": 45,"status": "booked"},{"startDate": "2018/11/16","endDate": "2018/11/28","ppd": 22,"status": "booked"},{"startDate": "2018/11/29","endDate": "2019/01/15","ppd": 20,"status": "booked"},{"startDate": "2019/01/31","endDate": "2019/02/28","ppd": 34,"status": "booked"},{"startDate": "2019/03/01","endDate": "2019/03/10","ppd": 54,"status": "booked"},{"startDate": "2019/04/12","endDate": "2019/04/15","ppd": 37,"status": "booked"},{"startDate": "2019/04/16","endDate": "2019/06/23","ppd": 29,"status": "booked"}]
 
 
@@ -1440,15 +1591,15 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
                       set_vr=true;
                       vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
 
-                  }
-                  else
+              }
+              else
+              {
+                  var viewDiv = document.getElementById("vrview");
+                  while(viewDiv.firstChild)
                   {
-                      vr_view.setContent({
-                          image:"{{MEDIA_URL}}" + data["url"],
-                          preview:"{{MEDIA_URL}}" + data["url"],
-                          is_stereo: false
-                      });
-
+                    viewDiv.removeChild(viewDiv.firstChild);
+                  }
+                  vr_view = vrViewLoad("{{MEDIA_URL}}" + data["url"]);
                   }
               } else {
                   $('#vrview').hide();
@@ -1532,8 +1683,56 @@ $('#datePicker-start, #datePicker-end').each(function(i, el){
               }
                $("#MyModalAddCart").off()
               console.log("removed")
-              $("#MyModalAddCart").on('click', get_favoutire_callback())
+              $("#MyModalAddCart").on('click', get_favoutire_callback());
+
               console.log(bookDates);
+              var avail_list_div = document.getElementById("progress_list_inner");
+              while(avail_list_div.firstChild) {
+                  avail_list_div.removeChild(avail_list_div.firstChild);
+              }
+              let availHtml = ""
+              for(var i = 0; i < bookDates.length; i++)
+              {   //cd stands for current
+                  let lsu = ""
+                  if(bookDates[i].status == "true")
+                  {
+                      lsu = "progress-bar bg-success"
+                  }
+                  else
+                  {
+                      lsu = "progress-bar bg-light"
+                  }
+                  availHtml+= "<div id=\"period" + (i+1) + "\" booking-start=\""+ bookDates[i].startDate +"\" booking-end=\""+ bookDates[i].endDate +"\" price=\"0\" status=\""+ bookDates[i].status +"\" class=\""+ lsu +"\" role=\"progressbar\" style=\"width: "+ bookDates[i].dayPer365 +"%\" aria-valuenow=\""+ bookDates[i].dayPer365 +"\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>"
+              }
+
+              avail_list_div.innerHTML = availHtml
+    $(".kw-model-close").on("click",function(){
+        
+        $("#share").hide(100);
+    });
+    $(".kw-model").on("click",function(){
+        //$("#share").hide(100);
+    });
+    $("[id=avail]").on("click",function(){
+        $("#share").show(100);
+    });
+    $(".progress-bar").hover(function(){
+        
+        var s_date = $(this).attr("booking-start");
+        var e_date = $(this).attr("booking-end");
+        var price = $(this).attr("price");
+        var status = $(this).attr("status");
+        $(".kw-popOver").show(100);
+        $("#s-date").html(s_date);
+        $("#e-date").html(e_date);
+        $("#price").html(price);
+        if(status == 'true')
+            $("#status").html("Booked");
+        else 
+            $("#status").html("Not Booked");
+    
+    });
+
               invalidDates=[];
               for(var i = 0; i < bookDates.length; i++)
               {   //cd stands for current

@@ -8,7 +8,9 @@
 .form-control::-ms-input-placeholder { color: #efefef; }  /* Microsoft Edge */
 
 @media (min-width: 576px){
-    
+    .jumbotron {
+        padding: 2rem 2rem;
+    }
 }
 /*Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {  
@@ -169,6 +171,10 @@
         width:100% !important;
         height: auto !important;
     }
+    .ln2-img1{
+        width:100% !important;
+        height: auto !important;
+    }
     .ln2-img2{
         width:100% !important;
         height:auto !important;
@@ -204,10 +210,11 @@
         text-align: center;
     }
     .ln1-banner{
-        top:-130px !important;
-        left:150px !important;
+        top: -119px !important;
+		left: 115px !important;
         width:180px !important;
         height:60px !important;
+		line-height: 20px !important;
         padding :5px !important;
         font-size: 10px !important;
 
@@ -222,12 +229,61 @@
     
 }
 
-/* Medium devices (tablets, 768px and up)
+ /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991.98px) {  
-    For mobile phones: 
-    .col-md-4 {
-        width: 100% !important;
-    } 
+ /*For mobile phones: */
+     .ln2-img{
+        width:100% !important;
+        height: auto !important;
+    }
+    .ln2-img1{
+        width:100% !important;
+        height: auto !important;
+    }
+    .ln2-img2{
+        width:100% !important;
+        height:auto !important;
+    }
+    .ln2-heading{
+        font-size: 30px !important;
+        margin-left:1em;
+    }
+    .ln1-img{
+       
+    }
+    .ln1-heading{
+        text-align: center;
+    }
+    .ln1-heading-span{
+        margin-left:4em;
+    }
+    .ln1-heading1{
+        text-align: center;
+        margin-left: 0px !important;
+    }
+    .ln1-img1{
+        width:100% !important;
+        height:auto !important;
+    }
+    .ln1-img2{
+        width:100% !important;
+        height:auto !important;
+        margin-top:6em;
+    }
+    .ln1-para{
+        margin-top: 0px !important;
+        margin-left:0em !important;
+        text-align: center;
+    }
+    .ln1-banner{
+            top: -340px !important;
+    left: 380px !important;
+    width: 400px !important;
+        height:110px !important;
+        padding :15px !important;
+        font-size: 18px !important;
+
+    }
 }
 
 /* Large devices (desktops, 992px and up)
@@ -253,6 +309,14 @@
     font-family: sans-serif !important;
     font-weight:bold !important;
 }
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; 
+    /* margin-right: -15px; */
+    /* margin-left: -15px; */
+}
 .txt-center{
     text-align: center;
 }
@@ -269,11 +333,20 @@
 .btn-theme1{
     background: #fd7b26;
     color:#000;
+    text-decoration: none;
 }
 .btn-theme{
     background: #fd7b26;
     color:#000;
     margin-left:2.5em;
+    text-decoration: none;
+}
+.btn-theme1:hover{
+    background: rgb(238, 139, 73);
+    border: #000 2px solid;
+    border-radius: 10px;
+    text-decoration: none;
+    color:#000;
 }
 .btn-theme:hover{
     background: rgb(238, 139, 73);
@@ -281,7 +354,6 @@
     border-radius: 10px;
     text-decoration: none;
     color:#000;
-    
 }
 /**
 *  header
@@ -377,6 +449,7 @@ overflow:hidden;
 
 .navbar{
     background: #000 !important;
+	overflow-x: hidden;
    
 }
 .navbar-dark .navbar-nav .nav-link {
@@ -541,9 +614,9 @@ body{
     text-align:center;
 }
 .prt-img{
-    margin-left:3em;
+    margin-left:0em;
     height:150px;
-    width:300px;
+    width:auto;
 }
 /**
 *  panel 4
@@ -798,11 +871,15 @@ body{
 * Landing page 1
 */
 .ln2-img{
+    width:100%;
+    height:auto;
+}
+.ln2-img1{
     width:auto;
     height:300px;
 }
 .ln2-img2{
-    width:200px;
+    width:250px;
     height:auto;
 }
 .ln1-img{
@@ -826,16 +903,26 @@ body{
     margin-left:4em;
 }
 .ln1-banner{
-    background: rgb(199, 31, 31);
+    background: none;
     position: relative;
     width:500px;
     height:150px;
     padding :20px;
-    color:#fff;
+    color:#fd7b26;
     font-size:25px;
-    float: left;
-    border:5px solid #000;
-    text-decoration: none;
-    top:-430px;
-    left:650px;
+    float: left; 
+    top: -425px;
+    left: 550px;
+    line-height: 60px;
+
+}
+.ln1-banner:hover{
+	text-decoration: none;
+}
+.jumbotron {
+    padding: 1rem 1rem;
+    margin-bottom: 0rem;
+    background-color: #e9ecef;
+    border-radius: .3rem;
+
 }
