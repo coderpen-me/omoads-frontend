@@ -1,7 +1,7 @@
 {% load staticfiles %}
-<html>
+<html style="overflow-x: hidden; overflow-y: hidden">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
           integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
@@ -11,11 +11,11 @@
     <!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer</script></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
 </head>
-<body>
+<body style="overflow-x: hidden; overflow-y:hidden;">
 
 <div id="parentScr" class="row">
 
-    <div class="col-md-12" style="margin:0;padding:0px;border:0px;">
+    <div class="col-md-12 col-sm-12 col-xs-12" >
 
         <div class="paper nav-fixed" style="overflow-x: hidden;">
             OmoAds
@@ -25,8 +25,8 @@
 
 
         <div id="app-view">
-            <div class="info-bar-small">
-                <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-times"></i>
+            <div class="info-bar-small" style="margin-right:auto; width:100vh;">
+                <i style="float:left;margin-left:1em;margin-top:5px; " class="fas fa-times"></i>
                 <p style="float:left;margin-left:1em;">{{agency_name}}</p>
                 <!--<i style="float:left;margin-left:1em;margin-top:5px;"class="fas fa-info-circle"></i>-->
                 <br>
@@ -34,14 +34,14 @@
                 <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;" class="fas fa-chevron-left"></i>
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-chevron-right"></i>
             </div>
-            <div class="vr-container" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
+            <div class="vr-container justify-content-center" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
 
-                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; " >
+                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; height: 60vh;" >
                     <div class="vr" id='vrview-2' active-view-id="0"></div>
                     <img id="image-2"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
                          src="">
-                    <div class="info-block" state="open">
+                    <div class="info-block" state="open" style="border: 2px; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
                         <h5><span id="landmark-2"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-2"></span>
@@ -61,13 +61,13 @@
 
                 </div>
 
-                <div class="swip__card" id='swip-card1' style="border: 2px; border-radius:10px; ">
+                <div class="swip__card" id='swip-card1' style="border: 2px; border-radius:10px; height: 60vh;">
                     <div class="vr" id='vrview-1' active-view-id="1" style="background:#FF945A;" style="display: none;">
                     </div>
                     <img id="image-1"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
                          src="">
-                    <div class="info-block" state="open">
+                    <div class="info-block" state="open" style="border: 2px; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
                         <h5><span id="landmark-1"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-1"></span>
