@@ -139,16 +139,25 @@ elif os.environ.get('HEROKU_BUILD') is not None:
         )
     }
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'omoads',
-            'USER': 'omouser',                      # Not used with sqlite3.
-            'PASSWORD': 'qwe123',                  # Not used with sqlite3.
-            'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '5432',
+    if os.environ.get('NO_POSTGRESQL') is not None and os.environ.get('NO_POSTGRESQL')=="TRUE":
+        print("using sqlite3")
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
         }
-    }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'omoads',
+                'USER': 'omouser',                      # Not used with sqlite3.
+                'PASSWORD': 'qwe123',                  # Not used with sqlite3.
+                'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+                'PORT': '5432',
+            }
+        }
 
 
 # Internationalization
