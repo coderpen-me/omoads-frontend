@@ -15,7 +15,7 @@
 
 <div id="parentScr" class="row">
 
-    <div class="col-md-12 col-sm-12 col-xs-12" >
+    <div class="col-md-12 col-sm-12 col-xs-12">
 
         <div class="paper nav-fixed" style="overflow-x: hidden;">
             OmoAds
@@ -34,14 +34,16 @@
                 <i style="float:left;margin-left:calc(100% - 100px);margin-top:5px;" class="fas fa-chevron-left"></i>
                 <i style="float:left;margin-left:1em;margin-top:5px;" class="fas fa-chevron-right"></i>
             </div>
-            <div class="vr-container justify-content-center" style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
+            <div class="vr-container justify-content-center"
+                 style="background-image: linear-gradient(-110deg,#F96C00,#F9D800);">
 
-                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; height: 55vh;" >
+                <div class="swip__card" id='swip-card2' style="border: 2px; border-radius:10px; height: 55vh;">
                     <div class="vr" id='vrview-2' active-view-id="0"></div>
                     <img id="image-2"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
                          src="">
-                    <div class="info-block" state="open" style="border: 2px; top:80%; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
+                    <div class="info-block" state="open"
+                         style="border: 2px; top:80%; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
                         <h5><span id="landmark-2"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-2"></span>
@@ -67,7 +69,8 @@
                     <img id="image-1"
                          style="max-width: 100%;margin-left: auto;margin-right: auto;padding: 0;width:auto;height:80%;display:block;"
                          src="">
-                    <div class="info-block" state="open" style="border: 2px; top:80%; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
+                    <div class="info-block" state="open"
+                         style="border: 2px; top:80%; border-radius:10px;box-shadow: 0px 2px rgb(53, 53, 53),0px 3px 5px #ccc;">
                         <h5><span id="landmark-1"></span></h5>
                         <ul style="list-style: none;text-align: left;font-size: 12px;">
                             <li style="display:inline;margin-left:2em;"><b>Pole ID :</b><span id="pole-id-1"></span>
@@ -98,6 +101,40 @@
 
                 </div>
             </div>
+
+            <div class="kw-model" id="share-modal">
+
+                <div class="kw-model-dialog">
+
+                    <p class="btn kw-model-close" style="top: 5%;right: 0;">x
+                    <p>
+
+                        <div class="kw-model-body">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <h3>Share To</h3>
+                                </div>
+                                <div class="col-sm-6 col-lg-8">
+                                <a id="share-whatsapp" href="whatsapp://send?text="><img src="https://whatsappbrand.com/wp-content/themes/whatsapp-brc/images/WhatsApp_Logo_2.png"
+                                    style="height: 80px;width: 70%"></a>
+                                </div>
+                                <div class="col-sm-6 col-lg-8">
+                                    <a id="share-facebook" href="fb-messenger://share/?link=">
+                                        <img src="https://pmcvariety.files.wordpress.com/2015/08/facebook-messenger-logo.jpg?w=883&h=497&crop=1"
+                                    style="height: 80px;width: 70%">
+                                    </a>
+                                </div>
+                                <div class="col-sm-6 col-lg-8">
+                                <a href="javascript: void(0);" id="copy-it">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Ic_content_copy_48px.svg"
+                                    style="height: 50px;width: 100%">
+                                </a>
+                                </div>
+                    <p id="copy-url" style="display: none"></p>
+                </div>
+                <br>
+            </div>
+
 
             <div class="kw-model" id="share">
 
@@ -131,18 +168,19 @@
                             </ul>
                             <br>
                             <div class="kw-popOver">
-                                <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
-                                    <span id="status"></span></p>
-                            </div>
-                            <br>
-                        </div>
+                    <p>Start : <span id="s-date"></span> | end : <span id="e-date"></span><br>
+                        <span id="status"></span></p>
                 </div>
+                <br>
             </div>
         </div>
-        
     </div>
 </div>
-<div id="fullMap" style="width: 100vh; height: 100vh; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
+
+</div>
+</div>
+<div id="fullMap"
+     style="width: 100vh; height: 100vh; background-color: #ff6c00; flex: 1 1 auto; overflow: auto; "></div>
 </body>
 </html>
 
@@ -156,7 +194,8 @@
 <script src="https://storage.googleapis.com/vrview/2.0/build/vrview.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swing/3.0.2/swing.js"></script>
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap"
+        async defer></script>
 
 <script>
     /*
@@ -341,6 +380,7 @@
     $(".kw-model-close").on("click", function () {
 
         $("#share").hide(100);
+        $("#share-modal").hide(100);
     });
     $(".kw-model").on("click", function () {
         //$("#share").hide(100);
@@ -386,6 +426,15 @@
         var flag_vr2 = 0;
         var vrView1 = '';
         var vrView2 = '';
+        $("#copy-url").html(window.location.href);
+
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
 
         $(document).on("mouseenter", ".progress-bar", function () {
             var s_date = $(this).attr("booking-start");
@@ -404,6 +453,11 @@
         $(document).on("mouseout", ".progress-bar", function () {
             $(".kw-popOver").hide(100);
         });
+
+        if (jsonData.length === 0) {
+            $("#swip-card1").hide();
+            $("#swip-card2").hide();
+        }
 
         if (jsonData.length === 1) {
             loadNextData();
@@ -550,17 +604,25 @@
             }
         }
 
+        $('#copy-it').click(function () {
+            copyToClipboard('#copy-url');
+            alert('Copied');
+        });
+
         $('#share-button').click(function () {
-            console.log('YES');
-            if (navigator.share) {
-                navigator.share({
-                    title: 'OMOAds',
-                    text: 'Check out this',
-                    url: window.location.href
-                })
-            } else {
-                console.log('PC');
-            }
+            $("#share-modal").show(100);
+            $("#share-whatsapp").attr('href', 'whatsapp://send?text=' + window.location.href);
+            $("#share-facebook").attr('href', 'fb-messenger://share/?link=' + window.location.href);
+            // console.log('YES');
+            // if (navigator.share) {
+            //     navigator.share({
+            //         title: 'OMOAds',
+            //         text: 'Check out this',
+            //         url: window.location.href
+            //     })
+            // } else {
+            //     console.log('PC');
+            // }
         });
 
         function pullChange() {
@@ -778,22 +840,25 @@
             controlUI.appendChild(controlText);
 
             // Setup the click event listeners: simply set the map to Chicago.
-            controlUI.addEventListener('click', function() {
+            controlUI.addEventListener('click', function () {
                 $('#parentScr').show();
                 $('#fullMap').hide();
             });
 
         }
 
-        
-        $('.fa-map-marker-alt').on("click", function(){
+
+        $('.fa-map-marker-alt').on("click", function () {
             //hide all divs for content visible
             $('#parentScr').hide();
             $('#fullMap').show();
 
             //initialize the map for the hidden div centered at the marker location
             var map = new google.maps.Map(document.getElementById('fullMap'), {
-                center: {lat: parseFloat(jsonData[anotherCardsCounter].lat) , lng: parseFloat(jsonData[anotherCardsCounter].lng) },
+                center: {
+                    lat: parseFloat(jsonData[anotherCardsCounter].lat),
+                    lng: parseFloat(jsonData[anotherCardsCounter].lng)
+                },
                 scrollwheel: true,
                 fullscreenControl: false,
                 gestureHandling: "greedy",
@@ -804,7 +869,10 @@
 
             //draw marker
             var marker = new google.maps.Marker({
-                position: {lat: parseFloat(jsonData[anotherCardsCounter].lat) , lng: parseFloat(jsonData[anotherCardsCounter].lng) },
+                position: {
+                    lat: parseFloat(jsonData[anotherCardsCounter].lat),
+                    lng: parseFloat(jsonData[anotherCardsCounter].lng)
+                },
                 icon: "{% static 'resources/images/marker3.png' %}",
                 map: map
             });
@@ -815,7 +883,7 @@
                 basicFormatEvents: true
             });
             oms.addMarker(marker);
-            
+
             // add back button on map
             var centerControlDiv = document.createElement('div');
             var centerControl = new CenterControl(centerControlDiv, map);
@@ -823,11 +891,12 @@
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
 
         });
-        
+
     });
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap" async ></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwx5OAOJROz6qwNrGnP-eRRAQSmyxklA8&callback=initMap"
+        async></script>
 
 
 

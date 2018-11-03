@@ -1534,8 +1534,12 @@ def share_app(request, o_id):
 				"normal_url": str(banner.bannerimage.normal_image.url) if banner.bannerimage.normal_image else ''
 			})
 		print(banner_details)
+		if banners:
+			agency_name = banners[0].agency.agency_name
+		else:
+			agency_name = 'Not Found'
 		context = {'banner_details':banner_details,
-				   'agency_name': banner.agency.agency_name or '',
+				   'agency_name': agency_name,
 				   }
 		return render(request, template, context)
 	except Exception as e:
