@@ -5,18 +5,17 @@
 {% load staticfiles %}
 {% block content %}
 
-    <div class="row" style="background:#fff;">
+    <div class="row" style="background:#fff; margin-top: 60px;">
 
         <div class="col-md-12">
             <div class="jumbotron" id="panel-1" style="background:#fff url()   no-repeat ; ">
                 <div class="row justify-content-left">
                     <div class="col-md-6">
                         <div id="p1-block">
-                            <h1>ONLINE MARKETPLACE FOR
-                                <br>OUTDOOR ADVERTISING</h1>
-                            <p>Search, Connect and Rent</p>
-                            <a href="{% url 'map_view' %}" class="btn">BROWSE
-                                <br> INVENTORY</a>
+                            <h1><div class="market"><b>MARKETPLACE</b> <font color="#000" size="6">FOR</font></div>
+                            <div class="larger">OUTDOOR ADVERTISING</div></h1>
+                            <p class="typing_effect">Search, Connect and Rent</p>
+                            <a href="{% url 'map_view' %}" class="btn" style="font-size: 20px;">BROWSE INVENTORY</a>
                             
                         </div>
 
@@ -27,8 +26,27 @@
     </div>
 
 
-    <div class="row">
+    <div class="row" style="margin-top: 30px;">
 
+        <div class="wrapper">
+            <h1><b>Services</b></h1>
+            <h6 style="text-align:center;">Our business solutions and services help accelerate innovation, increase productivity, reduce costs, and optimize advertisements.</h6>
+          <ul class="flex cards" style="margin-top:50px;">  <!-- or use grid cards-->
+            <li><h2><i class="fas fa-flag fa fa-2x active"></i></h2>
+              <p>Directly Check availability of Hoarding Boards
+              </p></li>
+            <li><h2><i class="fab fa-opera fa-2x"></i></h2>
+              <p> Zero % Commission, No Processing Fee
+              </p></li>
+            <li><h2><i class="fas fa-handshake fa fa-2x"></i></h2>
+            <p>Direct deal between hoarding owner and you
+            </p></li>
+            <li><h2><i class="fas fa-map-marker-alt fa fa-2x"></i></h2>
+              <p>Find Hoarding based on geographic location
+              </p></li> 
+          </ul>
+          </div>
+<!--
         <div class="col-md-12">
             <div class="jumbotron" id="panel-2" style="background:#fff;">
 
@@ -36,11 +54,10 @@
                     <div class="col-md-10">
 
                         <div class="circle-1">
-                            <i class="fas fa-check-square fa fa-4x active" style="margin-left:30%;margin-top:25%;color:#fff;"></i>
+                            <i class="<fas fa-flag fa fa-4x active" style="color:#fff; position:relative; padding:30%;"></i>
                         </div>
-                        <h2 class="display-4">Check availability of
-                            <br>Hoarding Boards</h2>
-                        <div class="pole"></div>
+                        <h1 class="display-4">Check availability of
+                            <br>Hoarding Boards</h1>
                     </div>
                     <div class="col-md-2"></div>
                 </div>
@@ -48,7 +65,7 @@
                 <div class="row" id="p2-block-2">
                     <div class="col-md-10">
                         <div class="circle-2">
-                            <img src="{% static 'img/images/hand.png' %}" />
+                            <i class="fas fa-handshake fa fa-4x" style="color:#fff; position:relative; padding:26%;"></i>
                         </div>
                         <div class="text-box-1">
                             <h2 class="display-4">Zero % Commission </h2>
@@ -63,7 +80,7 @@
                 <div class="row" id="p2-block-3">
                     <div class="col-md-10">
                         <div class="circle-3" >
-                            <i class="fas fa-map-marker-alt fa fa-5x" style="color:#fff;margin-left:28%;margin-top:20%;"></i>
+                            <i class="fas fa-map-marker-alt fa fa-4x" style="color:#fff; position:relative; padding:33%;"></i>
                         </div>
                         <div class="text-box-3">
                             <h2 class="display-4">Find Hoarding based on
@@ -74,28 +91,25 @@
                 </div>
             </div>
         </div>
-
+        -->
     </div>
+    
 
-    <div class=" row justify-content-center">
+    <div class=" row justify-content-center" style="margin-top:50px;">
 
         <div class="col-md-12">
-            <div class="jumbotron" id="panel-3" style="background:#fff url()   no-repeat;">
+            <div class="jumbotron" style="background:#fff url()   no-repeat;">
 
                 <div class="row justify-content-centers">
                     <div class="col-md-12">
-                        <div id="p3-block-1">
-                            <br>
-                            <br>
-                            <h1>OUR
-                                <br>PARTNERS</h1>
+                           
+                            <h1 style="text-align:center; font-weight:bolder">OUR PARTNERS</h1>
 
-                        </div>
 
                     </div>
                 </div>
                 <br>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" style="margin-top:50px;">
                         <div class="col-md-7">
                             <div class="row">
                                 <div class="col-md-6">
@@ -115,41 +129,22 @@
   
         <div class=" row justify-content-center">
     
-            <div class="col-md-12">
-                <div class="jumbotron" id="panel-4" style="background:#fff url()   no-repeat;">
-    
-                    <div class="row  align-items-center">
-                        <div class="col-md-6">
-                            <div id="p4-shape-1"></div>
-    
-                            <div id="p4-shape-2"></div>
-    
-                            <div id="p4-shape-3"></div>
-    
-                            <div id="p4-shape-4">
-                                <i class="fas fa-envelope  fa fa-4x" style="margin-left:30px;margin-top:27px;"></i>
-                            </div>
-    
+                <section class="parallax-feature">
+                        <div class="starfield"></div>
+                        <i class="fas fa-paper-plane fa-4x"></i>
+                        <h1 style="text-align:center; font-weight:bolder">SUBSCRIBE OUR NEWSLETTER</h1>
+                        <h6>subscribe to our newsletter to receive exclusive offers and the latest news on our products and services.</h6>
+                        <div class="feature-input" style="margin-top:50px;">
+                             <div id="subscribe">
+                                  <input type="text" class="enteremail error" name="EMAIL" id="subscribe-email" placeholder="Enter your email address" spellcheck="false">
+                                  <button type="submit" id="signup-button" class="signup-button">Submit</button>
+                                  <label for="subscribe-email" class="subscribe-message error" style="">
+                                    <i class="fa fa-warning"></i>
+                                    <span class="message-content"></span>
+                                  </label>
+                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="sub-block">
-                                <h2 class="sub-block-heading">
-                                    Subscribe to our newsletter to
-                                    <br>receive industry report and our latest
-                                    <br>updates...</h2>
-                                <form class="form-inline">
-                                    <div class="form-group mx-sm-3 mb-2">
-                                        <input type="email" style="height:50px;border-radius:20px;background:#fd7b26;color:#fff;" class="form-control" id="inputPassword2"
-                                            placeholder="Type your email...">
-                                    </div>
-                                    <button type="submit" style="height:50px;border-radius:20px;background:#000;" class="btn btn-primary btn-lg mb-2">Subscribe</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-    
-                </div>
-            </div>
+                      </section>
         </div>
     
 
