@@ -174,7 +174,7 @@ body,html {
 .info-block{
     text-align: center;
     box-sizing: border-box;
-    padding: 16px;
+    padding: 0px 0px 5px 0px;
     position: absolute;
     top:80%;
     border:2px;
@@ -221,7 +221,7 @@ body,html {
     border:2px;
     border-radius: 10px;
     width: 90%;
-    height: 55vh%;
+    height: 55vh;
     margin-left:calc(100% - 95%);
     margin-top:1em;
     background: #fff;
