@@ -36,10 +36,11 @@ try:
     # from .email_settings import host, user, password
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = 'teamomoads@gmail.com'
-    EMAIL_HOST_PASSWORD = 'R@ni43210'
+    EMAIL_HOST = 'smtp.zoho.com'
+    EMAIL_HOST_USER = 'support@omoads.com'
+    EMAIL_HOST_PASSWORD = 'orangeomoads'
     EMAIL_PORT = 587
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 except:
     print("no email")
     pass
@@ -50,7 +51,6 @@ except:
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -61,7 +61,7 @@ INSTALLED_APPS = (
     'social_django',
     'storages',
     'products',
-
+    'django.contrib.admin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -139,16 +139,25 @@ elif os.environ.get('HEROKU_BUILD') is not None:
         )
     }
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'omoads',
-            'USER': 'omouser',                      # Not used with sqlite3.
-            'PASSWORD': 'qwe123',                  # Not used with sqlite3.
-            'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '5432',
+    if os.environ.get('NO_POSTGRESQL') is not None and os.environ.get('NO_POSTGRESQL')=="TRUE":
+        print("using sqlite3")
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
         }
-    }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'omoads',
+                'USER': 'omouser',                      # Not used with sqlite3.
+                'PASSWORD': 'qwe123',                  # Not used with sqlite3.
+                'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+                'PORT': '5432',
+            }
+        }
 
 
 # Internationalization
